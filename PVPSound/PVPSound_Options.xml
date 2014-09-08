@@ -1,0 +1,1978 @@
+<Ui xmlns = "http://www.blizzard.com/wow/ui/" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation = "http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<!-- Large Yellow Font Template-->
+	<Font name = "PVPSoundFontLargeYellow" font = "Fonts\FRIZQT__.TTF" virtual = "true">
+		<Color r = "1.0" g = "0.82" b = "0"/>
+		<Shadow>
+			<Offset>
+				<AbsDimension x = "1" y = "-1"/>
+			</Offset>
+			<Color r = "0" g = "0" b = "0"/>
+		</Shadow>
+		<FontHeight>
+			<AbsValue val = "16"/>
+		</FontHeight>
+	</Font>
+	<!-- Medium Yellow Left Font Template-->
+	<Font name = "PVPSoundFontMediumYellow" font = "Fonts\FRIZQT__.TTF" justifyH = "LEFT" virtual = "true">
+		<Color r = "1.0" g = "0.82" b = "0"/>
+		<FontHeight>
+			<AbsValue val = "12"/>
+		</FontHeight>
+	</Font>
+	<!-- Small Yellow Shadowed Font Template-->
+	<Font name = "PVPSoundFontSmallYellowShadow" font = "Fonts\FRIZQT__.TTF" virtual = "true">
+		<Color r = "1.0" g = "0.82" b = "0"/>
+		<Shadow>
+			<Offset>
+				<AbsDimension x = "1" y = "-1"/>
+			</Offset>
+			<Color r = "0" g = "0" b = "0"/>
+		</Shadow>
+		<FontHeight>
+			<AbsValue val = "10"/>
+		</FontHeight>
+	</Font>
+	<!-- Medium White Font Template-->
+	<Font name = "PVPSoundFontMediumWhite" font = "Fonts\FRIZQT__.TTF" virtual = "true">
+		<Color r = "1.0" g = "1.0" b = "1.0"/>
+		<FontHeight>
+			<AbsValue val = "12"/>
+		</FontHeight>
+	</Font>
+	<!-- Small White Font Template-->
+	<Font name = "PVPSoundFontSmallWhite" font = "Fonts\FRIZQT__.TTF" virtual = "true">
+		<Color r = "1.0" g = "1.0" b = "1.0"/>
+		<FontHeight>
+			<AbsValue val = "10"/>
+		</FontHeight>
+	</Font>
+	<!-- Small White Shadowed Font Template-->
+	<Font name = "PVPSoundFontSmallWhiteShadow" font = "Fonts\FRIZQT__.TTF" virtual = "true">
+		<Color r = "1.0" g = "1.0" b = "1.0"/>
+		<Shadow>
+			<Offset>
+				<AbsDimension x = "1" y = "-1"/>
+			</Offset>
+			<Color r = "0" g = "0" b = "0"/>
+		</Shadow>
+		<FontHeight>
+			<AbsValue val = "10"/>
+		</FontHeight>
+	</Font>
+	<!-- Check Button Template-->
+	<CheckButton name = "PVPSoundCheckButtonTemplate" virtual = "true" inherits = "InterfaceOptionsBaseCheckButtonTemplate">
+		<Layers>
+			<Layer level = "ARTWORK">
+				<FontString name = "$parentText" inherits = "PVPSoundFontMediumWhite" parentKey = "Text">
+					<Anchors>
+						<Anchor point = "LEFT" relativePoint = "RIGHT">
+							<Offset>
+								<AbsDimension x = "2" y = "1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</CheckButton>
+	<!-- Tab Button Template-->
+	<Button name = "PVPSoundTabButtonTemplate" virtual = "true">
+		<Size>
+			<AbsDimension x = "115" y = "32"/>
+		</Size>
+		<Layers>
+			<Layer level = "BACKGROUND">
+				<Texture name = "$parentLeftDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
+					<Size>
+						<AbsDimension x = "16" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-3"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left = "0" right = "0.25" top = "0" bottom = "1.0"/>
+				</Texture>
+				<Texture name = "$parentMiddleDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
+					<Size>
+						<AbsDimension x = "32" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT" relativeTo = "$parentLeftDisabled" relativePoint = "RIGHT"/>
+					</Anchors>
+					<TexCoords left = "0.25" right = "0.75" top = "0" bottom = "1.0"/>
+				</Texture>
+				<Texture name = "$parentRightDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
+					<Size>
+						<AbsDimension x = "16" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT" relativeTo = "$parentMiddleDisabled" relativePoint = "RIGHT"/>
+					</Anchors>
+					<TexCoords left = "0.75" right = "1.0" top = "0" bottom = "1.0"/>
+				</Texture>
+				<Texture name = "$parentLeft" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
+					<Size>
+						<AbsDimension x = "16" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left = "0" right = "0.25" top = "0" bottom = "1.0"/>
+				</Texture>
+				<Texture name = "$parentMiddle" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
+					<Size>
+						<AbsDimension x = "32" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT" relativeTo = "$parentLeft" relativePoint = "RIGHT"/>
+					</Anchors>
+					<TexCoords left = "0.25" right = "0.75" top = "0" bottom = "1.0"/>
+				</Texture>
+				<Texture name = "$parentRight" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
+					<Size>
+						<AbsDimension x = "16" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT" relativeTo = "$parentMiddle" relativePoint = "RIGHT"/>
+					</Anchors>
+					<TexCoords left = "0.75" right = "1.0" top = "0" bottom = "1.0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				PanelTemplates_TabResize(self, 0)
+				_G[self:GetName().."HighlightTexture"]:SetWidth(self:GetTextWidth() + 32)
+			</OnLoad>
+		</Scripts>
+		<ButtonText name = "$parentText">
+			<Size>
+				<AbsDimension x = "0" y = "13"/>
+			</Size>
+			<Anchors>
+				<Anchor point = "BOTTOM">
+					<Offset>
+						<AbsDimension x = "0" y = "5"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style = "PVPSoundFontSmallYellowShadow"/>
+		<HighlightFont style = "PVPSoundFontSmallWhiteShadow"/>
+		<DisabledFont style = "PVPSoundFontSmallWhiteShadow"/>
+		<HighlightTexture name = "$parentHighlightTexture" file = "Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode = "ADD">
+			<Size>
+				<AbsDimension x = "5" y = "32"/>
+			</Size>
+			<Anchors>
+				<Anchor point = "BOTTOM">
+					<Offset>
+						<AbsDimension x = "0" y = "-6"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	<!-- Dropdown Menu Template-->
+	<Frame name = "PVPSoundDropDownMenuTemplate" virtual = "true">
+		<Size>
+			<AbsDimension x = "40" y = "32"/>
+		</Size>
+		<Layers>
+			<Layer level = "ARTWORK">
+				<Texture name = "$parentLeft" file = "Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+					<Size>
+						<AbsDimension x = "25" y = "64"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "TOPLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "17"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left = "0" right = "0.1953125" top = "0" bottom = "1"/>
+				</Texture>
+				<Texture name = "$parentMiddle" file = "Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+					<Size>
+						<AbsDimension x = "115" y = "64"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT" relativeTo = "$parentLeft" relativePoint = "RIGHT"/>
+					</Anchors>
+					<TexCoords left = "0.1953125" right = "0.8046875" top = "0" bottom = "1"/>
+				</Texture>
+				<Texture name = "$parentRight" file = "Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+					<Size>
+						<AbsDimension x = "25" y = "64"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT" relativeTo = "$parentMiddle" relativePoint = "RIGHT"/>
+					</Anchors>
+					<TexCoords left = "0.8046875" right = "1" top = "0" bottom = "1"/>
+				</Texture>
+				<FontString name = "$parentText" inherits = "PVPSoundFontSmallWhite" wordwrap = "false" justifyH = "RIGHT">
+					<Size>
+						<AbsDimension x = "0" y = "10"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentRight">
+							<Offset>
+								<AbsDimension x = "-43" y = "2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level = "OVERLAY">
+				<Texture name = "$parentIcon" hidden = "true">
+					<Size>
+						<AbsDimension x = "16" y = "16"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "LEFT">
+							<Offset x = "30" y = "2"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name = "$parentButton" motionScriptsWhileDisabled = "true" >
+				<Size>
+					<AbsDimension x = "24" y = "24"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOPRIGHT" relativeTo = "$parentRight">
+						<Offset>
+							<AbsDimension x = "-16" y = "-18"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						local parent = self:GetParent()
+						local myscript = parent:GetScript("OnEnter")
+						if(myscript ~= nil) then
+							myscript(parent)
+						end
+					</OnEnter>
+					<OnLeave>
+						local parent = self:GetParent()
+						local myscript = parent:GetScript("OnLeave")
+						if(myscript ~= nil) then
+							myscript(parent)
+						end
+					</OnLeave>
+					<OnClick>
+						ToggleDropDownMenu(nil, nil, self:GetParent())
+						PlaySound("igMainMenuOptionCheckBoxOn")
+					</OnClick>
+				</Scripts>
+				<NormalTexture name = "$parentNormalTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
+					<Size>
+						<AbsDimension x = "24" y = "24"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "RIGHT"/>
+					</Anchors>
+				</NormalTexture>
+				<PushedTexture name = "$parentPushedTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down">
+					<Size>
+						<AbsDimension x = "24" y = "24"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "RIGHT"/>
+					</Anchors>
+				</PushedTexture>
+				<DisabledTexture name = "$parentDisabledTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled">
+					<Size>
+						<AbsDimension x = "24" y = "24"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "RIGHT"/>
+					</Anchors>
+				</DisabledTexture>
+				<HighlightTexture name = "$parentHighlightTexture" file = "Interface\Buttons\UI-Common-MouseHilight" alphaMode = "ADD">
+					<Size>
+						<AbsDimension x = "24" y = "24"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "RIGHT"/>
+					</Anchors>
+				</HighlightTexture>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnHide>
+				CloseDropDownMenus()
+			</OnHide>
+		</Scripts>
+	</Frame>
+	<!-- GameTooptip Template -->
+	<GameTooltip name = "PVPSoundGameTooltipTemplate" frameStrata = "TOOLTIP" clampedToScreen = "true" hidden = "true" virtual = "true">
+		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+			<EdgeSize>
+				<AbsValue val = "16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val = "16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left = "5" right = "5" top = "5" bottom = "5"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level = "ARTWORK">
+				<FontString name = "$parentTextLeft1" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT">
+							<Offset>
+								<AbsDimension x = "10" y = "-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight1" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft1" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft2" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft1" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight2" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft2" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft3" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft2" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight3" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft3" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft4" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft3" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight4" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft4" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft5" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft4" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight5" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft5" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft6" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft5" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight6" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft6" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft7" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft6" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight7" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft7" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextLeft8" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "TOPLEFT" relativeTo = "$parentTextLeft7" relativePoint = "BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x = "0" y = "-2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name = "$parentTextRight8" inherits = "PVPSoundFontMediumYellow" hidden = "true">
+					<Anchors>
+						<Anchor point = "RIGHT" relativeTo = "$parentTextLeft8" relativePoint = "LEFT">
+							<Offset>
+								<AbsDimension x = "40" y = "0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name = "$parentTexture1" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture2" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture3" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture4" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture5" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture6" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture7" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture8" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture9" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+				<Texture name = "$parentTexture10" hidden = "true">
+					<Size>
+						<AbsDimension x = "12" y = "12"/>
+					</Size>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<StatusBar name = "$parentStatusBar" hidden = "true">
+				<Size>
+					<AbsDimension x = "0" y = "8"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOPLEFT" relativePoint = "BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x = "2" y = "-1"/>
+						</Offset>
+					</Anchor>
+					<Anchor point = "TOPRIGHT" relativePoint = "BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x = "-2" y = "-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnValueChanged>
+						HealthBar_OnValueChanged(self, value)
+					</OnValueChanged>
+				</Scripts>
+				<BarTexture name = "$parentTexture" file = "Interface\TargetingFrame\UI-TargetingFrame-BarFill"/>
+			</StatusBar>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				GameTooltip_OnLoad(self)
+			</OnLoad>
+			<OnHide>
+				GameTooltip_OnHide(self)
+			</OnHide>
+			<OnTooltipSetDefaultAnchor>
+				GameTooltip_SetDefaultAnchor(self, UIParent)
+			</OnTooltipSetDefaultAnchor>
+			<OnTooltipAddMoney>
+				GameTooltip_OnTooltipAddMoney(self, cost, maxcost)
+			</OnTooltipAddMoney>
+			<OnTooltipCleared>
+				GameTooltip_ClearMoney(self)
+			</OnTooltipCleared>
+		</Scripts>
+	</GameTooltip>
+	<GameTooltip name = "PVPSoundGameTooltip" frameStrata = "TOOLTIP" hidden = "true" parent = "UIParent" inherits = "PVPSoundGameTooltipTemplate">
+		<Scripts>
+			<OnLoad>
+				GameTooltip_OnLoad(self)
+				self.shoppingTooltips = { ShoppingTooltip1, ShoppingTooltip2, ShoppingTooltip3 }
+				if (BattlePetTooltip) then
+					BattlePetTooltip:Hide()
+				end
+			</OnLoad>
+			<OnTooltipSetUnit>
+				if ( self:IsUnit("mouseover") ) then
+					_G[self:GetName().."TextLeft1"]:SetTextColor(GameTooltip_UnitColor("mouseover"))
+				end
+				if (BattlePetTooltip) then
+					BattlePetTooltip:Hide()
+				end
+			</OnTooltipSetUnit>
+			<OnTooltipSetItem>
+				if ( IsModifiedClick("COMPAREITEMS") or
+					(GetCVarBool("alwaysCompareItems") and not self:IsEquippedItem()) ) then
+					GameTooltip_ShowCompareItem(self, 1)
+				end
+				if (BattlePetTooltip) then
+					BattlePetTooltip:Hide()
+				end
+			</OnTooltipSetItem>
+			<OnHide>
+				GameTooltip_OnHide(self)
+				ShoppingTooltip1:Hide()
+				ShoppingTooltip2:Hide()
+				ShoppingTooltip3:Hide()
+				if (BattlePetTooltip) then
+					BattlePetTooltip:Hide()
+				end
+			</OnHide>
+			<OnUpdate function = "GameTooltip_OnUpdate"/>
+		</Scripts>
+	</GameTooltip>
+	<!-- Main Options Frame -->
+	<Frame name = "PVPSoundOptionsFrame" movable = "true" parent = "UIParent" frameStrata = "DIALOG" toplevel = "true" hidden = "true" enableMouse = "true" enableKeyboard = "true">
+		<Size>
+			<AbsDimension x = "850" y = "500"/>
+		</Size>
+		<Anchors>
+			<Anchor point = "CENTER" relativeTo = "UIParent">
+				<Offset>
+					<AbsDimension x = "0" y = "50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\DialogFrame\UI-DialogBox-Border" tile = "true">
+			<BackgroundInsets>
+				<AbsInset left = "10" right = "10" top = "10" bottom = "10"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val = "200"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val = "32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Scripts>
+			<OnShow>
+				PlaySound("TalentScreenOpen", PS_Channel)
+			</OnShow>
+			<OnHide>
+				PlaySound("TalentScreenClose", PS_Channel)
+			</OnHide>
+			<OnMouseDown>
+				PVPSoundOptions:OptionsStartMoving(self, button)
+			</OnMouseDown>
+			<OnMouseUp>
+				PVPSoundOptions:OptionsStopMoving(self, button)
+			</OnMouseUp>
+		</Scripts>
+		<!-- Title Box -->
+		<Layers>
+			<Layer>
+				<Texture file = "Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x = "200" y = "32"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "TOP">
+							<Offset>
+								<AbsDimension x = "0" y = "8"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left = "0.2" right = "0.8" top = "0" bottom = "0.6"/>
+				</Texture>
+				<!-- Title Text -->
+				<FontString name = "PVPSoundOptionsHeader" inherits = "GameFontNormalSmall">
+					<Size>
+						<AbsDimension x = "140" y = "0"/>
+					</Size>
+					<Anchors>
+						<Anchor point = "TOP">
+							<Offset>
+								<AbsDimension x = "0" y = "-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val = "14"/>
+					</FontHeight>
+				</FontString>
+			</Layer>
+		</Layers>
+		<!-- Frames -->
+		<Frames>
+			<!-- Exit Button -->
+			<Button name = "$parentCloseButton" inherits = "UIPanelCloseButton">
+				<Anchors>
+					<Anchor point = "TOPRIGHT">
+						<Offset>
+							<AbsDimension x = "-5" y = "-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<!-- Tab 1 Frame-->
+			<Frame name = "PVPSoundTab1Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "22"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab1Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Frame name = "PVPSoundLanguageDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "0">
+						<Anchors>
+							<Anchor point = "TOPRIGHT" relativeTo = "PVPSoundTab1Frame" relativePoint = "TOPRIGHT">
+								<Offset>
+									<AbsDimension x = "-4" y = "-30"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "Addon Language")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Select a Language for the addon to use.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<CheckButton name = "PVPSoundEnableAddonButton" inherits = "PVPSoundCheckButtonTemplate">
+						<Size>
+							<AbsDimension x = "20" y = "20"/>
+						</Size>
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundTab1Frame" relativePoint = "TOPLEFT">
+								<Offset>
+									<AbsDimension x = "20" y = "-50"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left = "2" right = "4" top = "3" bottom = "4"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Text", "Enable addon")
+							</OnLoad>
+							<OnClick>
+								PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
+							</OnClick>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Enables or disables the addon completely.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<Frame name = "PVPSoundKillSoundPackDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "1">
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundEnableAddonButton" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "-16" y = "-28"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "Kill Sound Pack")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								if UIDropDownMenu_IsEnabled(self) then
+									PVPSoundOptions:OptionsShowToopTip(self, "Select a Sound Pack to use for kill sounds.")
+								end
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<Frame name = "PVPSoundKillSoundPackLanguageDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "2">
+						<Anchors>
+							<Anchor point = "LEFT" relativeTo = "PVPSoundKillSoundPackDropDown" relativePoint = "RIGHT">
+								<Offset>
+									<AbsDimension x = "-22" y = "0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "Kill Sound Pack Language")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								if UIDropDownMenu_IsEnabled(self) then
+									PVPSoundOptions:OptionsShowToopTip(self, "Select a Language/Type from the Sound Pack to use for kill sounds.")
+								end
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<Frame name = "PVPSoundSoundChannelDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "3">
+						<Anchors>
+							<Anchor point = "LEFT" relativeTo = "PVPSoundKillSoundPackLanguageDropDown" relativePoint = "RIGHT">
+								<Offset>
+									<AbsDimension x = "-22" y = "0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "Sound Channel")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								if UIDropDownMenu_IsEnabled(self) then
+									PVPSoundOptions:OptionsShowToopTip(self, "Select a Sound Channel to use.")
+								end
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<Frame name = "PVPSoundModeDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "4">
+						<Anchors>
+							<Anchor point = "LEFT" relativeTo = "PVPSoundSoundChannelDropDown" relativePoint = "RIGHT">
+								<Offset>
+									<AbsDimension x = "-22" y = "0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "Mode")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								if UIDropDownMenu_IsEnabled(self) then
+									PVPSoundOptions:OptionsShowToopTip(self, "Select a mode to use.")
+								end
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<Frame name = "PVPSoundSoundPackDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "1">
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundKillSoundPackDropDown" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "0" y = "-28"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "BG Sound Pack")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								if UIDropDownMenu_IsEnabled(self) then
+									PVPSoundOptions:OptionsShowToopTip(self, "Select a Sound Pack to use for battleground sounds.")
+								end
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<Frame name = "PVPSoundSoundPackLanguageDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "2">
+						<Anchors>
+							<Anchor point = "LEFT" relativeTo = "PVPSoundSoundPackDropDown" relativePoint = "RIGHT">
+								<Offset>
+									<AbsDimension x = "-22" y = "0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer>
+								<FontString name = "$parentLabel" inherits = "PVPSoundFontMediumYellow">
+									<Anchors>
+										<Anchor point = "BOTTOMLEFT" relativePoint = "TOPLEFT">
+											<Offset>
+												<AbsDimension x = "20" y = "4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<HitRectInsets>
+							<AbsInset left = "18" right = "16" top = "2" bottom = "8"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Label", "BG Sound Pack Language")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+							</OnShow>
+							<OnEnter>
+								if UIDropDownMenu_IsEnabled(self) then
+									PVPSoundOptions:OptionsShowToopTip(self, "Select a Language/Type from the Sound Pack to use for battleground sounds.")
+								end
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<CheckButton name = "PVPSoundKillSoundButton" inherits = "PVPSoundCheckButtonTemplate">
+						<Size>
+							<AbsDimension x = "20" y = "20"/>
+						</Size>
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundSoundPackDropDown" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "17" y = "-10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left = "2" right = "4" top = "3" bottom = "4"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Text", "Enable Kill Sounds")
+							</OnLoad>
+							<OnClick>
+								PVPSoundOptions:OptionsKillSoundButtonToggle(self)
+							</OnClick>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Enables or disables Kill Sounds.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name = "PVPSoundMultiKillSoundButton" inherits = "PVPSoundCheckButtonTemplate">
+						<Size>
+							<AbsDimension x = "20" y = "20"/>
+						</Size>
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundSoundPackLanguageDropDown" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "17" y = "-10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left = "2" right = "4" top = "3" bottom = "4"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Text", "Enable Multi Kill Sounds")
+							</OnLoad>
+							<OnClick>
+								PVPSoundOptions:OptionsMultiKillSoundButtonToggle(self)
+							</OnClick>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Enables or disables Multi Kill Sounds.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "General")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 2 Frame-->
+			<Frame name = "PVPSoundTab2Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab2Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Alterac Valley")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 3 Frame-->
+			<Frame name = "PVPSoundTab3Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab3Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Arathi Basin")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 4 Frame-->
+			<Frame name = "PVPSoundTab4Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab4Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Deepwind Gorge")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 5 Frame-->
+			<Frame name = "PVPSoundTab5Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab5Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Eye of the Storm")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 6 Frame-->
+			<Frame name = "PVPSoundTab6Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab6Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Isle of Conquest")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 7 Frame-->
+			<Frame name = "PVPSoundTab7Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab7Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Silvershard Mines")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 8 Frame-->
+			<Frame name = "PVPSoundTab8Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab8Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Strand of the Ancients")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 9 Frame-->
+			<Frame name = "PVPSoundTab9Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab9Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Temple of Kotmogu")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 10 Frame-->
+			<Frame name = "PVPSoundTab10Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab10Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "The Battle for Gilneas")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 11 Frame-->
+			<Frame name = "PVPSoundTab11Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab11Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Twin Peaks")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 12 Frame-->
+			<Frame name = "PVPSoundTab12Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab12Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Warsong Gulch")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 13 Frame-->
+			<Frame name = "PVPSoundTab13Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab13Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Tol Barad")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 14 Frame-->
+			<Frame name = "PVPSoundTab14Frame" hidden = "true">
+				<Size>
+					<AbsDimension x = "800" y = "416"/>
+				</Size>
+				<Anchors>
+					<Anchor point = "TOP" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOP">
+						<Offset>
+							<AbsDimension x = "0" y = "-59"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
+					<EdgeSize>
+						<AbsValue val = "20"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val = "128"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
+							<Size>
+								<AbsDimension x = "200" y = "24"/>
+							</Size>
+							<Anchors>
+								<Anchor point = "TOP" relativeTo = "PVPSoundTab14Frame" relativePoint = "TOP">
+									<Offset>
+										<AbsDimension x = "0" y = "-20"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, "Text", "Wintergrasp")
+						PVPSoundOptions:OptionsTabFramesInitalize(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- Tab 1 -->
+			<Button name = "PVPSoundTab1" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "TOPLEFT" relativeTo = "PVPSoundOptionsFrame" relativePoint = "TOPLEFT">
+						<Offset>
+							<AbsDimension x = "42" y = "-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(1, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "General")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+						PVPSoundOptions:OptionsPanelTemplatesSelectTab(self)
+						PVPSoundTab1Frame:Show()
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 2 -->
+			<Button name = "PVPSoundTab2" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab1" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(2, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "AV")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 3 -->
+			<Button name = "PVPSoundTab3" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab2" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(3, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "AB")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 4 -->
+			<Button name = "PVPSoundTab4" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab3" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(4, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "DG")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 5 -->
+			<Button name = "PVPSoundTab5" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab4" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(5, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "EOTS")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 6 -->
+			<Button name = "PVPSoundTab6" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab5" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(6, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "IOC")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 7 -->
+			<Button name = "PVPSoundTab7" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab6" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(7, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "SM")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 8 -->
+			<Button name = "PVPSoundTab8" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab7" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(8, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "SOTA")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 9 -->
+			<Button name = "PVPSoundTab9" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab8" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(9, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "TOK")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 10 -->
+			<Button name = "PVPSoundTab10" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab9" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(10, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "TBFG")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 11 -->
+			<Button name = "PVPSoundTab11" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab10" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(11, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "TP")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 12 -->
+			<Button name = "PVPSoundTab12" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab11" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(12, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "WSG")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 13 -->
+			<Button name = "PVPSoundTab13" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab12" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(13, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "TB")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<!-- Tab 14 -->
+			<Button name = "PVPSoundTab14" inherits = "PVPSoundTabButtonTemplate">
+				<Anchors>
+					<Anchor point = "LEFT" relativeTo = "PVPSoundTab13" relativePoint = "RIGHT">
+						<Offset>
+							<AbsDimension x = "0" y = "0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PVPSoundOptions:OptionsTabActive(14, 14)
+					</OnClick>
+					<OnLoad>
+						PVPSoundOptions:OptionsSetText(self, nil, "WG")
+						PVPSoundOptions:OptionsTabInitalize(self, 0)
+					</OnLoad>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+</Ui>

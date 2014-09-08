@@ -1,0 +1,295 @@
+﻿EPIC GAMES
+
+SOUNDS
+
+	Uses Miles Sound System. Copyright C 1991-2003 by RAD Game Tools, Inc.
+
+	MPEG Layer-3 playback supplied with the Miles Sound System from RAD Game Tools, Inc. MPEG Layer-3 audio compression technology licensed by Fraunhofer IIS and THOMSON multimedia.
+
+	Ogg Vorbis Copyright 2001-2003, Xiph.Org Foundation
+
+UNREAL TOURNAMENT 2004
+
+	Unreal® Tournament 2003 ©2004 Epic Games, Inc. Raleigh, N.C. USA. 
+
+	Unreal and the Unreal logo are registered trademarks of Epic Games, Inc. ALL RIGHTS RESERVED. 
+
+	All other trademarks and trade names are the property of their respective owners. 
+
+	Unreal Tournament 2004 was created by Digital Extremes and Epic Games, Inc.. 
+
+	Manufactured and marketed by Infogrames, Inc., New York, New York, a subsidiary of Infogrames Entertainment, S.A., under license from Epic Games, Inc.
+
+UNREAL TOURNAMENT 3
+
+	http://www.unrealtournament.com/eula/eula_us.php
+
+	Unreal Tournament 3 (c) 2007, 2008 Epic Games, Inc. All Rights Reserved.
+
+	Unreal and the Unreal logo are registered trademarks of Epic Games, Inc.
+
+	All other trademarks and trade names are properties of their respective owners.
+
+	Editor and End-User Mods.
+
+	The Software includes an editor and associated tools and utilities (the "UnrealEd"). UnrealEd is a really cool feature which allows you to modify the Software or to construct new variations for use with it. These modifications and variations can be both playable and non playable. UnrealEd is NOT shareware. You may not freely distribute it to any BBS, CD, floppy or any other media. You may not sell it or repackage it for sale.
+	Using a licensed copy of UnrealEd, you may create modifications or enhancements to the Software, including the construction of new levels as well as computer-generated linear story animations or other forms of emergent gameplay (sometimes called Machinima), (collectively referred to as "Mods"), subject to the following restrictions:
+	Your Mods must:
+	Only work with the full, registered copy of the Software, not independently or with any other software, or if Machinima, only be recorded to film/file for replay/reproduction. Machinima Mods must display the "Powered By Unreal Technology" logo as a watermark in one of the lower corners of the screen at startup for a minimum of 10 seconds and carry the legal text: POWERED BY UNREAL TECHNOLOGY logo is a trademark of Epic Games, Inc. The logo file is found at http://udn.epicgames.com/Main/TrademarksAndLogos.html.
+	Your Mods must not contain modifications to any executable file(s).
+	Your Mods must not contain any libelous, defamatory, or other illegal material, material that is scandalous or invades the rights of privacy or publicity of any third party, nor may your Mods contain, or be used in conjunction with, any trademarks, copyright protected work, or other recognizable property of third parties, nor may your Mods be used by you, or anyone else, for any commercial exploitation including, but not limited to: (a) advertising or marketing for a company, product or service.
+	Your Mods shall not be supported by Midway, Epic or any of Epic or its publishers' affiliates and subsidiaries, and your Mods must include a statement to such effect.
+	Your Mods must be distributed solely for free, period. Neither you, nor any other person or party, may sell them to anyone, commercially exploit them in any way, or charge anyone for receiving or using them without prior written consent from Epic Games Inc. You may, exchange them at no charge among other end users and distribute them to others over the Internet, on magazine cover disks, or otherwise for free.
+	The prohibitions and restrictions in this section apply to anyone in possession of the Software or any of your Mods.
+	We just LOVE the idea of you using and distributing content or script from any prior Unreal branded game developed by Epic in your Mod. Therefore we grant you a license to use content from any prior Epic Games Unreal game in your Mods. For the sake of clarity Epic retains all copyrights and you will not gain any ownership whatsoever in any Epic content or script nor can you use any Epic content or script outside the scope of the rights granted here. Any attempt to do so will bring about the wrath of our attorneys.
+
+	Copyright. The Software and all copyrights, trademarks and all other conceivable intellectual property rights related to the Software are owned by Midway, Epic or such parties' licensors and are protected by United States copyrights laws, international treaty provisions, an army of clones, and all applicable law, such as the Lanham Act. You must treat the Software like any other copyrighted material, as required by 17 U.S.C. Section 101 et seq. and other applicable law. Please do not make unauthorized copies. The program you've licensed was produced through the efforts of many people who earn their livelihood from its lawful use. These people like to eat, so don't make copies for others who have not paid for the right to use it. To report copyright violations to the Software Publishers Association, call 1-800-388-PIR8 or write: Software Publishers Association, 1101 Connecticut Ave., Suite 901, Washington, D.C. 20036.
+
+UNREAL ENGINE 3 UDK LICENSE TERMS
+
+	http://udn.epicgames.com/Three/DevelopmentKitFAQ.html#EULA
+
+	This End User License Agreement (“Agreement”) is a legal agreement between either you as an individual or the entity you represent (“You” or “Your”), and Epic Games, Inc., a Maryland Corporation located at 620 Crossroads Boulevard, Cary, North Carolina, 27518, U.S.A. (“Epic”). The purpose of this license is to allow You to use the Unreal Engine 3 UDK and any updates thereto provided by Epic (the “UDK”) on the terms set forth below. If You do not agree to the terms of this Agreement, You may not use the UDK.
+
+	1. Third Party Software. THE UDK CONTAINS THIRD PARTY SOFTWARE. CERTAIN ADDITIONAL TERMS AND CONDITIONS WITH RESPECT TO SUCH SOFTWARE ARE LOCATED AT THE END OF THIS AGREEMENT. THESE ADDITIONAL THIRD PARTY TERMS AND CONDITIONS ARE MADE A PART OF AND INCORPORATED BY REFERENCE INTO THIS AGREEMENT. IN THE EVENT OF A CONFLICT BETWEEN THE TERMS AND CONDITIONS APPLICABLE TO THE THIRD PARTY SOFTWARE AND THIS AGREEMENT, THE TERMS AND CONDITIONS APPLICABLE TO THE THIRD PARTY SOFTWARE SHALL GOVERN. BY ACCEPTING THIS AGREEMENT, YOU ARE ACCEPTING THE ADDITIONAL TERMS AND CONDITIONS, IF ANY, SET FORTH THEREIN. THE THIRD PARTY SOFTWARE IS ONLY LICENSED FOR USE IN CONJUNCTION WITH THE UDK - ANY OTHER USE IS PROHIBITED.
+
+	2. License Grant. Provided that You comply with all terms and conditions of this Agreement, including the License Restrictions in Section 3 below, Epic grants You, for the entire duration of the legal protection of the intellectual property rights of the UDK pursuant to applicable law (subject to Section 7), a limited, personal, non-exclusive, worldwide, non-sublicensable, and non-transferable license to (a) install and use the UDK for the purpose of developing an unlimited number of applications; (b) develop derivative works of the UDK; (c) use derivative works of the UDK developed by You for the purpose of developing an unlimited number of applications; and (d) distribute the applications You develop using the UDK and derivative works of the UDK only in object code form, only as an inseparable part of the applications, and only to end users pursuant to an end user license agreement with terms consistent with and no less protective of Epic’s rights than those contained in this Agreement. This license is being provided to You free of charge.
+
+	3. License Restrictions. Epic and its suppliers reserve all rights not expressly granted to You in this Agreement. Unless applicable law gives You more rights despite this limitation, You may use the UDK only as expressly permitted in this Agreement. Thus, You may use the UDK as set forth in Section 2, but You may not:
+		• use or exploit the following in any way that results in direct or indirect compensation or commercial gain in any form, personal or otherwise, to You or any other party: (a) the UDK (or any portions thereof); (b) derivative works of the UDK (or any portions thereof); or (c) applications which contain any UDK code and/or content; or (d) applications which contain any derivative works of any UDK code and/or content. Notwithstanding the forgoing, entrance of Your UDK Application and acceptance of prize money (in an amount not to exceed $100,000) in a contest (e.g. Make Something Unreal or Independent Games Festival) is permitted;
+		• use the UDK to develop applications that compete with or could compete with the UDK or any other middleware or game development software produced by Epic;
+		• reverse engineer or decompile the UDK except and only to the extent that applicable law expressly permits, despite this limitation;
+		• release any UDK code or content under a license that is not from Epic Games, Inc.;
+		• use, reproduce, copy, redistribute, encumber, sell, rent, lease, assign, sublicense, transfer rights in, or display the UDK for any purpose other than as expressly stated in Section 2;
+		• transfer this Agreement to any third party;
+		• use the UDK to develop cheats, hacks, or similar applications;
+		• remove or modify any product identification or trademark, copyright, or proprietary notices, legends, symbols, labels, or this Agreement from the UDK, , except that You have the right to change the splash screen, including the right to remove the UDK logo and product identification from the splash screen, but you do not have the right to remove or alter the Powered by Unreal Technology and Bink Video logo videos following the splash screen;
+		• use any Epic trademarks, logos, trade names, or service marks in any manner (other than keeping trademark notices on the UDK as described in the above bullet point);
+		• infringe or violate any intellectual property or proprietary rights, or rights or privacy or publicity, of Epic or any third party;
+		• use the UDK to develop applications that, whether through images, audio, video, or text, are unlawful (such as child pornography); objectionable or offensive under the laws of the country in which you reside, install or use the UDK;
+		• use the UDK in any way that violates your application’s target platform’s (i.e. Apple, Microsoft, Google, Sony, etc.) guidelines or license agreement(s);
+		• modify this Agreement, or adopt or use this Agreement (or a modified version of it) as Your own; or
+		• substitute Your own version of this Agreement in any form or version of the UDK.
+
+	4. UDK add-ons. There is no official clearinghouse for UDK add-ons. Add-on software applications are not endorsed by Epic and You use them at your own risk. Epic does not provide instructions for installing add-ons. You may integrate Your add-on software with the UDK and state that your add-on software works with the “UDK™” or “Unreal® Development Kit” only under the following conditions:
+		• The add-on software application is your own work.
+		• You do not violate these UDK License terms.
+		• The add-on does not use the UDK logo in any way, shape or form.
+		• You must make the required “no endorsement or support” statement visible to your users and on Your website that promotes the add-on: “This product was not developed by, cannot be supported by and is not endorsed by Epic Games, Inc. For more information on Epic Games’ Unreal Development Kit (UDK) please visit www.udk.com.” You may attribute the add-on in the manner You as the author desire without using “Unreal Development Kit” or “UDK” in the add-on’s name. Also, You must not suggest that Epic Games, Inc. endorses you, your add-on or your use of the UDK.
+		• You may not combine the add-on with the UDK to make a single shipping product. You may only make Your add-on available separate from the UDK.
+
+	5. Ownership. As between the parties, Epic or its suppliers (as described in Section 1) own the title, copyright, and other intellectual property rights in the UDK, including all derivative works of the UDK. You own the title, copyright, and other intellectual property rights in the applications You develop using the UDK and any derivative works thereof, but ownership of the UDK and derivative works of the UDK, and any portion(s) of the UDK and derivative works of the UDK remains with Epic. You agree that Epic may seek and shall be entitled to injunctive, equitable, or other similar relief to protect, maintain, defend, enforce, and preserve such rights, in addition to any other available remedies. If the law of Your jurisdiction provides that You shall be the owner of derivative works of the UDK, You are not allowed to make any use of such derivative work without the prior written explicit approval of Epic, except for permitted uses set forth otherwise in this Agreement.
+
+	6. UDK Network. To the extent made available by Epic, You may choose to participate in Epic’s UDK Network. You hereby grant to Epic a non-exclusive, fully-paid, royalty-free, worldwide, perpetual, irrevocable, sublicensable, non-terminable, transferable, assignable license for all known types of use to reproduce, distribute, publicly perform, publicly display, make, sell, import, modify and make derivative works based on, and otherwise use and exploit: (a) any and all information, code and other tangible or intangible materials You post to Epic’s UDK Network or otherwise provide to Epic; and (b) any modifications or additions to the UDK that You provide to Epic via the UDK Network or otherwise provide to Epic, including, without limitation, those which are intended to correct errors or other unwanted and unintended conditions that cause the UDK to fail, malfunction or operate in a manner other than as anticipated. Notwithstanding the foregoing, where applicable, Your statutory rights as an author under the law of Your jurisdiction remain unaffected. To the extent perpetual and/or non-terminable licenses are not permitted in Your jurisdiction, the license granted from You to Epic and described in this Section 5 above shall be for the entire duration of the legal protection of the intellectual property rights being granted to Epic pursuant to applicable law.
+
+	7. Export. The UDK is subject to U.S. domestic and international export laws and regulations. You must comply with all applicable export laws and regulations that apply to the UDK. The laws include restrictions on destinations, end users and end use.
+
+	8. Termination. Without prejudice to any other rights, (a) this Agreement will terminate immediately without notice from the other party if either party fails to comply with any of the terms or conditions of this Agreement, and (b) Epic may terminate this Agreement at any time, upon notice to You. Upon termination of this Agreement, You must cease all use and destroy all copies of the UDK and all of its component parts, and any documentation related thereto. If You breach this Agreement, and Epic decides to take legal action against You, You shall pay for the reasonable costs of Epic’s attorneys.
+
+	9. Other Intellectual Property Matters.
+
+	(a) In return for the consideration provided hereunder by Epic, You agree not to assert against Epic any claim, action or proceeding for infringement of any patents, patent rights or other intellectual property rights You may own or control related to any version of the UDK or use thereof.
+
+	(b) You agree to indemnify and hold harmless Epic against all costs and expenses (including reasonable attorneys fees and expenses) and all other liability resulting from or related to any claim of patent or copyright infringement, misappropriation, or misuse of trade secrets or other proprietary rights based upon Your use of the UDK, or any portion thereof, in whatever form, or any exercise by You of any rights granted under this Agreement.
+
+	10. Entire Agreement; Survival. This Agreement and the terms for supplements and updates that You use, are the entire agreement between You and Epic relating to the UDK and they supersede all prior or contemporaneous oral or written communications, proposals and representations with respect to the UDK or any other subject matter covered by this Agreement. Sections 3, 4, 6, and 9 through 19 (inclusive) survive any termination or expiration of this Agreement.
+
+	11. Severability. If any provision of this Agreement is held by a court of competent jurisdiction to be void, invalid, unenforceable or illegal, the other provisions shall continue in full force and effect.
+
+	12. Governing Law and Jurisdiction. The laws of North Carolina shall govern the interpretation of this contract and shall apply to claims for breach of it, regardless of conflict of laws principles. All other claims, including claims regarding consumer protection laws, unfair competition laws, and in tort, will be subject to the laws of Your state of residence in the United States, or if You live outside the United States, the laws of the jurisdiction in which You reside. You and we irrevocably consent to the exclusive jurisdiction and venue of the state or federal courts in Wake County, North Carolina, USA for all disputes arising out of or relating to this contract. You further agree that Epic shall be allowed to apply for injunctive remedies (or any equivalent legal relief) in any jurisdiction. For the avoidance of doubt, this Agreement shall be construed and enforced without regard to the United Nations Convention on the International Sale of Goods, which shall not apply to this Agreement
+
+	13. Disclaimer of Warranty. The UDK is licensed “as is.” You bear the risk of using it. Neither Epic nor its suppliers give any express or statutory representations, warranties, guarantees or conditions. Epic and its suppliers also exclude all implied warranties, including any warranty of merchantability, title, durability, fitness for a particular purpose and non-infringement. Nothing in this Agreement shall affect those statutory rights which You are always entitled to as a consumer and that You cannot contractually agree to alter or waive. The limitations and exclusions of liability do not apply if and to the extent (a) You sustain damages which were caused by gross negligence or willful misconduct of Epic, or (b) Epic violates Your life, body, or well being.
+
+	14. Exclusion of Incidental, Consequential, and Certain Other Damages. You can recover from Epic direct damages up to U.S. $25.00 only. You cannot recover any other damages from Epic or its suppliers, including damages for lost profits or data, or consequential, special, direct, indirect or incidental damages. This limitation includes, but is not limited to: (a) anything related to the UDK or services (if any); and (b) claims for breach of contract, breach of warranty, guarantee or condition, strict liability, negligence, or other tort. It also applies even if Epic knew or should have known about the possibility of the damages. The foregoing limitations on liability are intended to apply to the warranties and disclaimers above and all other aspects of this Agreement. The limitations and exclusions of liability do not apply if and to the extent (a) You sustain damages which were caused by gross negligence or willful misconduct of Epic, or (b) Epic violates Your life, body, or well being.
+
+	15. U.S. Government End Users. The UDK and related documentation are “Commercial Items”, as that term is defined at 48 C.F.R. §2.101, consisting of “Commercial Computer Software” and “Commercial Computer Software Documentation”, as such terms are used in 48 C.F.R. §12.212 or 48 C.F.R. §227.7202, as applicable. Consistent with 48 C.F.R. §12.212 or 48 C.F.R. §227.7202-1 through 227.7202-4, as applicable, the Commercial Computer Software and Commercial Computer Software Documentation are being licensed to U.S. Government end users (a) only as Commercial Items and (b) with only those rights as are granted to all other end users pursuant to the terms and conditions herein. Unpublished-rights reserved under the copyright laws of the United States.
+
+	16. No Waiver. Any act by Epic to exercise, or failure or delay in exercise of, any of its rights under this Agreement, at law, or in equity shall not be deemed a waiver of those or any other rights or remedies available in contract, at law or in equity.
+
+	17. No Support. Neither Epic nor its suppliers has any obligation to provide support services for the UDK or any portion thereof.
+
+	18. No Assignment. You shall not, without the prior written consent of Epic, assign, transfer, charge, sub-contract or deal in any other manner with all or any of its rights or obligations under this Agreement. Epic may at any time assign, transfer, charge, sub-contract or deal in any other manner with all or any of its rights or obligations under this Agreement.
+
+	19. Legal Effect. This Agreement describes certain legal rights. You may have other rights under the laws of Your jurisdiction. This Agreement does not change Your rights under the laws of Your jurisdiction if the laws of Your jurisdiction do not permit it to do so. Limitations and exclusions of warranties and remedies in this Agreement may not apply to You because Your jurisdiction may not allow them in Your particular circumstance. In the event that certain provisions of this Agreement are not enforceable in Your jurisdiction, such provisions shall be enforceable to the further extent possible under applicable law.
+
+MICROSOFT
+
+HALO 4
+
+Game Content Usage Rules
+
+	We know that people like you love our games and sometimes want to use things like gameplay footage, screenshots, music, and other elements of our games ("Game Content") to make things like machinima, videos, and other cool things (your "Item" or "Items"). We'd like to make that easier for you. So long as you can respect these rules, you can use our Game Content to make your Items.
+
+	Here are the magic words from our lawyers: on the condition that you follow the rules below ("Rules"), Microsoft grants you a personal, non-exclusive, non-transferable license to use and display Game Content and to create derivative works based upon Game Content, strictly for your noncommercial and personal use. This license is limited by the conditions and restrictions below, so please read them. We can revoke this limited-use license at any time and for any reason without liability to you.
+
+	If you share your Items with others, then you must include the following notice about the Game Content. You can put it in a README file, or on the web page from where it's downloaded, or anywhere else that makes sense so long as anyone who sees your Item will easily find this notice.
+
+	For videos that try to add to the fiction or canon of the franchise universe, please put it at the beginning of your video for at least five seconds.  For all other videos, please put it at the end of your video for at least five seconds.  Burying the notice, for example, deep in a web page in small print that is hard to find, does not comply.
+
+	[Name of the Microsoft Game] © Microsoft Corporation. [The title of your Item] was created under Microsoft's "Game Content Usage Rules" using assets from [Name of the Microsoft Game]. It is not endorsed by Microsoft and does not reflect the views or opinions of Microsoft or anyone officially involved in producing or managing [Name of the Microsoft Game].  As such, it does not contribute to the official narrative of the fictional universe, if applicable.
+
+	Wherever you put the notice, you also need to include a link to these Game Content Usage Rules, so people can find them.
+
+	We're encouraging you to create and redistribute your Items. You may post the Items on your own site or you may link to a third-party site containing your Items if you'd prefer to store them there, so long as the third-party site does not break any of these Rules.
+
+	And by the way, these Rules only cover games published by Microsoft Studios and where Microsoft owns the copyright. We can't give you permission to use games from other publishers or games where Microsoft doesn't own the intellectual property. Sorry, but you'll have to contact them for that. Where you see a link to these rules on a game's community website, then you're good to go. As you can see, this will give you access to some of the most popular titles on the PC and Xbox 360, including:
+
+		Halo (all versions)
+		Forza Motorsport (all versions)*
+		Fable (all versions)
+		Kinectimals
+		Kinect Adventures
+		Kinect Joy Ride
+		Age of Empires (all versions)
+		Flight Simulator (all versions)*
+		Kameo
+		Perfect Dark Zero
+		Project Gotham Racing (all versions)*
+		Shadowrun
+		Viva Piñata
+
+	*Use of individual vehicles, tracks, or other brands and logos in these games may require permission from their manufacturer or owner.
+
+	For other Microsoft Studios games, you'll want to look on the games' community website to see if there's a link to these Rules. If there is, then these Rules apply.
+
+What are the Rules?
+
+	In order to make sure we can continue making games we love to make and you love to play, there are some Rules that apply to our license grant for your Items. It's tough to predict everything people will do, but there are some things that you can't do.
+
+	You can't reverse engineer our games to access the assets or otherwise do things that the games don't normally permit in order to create your Items.
+	You can't use Game Content to create pornographic or obscene Items, or anything that contains vulgar, racist, hateful, or otherwise objectionable content. Whether the content is "objectionable" is up to us. And like the old saying goes, you know it when you see it.
+	Except as described here, you can't sell or otherwise earn any compensation from your Item, including through advertisements in the Item.  This means you  can't charge money in exchange for your Item, post it on a site that requires subscription or other fees to view the Item, or post it on a page you use to sell other items or services(even if they have nothing to do with Game Content or Microsoft). You also can't use Game Content in an app that you sell in an app store.
+	You may post your Item to a page or website that has advertising, but only if you do not earn any money from that advertising.  For example, if you post your video on Youtube or Vimeo and there happens to be an advertisement next to it, then as long as you don't get paid for that advertisement, the fact that there is an advertisement on the page doesn't break these Rules. But enrolling in the Youtube partner program (or other similar programs), where you are entering into an agreement to get paid, is not allowed. On a similar note, if you create and distribute a free app, then you can't earn any money from advertising in that app.
+	You may use the Item to enter a contest or sweepstakes as long as the contest organizers agree to follow these rules.
+	You may use the Item on a page where you ask for optional donation requests.
+	Once you've made and distributed your Item, anyone else using it also has to follow these rules.
+	You cannot enter into any agreement with someone else to exclusively distribute your Item even if they don't pay you.  We give you this license so that you can make cool Items and share them far and wide. Someone else holding your Item back from wide distribution means: (a) it's not going far and wide; and (b) it is very likely that person is trying to use the Game Content to promote their commercial venture. That's not what these rules are about.
+	Where someone is trying to use Game Content to promote their commercial venture (even just a commercial website), they need our permission to do this. For example, "promoting a commercial venture" includes someone else enrolling in the Youtube partner program and making money distributing your Items. That is not allowed today unless that person has a commercial license from us, and so far, we haven't given anyone permission to do this. We'll let you know if we do.
+	If you want to use the soundtracks or audio effects from the original game, we often license those from third parties and don't always have the rights to pass them on to you. If we do, we'll let you know.  For example, we might mention on the community website for a particular game whether you have these rights, so you'd do well to check. If we don't let you know, you need permission from a third party, especially for games with licensed music. But we'll confirm right here that the music from Halo 3 is available for your use in non-profit ventures thanks to an arrangement with O'Donnell/Salvatori, Inc., composers of this iconic theme.
+	You can't infringe anyone's IP rights in your Item, even if the IP rights being infringed don't belong to Microsoft.
+	You can't use any of Microsoft's trademarked logos or names except in the ways described in the pages linked from www.microsoft.com/trademarks.
+	In addition, your Items may not use the name of the Microsoft Game in their title.  For example, we don't object to "Red vs. Blue".  We don't object to "Operation Chastity".  But we do object to "Halo [insert the title of your Item here]".  We want to make sure consumers don't get confused.
+	Along those same lines, please don't use actual logos from the Microsoft Game as part of your Item's logos.
+
+	If you do any of these things, we may tell you or others that your Item violates these Rules, that you have to stop distributing your Item right away, or that you need a commercial license. So there.
+
+What if I create something new in your universe?
+
+	Distribution of your Item in any form constitutes a grant by you of a royalty-free, non-exclusive, irrevocable, transferable, sub-licensable, worldwide, license to Microsoft and any of Microsoft's partners or users to use, modify and distribute that Item (and derivatives of that Item), and use your name if we choose to, for any purpose and without obligation to pay you anything, obtain your approval, or give you credit.  And this license to Microsoft survives any termination or expiration of these Usage Rules.  This means that if you add to the game universe or expand on the story told in the game with "lost chapters" or back story or anything like that, distribution of your story or idea may appear in a future game without any compensation to you. (Sorry, but our lawyers tell us we need to do this in order to avoid frivolous lawsuits getting in the way of making more great games.) It also means we can put your Item on a Microsoft site or property like Halo Waypoint if we want to.
+
+What if others work with me to create the items?
+
+	If anyone wants to use your item, including building on it, they have to comply with these Rules too. We don't mind if other people help you out, but you have to be clear with them that it's not you giving permission to use the Game Content, it's us. And like you, they can't earn money from their efforts.  That's how we make sure everyone plays by these same Rules.
+
+	There's still a way to do some of these things we've excluded, but you have to contact us for a commercial license. If you're interested in doing that, send a mail to gamevids*at*microsoft.com. And if you're running a real festival, we'd like to discuss with you because you'll probably want to do things like redistribute festival DVDs and the like, and we want to make sure that's done right.
+
+	Thanks, and have fun!
+
+CAPCOM
+
+DEVIL MAY CRY 5
+
+	1. Acceptance of Terms.
+
+	By accessing or using the Services, you certify that you have read, understand and agree to be bound by the terms and conditions set forth herein (the "Terms of Use") whether or not you are a registered user of the Services.
+	Additional terms and conditions may apply to certain specific Services and specific portions of Services, including contests, promotions or other similar features, all of which terms are made a part of these Terms of Use by this reference. If there is a conflict between these Terms of Use and the terms posted for or applicable to specific Services or portion of the Services, the latter terms shall control with respect to your use of such Services or specific portion thereof.
+	You hereby represent and warrant that you are of legal age to form a binding contract with Capcom. Any registration by or use of the Services by anyone under legal age to form a binding contract is unauthorized and in violation of the Terms of Use. 
+
+	2. Changes to Terms.
+	Capcom may amend the Terms of Use at any time, without notice, by posting the amended terms and conditions on this page. You are responsible for regularly reviewing these terms, and any additional terms posted on the Services. Your continued use of the Services after the effective date of such changes constitutes your acceptance of and agreement to such changes.
+
+	3. Content in the Services and Content License from You.
+	Subject to the Terms of Use, you may submit, post, transmit, and upload information, data, text, messages, graphics, video, audio, and other data, with the exception of Capcom Property (as defined below), to the Services (“Content”).
+
+	You represent and warrant that: (i) you own the Content posted by you on the Services or otherwise have the right to grant the license set forth in this Section, and (ii) the posting of your Content on the Services does not violate the rights of any person or entity. You agree to pay for all royalties, fees, and any other monies owing any person or entity by reason of any Content posted by you on the Services.
+	Capcom does not claim ownership of Content you submit or make available for inclusion in the Services. However, by submitting or making available your Content for inclusion in the Services, you hereby grant Capcom a worldwide, nonexclusive, perpetual, irrevocable, transferable, sub-licensable, royalty free, fully paid up license under your intellectual property rights to use, copy and store for backup and archival purposes, transmit, distribute, reproduce, modify, adapt, translate, reformat, and otherwise create derivative works of, publicly perform and publicly display (i) your Content in any manner, in whole or in part, and to incorporate such Content into other works in any format or medium now or later developed, and (ii) metrics regarding your use of and access to the Services on an aggregated basis for maintaining, improving and upgrading the Services, without any obligation of attribution or compensation to you.
+	Capcom does not control the Content posted via the Services and, as such, does not guarantee the accuracy, integrity or quality of such Content. You understand that by using the Services, you may be exposed to Content that is offensive, indecent or objectionable. Under no circumstances will Capcom be liable in any way for any Content, including, but not limited to, for any errors or omissions in any Content, or for any loss or damage of any kind incurred as a result of the use of any Content posted, emailed, transmitted or otherwise made available via the Services.
+
+	4. Services Policies and Services Modifications.
+
+	You further acknowledge, consent and agree that Capcom may access, preserve and disclose your account information and Content if required to do so by law or in a good faith belief that such access preservation or disclosure is reasonably necessary to: (a) comply with legal process; (b) enforce the Terms of Use; (c) respond to claims that any Content violates the rights of third parties; (d) respond to your requests for customer service; or (e) protect the rights, property or personal safety of Capcom and its users. If you become aware of a violation of the Terms of Use or misuse of the Services by any user or person, please promptly report it to [capcom-unity@capcom.com].
+	Capcom reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Services (or any part thereof) with or without notice. You agree that Capcom shall not be liable to you or to any third party for any modification, suspension or discontinuance of the Services. You acknowledge and agree that if Capcom disables access to your account, you may be prevented from accessing the Services, your account details or any files or other content which is contained in your account.
+	You understand that the Services and software embodied within the Services may include security components that permit digital materials to be protected, and use of these materials is subject to additional usage rules set by Capcom and its licensors. You may not attempt to override or circumvent any of the usage rules embedded into the Services. Any unauthorized reproduction, publication, further distribution or public exhibition of the materials provided on the Services by you, in whole or in part, is strictly prohibited.
+
+	5. User Conduct.
+	You agree to not use the Services to:
+
+	upload, post, email, transmit or otherwise make available any Content that is unlawful, harmful, threatening, abusive, harassing, tortious, defamatory, vulgar, obscene, libelous, invasive of another's privacy, hateful, or racially, ethnically or otherwise objectionable;
+	harm minors in any way;
+	impersonate any person or entity, including, but not limited to, a Capcom official, forum leader, guide or host, or falsely state or otherwise misrepresent your affiliation with a person or entity;
+	forge headers or otherwise manipulate identifiers in order to disguise the origin of any Content transmitted through the Services;
+	upload, post, email, transmit or otherwise make available any Content that you do not have a right to make available under any law or under contractual or fiduciary relationships (such as confidential information learned or disclosed as part of employment relationships or under nondisclosure agreements);
+	upload, post, email, transmit or otherwise make available any Content that infringes any patent, trademark, trade secret, copyright or any other intellectual and proprietary rights of any party;
+	upload, post, email, transmit or otherwise make available any unsolicited or unauthorized advertising, promotional materials, "junk mail," "spam," "chain letters," "pyramid schemes," or any other form of solicitation, except in those areas that are designated for such purpose;
+	upload, post, email, transmit or otherwise make available any material that contains software viruses or any other computer code, files or programs designed to interrupt, destroy or limit the functionality of any computer software or hardware or telecommunications equipment;
+	disrupt the normal flow of dialogue, cause a screen to "scroll" faster than other users of the Services are able to type, or otherwise act in a manner that negatively affects other users' ability to engage in real time exchanges;
+	interfere with or disrupt the Services or servers or networks connected to the Services, or disobey any requirements, procedures, policies or regulations of networks connected to the Services;
+	intentionally or unintentionally violate any applicable local, state, national or international law or post any Content that would encourage or provide instructions for a criminal offense;
+	provide material support or resources (or to conceal or disguise the nature, location, source, or ownership of material support or resources) to any organization(s) designated by the United States government as a foreign terrorist organization;
+	"stalk" or otherwise harass another; and/or
+	collect or store personal data about other users without their consent or for unlawful purposes or in violation of applicable law or regulations;
+	make commercial use of the Services or its contents; collect and use any product listings, descriptions, photographs or prices displayed on the Services in connection with competing with Capcom or for other commercial purposes; or create, reproduce and/or distribute any materials derived from the content provided on this Services.
+
+	6. Software; Capcom Property Rights.
+
+	Capcom and its licensors grant to you a non-exclusive, revocable, personal, non-transferable license to access and use the software underlying the Services (“Software”) solely for the purpose of using and accessing the Services. Capcom and its licensors reserves all rights to such software not expressly granted to you in this Agreement. Such software is protected by copyright and other intellectual property laws and treaties. Capcom and its licensors own the title, copyright, and other intellectual property rights in such software, and such software is licensed, not sold. You will not disassemble, decompile, or reverse engineer, such software, except and only to the extent that such activity is expressly permitted by applicable law. If applicable, Capcom and its licensors may automatically check your version of such software and may automatically download upgrades to such software to your computer to update, enhance and further develop the Services.
+	Capcom properties, including the characters appearing in such properties and their names, likenesses, and pictorial representations, and associated copyrights, trade names and trademarks and any Capcom trademarks, logos, images, service marks, trade names and other distinctive branding features used on the Services ("Capcom Property") are the exclusive property of Capcom and may not be used without permission. Capcom is not granting you a license under any intellectual property right to Capcom Property. Other copyrighted materials, trademarks, logos, and trade names that may appear on the Services are the property of their respective owners. 
+
+	7. Feedback.
+
+	You may from time to time elect, in your sole discretion, to provide suggestions, comments, improvements, ideas, recommendations or other feedback or materials to Capcom related to the Services ("Feedback"). If you elect to provide Capcom any such Feedback, you hereby assign and will assign all ownership in and to such Feedback to Capcom, and acknowledge that Capcom will be entitled to use and implement any such Feedback in any manner without restriction, and without any obligation of confidentiality, attribution or compensation to you. To the extent the foregoing is deemed ineffective, you also hereby grant Capcom a nonexclusive, perpetual, irrevocable, transferable, sublicensable, royalty free, fully paid up license to use and otherwise exploit Feedback in any manner without restriction, and without any obligation of confidentiality, attribution or compensation to you.
+
+	8. Termination.
+
+	You agree that Capcom may, at its sole discretion, without prior notice, delete, disable, deactivate or otherwise terminate at any time your account and/or access to the Services with or without cause. Termination of your account includes (i) removal of access to the Services (ii) deletion of your password and all related information, files and content associated with or inside your account, and (iii) barring of further use of the Services. Further, you agree that Capcom shall not be liable to you or any third party for any termination of your account or access to the Services.
+	In the event you object to any term or condition of the Terms of Use or any subsequent changes or updates thereto or become dissatisfied with the Services in any way, your only recourse is to immediately: (i) discontinue use of the Services; (ii) terminate the Services account; and (iii) notify Capcom of termination by sending an e-mail to: [capcom-unity@capcom.com]. Continued use of the Services is an acceptance of, and an agreement to abide by, the Terms of Use and any subsequent changes and updates thereto.
+	Upon termination of your account, the Terms of Use shall terminate and you will no longer have a right to access your account or Services. Capcom shall not have any obligation to assist you in migrating your data or Content and shall not be required to keep any back-up of any of your Content.
+
+	9. Disclaimer Of Warranties And Other Disclaimers.
+	YOU EXPRESSLY UNDERSTAND AND AGREE THAT:
+
+	YOUR USE OF THE SERVICES IS AT YOUR SOLE RISK. THE SERVICES OR SOFTWARE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. CAPCOM AND ITS DIRECTORS, OFFICERS, EMPLOYEES, AND LICENSORS EXPRESSLY DISCLAIM ANY AND ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+	CAPCOM AND ITS DIRECTORS, OFFICERS, EMPLOYEES, LICENSORS, AFFILIATES AND SUBSIDIARIES MAKE NO WARRANTY THAT (i) THE SERVICES OR SOFTWARE WILL MEET YOUR REQUIREMENTS; (ii) THE SERVICES OR SOFTWARE WILL BE UNINTERRUPTED, TIMELY, SECURE, ERROR-FREE OR WITHOUT FAILURE; (iii) ANY RESULT THAT MAY BE OBTAINED FROM THE USE OF THE SERVICES OR SOFTWARE WILL BE ACCURATE OR RELIABLE; (iv) THE QUALITY OF ANY SERVICES, INFORMATION OR OTHER MATERIAL OBTAINED THROUGH THE SERVICES OR SOFTWARE WILL MEET YOUR EXPECTATIONS; (v) ANY ERRORS IN THE SERVICES OR SOFTWARE WILL BE CORRECTED; (vi) ANY PERSONAL INFORMATION YOU SUBMIT WILL BE SECURE OR ERROR-FREEAND (vii)THE UPTIME OR SERVER RESPONSE TIME OF THE SERVICES SHALL MEET ANY MINIMUM STANDARDS OR USER’S REQUIREMENTS.
+	ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SERVICES IS ACCESSED IN YOUR OWN DISCRETION AND RISK, AND YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY SUCH MATERIAL.
+	CAPCOM AND ITS LICENSORS USES INDUSTRY STANDARD SECURITY MEASURES TO PROTECT AGAINST UNAUTHORIZED ACCESS, ALTERATION, DISCLOSURE, AND DESTRUCTION OF PERSONAL INFORMATION. NOTWITHSTANDING THE FOREGOING, THE SECURITY OF WEB SERVERS CONNECTED TO THE INTERNET IS SUBJECT TO FACTORS OUTSIDE CAPCOM’S AND ITS LICENSORS’ CONTROL SO CAPCOM AND ITS LICENSORS CANNOT GUARANTEE THE SECURITY OF PERSONAL INFORMATION.
+
+	10. Limitation Of Liability.
+	YOU EXPRESSLY UNDERSTAND AND AGREE THAT:
+
+	NONE OF CAPCOM, ITS DIRECTORS, OFFICERS, EMPLOYEES, LICENSORS, AFFILIATES, OR SUBSIDIARIES SHALL BE LIABLE TO YOU OR ANYONE ELSE, DIRECTLY OR INDIRECTLY, FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, LOSS OF BUSINESS OPPORTUNITIES, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF CAPCOM HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES), RESULTING FROM OR IN CONNECTION WITH: (i) THE USE OR THE INABILITY TO USE THE SERVICES OR SOFTWARE; (ii) THE COST OF PROCUREMENT OF SUBSTITUTE SERVICES, (iii) ANY VIDEO, AUDIO, DATA OR ANY OTHER INFORMATION RECEIVED OR TRANSMITTED THROUGH THE SERVICES; (iv) UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR TRANSMISSIONS OF DATA; (v) STATEMENTS OR CONDUCT OF ANY THIRD PARTY ON THE SERVICES; (vi) USE OF OR RELIANCE ON CONTENT AND ANY INFORMATION, OPINIONS, OR MATERIALS CONTAINED THEREIN, OR (vii) ANY OTHER MATTER RELATING TO THE SERVICES.
+	IN NO EVENT WILL CAPCOM, ITS DIRECTORS, OFFICERS, EMPLOYEES, LICENSORS, AFFILIATES OR SUBSIDIARIES BE LIABLE TO YOU OR ANYONE ELSE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS RESULTING FROM OR IN CONNECTION WITH (i) CONTENT (AND ANY INFORMATION, OPINIONS, OR MATERIALS CONTAINED THEREIN, OR (ii) ANY USE OF CONTENT, INCLUDING, BUT NOT LIMITED TO, ANY ACTION TAKEN IN RELIANCE THEREON.
+	NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, CAPCOM, ITS DIRECTORS, OFFICERS, EMPLOYEES, LICENSORS, AFFILIATES OR SUBSIDIARIES’ LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER UNDER THE TERMS OF USE OR IN ANY WAY CONNECTED WITH THE SERVICES (INCLUDING BUT NOT LIMITED TO CONTENT) OR SOFTWARE, AND REGARDLESS OF THE FORM OF THE ACTION, WHETHER IN CONTRACT, TORT (INCLUDING, BUT NOT LIMITED TO, NEGLIGENCE) OR OTHERWISE, WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO CAPCOM FOR THE SERVICES DURING THE TERM OF THE TERMS OF USE, BUT IN NO CASE WILL CAPCOM'S LIABILITY TO YOU EXCEED $100. NOTWITHSTANDING THE FOREGOING, YOU ACKNOWLEDGE THAT IF NO FEES ARE PAID TO CAPCOM FOR THE SERVICES, YOU SHALL BE LIMITED TO INJUNCTIVE RELIEF ONLY AND SHALL NOT BE ENTITLED TO DAMAGES OF ANY KIND FROM CAPCOM, REGARDLESS OF THE CAUSE OF ACTION, UNLESS OTHERWISE REQUIRED BY LAW.
+
+	11. Exclusions And Limitations.
+	SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF CERTAIN WARRANTIES OR THE LIMITATION OR EXCLUSION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES. ACCORDINGLY, SOME OF THE ABOVE DISCLAIMERS, EXCLUSIONS, OR LIMITATIONS MAY NOT APPLY TO YOU.
+
+	12. Indemnity.
+	You agree to indemnify and hold Capcom and its directors, officers, employees, and licensors harmless from any claim (including, but not limited to, a claim of libel or defamation) or demand, including reasonable attorneys' fees, made by any third party due to or arising out of Content you submit, post, transmit or otherwise make available through the Services, your use of the Services, your connection to the Services, your violation of the Terms of Use, or your violation of any rights of another.
+
+	13. Privacy.
+
+	Capcom cares about the privacy of our users. Click here to view Capcom’s Privacy Policy, which is incorporated herein by reference. By using the Services, you are consenting to have your personal information transferred to and processed in the United States or any other country where Capcom in its sole discretion decides to transfer or process them.
+	Personal Information” is information that you provide to us which personally identifies you, such as your name, email address or billing information, or other data which can be reasonably linked to such information by Capcom.
+
+	14. Notice.
+	Capcom may provide you with notices, including those regarding changes to the Terms of Use, by posting them on the Site.
+
+	15. General.
+
+	The Terms of Use and other applicable terms and conditions and policies incorporated herein constitute the entire agreement between you and Capcom (or its Licensors) governing your use of the Services and Software, superseding any prior agreements between you and Capcom with respect to use of the Services and Software.
+	The Terms of Use and the relationship between you and Capcom shall be governed by the laws of the State of California without regard to its conflict of law provisions. You and Capcom agree to submit to the personal jurisdiction and venue of the courts located within the county of Santa Clara, California.
+	The failure of Capcom to exercise or enforce any right or provision of the Terms of Use shall not constitute a waiver of such right or provision. If any provision of the Terms of Use is found by a court of competent jurisdiction to be invalid, the parties nevertheless agree that the court should endeavor to give effect to the parties' intentions as reflected in the provision, and the other provisions of the Terms of Use remain in full force and effect.
+	You agree that your Capcom account is personal to you and non-transferable.
+	You agree that regardless of any statute or law to the contrary, any claim or cause of action by you against Capcom or its directors, officers, employees or licensors arising out of or related to use of the Services or the Terms of Use must be filed within one (1) year after such claim or cause of action arose or be forever barred.
+	Recognizing the global nature of the Internet, you agree to comply with all local rules regarding online conduct and acceptable content. In addition, you agree to comply with all applicable laws regarding the transmission of technical data exported from the United States or the country in which you reside.
+	The section titles in the Terms of Use are for convenience only and have no legal or contractual effect.
+	If any translation of the Terms of Use is done for local requirements and a conflict or inconsistency between the English and any non-English versions arises, the English version of the Terms of Use shall govern.
+
+VALVE
+
+DOTA 2
+
+	© 2013 Valve Corporation. All rights reserved. Valve, the Valve logo, Half-Life, the Half-Life logo, the Lambda logo, Steam, the Steam logo, Team Fortress, the Team Fortress logo, Opposing Force, Day of Defeat, the Day of Defeat logo, Counter-Strike, the Counter-Strike logo, Source, the Source logo, Counter-Strike: Condition Zero, Portal, the Portal logo, Dota, the Dota 2 logo, and Defense of the Ancients are trademarks and/or registered trademarks of Valve Corporation. All other trademarks are property of their respective owners.
+
+	Third Party Legal Notices
+	Steam and other Valve products distributed via Steam use certain third party materials that require notifications about their license terms. You can find a list of these notifications in the file called ThirdPartyLegalNotices.doc distributed with the Steam client and/or a particular Valve product. Where license terms require Valve to make source code available for redistribution.
