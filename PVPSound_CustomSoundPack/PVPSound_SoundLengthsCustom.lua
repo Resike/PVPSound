@@ -26,22 +26,22 @@ PVPSound_CustomDefaultDurations[17]				=	{ dir = "Interface\\Addons\\PVPSound_Cu
 PVPSound_CustomDefaultDurations[18]				=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\GameStatus\\PlayYouAreOnRed.mp3",													duration = 2.1675 }
 PVPSound_CustomDefaultDurations[19]				=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\GameStatus\\PrepareForBattle.mp3",													duration = 1.8075 }
 PVPSound_CustomDefaultDurations[20]				=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\GameStatus\\UnrealTournament3.mp3",													duration = 1.7835 }
-PVPSound_CustomDefaultKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\1First Blood.mp3", name = "First Blood",										duration = 2.4795 }
-PVPSound_CustomDefaultKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\2Killing Spree.mp3", name = "Killing Spree",									duration = 2.4795 }
-PVPSound_CustomDefaultKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\3Rampage.mp3", name = "Rampage",												duration = 2.4795 }
-PVPSound_CustomDefaultKillDurations[4]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\4Dominating.mp3", name = "Dominating",											duration = 1.6395 }
-PVPSound_CustomDefaultKillDurations[5]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\5Unstoppable.mp3", name = "Unstoppable",										duration = 2.5995 }
-PVPSound_CustomDefaultKillDurations[6]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\6Godlike.mp3", name = "Godlike",												duration = 1.9035 }
-PVPSound_CustomDefaultKillDurations[7]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\7MASSACRE.mp3", name = "MASSACRE",												duration = 2.4555 }
-PVPSound_CustomDefaultKillDurations[8]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\8HOLY SHIT.mp3", name = "HOLY SHIT",											duration = 3.7035 }
-PVPSound_CustomDefaultMultiKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\1Double Kill.mp3", name = "Double Kill",									duration = 1.9755 }
-PVPSound_CustomDefaultMultiKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\2Multi Kill.mp3", name = "Multi Kill",									duration = 1.9995 }
-PVPSound_CustomDefaultMultiKillDurations[3]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",										duration = 2.6955 }
-PVPSound_CustomDefaultMultiKillDurations[4]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\4Ultra Kill.mp3", name = "Ultra Kill",									duration = 1.6155 }
-PVPSound_CustomDefaultMultiKillDurations[5]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",								duration = 2.8635 }
-PVPSound_CustomDefaultPaybackKillDurations[1]	=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Payback\\1Payback.mp3", name = "Payback",											duration = 2.2155 }
-PVPSound_CustomDefaultPaybackKillDurations[2]	=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Payback\\2Retribution.mp3", name = "Retribution",									duration = 2.8155 }
-PVPSound_CustomDefaultTestDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Test\\1Pancake.mp3", name = "Pancake",												duration = 2.1435 }
+PVPSound_CustomDefaultKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\01First Blood.mp3", name = "First Blood",										duration = 2.4795 }
+PVPSound_CustomDefaultKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\02Killing Spree.mp3", name = "Killing Spree",									duration = 2.4795 }
+PVPSound_CustomDefaultKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\03Rampage.mp3", name = "Rampage",												duration = 2.4795 }
+PVPSound_CustomDefaultKillDurations[4]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\04Dominating.mp3", name = "Dominating",										duration = 1.6395 }
+PVPSound_CustomDefaultKillDurations[5]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\05Unstoppable.mp3", name = "Unstoppable",										duration = 2.5995 }
+PVPSound_CustomDefaultKillDurations[6]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\06Godlike.mp3", name = "Godlike",												duration = 1.9035 }
+PVPSound_CustomDefaultKillDurations[7]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\07MASSACRE.mp3", name = "MASSACRE",											duration = 2.4555 }
+PVPSound_CustomDefaultKillDurations[8]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Kill\\08HOLY SHIT.mp3", name = "HOLY SHIT",											duration = 3.7035 }
+PVPSound_CustomDefaultMultiKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\01Double Kill.mp3", name = "Double Kill",									duration = 1.9755 }
+PVPSound_CustomDefaultMultiKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\02Multi Kill.mp3", name = "Multi Kill",									duration = 1.9995 }
+PVPSound_CustomDefaultMultiKillDurations[3]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\03Mega Kill.mp3", name = "Mega Kill",										duration = 2.6955 }
+PVPSound_CustomDefaultMultiKillDurations[4]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\04Ultra Kill.mp3", name = "Ultra Kill",									duration = 1.6155 }
+PVPSound_CustomDefaultMultiKillDurations[5]		=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\MultiKill\\05MONSTER KILL.mp3", name = "MONSTER KILL",								duration = 2.8635 }
+PVPSound_CustomDefaultPaybackKillDurations[1]	=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Payback\\01Payback.mp3", name = "Payback",											duration = 2.2155 }
+PVPSound_CustomDefaultPaybackKillDurations[2]	=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Payback\\02Retribution.mp3", name = "Retribution",									duration = 2.8155 }
+PVPSound_CustomDefaultTestDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Test\\01Pancake.mp3", name = "Pancake",												duration = 2.1435 }
 PVPSound_CustomDefaultDurations[21]				=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Zone_AlteracValley\\ALLIANCE_Node_Defense.mp3",										duration = 1.6635 }
 PVPSound_CustomDefaultDurations[22]				=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Zone_AlteracValley\\ALLIANCE_Node_Offense.mp3",										duration = 1.9995 }
 PVPSound_CustomDefaultDurations[23]				=	{ dir = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Zone_AlteracValley\\ALLIANCE_TowerNode_Defense.mp3",									duration = 2.1675 }

@@ -370,163 +370,174 @@ end function
 
 function writeSound(outfile, path, album, timesec, timemillisec, title, artist)
 	path = Replace(path, "\", "\\")
-	dim pathCut, folder, file
+	dim pathCut, folder, file, index, indexlength
 	pathCut = split(path, "\\")
 	folder = pathCut(0)
 	file = pathCut(1)
 	file = Left(file, len(file) - 4)
-	file = Right(file, len(file) - 1)
+	for i = len(file) to 1 step -1
+		if IsNumeric(Left(file, i)) then
+			indexlength = i
+			exit for
+		end if
+	next
+	if IsNull(indexlength) = false and indexlength <> "" then
+		index = CInt(Left(file, indexlength))
+		file = Right(file, len(file) - indexlength)
+	end if
 	if folder = "Kill" then
 		if len(path) + len(file) + 1 >= 0 and len(path) + len(file) + 1 <= 4 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 5 and len(path) + len(file) + 1 <= 8 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 9 and len(path) + len(file) + 1 <= 12 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 13 and len(path) + len(file) + 1 <= 16 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 17 and len(path) + len(file) + 1 <= 20 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 21 and len(path) + len(file) + 1 <= 24 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 25 and len(path) + len(file) + 1 <= 28 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 29 and len(path) + len(file) + 1 <= 32 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 33 and len(path) + len(file) + 1 <= 36 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 37 and len(path) + len(file) + 1 <= 40 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 41 and len(path) + len(file) + 1 <= 44 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 45 and len(path) + len(file) + 1 <= 48 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 49 and len(path) + len(file) + 1 <= 52 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 53 and len(path) + len(file) + 1 <= 56 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 57 and len(path) + len(file) + 1 <= 60 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 61 and len(path) + len(file) + 1 <= 64 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 65 and len(path) + len(file) + 3 <= 68 then
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		else
-			BinaryStream.WriteText killSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText killSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		end if
 	elseif folder = "MultiKill" then
 		if len(path) + len(file) + 1 >= 0 and len(path) + len(file) + 1 <= 4 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 5 and len(path) + len(file) + 1 <= 8 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 9 and len(path) + len(file) + 1 <= 12 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 13 and len(path) + len(file) + 1 <= 16 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 17 and len(path) + len(file) + 1 <= 20 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 21 and len(path) + len(file) + 1 <= 24 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 25 and len(path) + len(file) + 1 <= 28 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 29 and len(path) + len(file) + 1 <= 32 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 33 and len(path) + len(file) + 1 <= 36 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 37 and len(path) + len(file) + 1 <= 40 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 41 and len(path) + len(file) + 1 <= 44 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 45 and len(path) + len(file) + 1 <= 48 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 49 and len(path) + len(file) + 1 <= 52 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 53 and len(path) + len(file) + 1 <= 56 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 57 and len(path) + len(file) + 1 <= 60 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 61 and len(path) + len(file) + 1 <= 64 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 1 >= 65 and len(path) + len(file) + 1 <= 68 then
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		else
-			BinaryStream.WriteText multiKillSoundPackTable & "[" & listCount & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText multiKillSoundPackTable & "[" & index & "]		=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		end if
 	elseif folder = "Payback" then
 		if len(path) + len(file) + 3 >= 0 and len(path) + len(file) + 3 <= 4 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 5 and len(path) + len(file) + 3 <= 8 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 9 and len(path) + len(file) + 3 <= 12 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 13 and len(path) + len(file) + 3 <= 16 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 17 and len(path) + len(file) + 3 <= 20 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 21 and len(path) + len(file) + 3 <= 24 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 25 and len(path) + len(file) + 3 <= 28 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 29 and len(path) + len(file) + 3 <= 32 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 33 and len(path) + len(file) + 3 <= 36 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 37 and len(path) + len(file) + 3 <= 40 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 41 and len(path) + len(file) + 3 <= 44 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 45 and len(path) + len(file) + 3 <= 48 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 49 and len(path) + len(file) + 3 <= 52 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 53 and len(path) + len(file) + 3 <= 56 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 57 and len(path) + len(file) + 3 <= 60 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 61 and len(path) + len(file) + 3 <= 64 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 65 and len(path) + len(file) + 3 <= 68 then
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		else
-			BinaryStream.WriteText paybackKillSoundPackTable & "[" & listCount & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText paybackKillSoundPackTable & "[" & index & "]	=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		end if
 	elseif folder = "Test" then
 		if len(path) + len(file) + 3 >= 0 and len(path) + len(file) + 3 <= 4 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 5 and len(path) + len(file) + 3 <= 8 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 9 and len(path) + len(file) + 3 <= 12 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 13 and len(path) + len(file) + 3 <= 16 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,																duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 17 and len(path) + len(file) + 3 <= 20 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,															duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 21 and len(path) + len(file) + 3 <= 24 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,														duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 25 and len(path) + len(file) + 3 <= 28 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,													duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 29 and len(path) + len(file) + 3 <= 32 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,												duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 33 and len(path) + len(file) + 3 <= 36 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,											duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 37 and len(path) + len(file) + 3 <= 40 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,										duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 41 and len(path) + len(file) + 3 <= 44 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,									duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 45 and len(path) + len(file) + 3 <= 48 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,								duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 49 and len(path) + len(file) + 3 <= 52 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,							duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 53 and len(path) + len(file) + 3 <= 56 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,						duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 57 and len(path) + len(file) + 3 <= 60 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,					duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 61 and len(path) + len(file) + 3 <= 64 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,				duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		elseif len(path) + len(file) + 3 >= 65 and len(path) + len(file) + 3 <= 68 then
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,			duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+		elseif len(path) + len(file) + 3 >= 69 and len(path) + len(file) + 3 <= 72 then
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,		duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		else
-			BinaryStream.WriteText testSoundPackTable & "[" & listCount & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
+			BinaryStream.WriteText testSoundPackTable & "[" & index & "]			=	{ dir = """ & realtiveSoundFolder & "" & path & """, name = """ & file & """,	duration = " & timesec & "." & timemillisec & " }" & Vbcrlf
 		end if
 	else
 		if number < 100 then
