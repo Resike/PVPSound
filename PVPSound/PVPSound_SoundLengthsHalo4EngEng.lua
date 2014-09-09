@@ -28,4 +28,4 @@ PVPSound_Halo4EngMultiKillDurations[8]			=	{ dir = "Interface\\Addons\\PVPSound\
 PVPSound_Halo4EngMultiKillDurations[9]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Halo4\\Eng\\MultiKill\\9KILLIONAIRE.mp3", name = "KILLIONAIRE",										duration = 1.9995 }
 PVPSound_Halo4EngPaybackKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Halo4\\Eng\\Payback\\1Vengeance.mp3", name = "Vengeance",											duration = 1.9515 }
 PVPSound_Halo4EngPaybackKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Halo4\\Eng\\Payback\\2Retribution.mp3", name = "Retribution",										duration = 1.8315 }
-PVPSound_Halo4EngTestDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Halo4\\Eng\\Test\\1Snapshot.mp3", name = "Snapshot",												duration = 1.5645 }
+PVPSound_Halo4EngTestDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Halo4\\Eng\\Test\\1Snapshot.mp3", name = "Snapshot",												duration = 1.6635 }

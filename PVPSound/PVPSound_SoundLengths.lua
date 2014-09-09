@@ -1105,6 +1105,153 @@ PVPSound_Dota2LinaPaybackKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSo
 PVPSound_Dota2LinaPaybackKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Lina\\Payback\\2Retribution.mp3", name = "Retribution",											duration = 2.2125 }
 PVPSound_Dota2LinaTestDurations[1]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Lina\\Test\\1Ownage.mp3", name = "Ownage",															duration = 1.9245 }
 
+-- Nature's Prophet
+PVPSound_Dota2NaturesProphetDurations = { }
+PVPSound_Dota2NaturesProphetKillDurations = { }
+PVPSound_Dota2NaturesProphetMultiKillDurations = { }
+PVPSound_Dota2NaturesProphetPaybackKillDurations = { }
+PVPSound_Dota2NaturesProphetTestDurations = { }
+
+PVPSound_Dota2NaturesProphetDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Effects\\KillingMaxRank.mp3",														duration = 2.3595 }
+PVPSound_Dota2NaturesProphetDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Effects\\MultiKillingMaxRank.mp3",													duration = 3.9195 }
+PVPSound_Dota2NaturesProphetKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\1First Blood.mp3", name = "First Blood",										duration = 2.5245 }
+PVPSound_Dota2NaturesProphetKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\2Killing Spree.mp3", name = "Killing Spree",									duration = 2.0925 }
+PVPSound_Dota2NaturesProphetKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\3Rampage.mp3", name = "Rampage",												duration = 2.0925 }
+PVPSound_Dota2NaturesProphetKillDurations[4]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\4Dominating.mp3", name = "Dominating",										duration = 2.0685 }
+PVPSound_Dota2NaturesProphetKillDurations[5]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\5Unstoppable.mp3", name = "Unstoppable",										duration = 2.5245 }
+PVPSound_Dota2NaturesProphetKillDurations[6]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\6Godlike.mp3", name = "Godlike",												duration = 2.2125 }
+PVPSound_Dota2NaturesProphetKillDurations[7]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Kill\\7HOLY SHIT.mp3", name = "HOLY SHIT",											duration = 2.0685 }
+PVPSound_Dota2NaturesProphetMultiKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\MultiKill\\2Triple Kill.mp3", name = "Triple Kill",								duration = 2.2605 }
+PVPSound_Dota2NaturesProphetMultiKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",									duration = 2.4045 }
+PVPSound_Dota2NaturesProphetMultiKillDurations[3]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\MultiKill\\4Ultra Kill.mp3", name = "Ultra Kill",									duration = 2.1165 }
+PVPSound_Dota2NaturesProphetMultiKillDurations[4]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",								duration = 2.0925 }
+PVPSound_Dota2NaturesProphetPaybackKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Payback\\1Payback.mp3", name = "Payback",											duration = 2.5245 }
+PVPSound_Dota2NaturesProphetPaybackKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Payback\\2Retribution.mp3", name = "Retribution",									duration = 2.2125 }
+PVPSound_Dota2NaturesProphetTestDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\NaturesProphet\\Test\\1Godestlike.mp3", name = "Godestlike",										duration = 2.3805 }
+
+-- Pflax
+PVPSound_Dota2PflaxDurations = { }
+PVPSound_Dota2PflaxKillDurations = { }
+PVPSound_Dota2PflaxMultiKillDurations = { }
+PVPSound_Dota2PflaxPaybackKillDurations = { }
+PVPSound_Dota2PflaxTestDurations = { }
+
+PVPSound_Dota2PflaxDurations[1]							=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Effects\\KillingMaxRank.mp3",																duration = 2.3595 }
+PVPSound_Dota2PflaxDurations[2]							=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Effects\\MultiKillingMaxRank.mp3",															duration = 3.9195 }
+PVPSound_Dota2PflaxKillDurations[1]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Kill\\1First Blood.mp3", name = "First Blood",												duration = 2.3805 }
+PVPSound_Dota2PflaxKillDurations[2]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Kill\\2Killing Spree.mp3", name = "Killing Spree",											duration = 3.4845 }
+PVPSound_Dota2PflaxKillDurations[3]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Kill\\3Rampage.mp3", name = "Rampage",														duration = 3.1725 }
+PVPSound_Dota2PflaxKillDurations[4]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Kill\\4Dominating.mp3", name = "Dominating",												duration = 2.6925 }
+PVPSound_Dota2PflaxKillDurations[5]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Kill\\5Unstoppable.mp3", name = "Unstoppable",												duration = 1.9965 }
+PVPSound_Dota2PflaxKillDurations[6]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Kill\\6GODLIKE.mp3", name = "GODLIKE",														duration = 2.5725 }
+PVPSound_Dota2PflaxMultiKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\MultiKill\\1Double Kill.mp3", name = "Double Kill",											duration = 1.2765 }
+PVPSound_Dota2PflaxMultiKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\MultiKill\\2Triple Kill.mp3", name = "Triple Kill",											duration = 1.9485 }
+PVPSound_Dota2PflaxMultiKillDurations[3]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",												duration = 2.6205 }
+PVPSound_Dota2PflaxMultiKillDurations[4]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\MultiKill\\4ULTRA KILL.mp3", name = "ULTRA KILL",											duration = 1.4205 }
+PVPSound_Dota2PflaxPaybackKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Payback\\1Payback.mp3", name = "Payback",													duration = 1.4205 }
+PVPSound_Dota2PflaxPaybackKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Payback\\2Retribution.mp3", name = "Retribution",											duration = 2.2125 }
+PVPSound_Dota2PflaxTestDurations[1]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pflax\\Test\\1If You are a Warrior.mp3", name = "If You are a Warrior",							duration = 3.2205 }
+
+-- Pirate
+PVPSound_Dota2PirateDurations = { }
+PVPSound_Dota2PirateKillDurations = { }
+PVPSound_Dota2PirateMultiKillDurations = { }
+PVPSound_Dota2PiratePaybackKillDurations = { }
+PVPSound_Dota2PirateTestDurations = { }
+
+PVPSound_Dota2PirateDurations[1]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Effects\\KillingMaxRank.mp3",																duration = 2.3595 }
+PVPSound_Dota2PirateDurations[2]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Effects\\MultiKillingMaxRank.mp3",															duration = 3.9195 }
+PVPSound_Dota2PirateKillDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\1First Blood.mp3", name = "First Blood",												duration = 1.6875 }
+PVPSound_Dota2PirateKillDurations[2]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\2Killing Spree.mp3", name = "Killing Spree",											duration = 1.8075 }
+PVPSound_Dota2PirateKillDurations[3]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\3Rampage.mp3", name = "Rampage",														duration = 1.9275 }
+PVPSound_Dota2PirateKillDurations[4]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\4Dominating.mp3", name = "Dominating",												duration = 1.5195 }
+PVPSound_Dota2PirateKillDurations[5]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\5Unstoppable.mp3", name = "Unstoppable",												duration = 2.3835 }
+PVPSound_Dota2PirateKillDurations[6]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\6Godlike.mp3", name = "Godlike",														duration = 1.7115 }
+PVPSound_Dota2PirateKillDurations[7]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Kill\\7HOLY SHIT.mp3", name = "HOLY SHIT",													duration = 2.3835 }
+PVPSound_Dota2PirateMultiKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\MultiKill\\1Double Kill.mp3", name = "Double Kill",										duration = 1.5675 }
+PVPSound_Dota2PirateMultiKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\MultiKill\\2Triple Kill.mp3", name = "Triple Kill",										duration = 1.8315 }
+PVPSound_Dota2PirateMultiKillDurations[3]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",											duration = 2.0475 }
+PVPSound_Dota2PirateMultiKillDurations[4]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\MultiKill\\4Ultra Kill.mp3", name = "Ultra Kill",											duration = 1.8555 }
+PVPSound_Dota2PirateMultiKillDurations[5]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",										duration = 2.4315 }
+PVPSound_Dota2PiratePaybackKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Payback\\1Payback.mp3", name = "Payback",													duration = 3.1725 }
+PVPSound_Dota2PiratePaybackKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Payback\\2Retribution.mp3", name = "Retribution",											duration = 2.5245 }
+PVPSound_Dota2PirateTestDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Pirate\\Test\\1Mobydick.mp3", name = "Mobydick",													duration = 2.5755 }
+
+-- StanleyParable
+PVPSound_Dota2StanleyParableDurations = { }
+PVPSound_Dota2StanleyParableKillDurations = { }
+PVPSound_Dota2StanleyParableMultiKillDurations = { }
+PVPSound_Dota2StanleyParablePaybackKillDurations = { }
+PVPSound_Dota2StanleyParableTestDurations = { }
+
+PVPSound_Dota2StanleyParableDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Effects\\KillingMaxRank.mp3",														duration = 2.3595 }
+PVPSound_Dota2StanleyParableDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Effects\\MultiKillingMaxRank.mp3",													duration = 3.9195 }
+PVPSound_Dota2StanleyParableKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\1First Blood.mp3", name = "First Blood",										duration = 1.7085 }
+PVPSound_Dota2StanleyParableKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\2Killing Spree.mp3", name = "Killing Spree",									duration = 1.3485 }
+PVPSound_Dota2StanleyParableKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\3Rampage.mp3", name = "Rampage",												duration = 1.7805 }
+PVPSound_Dota2StanleyParableKillDurations[4]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\4Dominating.mp3", name = "Dominating",										duration = 1.4685 }
+PVPSound_Dota2StanleyParableKillDurations[5]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\5Unstoppable.mp3", name = "Unstoppable",										duration = 1.3965 }
+PVPSound_Dota2StanleyParableKillDurations[6]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\6Godlike.mp3", name = "Godlike",												duration = 1.3245 }
+PVPSound_Dota2StanleyParableKillDurations[7]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Kill\\7HOLY SHIT.mp3", name = "HOLY SHIT",											duration = 1.5645 }
+PVPSound_Dota2StanleyParableMultiKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\MultiKill\\1Double Kill.mp3", name = "Double Kill",								duration = 1.5885 }
+PVPSound_Dota2StanleyParableMultiKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\MultiKill\\2Triple Kill.mp3", name = "Triple Kill",								duration = 1.8765 }
+PVPSound_Dota2StanleyParableMultiKillDurations[3]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",									duration = 1.9245 }
+PVPSound_Dota2StanleyParableMultiKillDurations[4]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\MultiKill\\4Ultra Kill.mp3", name = "Ultra Kill",									duration = 1.3245 }
+PVPSound_Dota2StanleyParableMultiKillDurations[5]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",								duration = 1.3005 }
+PVPSound_Dota2StanleyParablePaybackKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Payback\\1Payback.mp3", name = "Payback",											duration = 1.1565 }
+PVPSound_Dota2StanleyParablePaybackKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Payback\\2Retribution.mp3", name = "Retribution",									duration = 1.9965 }
+PVPSound_Dota2StanleyParableTestDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StanleyParable\\Test\\1Wicked Sick.mp3", name = "Wicked Sick",										duration = 1.5165 }
+
+-- StormSpirit
+PVPSound_Dota2StormSpiritDurations = { }
+PVPSound_Dota2StormSpiritKillDurations = { }
+PVPSound_Dota2StormSpiritMultiKillDurations = { }
+PVPSound_Dota2StormSpiritPaybackKillDurations = { }
+PVPSound_Dota2StormSpiritTestDurations = { }
+
+PVPSound_Dota2StormSpiritDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Effects\\KillingMaxRank.mp3",															duration = 2.3595 }
+PVPSound_Dota2StormSpiritDurations[2]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Effects\\MultiKillingMaxRank.mp3",													duration = 3.9195 }
+PVPSound_Dota2StormSpiritKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\1First Blood.mp3", name = "First Blood",										duration = 2.2125 }
+PVPSound_Dota2StormSpiritKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\2Killing Spree.mp3", name = "Killing Spree",									duration = 2.9085 }
+PVPSound_Dota2StormSpiritKillDurations[3]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\3Rampage.mp3", name = "Rampage",												duration = 2.8125 }
+PVPSound_Dota2StormSpiritKillDurations[4]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\4Dominating.mp3", name = "Dominating",											duration = 2.0445 }
+PVPSound_Dota2StormSpiritKillDurations[5]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\5Unstoppable.mp3", name = "Unstoppable",										duration = 3.1245 }
+PVPSound_Dota2StormSpiritKillDurations[6]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\6Godlike.mp3", name = "Godlike",												duration = 1.7805 }
+PVPSound_Dota2StormSpiritKillDurations[7]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Kill\\7HOLY SHIT.mp3", name = "HOLY SHIT",											duration = 2.4525 }
+PVPSound_Dota2StormSpiritMultiKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\MultiKill\\1Double Kill.mp3", name = "Double Kill",									duration = 2.5965 }
+PVPSound_Dota2StormSpiritMultiKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\MultiKill\\2Triple Kill.mp3", name = "Triple Kill",									duration = 2.5485 }
+PVPSound_Dota2StormSpiritMultiKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",										duration = 2.4765 }
+PVPSound_Dota2StormSpiritMultiKillDurations[4]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\MultiKill\\4Ultra Kill.mp3", name = "Ultra Kill",										duration = 2.6445 }
+PVPSound_Dota2StormSpiritMultiKillDurations[5]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",									duration = 2.8845 }
+PVPSound_Dota2StormSpiritPaybackKillDurations[1]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Payback\\1Payback.mp3", name = "Payback",												duration = 2.3325 }
+PVPSound_Dota2StormSpiritPaybackKillDurations[2]		=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Payback\\2Retribution.mp3", name = "Retribution",										duration = 2.8365 }
+PVPSound_Dota2StormSpiritTestDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\StormSpirit\\Test\\1Stormlike.mp3", name = "Stormlike",											duration = 2.4525 }
+
+-- Trine
+PVPSound_Dota2TrineDurations = { }
+PVPSound_Dota2TrineKillDurations = { }
+PVPSound_Dota2TrineMultiKillDurations = { }
+PVPSound_Dota2TrinePaybackKillDurations = { }
+PVPSound_Dota2TrineTestDurations = { }
+
+PVPSound_Dota2TrineDurations[1]							=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Effects\\KillingMaxRank.mp3",																duration = 2.3595 }
+PVPSound_Dota2TrineDurations[2]							=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Effects\\MultiKillingMaxRank.mp3",															duration = 3.9195 }
+PVPSound_Dota2TrineKillDurations[1]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\1First Blood.mp3", name = "First Blood",												duration = 2.3085 }
+PVPSound_Dota2TrineKillDurations[2]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\2Killing Spree.mp3", name = "Killing Spree",											duration = 2.0445 }
+PVPSound_Dota2TrineKillDurations[3]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\3Rampage.mp3", name = "Rampage",														duration = 2.3565 }
+PVPSound_Dota2TrineKillDurations[4]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\4Dominating.mp3", name = "Dominating",												duration = 2.1645 }
+PVPSound_Dota2TrineKillDurations[5]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\5Unstoppable.mp3", name = "Unstoppable",												duration = 2.5245 }
+PVPSound_Dota2TrineKillDurations[6]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\6Godlike.mp3", name = "Godlike",														duration = 2.5485 }
+PVPSound_Dota2TrineKillDurations[7]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Kill\\7HOLY SHIT.mp3", name = "HOLY SHIT",													duration = 3.1965 }
+PVPSound_Dota2TrineMultiKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\MultiKill\\1Double Kill.mp3", name = "Double Kill",											duration = 1.4685 }
+PVPSound_Dota2TrineMultiKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\MultiKill\\2Triple Kill.mp3", name = "Triple Kill",											duration = 1.5645 }
+PVPSound_Dota2TrineMultiKillDurations[3]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\MultiKill\\3Mega Kill.mp3", name = "Mega Kill",												duration = 2.0445 }
+PVPSound_Dota2TrineMultiKillDurations[4]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\MultiKill\\4Ultra Kill.mp3", name = "Ultra Kill",											duration = 1.6125 }
+PVPSound_Dota2TrineMultiKillDurations[5]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",										duration = 2.9085 }
+PVPSound_Dota2TrinePaybackKillDurations[1]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Payback\\1Payback.mp3", name = "Payback",													duration = 2.9085 }
+PVPSound_Dota2TrinePaybackKillDurations[2]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Payback\\2Retribution.mp3", name = "Retribution",											duration = 2.5245 }
+PVPSound_Dota2TrineTestDurations[1]						=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\Trine\\Test\\1Ownage.mp3", name = "Ownage",														duration = 1.8765 }
+
 -- Halo 4 SoundPacks
 -- Eng
 PVPSound_Halo4EngDurations = { }

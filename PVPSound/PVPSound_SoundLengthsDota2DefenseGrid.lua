@@ -22,4 +22,4 @@ PVPSound_Dota2DefenseGridMultiKillDurations[4]			=	{ dir = "Interface\\Addons\\P
 PVPSound_Dota2DefenseGridMultiKillDurations[5]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\DefenseGrid\\MultiKill\\5MONSTER KILL.mp3", name = "MONSTER KILL",									duration = 1.5645 }
 PVPSound_Dota2DefenseGridPaybackKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\DefenseGrid\\Payback\\1Payback.mp3", name = "Payback",												duration = 1.9965 }
 PVPSound_Dota2DefenseGridPaybackKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\DefenseGrid\\Payback\\2Retribution.mp3", name = "Retribution",										duration = 1.1565 }
-PVPSound_Dota2DefenseGridTestDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\DefenseGrid\\Test\\1So it begins.mp3", name = "So it begins",										duration = 1.6125 }
+PVPSound_Dota2DefenseGridTestDurations[1]					=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\Dota2\\DefenseGrid\\Test\\1So It Begins.mp3", name = "So It Begins",										duration = 1.6125 }

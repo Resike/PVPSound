@@ -387,6 +387,72 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Lina")
 			end
 			UIDropDownMenu_AddButton(info)
+			info.text = L["NaturesProphet"]
+			info.fontObject = font
+			if PS_KillSoundPackLanguage == "NaturesProphet" then
+				info.checked = true
+			else
+				info.checked = false
+			end
+			info.func = function(self)
+				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "NaturesProphet")
+			end
+			UIDropDownMenu_AddButton(info)
+			info.text = L["Pflax"]
+			info.fontObject = font
+			if PS_KillSoundPackLanguage == "Pflax" then
+				info.checked = true
+			else
+				info.checked = false
+			end
+			info.func = function(self)
+				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Pflax")
+			end
+			UIDropDownMenu_AddButton(info)
+			info.text = L["Pirate"]
+			info.fontObject = font
+			if PS_KillSoundPackLanguage == "Pirate" then
+				info.checked = true
+			else
+				info.checked = false
+			end
+			info.func = function(self)
+				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Pirate")
+			end
+			UIDropDownMenu_AddButton(info)
+			info.text = L["StanleyParable"]
+			info.fontObject = font
+			if PS_KillSoundPackLanguage == "StanleyParable" then
+				info.checked = true
+			else
+				info.checked = false
+			end
+			info.func = function(self)
+				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "StanleyParable")
+			end
+			UIDropDownMenu_AddButton(info)
+			info.text = L["StormSpirit"]
+			info.fontObject = font
+			if PS_KillSoundPackLanguage == "StormSpirit" then
+				info.checked = true
+			else
+				info.checked = false
+			end
+			info.func = function(self)
+				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "StormSpirit")
+			end
+			UIDropDownMenu_AddButton(info)
+			info.text = L["Trine"]
+			info.fontObject = font
+			if PS_KillSoundPackLanguage == "Trine" then
+				info.checked = true
+			else
+				info.checked = false
+			end
+			info.func = function(self)
+				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Trine")
+			end
+			UIDropDownMenu_AddButton(info)
 		elseif PS_KillSoundPackName == "Halo4" then
 			info.text = L["English"]
 			info.fontObject = font
@@ -843,7 +909,7 @@ function PVPSoundOptions:OptionsKillSoundPack(name, soundpackname)
 		CloseDropDownMenus()
 	elseif soundpackname == "Dota2" then
 		PS_KillSoundPackName = soundpackname
-		if PS_KillSoundPackLanguage ~= "Axe" and PS_KillSoundPackLanguage ~= "Bastion" and PS_KillSoundPackLanguage ~= "ClockWerk" and PS_KillSoundPackLanguage ~= "DefenseGrid" and PS_KillSoundPackLanguage ~= "Glados" and PS_KillSoundPackLanguage ~= "Juggernaut" and PS_KillSoundPackLanguage ~= "Lina" then
+		if PS_KillSoundPackLanguage ~= "Axe" and PS_KillSoundPackLanguage ~= "Bastion" and PS_KillSoundPackLanguage ~= "ClockWerk" and PS_KillSoundPackLanguage ~= "DefenseGrid" and PS_KillSoundPackLanguage ~= "Glados" and PS_KillSoundPackLanguage ~= "Juggernaut" and PS_KillSoundPackLanguage ~= "Lina" and PS_KillSoundPackLanguage ~= "NaturesProphet" and PS_KillSoundPackLanguage ~= "Pflax" and PS_KillSoundPackLanguage ~= "Pirate" and PS_KillSoundPackLanguage ~= "StanleyParable" and PS_KillSoundPackLanguage ~= "StormSpirit" and PS_KillSoundPackLanguage ~= "Trine" then
 			PS_KillSoundPackLanguage = "Axe"
 			UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["Axe"])
 		end
@@ -954,6 +1020,18 @@ function PVPSoundOptions:OptionsSetKillSoundPackLanguageText(self)
 		UIDropDownMenu_SetText(self, L["Juggernaut"])
 	elseif PS_KillSoundPackLanguage == "Lina" then
 		UIDropDownMenu_SetText(self, L["Lina"])
+	elseif PS_KillSoundPackLanguage == "NaturesProphet" then
+		UIDropDownMenu_SetText(self, L["NaturesProphet"])
+	elseif PS_KillSoundPackLanguage == "Pflax" then
+		UIDropDownMenu_SetText(self, L["Pflax"])
+	elseif PS_KillSoundPackLanguage == "Pirate" then
+		UIDropDownMenu_SetText(self, L["Pirate"])
+	elseif PS_KillSoundPackLanguage == "StanleyParable" then
+		UIDropDownMenu_SetText(self, L["StanleyParable"])
+	elseif PS_KillSoundPackLanguage == "StormSpirit" then
+		UIDropDownMenu_SetText(self, L["StormSpirit"])
+	elseif PS_KillSoundPackLanguage == "Trine" then
+		UIDropDownMenu_SetText(self, L["Trine"])
 	end
 end
 
@@ -1014,6 +1092,30 @@ function PVPSoundOptions:OptionsKillSoundPackLanguage(name, soundpacklanguage)
 	elseif soundpacklanguage == "Lina" then
 		PS_KillSoundPackLanguage = soundpacklanguage
 		UIDropDownMenu_SetText(frame, L["Lina"])
+		CloseDropDownMenus()
+	elseif soundpacklanguage == "NaturesProphet" then
+		PS_KillSoundPackLanguage = soundpacklanguage
+		UIDropDownMenu_SetText(frame, L["NaturesProphet"])
+		CloseDropDownMenus()
+	elseif soundpacklanguage == "Pflax" then
+		PS_KillSoundPackLanguage = soundpacklanguage
+		UIDropDownMenu_SetText(frame, L["Pflax"])
+		CloseDropDownMenus()
+	elseif soundpacklanguage == "Pirate" then
+		PS_KillSoundPackLanguage = soundpacklanguage
+		UIDropDownMenu_SetText(frame, L["Pirate"])
+		CloseDropDownMenus()
+	elseif soundpacklanguage == "StanleyParable" then
+		PS_KillSoundPackLanguage = soundpacklanguage
+		UIDropDownMenu_SetText(frame, L["StanleyParable"])
+		CloseDropDownMenus()
+	elseif soundpacklanguage == "StormSpirit" then
+		PS_KillSoundPackLanguage = soundpacklanguage
+		UIDropDownMenu_SetText(frame, L["StormSpirit"])
+		CloseDropDownMenus()
+	elseif soundpacklanguage == "Trine" then
+		PS_KillSoundPackLanguage = soundpacklanguage
+		UIDropDownMenu_SetText(frame, L["Trine"])
 		CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsSetKillSoundPack()
