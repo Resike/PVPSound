@@ -983,7 +983,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 			end
-			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
 				if (select(4, GetWorldStateUIInfo(1))) ~= nil then
 					-- Time Remaining
 					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
@@ -1500,7 +1500,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 				end
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
 					if (select(4, GetWorldStateUIInfo(1))) ~= nil then
 						-- Time Remaining
 						local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
@@ -4168,7 +4168,7 @@ function PVPSound:OnEventTwo(event, ...)
 		if PS_BattlegroundSound == true then
 			if event == "UPDATE_WORLD_STATES" then
 				-- Warsong Gulch and Twin Peaks
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
 					if BgIsOver ~= true then
 						if (select(4, GetWorldStateUIInfo(1))) ~= nil then
 							-- Time Remaining

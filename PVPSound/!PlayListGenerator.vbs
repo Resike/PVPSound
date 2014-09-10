@@ -348,7 +348,11 @@ function getTimeSec(file, folder)
 	intBitRate = CInt(getBitRate(path, mp3))
 	time = (file.Size * 8) / (intBitRate * 1000)
 	timeOffset = time + offSet
-	splitTimeOffset = split(timeOffset, ",")
+	if InStr(timeOffset, ".") then
+		splitTimeOffset = split(timeOffset, ".")
+	elseif InStr(timeOffset, ",") then
+		splitTimeOffset = split(timeOffset, ",")
+	end if
 	timeSec = splitTimeOffset(0)
 	getTimeSec = timeSec
 end function
@@ -363,7 +367,11 @@ function getTimeMilliSec(file, folder)
 	timeOffsetFormat = FormatNumber(timeOffset, 4)
 	'Converting to string so the splitting wont remove the zeros from the end, like from numbers
 	strTimeOffset = CStr(timeOffsetFormat)
-	splitStrTimeOffset = split(strTimeOffset, ",")
+	if InStr(strTimeOffset, ".") then
+		splitStrTimeOffset = split(strTimeOffset, ".")
+	elseif InStr(strTimeOffset, ",") then
+		splitStrTimeOffset = split(strTimeOffset, ",")
+	end if
 	timeMilliSec = splitStrTimeOffset(1)
 	getTimeMilliSec = timeMilliSec
 end function
