@@ -31,10 +31,11 @@ function PVPSound:AddToQueue(file)
 			local SoundLengthTable = _G["PVPSound_"..PS.SoundPack.."Durations"]
 			if SoundLengthTable ~= nil then
 				local FileFoundLength
-				-- Is there .mp3 at the end?
-				if (not string.find(file, ".mp3", string.len(file) - 3)) and (not string.find(file, ".MP3", string.len(file) - 3)) and (not string.find(file, ".mP3", string.len(file) - 3)) and (not string.find(file, ".Mp3", string.len(file) - 3)) then
+				-- Is there .ogg at the end?
+				print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
+				if (not string.find(string.lower(file), ".ogg", string.len(file) - 4)) then
 					-- If not then add it
-					file = file..".mp3"
+					file = file..".ogg"
 				end
 				for i = 1, table.getn(SoundLengthTable) do
 					if string.upper(SoundLengthTable[i].dir) == string.upper(file) then
@@ -115,10 +116,11 @@ function PVPSound:AddKillToQueue(killtype, file)
 			local KillSoundLengthTable = _G["PVPSound_"..PS.KillSoundPack..killtype.."Durations"]
 			if KillSoundLengthTable ~= nil then
 				local KillFileFoundLength
-				-- Is there .mp3 at the end?
-				if (not string.find(file, ".mp3", string.len(file) - 3)) and (not string.find(file, ".MP3", string.len(file) - 3)) and (not string.find(file, ".mP3", string.len(file) - 3)) and (not string.find(file, ".Mp3", string.len(file) - 3)) then
+				-- Is there .ogg at the end?
+				print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
+				if (not string.find(string.lower(file), ".ogg", string.len(file) - 4)) then
 					-- If not then add it
-					file = file..".mp3"
+					file = file..".ogg"
 				end
 				for i = 1, table.getn(KillSoundLengthTable) do
 					if string.upper(KillSoundLengthTable[i].dir) == string.upper(file) then
@@ -199,10 +201,11 @@ function PVPSound:AddEffectToQueue(killtype, file)
 			local SoundEffectLengthTable = _G["PVPSound_"..PS.KillSoundPack..killtype.."Durations"]
 			if SoundEffectLengthTable ~= nil then
 				local EffectFileFoundLength
-				-- Is there .mp3 at the end?
-				if (not string.find(file, ".mp3", string.len(file) - 3)) and (not string.find(file, ".MP3", string.len(file) - 3)) and (not string.find(file, ".mP3", string.len(file) - 3)) and (not string.find(file, ".Mp3", string.len(file) - 3)) then
+				-- Is there .ogg at the end?
+				print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
+				if (not string.find(string.lower(file), ".ogg", string.len(file) - 4)) then
 					-- If not then add it
-					file = file..".mp3"
+					file = file..".ogg"
 				end
 				for i = 1, table.getn(SoundEffectLengthTable) do
 					if string.upper(SoundEffectLengthTable[i].dir) == string.upper(file) then
@@ -230,7 +233,7 @@ function PVPSound:PlayNextSoundEffect()
 	-- This function will play the next sound in the Effect Sound Queue and return how long that sound will be played or return 0.0001
 	-- If there is no sound in the Effect Sound Queue it will just return 0.3000
 	if PVPSound:SoundEffectInQueue() then
-		if string.upper(PVPSound_SoundEffectQueue[1].dir) == string.upper(PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\KillingMaxRank.mp3") or string.upper(PVPSound_SoundEffectQueue[1].dir) == string.upper(PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\MultiKillingMaxRank.mp3") then
+		if string.upper(PVPSound_SoundEffectQueue[1].dir) == string.upper(PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\KillingMaxRank.ogg") or string.upper(PVPSound_SoundEffectQueue[1].dir) == string.upper(PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\MultiKillingMaxRank.ogg") then
 			PlaySoundFile(PVPSound_SoundEffectQueue[1].dir, PS_Channel)
 			table.remove(PVPSound_SoundEffectQueue, 1)
 			return 0.0001

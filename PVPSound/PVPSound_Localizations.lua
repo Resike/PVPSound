@@ -201,6 +201,7 @@ L["dropped"] = "dropped"
 L["picked"] = "picked"
 L["returned"] = "returned"
 L["stolen"] = "stolen"
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 L["The Alliance is near victory"] = "The Alliance is near victory"
@@ -339,6 +340,7 @@ L["dropped"] = "dropped"
 L["picked"] = "aufgenommen"
 L["returned"] = "returned"
 L["stolen"] = "stolen"
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 -- Battleground Events
@@ -476,6 +478,7 @@ L["dropped"] = "dropped"
 L["picked"] = "recogida"
 L["returned"] = "returned"
 L["stolen"] = "stolen"
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 -- Battleground Events
@@ -613,6 +616,7 @@ L["dropped"] = "dropped"
 L["picked"] = "recogida"
 L["returned"] = "returned"
 L["stolen"] = "stolen"
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 -- Battleground Events
@@ -750,6 +754,7 @@ L["dropped"] = "dropped"
 L["picked"] = "pris"
 L["returned"] = "returned"
 L["stolen"] = "stolen"
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 -- Battleground Events
@@ -887,6 +892,7 @@ L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "picked" -- Requires localization
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
 L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
 -- Battleground Events
@@ -1024,6 +1030,7 @@ L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "깃발을 손에 넣었습니다"
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
 L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
 -- Battleground Events
@@ -1161,6 +1168,7 @@ L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "picked" -- Requires localization
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
 L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
 -- Battleground Events
@@ -1513,6 +1521,7 @@ L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "拔起了"
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
 L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
 -- Battleground Events
@@ -1650,6 +1659,7 @@ L["dropped"] = "dropped"
 L["picked"] = "拔掉了"
 L["returned"] = "returned"
 L["stolen"] = "stolen"
+L["captured"] = "captured"
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 -- Battleground Events

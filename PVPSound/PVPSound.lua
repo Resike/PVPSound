@@ -96,9 +96,9 @@ function PVPSound:UnregisterEvents()
 	PVPSoundFrame:UnregisterEvent("CHAT_MSG_MONSTER_YELL")
 	PVPSoundFrame:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
 	PVPSoundFrame:UnregisterEvent("WORLD_MAP_UPDATE")
-	PVPSoundFrameTwo:RegisterEvent("PLAYER_TARGET_CHANGED")
-	PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
-	PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
+	PVPSoundFrameTwo:UnregisterEvent("PLAYER_TARGET_CHANGED")
+	PVPSoundFrameTwo:UnregisterEvent("UNIT_HEALTH")
+	PVPSoundFrameTwo:UnregisterEvent("UNIT_MAXHEALTH")
 	PVPSoundFrameTwo:UnregisterEvent("UPDATE_WORLD_STATES")
 	PVPSoundFrameThree:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
@@ -984,9 +984,9 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
-				if (select(4, GetWorldStateUIInfo(1))) ~= nil then
+				if (select(4, GetWorldStateUIInfo(4))) ~= nil then
 					-- Time Remaining
-					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
+					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)"))
 					WSGandTPTimeobjectives.TimeRemaining = nil
 					WSGandTPTimeobjectives.TimeRemaining = TimeRemainingInit
 				end
@@ -1004,15 +1004,15 @@ function PVPSound:OnEvent(event, ...)
 			if MyZone == "Zone_EyeoftheStorm" then
 				if IsRated == false then
 					EOTSWINobjectives.VictoryPoints = nil
-					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
-					EOTSWINobjectives.VictoryPoints = EOTSWINInit
 					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
+					EOTSWINobjectives.VictoryPoints = EOTSWINInit
+					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 					EOTSWINobjectives.VictoryPoints = EOTSWINInit
 				end
 				local BloodElfTowerInit = select(3, GetMapLandmarkInfo(1))
-				local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(2))
+				local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(4))
 				local FelReaverRuinsInit = select(3, GetMapLandmarkInfo(3))
-				local MageTowerInit = select(3, GetMapLandmarkInfo(4))
+				local MageTowerInit = select(3, GetMapLandmarkInfo(3))
 				EOTSobjectives.BloodElfTower = nil
 				EOTSobjectives.DraeneiRuins = nil
 				EOTSobjectives.FelReaverRuins = nil
@@ -1023,11 +1023,11 @@ function PVPSound:OnEvent(event, ...)
 				EOTSobjectives.MageTower = MageTowerInit + 400
 			end
 			if MyZone == "Zone_ArathiBasin" then
-				local BlacksmithInit = select(3, GetMapLandmarkInfo(1))
-				local FarmInit = select(3, GetMapLandmarkInfo(2))
-				local GoldMineInit = select(3, GetMapLandmarkInfo(3))
-				local LumberMillInit = select(3, GetMapLandmarkInfo(4))
-				local StablesInit = select(3, GetMapLandmarkInfo(5))
+				local BlacksmithInit = select(3, GetMapLandmarkInfo(2))
+				local FarmInit = select(3, GetMapLandmarkInfo(5))
+				local GoldMineInit = select(3, GetMapLandmarkInfo(4))
+				local LumberMillInit = select(3, GetMapLandmarkInfo(3))
+				local StablesInit = select(3, GetMapLandmarkInfo(1))
 				ABobjectives.Blacksmith = nil
 				ABobjectives.Farm = nil
 				ABobjectives.GoldMine = nil
@@ -1260,9 +1260,9 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			if MyZone == "Zone_TheBattleforGilneas" then
-				local LighthouseInit = select(3, GetMapLandmarkInfo(1))
-				local MinesInit = select(3, GetMapLandmarkInfo(2))
-				local WaterworksInit = select(3, GetMapLandmarkInfo(3))
+				local LighthouseInit = select(3, GetMapLandmarkInfo(3))
+				local MinesInit = select(3, GetMapLandmarkInfo(1))
+				local WaterworksInit = select(3, GetMapLandmarkInfo(2))
 				TBFGobjectives.Lighthouse = nil
 				TBFGobjectives.Mines = nil
 				TBFGobjectives.Waterworks = nil
@@ -1271,9 +1271,9 @@ function PVPSound:OnEvent(event, ...)
 				TBFGobjectives.Waterworks = WaterworksInit + 300
 			end
 			if MyZone == "Zone_DeepwindGorge" then
-				local CentralMineInit = select(3, GetMapLandmarkInfo(1))
+				local CentralMineInit = select(3, GetMapLandmarkInfo(3))
 				local GoblinMineInit = select(3, GetMapLandmarkInfo(2))
-				local PandarenMineInit = select(3, GetMapLandmarkInfo(3))
+				local PandarenMineInit = select(3, GetMapLandmarkInfo(1))
 				DGobjectives.CentralMine = nil
 				DGobjectives.GoblinMine = nil
 				DGobjectives.PandarenMine = nil
@@ -1283,9 +1283,9 @@ function PVPSound:OnEvent(event, ...)
 			end
 			if MyZone == "Zone_SilvershardMines" then
 				SMWINobjectives.Resources = nil
-				local SMWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
-				SMWINobjectives.Resources = SMWINInit
 				local SMWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
+				SMWINobjectives.Resources = SMWINInit
+				local SMWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
 				SMWINobjectives.Resources = SMWINInit
 			end
 			if MyZone == "Zone_Wintergrasp" then
@@ -1501,9 +1501,9 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
-					if (select(4, GetWorldStateUIInfo(1))) ~= nil then
+					if (select(4, GetWorldStateUIInfo(4))) ~= nil then
 						-- Time Remaining
-						local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
+						local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)"))
 						WSGandTPTimeobjectives.TimeRemaining = nil
 						WSGandTPTimeobjectives.TimeRemaining = TimeRemainingInit
 					end
@@ -1521,15 +1521,15 @@ function PVPSound:OnEvent(event, ...)
 				if MyZone == "Zone_EyeoftheStorm" then
 					if IsRated == false then
 						EOTSWINobjectives.VictoryPoints = nil
-						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
-						EOTSWINobjectives.VictoryPoints = EOTSWINInit
 						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
+						EOTSWINobjectives.VictoryPoints = EOTSWINInit
+						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 						EOTSWINobjectives.VictoryPoints = EOTSWINInit
 					end
 					local BloodElfTowerInit = select(3, GetMapLandmarkInfo(1))
-					local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(2))
-					local FelReaverRuinsInit = select(3, GetMapLandmarkInfo(3))
-					local MageTowerInit = select(3, GetMapLandmarkInfo(4))
+					local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(4))
+					local FelReaverRuinsInit = select(3, GetMapLandmarkInfo(2))
+					local MageTowerInit = select(3, GetMapLandmarkInfo(3))
 					EOTSobjectives.BloodElfTower = nil
 					EOTSobjectives.DraeneiRuins = nil
 					EOTSobjectives.FelReaverRuins = nil
@@ -1540,11 +1540,11 @@ function PVPSound:OnEvent(event, ...)
 					EOTSobjectives.MageTower = MageTowerInit + 400
 				end
 				if MyZone == "Zone_ArathiBasin" then
-					local BlacksmithInit = select(3, GetMapLandmarkInfo(1))
-					local FarmInit = select(3, GetMapLandmarkInfo(2))
-					local GoldMineInit = select(3, GetMapLandmarkInfo(3))
-					local LumberMillInit = select(3, GetMapLandmarkInfo(4))
-					local StablesInit = select(3, GetMapLandmarkInfo(5))
+					local BlacksmithInit = select(3, GetMapLandmarkInfo(2))
+					local FarmInit = select(3, GetMapLandmarkInfo(5))
+					local GoldMineInit = select(3, GetMapLandmarkInfo(4))
+					local LumberMillInit = select(3, GetMapLandmarkInfo(3))
+					local StablesInit = select(3, GetMapLandmarkInfo(1))
 					ABobjectives.Blacksmith = nil
 					ABobjectives.Farm = nil
 					ABobjectives.GoldMine = nil
@@ -1777,9 +1777,9 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 				if MyZone == "Zone_TheBattleforGilneas" then
-					local LighthouseInit = select(3, GetMapLandmarkInfo(1))
-					local MinesInit = select(3, GetMapLandmarkInfo(2))
-					local WaterworksInit = select(3, GetMapLandmarkInfo(3))
+					local LighthouseInit = select(3, GetMapLandmarkInfo(3))
+					local MinesInit = select(3, GetMapLandmarkInfo(1))
+					local WaterworksInit = select(3, GetMapLandmarkInfo(2))
 					TBFGobjectives.Lighthouse = nil
 					TBFGobjectives.Mines = nil
 					TBFGobjectives.Waterworks = nil
@@ -1788,9 +1788,9 @@ function PVPSound:OnEvent(event, ...)
 					TBFGobjectives.Waterworks = WaterworksInit + 300
 				end
 				if MyZone == "Zone_DeepwindGorge" then
-					local CentralMineInit = select(3, GetMapLandmarkInfo(1))
+					local CentralMineInit = select(3, GetMapLandmarkInfo(3))
 					local GoblinMineInit = select(3, GetMapLandmarkInfo(2))
-					local PandarenMineInit = select(3, GetMapLandmarkInfo(3))
+					local PandarenMineInit = select(3, GetMapLandmarkInfo(1))
 					DGobjectives.CentralMine = nil
 					DGobjectives.GoblinMine = nil
 					DGobjectives.PandarenMine = nil
@@ -1800,9 +1800,9 @@ function PVPSound:OnEvent(event, ...)
 				end
 				if MyZone == "Zone_SilvershardMines" then
 					SMWINobjectives.Resources = nil
-					local SMWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
-					SMWINobjectives.Resources = SMWINInit
 					local SMWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
+					SMWINobjectives.Resources = SMWINInit
+					local SMWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
 					SMWINobjectives.Resources = SMWINInit
 				end
 				if MyZone == "Zone_Wintergrasp" then
@@ -1902,27 +1902,28 @@ function PVPSound:OnEvent(event, ...)
 						local HordeSpellName = select(1, GetSpellInfo(81744))
 						-- Alliance RBG buff
 						if MyFaction == "Horde" and AllianceSpellName ~= nil and (select(11, UnitBuff("player", AllianceSpellName))) == 81748 and AlreadyPlaySound ~= true then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.ogg")
 							AlreadyPlaySound = true
 						 -- Horde RBG buff
 						elseif MyFaction == "Alliance" and HordeSpellName ~= nil and (select(11, UnitBuff("player", HordeSpellName))) == 81744 and AlreadyPlaySound ~= true then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.ogg")
 							AlreadyPlaySound = true
 						else
 							if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
-								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.ogg")
 								AlreadyPlaySound = true
 							elseif MyFaction == "Horde" and AlreadyPlaySound ~= true then
-								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.ogg")
 								AlreadyPlaySound = true
 							end
 						end
 					else
+						--print(AlreadyPlaySound)
 						if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.ogg")
 							AlreadyPlaySound = true
 						elseif MyFaction == "Horde" and AlreadyPlaySound ~= true then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.ogg")
 							AlreadyPlaySound = true
 						end
 					end
@@ -1931,7 +1932,7 @@ function PVPSound:OnEvent(event, ...)
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
-					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PrepareForBattle.mp3")
+					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PrepareForBattle.ogg")
 				 -- Wintergrasp PlaySounds
 				elseif MyZone == "Zone_Wintergrasp" then
 					TimerReset = true
@@ -1950,13 +1951,13 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						if WgAttacker == "Alliance" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueAttackTheEnemyCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueAttackTheEnemyCore.ogg")
 						elseif WgAttacker == "Alliance" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedDefendYourCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedDefendYourCore.ogg")
 						elseif WgAttacker == "Horde" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueDefendYourCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueDefendYourCore.ogg")
 						elseif WgAttacker == "Horde" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedAttackTheEnemyCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedAttackTheEnemyCore.ogg")
 						end
 					end
 				 -- Tol Barad PlaySounds
@@ -1977,13 +1978,13 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						if TbAttacker == "Alliance" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueAttackTheEnemyCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueAttackTheEnemyCore.ogg")
 						elseif TbAttacker == "Alliance" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedDefendYourCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedDefendYourCore.ogg")
 						elseif TbAttacker == "Horde" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueDefendYourCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueDefendYourCore.ogg")
 						elseif TbAttacker == "Horde" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedAttackTheEnemyCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnRedAttackTheEnemyCore.ogg")
 						end
 					end
 				end
@@ -1996,12 +1997,12 @@ function PVPSound:OnEvent(event, ...)
 				local EventMessage = select(1, ...)
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" then
 					if (string.find(EventMessage, BG_ALLIANCE_WINS) and BgIsOver ~= true) or (string.find(EventMessage, BG_ALLIANCE_WINS_TWO) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 						BgIsOver = true
 						PVPSound:ClearPaybackQueue()
 						PVPSound:ClearRetributionQueue()
 					elseif (string.find(EventMessage, BG_HORDE_WINS) and BgIsOver ~= true) or (string.find(EventMessage, BG_HORDE_WINS_TWO) and BgIsOver ~= true) or (string.find(EventMessage, L["The Horde is victorious"]) and BgIsOver ~= true) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 						BgIsOver = true
 						PVPSound:ClearPaybackQueue()
 						PVPSound:ClearRetributionQueue()
@@ -2013,18 +2014,18 @@ function PVPSound:OnEvent(event, ...)
 				local EventMessage = select(1, ...)
 				-- Tie Game
 				if string.find(EventMessage, BG_TIE_GAME) and BgIsOver ~= true then
-					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
+					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.ogg")
 					BgIsOver = true
 					PVPSound:ClearPaybackQueue()
 					PVPSound:ClearRetributionQueue()
 				 -- Warsong Gulch and Twin Peaks Vulnerable
 				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
 					if string.find(EventMessage, BG_ALLIANCE_FLAG_RETURNED) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.ogg")
 					elseif string.find(EventMessage, BG_HORDE_FLAG_RETURNED) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.ogg")
 					elseif string.find(EventMessage, BG_VULNERABLE) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\Overtime.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\Overtime.ogg")
 					end
 				 -- Strand of the Ancients Attack and Defend Sounds
 				elseif MyZone == "Zone_StrandoftheAncients" then
@@ -2046,16 +2047,16 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						if SotaAttacker == "Alliance" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.ogg")
 						elseif SotaAttacker == "Alliance" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\DefendYourCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\DefendYourCore.ogg")
 						elseif SotaAttacker == "Horde" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\DefendYourCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\DefendYourCore.ogg")
 						elseif SotaAttacker == "Horde" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.ogg")
 						end
 					elseif string.find(EventMessage, BG_SOTA_ROUND_TWO_TWO) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\FinalRound.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\FinalRound.ogg")
 						SotaRoundOver = false
 					end
 				end
@@ -2070,9 +2071,9 @@ function PVPSound:OnEvent(event, ...)
 						local AllianceFlagPositionX
 						local AllianceFlagPositionY
 						if string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.ogg")
 						elseif string.find(EventMessage, BG_DROPPED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.ogg")
 							if (select(1, GetBattlefieldFlagPosition(1))) ~= nil then
 								AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(1))
 							end
@@ -2087,14 +2088,14 @@ function PVPSound:OnEvent(event, ...)
 							if (select(2, GetWorldStateUIInfo(2))) ~= nil then
 								HordeFlagIsTaken = select(2, GetWorldStateUIInfo(2))
 							end
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.ogg")
 							if MyFaction == "Alliance" and HordeFlagIsTaken == 1 and (CurrentSubZoneText == L["Warsong Flag Room"] or CurrentSubZoneText == L["Dragonmaw Forge"]) then
 								if MyZone == "Zone_WarsongGulch" then
 									if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
 										if AllianceFlagPositionY and AllianceFlagPositionY ~= nil and AllianceFlagPositionY ~= "" then
 											if AllianceFlagPositionX >= 0.503 and AllianceFlagPositionX <= 0.545 then
 												if AllianceFlagPositionY >= 0.884 and AllianceFlagPositionY <= 0.934 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.ogg")
 												end
 											end
 										end
@@ -2104,7 +2105,7 @@ function PVPSound:OnEvent(event, ...)
 										if AllianceFlagPositionY and AllianceFlagPositionY ~= nil and AllianceFlagPositionY ~= "" then
 											if AllianceFlagPositionX >= 0.452 and AllianceFlagPositionX <= 0.509 then
 												if AllianceFlagPositionY >= 0.795 and AllianceFlagPositionY <= 0.908 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.ogg")
 												end
 											end
 										end
@@ -2118,9 +2119,9 @@ function PVPSound:OnEvent(event, ...)
 						local HordeFlagPositionX
 						local HordeFlagPositionY
 						if string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.ogg")
 						elseif string.find(EventMessage, BG_DROPPED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.ogg")
 							if (select(1, GetBattlefieldFlagPosition(2))) ~= nil then
 								HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(2))
 							end
@@ -2135,14 +2136,14 @@ function PVPSound:OnEvent(event, ...)
 							if (select(2, GetWorldStateUIInfo(3))) ~= nil then
 								AllianceFlagIsTaken = select(2, GetWorldStateUIInfo(3))
 							end
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.ogg")
 							if MyFaction == "Horde" and AllianceFlagIsTaken == 1 and (CurrentSubZoneText == L["Silverwing Hold"] or CurrentSubZoneText == L["Wildhammer Stronghold"]) then
 								if MyZone == "Zone_WarsongGulch" then
 									if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
 										if HordeFlagPositionY and HordeFlagPositionY ~= 0 and HordeFlagPositionY ~= "" then
 											if HordeFlagPositionX >= 0.473 and HordeFlagPositionX <= 0.516 then
 												if HordeFlagPositionY >= 0.111 and HordeFlagPositionY <= 0.176 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.ogg")
 												end
 											end
 										end
@@ -2152,7 +2153,7 @@ function PVPSound:OnEvent(event, ...)
 										if HordeFlagPositionY and HordeFlagPositionY ~= 0 and HordeFlagPositionY ~= "" then
 											if HordeFlagPositionX >= 0.563 and HordeFlagPositionX <= 0.640 then
 												if HordeFlagPositionY >= 0.124 and HordeFlagPositionY <= 0.252 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.ogg")
 												end
 											end
 										end
@@ -2172,9 +2173,9 @@ function PVPSound:OnEvent(event, ...)
 						local PlayerPositionX
 						local PlayerPositionY
 						if string.find(EventMessage, L["taken the"]) or string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.ogg")
 						elseif string.find(EventMessage, L["dropped"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.ogg")
 							if (select(1, GetBattlefieldFlagPosition(1))) ~= nil then
 								AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(1))
 							end
@@ -2184,7 +2185,7 @@ function PVPSound:OnEvent(event, ...)
 							SetMapToCurrentZone()
 							PlayerPositionX, PlayerPositionY = GetPlayerMapPosition("player")
 						elseif string.find(EventMessage, L["returned"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.ogg")
 							if MyFaction == "Alliance" then
 								if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
 									if AllianceFlagPositionY and AllianceFlagPositionY ~= nil and AllianceFlagPositionY ~= "" then
@@ -2192,7 +2193,7 @@ function PVPSound:OnEvent(event, ...)
 											if AllianceFlagPositionY >= 0.272 and AllianceFlagPositionY <= 0.465 then
 												if PlayerPositionX >= 0.000 and PlayerPositionX <= 0.277 then
 													if PlayerPositionY >= 0.272 and PlayerPositionY <= 0.456 then
-														PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
+														PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.ogg")
 													end
 												end
 											end
@@ -2200,10 +2201,10 @@ function PVPSound:OnEvent(event, ...)
 									end
 								end
 							end
-						elseif string.find(EventMessage, L["stolen"]) or string.find(EventMessage, "stolen") then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-						elseif string.find(EventMessage, L["The Alliance is near victory"]) then
-							PlaySoundFile("Sound\\Spells\\PVPWarningAlliance.ogg", "Sound")
+						elseif string.find(EventMessage, L["captured"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
+						--[[elseif string.find(EventMessage, L["The Alliance is near victory"]) then
+							PlaySoundFile("Sound\\Spells\\PVPWarningAlliance.ogg", "Sound")]]
 						end
 					-- Horde
 					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
@@ -2214,9 +2215,9 @@ function PVPSound:OnEvent(event, ...)
 						local PlayerPositionX
 						local PlayerPositionY
 						if string.find(EventMessage, L["taken the"]) or string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.ogg")
 						elseif string.find(EventMessage, L["dropped"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.ogg")
 							if (select(1, GetBattlefieldFlagPosition(2))) ~= nil then
 								HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(2))
 							end
@@ -2226,7 +2227,7 @@ function PVPSound:OnEvent(event, ...)
 							SetMapToCurrentZone()
 							PlayerPositionX, PlayerPositionY = GetPlayerMapPosition("player")
 						elseif string.find(EventMessage, L["returned"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.ogg")
 							if MyFaction == "Horde" then
 								if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
 									if HordeFlagPositionY and HordeFlagPositionY ~= nil and HordeFlagPositionY ~= "" then
@@ -2234,7 +2235,7 @@ function PVPSound:OnEvent(event, ...)
 											if HordeFlagPositionY >= 0.523 and HordeFlagPositionY <= 0.712 then
 												if PlayerPositionX >= 0.772 and PlayerPositionX <= 1.000 then
 													if PlayerPositionY >= 0.523 and PlayerPositionY <= 0.712 then
-														PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
+														PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.ogg")
 													end
 												end
 											end
@@ -2242,37 +2243,39 @@ function PVPSound:OnEvent(event, ...)
 									end
 								end
 							end
-						elseif string.find(EventMessage, L["stolen"]) or string.find(EventMessage, "stolen") then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
-						elseif string.find(EventMessage, L["The Horde is near victory"]) then
-							PlaySoundFile("Sound\\Spells\\PVPWarningHorde.ogg", "Sound")
+						elseif string.find(EventMessage, L["captured"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
+						--[[elseif string.find(EventMessage, L["The Horde is near victory"]) then
+							PlaySoundFile("Sound\\Spells\\PVPWarningHorde.ogg", "Sound")]]
 						end
 					end
 				 -- Eye of the Storm Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					if string.find(EventMessage, BG_CAPTURED) then
 						if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 						elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 						end
 					end
 				 -- Temple of Kotmogu
 				elseif MyZone == "Zone_TempleofKotmogu" then
+					print(event)
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Orb_PickedUp.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Orb_PickedUp.ogg")
 					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Orb_PickedUp.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Orb_PickedUp.ogg")
 					end
 				 -- Silvershard Mines
 				elseif MyZone == "Zone_SilvershardMines" then
+					print(event, EventMessage)
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-						if string.find(EventMessage, BG_CAPTURED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+						if string.find(EventMessage, L["captured"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 						end
 					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
-						if string.find(EventMessage, BG_CAPTURED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+						if string.find(EventMessage, L["captured"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 						end
 					end
 				end
@@ -2292,11 +2295,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2314,11 +2317,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2336,11 +2339,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2358,11 +2361,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2381,11 +2384,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2403,11 +2406,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2425,11 +2428,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2447,11 +2450,11 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2470,21 +2473,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2502,21 +2505,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2534,21 +2537,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2566,21 +2569,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2598,21 +2601,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2630,21 +2633,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2662,21 +2665,21 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2695,13 +2698,13 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2719,13 +2722,13 @@ function PVPSound:OnEvent(event, ...)
 								local type = AVget_objective(faketextureIndex)
 								if type then
 									if AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 									end
 									AVobjectives[type] = faketextureIndex
 								end
@@ -2740,10 +2743,10 @@ function PVPSound:OnEvent(event, ...)
 				if MyZone == "Zone_Wintergrasp" then
 					-- WinSounds
 					if string.find(EventMessage, BF_WG_ALLIANCE_WIN_DEFENDED) and BgIsOver ~= true then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 						BgIsOver = true
 					elseif string.find(EventMessage, BF_WG_HORDE_WIN_DEFENDED) and BgIsOver ~= true then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 						BgIsOver = true
 					end
 					local isActive = select(3, GetWorldPVPAreaInfo(1))
@@ -2751,13 +2754,13 @@ function PVPSound:OnEvent(event, ...)
 						BgIsOver = false
 						-- Workshops
 						if string.find(EventMessage, BF_WG_ALLIANCE_ATTACKED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 						elseif string.find(EventMessage, BF_WG_ALLIANCE_CAPTURED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 						elseif string.find(EventMessage, BF_WG_HORDE_ATTACKED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 						elseif string.find(EventMessage, BF_WG_HORDE_CAPTURED) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 						end
 					end
 				 -- Tol Barad
@@ -2776,10 +2779,10 @@ function PVPSound:OnEvent(event, ...)
 									if BgIsOver ~= true then
 										if nextBattle == "1:59:5" or nextBattle == "2:04:5" or nextBattle == "2:09:5" or nextBattle == "2:14:5" then
 											if textureIndex == 48 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 												BgIsOver = true
 											elseif textureIndex == 46 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 												BgIsOver = true
 											end
 										end
@@ -2800,7 +2803,7 @@ function PVPSound:OnEvent(event, ...)
 						SOTAobjectives.GateoftheYellowMoon = nil
 						SOTAobjectives.SouthGraveyard = nil
 						SOTAobjectives.WestGraveyard = nil
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\EndOfRound.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\EndOfRound.ogg")
 						SotaRoundOver = true
 					elseif string.find(EventMessage, BG_SOTA_LET_THE_BATTLE) then
 						SotaRoundOver = false
@@ -2808,16 +2811,16 @@ function PVPSound:OnEvent(event, ...)
 				 -- Eye of the Storm RBG Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					if string.find(EventMessage, BG_EOTSRBG_ALLIANCE_CAPTURED) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 					elseif string.find(EventMessage, BG_EOTSRBG_HORDE_CAPTURED) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 					end
 				 -- Temple of Kotmogu Orb Reset
 				elseif MyZone == "Zone_TempleofKotmogu" then
-					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\OrbReturned.mp3")
+					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\OrbReturned.ogg")
 				 -- Silvershard Mines Cart Arrived
 				elseif MyZone == "Zone_SilvershardMines" then
-					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\MineShaftOpening.mp3")
+					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\MineShaftOpening.ogg")
 				end
 
 			elseif event == "WORLD_MAP_UPDATE" then
@@ -2863,9 +2866,9 @@ function PVPSound:OnEvent(event, ...)
 										local type = SOTAget_objective(faketextureIndex)
 										if type then
 											if SOTAobj_state(SOTAobjectives[type]) == 2 and SOTAobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 											elseif SOTAobj_state(SOTAobjectives[type]) == 1 and SOTAobj_state(faketextureIndex) == 2 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 											end
 											SOTAobjectives[type] = faketextureIndex
 										end
@@ -2883,9 +2886,9 @@ function PVPSound:OnEvent(event, ...)
 										local type = SOTAget_objective(faketextureIndex)
 										if type then
 											if SOTAobj_state(SOTAobjectives[type]) == 2 and SOTAobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 											elseif SOTAobj_state(SOTAobjectives[type]) == 1 and SOTAobj_state(faketextureIndex) == 2 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 											end
 											SOTAobjectives[type] = faketextureIndex
 										end
@@ -2903,9 +2906,9 @@ function PVPSound:OnEvent(event, ...)
 										local type = SOTAget_objective(faketextureIndex)
 										if type then
 											if SOTAobj_state(SOTAobjectives[type]) == 2 and SOTAobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.ogg")
 											elseif SOTAobj_state(SOTAobjectives[type]) == 1 and SOTAobj_state(faketextureIndex) == 2 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.ogg")
 											end
 											SOTAobjectives[type] = faketextureIndex
 										end
@@ -2928,9 +2931,9 @@ function PVPSound:OnEvent(event, ...)
 									if SOTAobj_state(SOTAobjectives[type]) == 4 and SOTAobj_state(faketextureIndex) == 5 then
 										local textureIndex = select(3, GetMapLandmarkInfo(1))
 										if textureIndex == 46 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.ogg")
 										else
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.ogg")
 										end
 									end
 									SOTAobjectives[type] = faketextureIndex
@@ -2939,7 +2942,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Gate of the Blue Sapphire
-					for i = l, l, 1 do
+					for i = 3, 3, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2949,7 +2952,7 @@ function PVPSound:OnEvent(event, ...)
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.ogg")
 									end
 									SOTAobjectives[type] = faketextureIndex
 								end
@@ -2957,7 +2960,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Gate of the Green Emerald
-					for i = m, m, 1 do
+					for i = 4, 4, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2968,7 +2971,7 @@ function PVPSound:OnEvent(event, ...)
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.ogg")
 									end
 									SOTAobjectives[type] = faketextureIndex
 								end
@@ -2976,7 +2979,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Gate of the Purple Amethyst
-					for i = n, n, 1 do
+					for i = 1, 1, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2986,7 +2989,7 @@ function PVPSound:OnEvent(event, ...)
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.ogg")
 									end
 									SOTAobjectives[type] = faketextureIndex
 								end
@@ -2994,7 +2997,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Gate of the Red Sun
-					for i = o, o, 1 do
+					for i = 2, 2, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3004,7 +3007,7 @@ function PVPSound:OnEvent(event, ...)
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.ogg")
 									end
 									SOTAobjectives[type] = faketextureIndex
 								end
@@ -3023,7 +3026,7 @@ function PVPSound:OnEvent(event, ...)
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.ogg")
 									end
 									SOTAobjectives[type] = faketextureIndex
 								end
@@ -3095,7 +3098,7 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(faketextureIndex) == 7 then
 										if IocAllianceGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.ogg")
 											IocAllianceGateDown = true
 										end
 									end
@@ -3116,7 +3119,7 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(faketextureIndex) == 7 then
 										if IocAllianceGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.ogg")
 											IocAllianceGateDown = true
 										end
 									end
@@ -3137,7 +3140,7 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(faketextureIndex) == 7 then
 										if IocAllianceGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.ogg")
 											IocAllianceGateDown = true
 										end
 									end
@@ -3158,7 +3161,7 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(faketextureIndex) == 8 then
 										if IocHordeGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.ogg")
 											IocHordeGateDown = true
 										end
 									end
@@ -3179,7 +3182,7 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(faketextureIndex) == 8 then
 										if IocHordeGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.ogg")
 											IocHordeGateDown = true
 										end
 									end
@@ -3200,7 +3203,7 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(faketextureIndex) == 8 then
 										if IocHordeGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.ogg")
 											IocHordeGateDown = true
 										end
 									end
@@ -3220,17 +3223,17 @@ function PVPSound:OnEvent(event, ...)
 								local type = IOCget_objective(textureIndex)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									IOCobjectives[type] = textureIndex
 								end
@@ -3247,17 +3250,17 @@ function PVPSound:OnEvent(event, ...)
 								local type = IOCget_objective(textureIndex)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									IOCobjectives[type] = textureIndex
 								end
@@ -3274,17 +3277,17 @@ function PVPSound:OnEvent(event, ...)
 								local type = IOCget_objective(textureIndex)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									IOCobjectives[type] = textureIndex
 								end
@@ -3301,17 +3304,17 @@ function PVPSound:OnEvent(event, ...)
 								local type = IOCget_objective(textureIndex)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									IOCobjectives[type] = textureIndex
 								end
@@ -3328,17 +3331,17 @@ function PVPSound:OnEvent(event, ...)
 								local type = IOCget_objective(textureIndex)
 								if type then
 									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									IOCobjectives[type] = textureIndex
 								end
@@ -3359,68 +3362,68 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IsRated == false then
 										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									else
 										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									end
@@ -3429,7 +3432,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Draenei Ruins
-					for i = 2, 2, 1 do
+					for i = 4, 4, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
@@ -3440,68 +3443,68 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IsRated == false then
 										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									else
 										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									end
@@ -3510,7 +3513,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Fel Reaver Ruins
-					for i = 3, 3, 1 do
+					for i = 2, 2, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
@@ -3521,68 +3524,68 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IsRated == false then
 										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									else
 										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.MageTower == 411 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.MageTower == 410 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									end
@@ -3591,7 +3594,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Mage Tower
-					for i = 4, 4, 1 do
+					for i = 3, 3, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
@@ -3602,68 +3605,68 @@ function PVPSound:OnEvent(event, ...)
 								if type then
 									if IsRated == false then
 										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									else
 										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 											-- Alliance Dominating
 											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 											-- Horde Dominating
 											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 then
 												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 												end
 											end
 										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										EOTSobjectives[type] = faketextureIndex
 									end
@@ -3685,10 +3688,10 @@ function PVPSound:OnEvent(event, ...)
 								if BgIsOver ~= true then
 									if type then
 										if WGobj_state(WGobjectives[type]) == 7 and WGobj_state(faketextureIndex) == 8 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 											BgIsOver = true
 										elseif WGobj_state(WGobjectives[type]) == 8 and WGobj_state(faketextureIndex) == 7 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 											BgIsOver = true
 										end
 										WGobjectives[type] = faketextureIndex
@@ -3711,13 +3714,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3735,13 +3738,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3759,13 +3762,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3783,13 +3786,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3807,13 +3810,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3831,13 +3834,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3855,13 +3858,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = WGget_objective(faketextureIndex)
 									if type then
 										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										WGobjectives[type] = faketextureIndex
 									end
@@ -3883,10 +3886,10 @@ function PVPSound:OnEvent(event, ...)
 								if BgIsOver ~= true then
 									if type then
 										if TBobj_state(TBobjectives[type]) == 2 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 											BgIsOver = true
 										elseif TBobj_state(TBobjectives[type]) == 1 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 											BgIsOver = true
 										end
 										TBobjectives[type] = faketextureIndex
@@ -3940,21 +3943,21 @@ function PVPSound:OnEvent(event, ...)
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 1 and TBobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 2 and TBobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										TBobjectives[type] = faketextureIndex
 									end
@@ -3972,21 +3975,21 @@ function PVPSound:OnEvent(event, ...)
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 1 and TBobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 2 and TBobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										TBobjectives[type] = faketextureIndex
 									end
@@ -4004,21 +4007,21 @@ function PVPSound:OnEvent(event, ...)
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 1 and TBobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 2 and TBobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 3 and TBobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 4 and TBobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
 										TBobjectives[type] = faketextureIndex
 									end
@@ -4037,13 +4040,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(faketextureIndex) == 7 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 7 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 6 and TBobj_state(faketextureIndex) == 8 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 8 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										TBobjectives[type] = faketextureIndex
 									end
@@ -4061,13 +4064,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(faketextureIndex) == 7 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 7 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 6 and TBobj_state(faketextureIndex) == 8 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 8 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										TBobjectives[type] = faketextureIndex
 									end
@@ -4085,13 +4088,13 @@ function PVPSound:OnEvent(event, ...)
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(faketextureIndex) == 7 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 7 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 6 and TBobj_state(faketextureIndex) == 8 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.ogg")
 										elseif TBobj_state(TBobjectives[type]) == 8 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.ogg")
 										end
 										TBobjectives[type] = faketextureIndex
 									end
@@ -4127,9 +4130,9 @@ function PVPSound:OnEventTwo(event, ...)
 						if type then
 							if TargetHealthState(TargetHealthObjectives[type]) == 1 and TargetHealthState(TargetHealthPercent) == 2 then
 								if TargetGender == "Male" or TargetGender == "Unknown" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.ogg")
 								elseif TargetGender == "Female" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.ogg")
 								end
 							end
 							TargetHealthObjectives[type] = TargetHealthPercent
@@ -4141,9 +4144,9 @@ function PVPSound:OnEventTwo(event, ...)
 						if type then
 							if TargetHealthState(TargetHealthObjectives[type]) == 1 and TargetHealthState(TargetHealthPercent) == 2 then
 								if TargetGender == "Male" or TargetGender == "Unknown" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.ogg")
 								elseif TargetGender == "Female" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.ogg")
 								end
 							end
 							TargetHealthObjectives[type] = TargetHealthPercent
@@ -4154,9 +4157,9 @@ function PVPSound:OnEventTwo(event, ...)
 					if type then
 						if TargetHealthState(TargetHealthObjectives[type]) == 1 and TargetHealthState(TargetHealthPercent) == 2 then
 							if TargetGender == "Male" or TargetGender == "Unknown" then
-								PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+								PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.ogg")
 							elseif TargetGender == "Female" then
-								PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+								PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.ogg")
 							end
 						end
 						TargetHealthObjectives[type] = TargetHealthPercent
@@ -4167,8 +4170,29 @@ function PVPSound:OnEventTwo(event, ...)
 
 		if PS_BattlegroundSound == true then
 			if event == "UPDATE_WORLD_STATES" then
+				-- Arenas
+				if MyZone == "Zone_Arenas" then
+					if (select(4, GetWorldStateUIInfo(1))) ~= nil then
+						-- Time Remaining
+						local TimeRemaining = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
+						if TimeRemaining then
+							local type = WSGandTPTimeget_objective(TimeRemaining)
+							if type then
+								if WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 1 and WSGandTPTimeobj_state(TimeRemaining) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.ogg")
+								elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 3 and WSGandTPTimeobj_state(TimeRemaining) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.ogg")
+								elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 4 and WSGandTPTimeobj_state(TimeRemaining) == 5 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.ogg")
+								elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 5 and WSGandTPTimeobj_state(TimeRemaining) == 6 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.ogg")
+								end
+								WSGandTPTimeobjectives[type] = TimeRemaining
+							end
+						end
+					end
 				-- Warsong Gulch and Twin Peaks
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
+				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
 					if BgIsOver ~= true then
 						if (select(4, GetWorldStateUIInfo(1))) ~= nil then
 							-- Time Remaining
@@ -4177,13 +4201,13 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = WSGandTPTimeget_objective(TimeRemaining)
 								if type then
 									if WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 1 and WSGandTPTimeobj_state(TimeRemaining) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.ogg")
 									elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 3 and WSGandTPTimeobj_state(TimeRemaining) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.ogg")
 									elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 4 and WSGandTPTimeobj_state(TimeRemaining) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.ogg")
 									elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 5 and WSGandTPTimeobj_state(TimeRemaining) == 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.ogg")
 									end
 									WSGandTPTimeobjectives[type] = TimeRemaining
 								end
@@ -4200,38 +4224,38 @@ function PVPSound:OnEventTwo(event, ...)
 							local type = WSGandTPAget_objective(AllianceScore)
 							if type then
 								if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.ogg")
 									LastScored = "Alliance"
 								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 1 then
 									if LastScored == "Alliance" then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 									elseif LastScored == "Horde" then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.ogg")
 									else
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 									end
 									LastScored = "Alliance"
 								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 									LastScored = "Alliance"
 								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 1 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.ogg")
 									LastScored = "Alliance"
 								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.ogg")
 									LastScored = "Alliance"
 								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.ogg")
 									LastScored = "Alliance"
 								end
 								if PS_BattlegroundSoundEngine == true then
 									-- 3/3 Scores
 									if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 0 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
 									end
 								end
 								WSGandTPAobjectives[type] = AllianceScore
@@ -4242,38 +4266,38 @@ function PVPSound:OnEventTwo(event, ...)
 							local type = WSGandTPHget_objective(HordeScore)
 							if type then
 								if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.ogg")
 									LastScored = "Horde"
 								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 1 then
 									if LastScored == "Alliance" then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.ogg")
 									elseif LastScored == "Horde" then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 									else
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 									end
 									LastScored = "Horde"
 								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 									LastScored = "Horde"
 								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 1 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.ogg")
 									LastScored = "Horde"
 								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.ogg")
 									LastScored = "Horde"
 								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.ogg")
 									LastScored = "Horde"
 								end
 								if PS_BattlegroundSoundEngine == true then
 									-- 3/3 Scores
 									if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 0 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.ogg")
 									end
 								end
 								WSGandTPHobjectives[type] = HordeScore
@@ -4282,232 +4306,8 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 				 -- Arathi Basin
 				elseif MyZone == "Zone_ArathiBasin" then
-					-- Blacksmith
-					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.48 and y == 0.44 then
-								local faketextureIndex = textureIndex + 100
-								local type = ABget_objective(faketextureIndex)
-								if type then
-									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									ABobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Farm
-					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.58 and y == 0.58 then
-								local faketextureIndex = textureIndex + 200
-								local type = ABget_objective(faketextureIndex)
-								if type then
-									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Blacksmith == 128 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Blacksmith == 130 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Blacksmith == 128 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Blacksmith == 130 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									ABobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Gold Mine
-					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.58 and y == 0.28 then
-								local faketextureIndex = textureIndex + 300
-								local type = ABget_objective(faketextureIndex)
-								if type then
-									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									ABobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Lumber Mill
-					for i = 4, 4, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.38 and y == 0.59 then
-								local faketextureIndex = textureIndex + 400
-								local type = ABget_objective(faketextureIndex)
-								if type then
-									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.Stables == 538 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.Stables == 540 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									ABobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
 					-- Stables
-					for i = 5, 5, 1 do
+					for i = 1, 1, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -4517,45 +4317,269 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = ABget_objective(faketextureIndex)
 								if type then
 									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									end
+									ABobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+					-- Blacksmith
+					for i = 2, 2, 1 do
+						local textureIndex = select(3, GetMapLandmarkInfo(i))
+						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
+						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+							if x == 0.48 and y == 0.44 then
+								local faketextureIndex = textureIndex + 100
+								local type = ABget_objective(faketextureIndex)
+								if type then
+									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									end
+									ABobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+					-- Lumber Mill
+					for i = 3, 3, 1 do
+						local textureIndex = select(3, GetMapLandmarkInfo(i))
+						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
+						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+							if x == 0.38 and y == 0.59 then
+								local faketextureIndex = textureIndex + 400
+								local type = ABget_objective(faketextureIndex)
+								if type then
+									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.GoldMine == 318 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.GoldMine == 320 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									end
+									ABobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+					-- Gold Mine
+					for i = 4, 4, 1 do
+						local textureIndex = select(3, GetMapLandmarkInfo(i))
+						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
+						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+							if x == 0.58 and y == 0.28 then
+								local faketextureIndex = textureIndex + 300
+								local type = ABget_objective(faketextureIndex)
+								if type then
+									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Blacksmith == 128 and ABobjectives.Farm == 233 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Blacksmith == 130 and ABobjectives.Farm == 235 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									end
+									ABobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+					-- Farm
+					for i = 5, 5, 1 do
+						local textureIndex = select(3, GetMapLandmarkInfo(i))
+						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
+						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+							if x == 0.58 and y == 0.58 then
+								local faketextureIndex = textureIndex + 200
+								local type = ABget_objective(faketextureIndex)
+								if type then
+									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Blacksmith == 128 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Blacksmith == 130 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if ABobjectives.Blacksmith == 128 and ABobjectives.GoldMine == 318 and ABobjectives.LumberMill == 423 and ABobjectives.Stables == 538 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if ABobjectives.Blacksmith == 130 and ABobjectives.GoldMine == 320 and ABobjectives.LumberMill == 425 and ABobjectives.Stables == 540 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									ABobjectives[type] = faketextureIndex
 								end
@@ -4564,64 +4588,8 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 				 -- The Battle for Gilneas
 				elseif MyZone == "Zone_TheBattleforGilneas" then
-					-- Lighthouse
-					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.35 and y == 0.62 then
-								local faketextureIndex = textureIndex + 100
-								local type = TBFGget_objective(faketextureIndex)
-								if type then
-									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if TBFGobjectives.Mines == 218 and TBFGobjectives.Waterworks == 328 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if TBFGobjectives.Mines == 220 and TBFGobjectives.Waterworks == 330 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if TBFGobjectives.Mines == 218 and TBFGobjectives.Waterworks == 328 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if TBFGobjectives.Mines == 220 and TBFGobjectives.Waterworks == 330 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									TBFGobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
 					-- Mines
-					for i = 2, 2, 1 do
+					for i = 1, 1, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -4631,45 +4599,45 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = TBFGget_objective(faketextureIndex)
 								if type then
 									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Waterworks == 328 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Waterworks == 330 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Waterworks == 328 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Waterworks == 330 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									TBFGobjectives[type] = faketextureIndex
 								end
@@ -4677,7 +4645,7 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 					-- Waterworks
-					for i = 3, 3, 1 do
+					for i = 2, 2, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -4687,45 +4655,101 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = TBFGget_objective(faketextureIndex)
 								if type then
 									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Mines == 218 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Mines == 220 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Mines == 218 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Mines == 220 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									end
+									TBFGobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+					-- Lighthouse
+					for i = 3, 3, 1 do
+						local textureIndex = select(3, GetMapLandmarkInfo(i))
+						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
+						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+							if x == 0.35 and y == 0.62 then
+								local faketextureIndex = textureIndex + 100
+								local type = TBFGget_objective(faketextureIndex)
+								if type then
+									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if TBFGobjectives.Mines == 218 and TBFGobjectives.Waterworks == 328 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if TBFGobjectives.Mines == 220 and TBFGobjectives.Waterworks == 330 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if TBFGobjectives.Mines == 218 and TBFGobjectives.Waterworks == 328 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
+											end
+										end
+									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if TBFGobjectives.Mines == 220 and TBFGobjectives.Waterworks == 330 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
+											end
+										end
+									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
+									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									TBFGobjectives[type] = faketextureIndex
 								end
@@ -4734,56 +4758,56 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 				 -- Deepwind Gorge
 				elseif MyZone == "Zone_DeepwindGorge" then
-					-- Center Mine
+					-- Pandaren Mine
 					for i = 1, 1, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.52 and y == 0.49 then
-								local faketextureIndex = textureIndex + 100
+							if x == 0.58 and y == 0.16 then
+								local faketextureIndex = textureIndex + 300
 								local type = DGget_objective(faketextureIndex)
 								if type then
 									if DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
-										if DGobjectives.GoblinMine == 218 and DGobjectives.PandarenMine == 318 then
+										if DGobjectives.CenterMine == 118 and DGobjectives.GoblinMine == 218 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
-										if DGobjectives.GoblinMine == 220 and DGobjectives.PandarenMine == 320 then
+										if DGobjectives.CenterMine == 120 and DGobjectives.GoblinMine == 220 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
-										if DGobjectives.GoblinMine == 218 and DGobjectives.PandarenMine == 318 then
+										if DGobjectives.CenterMine == 118 and DGobjectives.GoblinMine == 218 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
-										if DGobjectives.GoblinMine == 220 and DGobjectives.PandarenMine == 320 then
+										if DGobjectives.CenterMine == 120 and DGobjectives.GoblinMine == 220 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 1 and DGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 2 and DGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									DGobjectives[type] = faketextureIndex
 								end
@@ -4801,101 +4825,101 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = DGget_objective(faketextureIndex)
 								if type then
 									if DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if DGobjectives.CenterMine == 118 and DGobjectives.PandarenMine == 318 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if DGobjectives.CenterMine == 120 and DGobjectives.PandarenMine == 320 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
 										if DGobjectives.CenterMine == 118 and DGobjectives.PandarenMine == 318 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
 										if DGobjectives.CenterMine == 120 and DGobjectives.PandarenMine == 320 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 1 and DGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 2 and DGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									DGobjectives[type] = faketextureIndex
 								end
 							end
 						end
 					end
-					-- Pandaren Mine
+					-- Center Mine
 					for i = 3, 3, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.58 and y == 0.16 then
-								local faketextureIndex = textureIndex + 300
+							if x == 0.52 and y == 0.49 then
+								local faketextureIndex = textureIndex + 100
 								local type = DGget_objective(faketextureIndex)
 								if type then
 									if DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
-										if DGobjectives.CenterMine == 118 and DGobjectives.GoblinMine == 218 then
+										if DGobjectives.GoblinMine == 218 and DGobjectives.PandarenMine == 318 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
-										if DGobjectives.CenterMine == 120 and DGobjectives.GoblinMine == 220 then
+										if DGobjectives.GoblinMine == 220 and DGobjectives.PandarenMine == 320 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
 										-- Alliance Dominating
-										if DGobjectives.CenterMine == 118 and DGobjectives.GoblinMine == 218 then
+										if DGobjectives.GoblinMine == 218 and DGobjectives.PandarenMine == 318 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
 										-- Horde Dominating
-										if DGobjectives.CenterMine == 120 and DGobjectives.GoblinMine == 220 then
+										if DGobjectives.GoblinMine == 220 and DGobjectives.PandarenMine == 320 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
 										end
 									elseif DGobj_state(DGobjectives[type]) == 1 and DGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 2 and DGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
 									DGobjectives[type] = faketextureIndex
 								end
@@ -4907,7 +4931,7 @@ function PVPSound:OnEventTwo(event, ...)
 					if BgIsOver ~= true then
 						if IsRated == false then
 							-- Alliance Victory Points
-							for i = 2, 2, 1 do
+							for i = 3, 3, 1 do
 								if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 									local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
 									if faketextureIndex then
@@ -4915,7 +4939,7 @@ function PVPSound:OnEventTwo(event, ...)
 										if BgIsOver ~= true then
 											if type then
 												if EOTSWINobj_state(EOTSWINobjectives[type]) == 2 and EOTSWINobj_state(faketextureIndex) == 1 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 													BgIsOver = true
 													PVPSound:ClearPaybackQueue()
 													PVPSound:ClearRetributionQueue()
@@ -4927,7 +4951,7 @@ function PVPSound:OnEventTwo(event, ...)
 								end
 							end
 							-- Horde Victory Points
-							for i = 3, 3, 1 do
+							for i = 4, 4, 1 do
 								if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 									local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
 									if faketextureIndex then
@@ -4935,7 +4959,7 @@ function PVPSound:OnEventTwo(event, ...)
 										if BgIsOver ~= true then
 											if type then
 												if EOTSWINobj_state(EOTSWINobjectives[type]) == 2 and EOTSWINobj_state(faketextureIndex) == 1 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 													BgIsOver = true
 													PVPSound:ClearPaybackQueue()
 													PVPSound:ClearRetributionQueue()
@@ -4952,7 +4976,7 @@ function PVPSound:OnEventTwo(event, ...)
 				elseif MyZone == "Zone_SilvershardMines" then
 					if BgIsOver ~= true then
 						-- Alliance Resources
-						for i = 1, 1, 1 do
+						for i = 2, 2, 1 do
 							if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 								local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
 								if faketextureIndex then
@@ -4960,7 +4984,7 @@ function PVPSound:OnEventTwo(event, ...)
 									if BgIsOver ~= true then
 										if type then
 											if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.ogg")
 												BgIsOver = true
 												PVPSound:ClearPaybackQueue()
 												PVPSound:ClearRetributionQueue()
@@ -4972,7 +4996,7 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						end
 						-- Horde Resources
-						for i = 2, 2, 1 do
+						for i = 3, 3, 1 do
 							if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 								local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
 								if faketextureIndex then
@@ -4980,7 +5004,7 @@ function PVPSound:OnEventTwo(event, ...)
 									if BgIsOver ~= true then
 										if type then
 											if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.ogg")
 												BgIsOver = true
 												PVPSound:ClearPaybackQueue()
 												PVPSound:ClearRetributionQueue()
@@ -5002,11 +5026,11 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = AVandIOCAget_objective(faketextureIndex)
 								if type then
 									if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 1 and AVandIOCAobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.ogg")
 									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 3 and AVandIOCAobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.ogg")
 									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 5 and AVandIOCAobj_state(faketextureIndex) == 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.ogg")
 									end
 									AVandIOCAobjectives[type] = faketextureIndex
 								end
@@ -5021,11 +5045,11 @@ function PVPSound:OnEventTwo(event, ...)
 								local type = AVandIOCHget_objective(faketextureIndex)
 								if type then
 									if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 1 and AVandIOCHobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.ogg")
 									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 3 and AVandIOCHobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.ogg")
 									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 5 and AVandIOCHobj_state(faketextureIndex) == 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.ogg")
 									end
 									AVandIOCHobjectives[type] = faketextureIndex
 								end
@@ -5298,7 +5322,7 @@ function PVPSound:TriggerKill(killtype, streaknumber)
 						if streaknumber < table.getn(KillLengthTable) then
 							PVPSound:AddEffectToQueue(killtype, KillLengthTable[streaknumber].dir)
 						elseif streaknumber == table.getn(KillLengthTable) then
-							PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\KillingMaxRank.mp3")
+							PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\KillingMaxRank.ogg")
 							PVPSound:AddEffectToQueue(killtype, KillLengthTable[streaknumber].dir)
 						end
 					end
@@ -5320,7 +5344,7 @@ function PVPSound:TriggerKill(killtype, streaknumber)
 					if streaknumber < table.getn(MultiKillLengthTable) then
 						PVPSound:AddEffectToQueue(killtype, MultiKillLengthTable[streaknumber].dir)
 					elseif streaknumber == table.getn(MultiKillLengthTable) then
-						PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\MultiKillingMaxRank.mp3")
+						PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\MultiKillingMaxRank.ogg")
 						PVPSound:AddEffectToQueue(killtype, MultiKillLengthTable[streaknumber].dir)
 					end
 				end

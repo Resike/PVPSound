@@ -11,13 +11,13 @@ function PVPSound:DataOnLoad()
 end
 
 function PVPSound:RegisterDataEvents()
-	PVPSoundDataFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	PVPSoundDataFrame:RegisterEvent("CHAT_MSG_ADDON")
 	PVPSoundDataFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end
 
 function PVPSound:UnregisterDataEvents()
-	PVPSoundDataFrame:RegisterEvent("CHAT_MSG_ADDON")
-	PVPSoundDataFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	PVPSoundDataFrame:UnregisterEvent("CHAT_MSG_ADDON")
+	PVPSoundDataFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 end
 
 -- Sprees
