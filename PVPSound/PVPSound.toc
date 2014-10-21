@@ -1,4 +1,4 @@
-## Interface: 50400
+## Interface: 60000
 ## Title: PVPSound |cFF99CC01rev|r |cFFFF00004.0.0|r
 ## Version: 4.0.0
 ## Author: Resike

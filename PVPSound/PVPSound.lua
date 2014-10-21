@@ -87,6 +87,7 @@ function PVPSound:RegisterEvents()
 end
 
 function PVPSound:UnregisterEvents()
+	print("UNREG")
 	PVPSoundFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	PVPSoundFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 	PVPSoundFrame:UnregisterEvent("PLAYER_DEAD")
@@ -590,13 +591,13 @@ local function SOTAget_objective(id)
 		return "ChamberofAncientRelics"
 	elseif id == 213 or id == 215 then
 		return "EastGraveyard"
-	elseif id >= 380 and id <= 382 then
+	elseif id >= 80 and id <= 82 then
 		return "GateoftheBlueSapphire"
-	elseif id >= 408 and id <= 410 then
+	elseif id >= 108 and id <= 110 then
 		return "GateoftheGreenEmerald"
-	elseif id >= 505 and id <= 507 then
+	elseif id >= 105 and id <= 107 then
 		return "GateofthePurpleAmethyst"
-	elseif id >= 677 and id <= 679 then
+	elseif id >= 77 and id <= 79 then
 		return "GateoftheRedSun"
 	elseif id >= 702 and id <= 704 then
 		return "GateoftheYellowMoon"
@@ -620,11 +621,11 @@ local function SOTAobj_state(id)
 		return 4 -- Chamber Gate Damaged
 	elseif id == 179 or id == 182 then
 		return 5 -- Chamber Gate Destroyed
-	elseif id == 380 or id == 408 or id == 505 or id == 677 or id == 702 then
+	elseif id == 80 or id == 108 or id == 105 or id == 77 or id == 702 then
 		return 6 -- Other Gates Undamaged
-	elseif id == 381 or id == 409 or id == 506 or id == 678 or id == 703 then
+	elseif id == 81 or id == 109 or id == 106 or id == 78 or id == 703 then
 		return 7 -- Other Gates Damaged
-	elseif id == 382 or id == 410 or id == 507 or id == 679 or id == 704 then
+	elseif id == 82 or id == 110 or id == 107 or id == 79 or id == 704 then
 		return 8 -- Other Gates Destroyed
 	else
 		return 0
@@ -665,7 +666,7 @@ local function EOTSobj_state(id)
 end
 
 -- Eye of the Storm Victory Points
-local EOTSWINobjectives = {VictoryPoints = nil}
+--[[local EOTSWINobjectives = {VictoryPoints = nil}
 
 local function EOTSWINget_objective(id)
 	if id then
@@ -681,7 +682,7 @@ local function EOTSWINobj_state(id)
 	else
 		return 2 -- Victory Points: 0-1599/1600
 	end
-end
+end]]
 
 -- Silvershard Mines Resources
 local SMWINobjectives = {Resources = nil}
@@ -882,11 +883,6 @@ function PVPSound:OnEvent(event, ...)
 		if Addon == "PVPSound" then
 			local _
 			_, _, _, WowBuildInfo = GetBuildInfo()
-			if PS_EnableAddon == true then
-				PVPSound:OnLoad()
-				PVPSound:OnLoadTwo()
-				PVPSound:OnLoadThree()
-			end
 			PVPSound:KillingSettings()
 			PVPSound:DefaultSettings()
 			PVPSound:SetAddonLanguage()
@@ -909,6 +905,11 @@ function PVPSound:OnEvent(event, ...)
 			end
 			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
+			if PS_EnableAddon == true then
+				PVPSound:OnLoad()
+				PVPSound:OnLoadTwo()
+				PVPSound:OnLoadThree()
+			end
 			PVPSoundOptions:OptionsAddonIsLoaded()
 			-- Addon loaded message
 			print("|cFF50C0FFPVPSound |cFFFFA500"..GetAddOnMetadata("PVPSound", "Version").."|cFF50C0FF loaded.|r")
@@ -918,9 +919,10 @@ function PVPSound:OnEvent(event, ...)
 	if PS_EnableAddon == true then
 		if event == "PLAYER_ENTERING_WORLD" then
 			MyFaction = UnitFactionGroup("player")
+			SetMapToCurrentZone()
 			CurrentZoneId = GetCurrentMapAreaID()
 			CurrentZoneText = GetRealZoneText()
-			InstanceType = select(2, IsInInstance())
+			InstanceType = (select(2, IsInInstance()))
 			IsRated = IsRatedBattleground()
 			TimerReset = true
 			-- Battlegrounds
@@ -972,12 +974,14 @@ function PVPSound:OnEvent(event, ...)
 			if MyZone == "Zone_IsleofConquest" then
 				IocAllianceGateDown = false
 				IocHordeGateDown = false
-				for i = 1, 3, 1 do 
+				-- Alliance Gates
+				for i = 9, 11, 1 do 
 					if (select(3, GetMapLandmarkInfo(i))) == 82 then
 						IocAllianceGateDown = true
 					end
 				end
-				for i = 7, 9, 1 do 
+				-- Horde Gates
+				for i = 6, 8, 1 do 
 					if (select(3, GetMapLandmarkInfo(i))) == 79 then
 						IocHordeGateDown = true
 					end
@@ -1002,13 +1006,13 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			if MyZone == "Zone_EyeoftheStorm" then
-				if IsRated == false then
+				--[[if IsRated == false then
 					EOTSWINobjectives.VictoryPoints = nil
 					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
 					EOTSWINobjectives.VictoryPoints = EOTSWINInit
 					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 					EOTSWINobjectives.VictoryPoints = EOTSWINInit
-				end
+				end]]
 				local BloodElfTowerInit = select(3, GetMapLandmarkInfo(1))
 				local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(4))
 				local FelReaverRuinsInit = select(3, GetMapLandmarkInfo(3))
@@ -1040,8 +1044,8 @@ function PVPSound:OnEvent(event, ...)
 				ABobjectives.Stables = StablesInit + 500
 			end
 			if MyZone == "Zone_AlteracValley" then
-				local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), ": (%d+)"))
-				local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
+				local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
+				local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
 				local ColdtoothMineInit = select(3, GetMapLandmarkInfo(1))
 				local DunBaldarNorthBunkerInit = select(3, GetMapLandmarkInfo(3))
 				local DunBaldarSouthBunkerInit = select(3, GetMapLandmarkInfo(4))
@@ -1099,7 +1103,7 @@ function PVPSound:OnEvent(event, ...)
 				AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
 			end
 			if MyZone == "Zone_IsleofConquest" then
-				local j, k, l, m, n, o, p, q, r, s, t
+				--[[local j, k, l, m, n, o, p, q, r, s, t
 				if (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 					j = 1
 					k = 2
@@ -1148,18 +1152,18 @@ function PVPSound:OnEvent(event, ...)
 					r = 11
 					s = 12
 					t = 13
-				end
-				local AllianceGateEInit = select(3, GetMapLandmarkInfo(j))
-				local AllianceGateWInit = select(3, GetMapLandmarkInfo(k))
-				local AllianceGateSInit = select(3, GetMapLandmarkInfo(l))
-				local DocksInit = select(3, GetMapLandmarkInfo(m))
-				local HangarInit = select(3, GetMapLandmarkInfo(n))
-				local HordeGateEInit = select(3, GetMapLandmarkInfo(o))
-				local HordeGateWInit = select(3, GetMapLandmarkInfo(p))
-				local HordeGateNInit = select(3, GetMapLandmarkInfo(q))
-				local QuarryInit = select(3, GetMapLandmarkInfo(r))
-				local RefinerieInit = select(3, GetMapLandmarkInfo(s))
-				local WorkshopInit = select(3, GetMapLandmarkInfo(t))
+				end]]
+				local AllianceGateEInit = select(3, GetMapLandmarkInfo(9))
+				local AllianceGateWInit = select(3, GetMapLandmarkInfo(10))
+				local AllianceGateSInit = select(3, GetMapLandmarkInfo(11))
+				local DocksInit = select(3, GetMapLandmarkInfo(3))
+				local HangarInit = select(3, GetMapLandmarkInfo(2))
+				local HordeGateEInit = select(3, GetMapLandmarkInfo(7))
+				local HordeGateWInit = select(3, GetMapLandmarkInfo(8))
+				local HordeGateNInit = select(3, GetMapLandmarkInfo(6))
+				local QuarryInit = select(3, GetMapLandmarkInfo(4))
+				local RefinerieInit = select(3, GetMapLandmarkInfo(5))
+				local WorkshopInit = select(3, GetMapLandmarkInfo(1))
 				IOCobjectives.AllianceGateE = nil
 				IOCobjectives.AllianceGateW = nil
 				IOCobjectives.AllianceGateS = nil
@@ -1218,10 +1222,10 @@ function PVPSound:OnEvent(event, ...)
 				end
 				local ChamberofAncientRelicsInit = select(3, GetMapLandmarkInfo(j))
 				local EastGraveyardInit = select(3, GetMapLandmarkInfo(k))
-				local GateoftheBlueSapphireInit = select(3, GetMapLandmarkInfo(l))
-				local GateoftheGreenEmeraldInit = select(3, GetMapLandmarkInfo(m))
-				local GateofthePurpleAmethystInit = select(3, GetMapLandmarkInfo(n))
-				local GateoftheRedSunInit = select(3, GetMapLandmarkInfo(o))
+				local GateoftheBlueSapphireInit = select(3, GetMapLandmarkInfo(3))
+				local GateoftheGreenEmeraldInit = select(3, GetMapLandmarkInfo(4))
+				local GateofthePurpleAmethystInit = select(3, GetMapLandmarkInfo(1))
+				local GateoftheRedSunInit = select(3, GetMapLandmarkInfo(2))
 				local GateoftheYellowMoonInit
 				local SouthGraveyardInit
 				local WestGraveyardInit
@@ -1245,10 +1249,10 @@ function PVPSound:OnEvent(event, ...)
 				SOTAobjectives.WestGraveyard = nil
 				SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
 				SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
-				SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit + 300
-				SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit + 300 -- Intended
-				SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit + 400
-				SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit + 600
+				SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
+				SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
+				SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
+				SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
 				if p ~= nil then
 					SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
 				end
@@ -1439,9 +1443,10 @@ function PVPSound:OnEvent(event, ...)
 
 		if PS_BattlegroundSound == true then
 			if event == "ZONE_CHANGED_NEW_AREA" then
+				SetMapToCurrentZone()
 				CurrentZoneId = GetCurrentMapAreaID()
 				CurrentZoneText = GetRealZoneText()
-				InstanceType = select(2, IsInInstance())
+				InstanceType = (select(2, IsInInstance()))
 				IsRated = IsRatedBattleground()
 				BgIsOver = false
 				-- Battlegrounds
@@ -1489,12 +1494,14 @@ function PVPSound:OnEvent(event, ...)
 				if MyZone == "Zone_IsleofConquest" then
 					IocAllianceGateDown = false
 					IocHordeGateDown = false
-					for i = 1, 3, 1 do 
+					-- Alliance Gates
+					for i = 9, 11, 1 do 
 						if select(3, GetMapLandmarkInfo(i)) == 82 then
 							IocAllianceGateDown = true
 						end
 					end
-					for i = 7, 9, 1 do 
+					-- Horde Gates
+					for i = 6, 8, 1 do 
 						if select(3, GetMapLandmarkInfo(i)) == 79 then
 							IocHordeGateDown = true
 						end
@@ -1519,13 +1526,13 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 				if MyZone == "Zone_EyeoftheStorm" then
-					if IsRated == false then
+					--[[if IsRated == false then
 						EOTSWINobjectives.VictoryPoints = nil
 						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
 						EOTSWINobjectives.VictoryPoints = EOTSWINInit
 						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 						EOTSWINobjectives.VictoryPoints = EOTSWINInit
-					end
+					end]]
 					local BloodElfTowerInit = select(3, GetMapLandmarkInfo(1))
 					local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(4))
 					local FelReaverRuinsInit = select(3, GetMapLandmarkInfo(2))
@@ -1557,8 +1564,8 @@ function PVPSound:OnEvent(event, ...)
 					ABobjectives.Stables = StablesInit + 500
 				end
 				if MyZone == "Zone_AlteracValley" then
-					local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), ": (%d+)"))
-					local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
+					local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
+					local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
 					local ColdtoothMineInit = select(3, GetMapLandmarkInfo(1))
 					local DunBaldarNorthBunkerInit = select(3, GetMapLandmarkInfo(3))
 					local DunBaldarSouthBunkerInit = select(3, GetMapLandmarkInfo(4))
@@ -1616,7 +1623,7 @@ function PVPSound:OnEvent(event, ...)
 					AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
 				end
 				if MyZone == "Zone_IsleofConquest" then
-					local j, k, l, m, n, o, p, q, r, s, t
+					--[[local j, k, l, m, n, o, p, q, r, s, t
 					if (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 						j = 1
 						k = 2
@@ -1665,18 +1672,18 @@ function PVPSound:OnEvent(event, ...)
 						r = 11
 						s = 12
 						t = 13
-					end
-					local AllianceGateEInit = select(3, GetMapLandmarkInfo(j))
-					local AllianceGateWInit = select(3, GetMapLandmarkInfo(k))
-					local AllianceGateSInit = select(3, GetMapLandmarkInfo(l))
-					local DocksInit = select(3, GetMapLandmarkInfo(m))
-					local HangarInit = select(3, GetMapLandmarkInfo(n))
-					local HordeGateEInit = select(3, GetMapLandmarkInfo(o))
-					local HordeGateWInit = select(3, GetMapLandmarkInfo(p))
-					local HordeGateNInit = select(3, GetMapLandmarkInfo(q))
-					local QuarryInit = select(3, GetMapLandmarkInfo(r))
-					local RefinerieInit = select(3, GetMapLandmarkInfo(s))
-					local WorkshopInit = select(3, GetMapLandmarkInfo(t))
+					end]]
+					local AllianceGateEInit = select(3, GetMapLandmarkInfo(9))
+					local AllianceGateWInit = select(3, GetMapLandmarkInfo(10))
+					local AllianceGateSInit = select(3, GetMapLandmarkInfo(11))
+					local DocksInit = select(3, GetMapLandmarkInfo(3))
+					local HangarInit = select(3, GetMapLandmarkInfo(2))
+					local HordeGateEInit = select(3, GetMapLandmarkInfo(7))
+					local HordeGateWInit = select(3, GetMapLandmarkInfo(8))
+					local HordeGateNInit = select(3, GetMapLandmarkInfo(6))
+					local QuarryInit = select(3, GetMapLandmarkInfo(4))
+					local RefinerieInit = select(3, GetMapLandmarkInfo(5))
+					local WorkshopInit = select(3, GetMapLandmarkInfo(1))
 					IOCobjectives.AllianceGateE = nil
 					IOCobjectives.AllianceGateW = nil
 					IOCobjectives.AllianceGateS = nil
@@ -1735,10 +1742,10 @@ function PVPSound:OnEvent(event, ...)
 					end
 					local ChamberofAncientRelicsInit = select(3, GetMapLandmarkInfo(j))
 					local EastGraveyardInit = select(3, GetMapLandmarkInfo(k))
-					local GateoftheBlueSapphireInit = select(3, GetMapLandmarkInfo(l))
-					local GateoftheGreenEmeraldInit = select(3, GetMapLandmarkInfo(m))
-					local GateofthePurpleAmethystInit = select(3, GetMapLandmarkInfo(n))
-					local GateoftheRedSunInit = select(3, GetMapLandmarkInfo(o))
+					local GateoftheBlueSapphireInit = select(3, GetMapLandmarkInfo(3))
+					local GateoftheGreenEmeraldInit = select(3, GetMapLandmarkInfo(4))
+					local GateofthePurpleAmethystInit = select(3, GetMapLandmarkInfo(1))
+					local GateoftheRedSunInit = select(3, GetMapLandmarkInfo(2))
 					local GateoftheYellowMoonInit
 					local SouthGraveyardInit
 					local WestGraveyardInit
@@ -1762,10 +1769,10 @@ function PVPSound:OnEvent(event, ...)
 					SOTAobjectives.WestGraveyard = nil
 					SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
 					SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
-					SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit + 300
-					SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit + 300 -- Intended
-					SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit + 400
-					SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit + 600
+					SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
+					SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
+					SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
+					SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
 					if p ~= nil then
 						SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
 					end
@@ -1918,7 +1925,6 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					else
-						--print(AlreadyPlaySound)
 						if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.ogg")
 							AlreadyPlaySound = true
@@ -2030,18 +2036,12 @@ function PVPSound:OnEvent(event, ...)
 				 -- Strand of the Ancients Attack and Defend Sounds
 				elseif MyZone == "Zone_StrandoftheAncients" then
 					if string.find(EventMessage, BG_SOTA_ROUND_ONE) or string.find(EventMessage, BG_SOTA_ROUND_TWO) then
-						for i = 1, 1, 1 do
+						for i = 7, 7, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							if textureIndex then
 								if textureIndex == 46 then
 									SotaAttacker = "Horde"
-								end
-							end
-						end
-						for i = 8, 8, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							if textureIndex then
-								if textureIndex == 48 then
+								else
 									SotaAttacker = "Alliance"
 								end
 							end
@@ -2260,7 +2260,6 @@ function PVPSound:OnEvent(event, ...)
 					end
 				 -- Temple of Kotmogu
 				elseif MyZone == "Zone_TempleofKotmogu" then
-					print(event)
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Orb_PickedUp.ogg")
 					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
@@ -2268,7 +2267,6 @@ function PVPSound:OnEvent(event, ...)
 					end
 				 -- Silvershard Mines
 				elseif MyZone == "Zone_SilvershardMines" then
-					print(event, EventMessage)
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
 						if string.find(EventMessage, L["captured"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.ogg")
@@ -2282,10 +2280,10 @@ function PVPSound:OnEvent(event, ...)
 
 			elseif event == "CHAT_MSG_MONSTER_YELL" then
 				-- Alterac Valley
-				if (MyZone == "Zone_AlteracValley") then
+				if MyZone == "Zone_AlteracValley" then
 					-- Bunkers
 					-- Dun Baldar North Bunker
-					for i = 3, 3, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2307,7 +2305,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Dun Baldar South Bunker
-					for i = 4, 4, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2329,7 +2327,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Icewing Bunker
-					for i = 12, 12, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2351,7 +2349,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Stonehearth Bunker
-					for i = 16, 16, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2374,7 +2372,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Towers
 					-- East Frostwolf Tower
-					for i = 5, 5, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2396,7 +2394,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Iceblood Tower
-					for i = 11, 11, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2418,7 +2416,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Tower Point
-					for i = 21, 21, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2440,7 +2438,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- West Frostwolf Tower
-					for i = 22, 22, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2463,7 +2461,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Graveyards
 					-- Frostwolf Graveyard
-					for i = 6, 6, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2495,7 +2493,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Frostwolf Relief Hut
-					--[[for i = 8, 8, 1 do
+					--[[for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2527,7 +2525,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end]]--
 					-- Iceblood Graveyard
-					for i = 10, 10, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2559,7 +2557,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Snowfall Graveyard
-					for i = 15, 15, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2591,7 +2589,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Stonehearth Graveyard
-					for i = 17, 17, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2623,7 +2621,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Stormpike Aid Station
-					--[[for i = 19, 19, 1 do
+					--[[for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2655,7 +2653,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end]]--
 					-- Stormpike Graveyard
-					for i = 20, 20, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2688,7 +2686,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Mines
 					-- Coldtooth Mine
-					--[[for i = 1, 1, 1 do
+					--[[for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2712,7 +2710,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end]]--
 					-- Irondeep Mine
-					--[[for i = 14, 14, 1 do
+					--[[for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2826,7 +2824,7 @@ function PVPSound:OnEvent(event, ...)
 			elseif event == "WORLD_MAP_UPDATE" then
 				-- Strand of the Ancients
 				if MyZone == "Zone_StrandoftheAncients" then
-					local j, k, l, m, n, o, p
+					--[[local j, k, l, m, n, o, p
 					if (select(4, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
 						j = 1
 						k = 2
@@ -2851,12 +2849,12 @@ function PVPSound:OnEvent(event, ...)
 						n = 4
 						o = 5
 						p = 6
-					end
+					end]]
 					if SotaRoundOver ~= true then
-						if k ~= nil then
+						--if k ~= nil then
 							-- Graveyards
 							-- East Graveyard
-							for i = k, k, 1 do
+							for i = 8, 8, 1 do
 								local textureIndex = select(3, GetMapLandmarkInfo(i))
 								local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 								local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2876,7 +2874,7 @@ function PVPSound:OnEvent(event, ...)
 								end
 							end
 							-- South Graveyard
-							for i = 9, 9, 1 do
+							for i = 9, 10, 1 do
 								local textureIndex = select(3, GetMapLandmarkInfo(i))
 								local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 								local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2896,7 +2894,7 @@ function PVPSound:OnEvent(event, ...)
 								end
 							end
 							-- West Graveyard
-							for i = 12, 12, 1 do
+							for i = 9, 12, 3 do
 								local textureIndex = select(3, GetMapLandmarkInfo(i))
 								local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 								local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2915,11 +2913,11 @@ function PVPSound:OnEvent(event, ...)
 									end
 								end
 							end
-						end
+						--end
 					end
 					-- Gates
 					-- Chamber of Ancient Relics
-					for i = j, j, 1 do
+					for i = 11, 12, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -2929,7 +2927,7 @@ function PVPSound:OnEvent(event, ...)
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 4 and SOTAobj_state(faketextureIndex) == 5 then
-										local textureIndex = select(3, GetMapLandmarkInfo(1))
+										local textureIndex = select(3, GetMapLandmarkInfo(7))
 										if textureIndex == 46 then
 											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.ogg")
 										else
@@ -2948,7 +2946,7 @@ function PVPSound:OnEvent(event, ...)
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.57 and y == 0.38 then
-								local faketextureIndex = textureIndex + 300
+								local faketextureIndex = textureIndex
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
@@ -2967,7 +2965,7 @@ function PVPSound:OnEvent(event, ...)
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.39 and y == 0.40 then
 								-- Intended
-								local faketextureIndex = textureIndex + 300
+								local faketextureIndex = textureIndex
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
@@ -2985,7 +2983,7 @@ function PVPSound:OnEvent(event, ...)
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.40 and y == 0.57 then
-								local faketextureIndex = textureIndex + 400
+								local faketextureIndex = textureIndex
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
@@ -3003,7 +3001,7 @@ function PVPSound:OnEvent(event, ...)
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.57 and y == 0.55 then
-								local faketextureIndex = textureIndex + 600
+								local faketextureIndex = textureIndex
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
@@ -3015,13 +3013,12 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Gate of the Yellow Moon
-					for i = p, p, 1 do
+					for i = 10, 11, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.70 then
-								-- Intended
 								local faketextureIndex = textureIndex + 600
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
@@ -3035,7 +3032,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 				 -- Isle of Conquest
 				elseif MyZone == "Zone_IsleofConquest" then
-					local j, k, l, m, n, o, p, q, r, s, t
+					--[[local j, k, l, m, n, o, p, q, r, s, t
 					if (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 						j = 1
 						k = 2
@@ -3084,10 +3081,10 @@ function PVPSound:OnEvent(event, ...)
 						r = 11
 						s = 12
 						t = 13
-					end
+					end]]
 					-- Gates
-					-- Alliance Gate (E)
-					for i = j, j, 1 do
+					-- Alliance Gate (East)
+					for i = 9, 9, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3107,8 +3104,8 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					-- Alliance Gate (W)
-					for i = k, k, 1 do
+					-- Alliance Gate (West)
+					for i = 10, 10, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3128,8 +3125,8 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					-- Alliance Gate (S)
-					for i = l, l, 1 do
+					-- Alliance Gate (Front)
+					for i = 11, 11, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3149,13 +3146,13 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					-- Horde Gate (E)
-					for i = o, o, 1 do
+					-- Horde Gate (East)
+					for i = 7, 7, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.48 and y == 0.31 then
+							if x == 0.51 and y == 0.27 then
 								local faketextureIndex = textureIndex + 400
 								local type = IOCget_objective(faketextureIndex)
 								if type then
@@ -3170,13 +3167,13 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					-- Horde Gate (W)
-					for i = p, p, 1 do
+					-- Horde Gate (West)
+					for i = 8, 8, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.27 then
+							if x == 0.45 and y == 0.27 then
 								local faketextureIndex = textureIndex + 500
 								local type = IOCget_objective(faketextureIndex)
 								if type then
@@ -3191,13 +3188,13 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					-- Horde Gate (N)
-					for i = q, q, 1 do
+					-- Horde Gate (Front)
+					for i = 6, 6, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.45 and y == 0.27 then
+							if x == 0.48 and y == 0.31 then
 								local faketextureIndex = textureIndex + 600
 								local type = IOCget_objective(faketextureIndex)
 								if type then
@@ -3214,7 +3211,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Bases
 					-- Docks
-					for i = m, m, 1 do
+					for i = 3, 3, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3241,7 +3238,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Hangar
-					for i = n, n, 1 do
+					for i = 2, 2, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3268,7 +3265,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Quarry
-					for i = r, r, 1 do
+					for i = 4, 4, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3295,7 +3292,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Refinery
-					for i = s, s, 1 do
+					for i = 5, 5, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3322,7 +3319,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					-- Workshop
-					for i = t, t, 1 do
+					for i = 1, 1, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3360,73 +3357,28 @@ function PVPSound:OnEvent(event, ...)
 								local faketextureIndex = textureIndex + 100
 								local type = EOTSget_objective(faketextureIndex)
 								if type then
-									if IsRated == false then
-										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
-									else
-										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
+									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
+									EOTSobjectives[type] = faketextureIndex
 								end
 							end
 						end
@@ -3441,73 +3393,28 @@ function PVPSound:OnEvent(event, ...)
 								local faketextureIndex = textureIndex + 200
 								local type = EOTSget_objective(faketextureIndex)
 								if type then
-									if IsRated == false then
-										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
-									else
-										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
+									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
+									EOTSobjectives[type] = faketextureIndex
 								end
 							end
 						end
@@ -3522,73 +3429,28 @@ function PVPSound:OnEvent(event, ...)
 								local faketextureIndex = textureIndex + 300
 								local type = EOTSget_objective(faketextureIndex)
 								if type then
-									if IsRated == false then
-										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
-									else
-										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.MageTower == 411 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.MageTower == 410 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
+									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
+									EOTSobjectives[type] = faketextureIndex
 								end
 							end
 						end
@@ -3603,73 +3465,28 @@ function PVPSound:OnEvent(event, ...)
 								local faketextureIndex = textureIndex + 400
 								local type = EOTSget_objective(faketextureIndex)
 								if type then
-									if IsRated == false then
-										if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
+										-- Alliance Dominating
+										if EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
-									else
-										if EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
+										-- Horde Dominating
+										if EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
 											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 2 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.ogg")
-											-- Alliance Dominating
-											if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.DraeneiRuins == 211 and EOTSobjectives.FelReaverRuins == 311 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.ogg")
-											-- Horde Dominating
-											if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.DraeneiRuins == 210 and EOTSobjectives.FelReaverRuins == 310 then
-												if PS_BattlegroundSoundEngine == true then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.ogg")
-												end
-											end
-										elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
-										elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 										end
-										EOTSobjectives[type] = faketextureIndex
+									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.ogg")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.ogg")
 									end
+									EOTSobjectives[type] = faketextureIndex
 								end
 							end
 						end
@@ -3677,7 +3494,7 @@ function PVPSound:OnEvent(event, ...)
 				 -- Wintergrasp
 				elseif MyZone == "Zone_Wintergrasp" then
 					-- Fortress Graveyard
-					for i = 6, 6, 1 do
+					for i = 35, 35, 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3704,7 +3521,7 @@ function PVPSound:OnEvent(event, ...)
 					if isActive == true then
 						-- Towers
 						-- Flamewatch Tower
-						for i = 5, 5, 1 do
+						for i = 3, 3, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3728,7 +3545,7 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Shadowsight Tower
-						for i = 9, 9, 1 do
+						for i = 1, 1, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3752,7 +3569,7 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Winter's Edge Tower
-						for i = 15, 15, 1 do
+						for i = 2, 2, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3776,7 +3593,7 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Wintergrasp Fortress Tower (NE)
-						for i = 18, 18, 1 do
+						for i = 6, 6, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3800,7 +3617,7 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Wintergrasp Fortress Tower (NW)
-						for i = 19, 19, 1 do
+						for i = 7, 7, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3824,7 +3641,7 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Wintergrasp Fortress Tower (SE)
-						for i = 20, 20, 1 do
+						for i = 5, 5, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3848,7 +3665,7 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Wintergrasp Fortress Tower (SW)
-						for i = 21, 21, 1 do
+						for i = 4, 4, 1 do
 							local textureIndex = select(3, GetMapLandmarkInfo(i))
 							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -3875,7 +3692,7 @@ function PVPSound:OnEvent(event, ...)
 				 -- Tol Barad
 				elseif MyZone == "Zone_TolBarad" then
 					-- Baradin Hold
-					for i = 1, 1, 1 do
+					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(3, GetMapLandmarkInfo(i))
 						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
 						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
@@ -4927,7 +4744,7 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				 -- Eye of the Storm WinSounds
-				elseif MyZone == "Zone_EyeoftheStorm" then
+				--[[elseif MyZone == "Zone_EyeoftheStorm" then
 					if BgIsOver ~= true then
 						if IsRated == false then
 							-- Alliance Victory Points
@@ -4971,7 +4788,7 @@ function PVPSound:OnEventTwo(event, ...)
 								end
 							end
 						end
-					end
+					end]]
 				 -- Silvershard Mines WinSounds
 				elseif MyZone == "Zone_SilvershardMines" then
 					if BgIsOver ~= true then
@@ -5019,7 +4836,7 @@ function PVPSound:OnEventTwo(event, ...)
 				 -- Alterac Valley and Isle of Conquest Countdown
 				elseif MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" then
 					-- Alliance Reinforcements
-					for i = 1, 1, 1 do
+					for i = 2, 2, 1 do
 						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
 							if faketextureIndex then
@@ -5038,7 +4855,7 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 					-- Horde Reinforcements
-					for i = 2, 2, 1 do
+					for i = 3, 3, 1 do
 						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
 							if faketextureIndex then
@@ -5369,4 +5186,8 @@ function PVPSound:TriggerKill(killtype, streaknumber)
 			end
 		end
 	end
+end
+
+function ASD()
+	print(MyZone)
 end

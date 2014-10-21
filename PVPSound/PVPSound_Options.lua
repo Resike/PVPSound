@@ -1802,6 +1802,7 @@ function PVPSound:SlashCommands(arg1)
 			end
 		end
 	elseif arg2 == "map" then
+		SetMapToCurrentZone()
 		local CurrentZoneId = GetCurrentMapAreaID()
 		if CurrentZoneId ~= nil or CurrentZoneId ~= "" then
 			print("|cFF50C0FF"..L["Current Zone's ID:"].."|r")

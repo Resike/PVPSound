@@ -32,7 +32,7 @@ function PVPSound:AddToQueue(file)
 			if SoundLengthTable ~= nil then
 				local FileFoundLength
 				-- Is there .ogg at the end?
-				print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
+				--print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
 				if (not string.find(string.lower(file), ".ogg", string.len(file) - 4)) then
 					-- If not then add it
 					file = file..".ogg"
@@ -117,7 +117,7 @@ function PVPSound:AddKillToQueue(killtype, file)
 			if KillSoundLengthTable ~= nil then
 				local KillFileFoundLength
 				-- Is there .ogg at the end?
-				print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
+				--print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
 				if (not string.find(string.lower(file), ".ogg", string.len(file) - 4)) then
 					-- If not then add it
 					file = file..".ogg"
@@ -202,7 +202,7 @@ function PVPSound:AddEffectToQueue(killtype, file)
 			if SoundEffectLengthTable ~= nil then
 				local EffectFileFoundLength
 				-- Is there .ogg at the end?
-				print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
+				--print(string.find(string.lower(file), ".ogg", string.len(file) - 4), file)
 				if (not string.find(string.lower(file), ".ogg", string.len(file) - 4)) then
 					-- If not then add it
 					file = file..".ogg"
