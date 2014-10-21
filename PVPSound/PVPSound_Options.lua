@@ -1509,10 +1509,13 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FFEnable Addon: |cFFFF4500"..Opt_Disable.."|r")
 		end
 	elseif arg2 == "pvp" then
-		PS_Mode = not PS_Mode
-		if PS_Mode == true then
+		PS_Mode = "PVP"
+		if PS_Mode == "PVP" then
 			print("|cFF50C0FF"..Opt_Mode..": |cFFADFF2F"..Opt_PVP.."|r")
-		else
+		end
+	elseif arg2 == "pve" then
+		PS_Mode = "PVE"
+		if PS_Mode == "PVE" then
 			print("|cFF50C0FF"..Opt_Mode..": |cFFFF4500"..Opt_PVE.."|r")
 		end
 	elseif arg2 == "emote" then
@@ -1862,7 +1865,7 @@ end
 
 function PVPSound:PrintSlashMenu()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..Opt_HelpInput.."|r")
-	if PS_Mode == true then
+	if PS_Mode == "PVP" then
 		print("|cFF50C0FF"..Opt_Mode..": |cFFADFF2F"..Opt_PVP.."|r")
 	else
 		print("|cFF50C0FF"..Opt_Mode..": |cFFFF4500"..Opt_PVE.."|r")

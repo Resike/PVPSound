@@ -1,17 +1,44 @@
-﻿ToDo List:
+﻿Issues:
+* TB and WG partially broken still. (Need to play more battles to fix them.)
+* Time remaining and kills remaining sound are not accurate due a missing event call.
+
+ToDo List:
 * 5, 3, 2, 1 minute remaining warnings for arenas.
 * Add won/lost sounds for Arenas.
 * Class colored Death and Data Shares.
 * Variable color for SCT messages.
 
 **4.0.0**
-* Added GUI menu ("/ps").
-* Reduced addon's CPU and memory usage.
-* Removed slash commands.
+* Updated for 6.0.2.
+* Added initial GUI menu. ("/ps")
+* Reconverted every sound to ogg vorbis. (Vorbis 2.0, 320kbps, 48kHz, CBR)
+* Players from Asian regions could properly use the addon again.
+* Reduced the addon's CPU and memory usage.
 * Added on the fly addon language change.
-* Added 5 more different Unreal Tournament 3 Sound Packs (Deutch, Spanish, France, Italian, Russian).
-* Added an option to make Custom Sound Packs. Read "!ReadMe.txt" for more information.
-* Added "!PlayListGenerator.vbs" to get the length of all the installed Custom sounds. (Yet only works with ".mp3" extensions. (CBR, VBR)) Only works on Windows XP, Windows Vista, Windows 7, Windows 8 (x86-x64).
+* Added 15 more different sound packs, from various games:
+	* Devil May Cry 5
+	* Dota 2
+		* Axe
+		* Bastion
+		* Clock Werk
+		* Defense Grid
+		* Glados
+		* Juggernaut
+		* Lina
+		* Nature's Prophet
+		* Pflax
+		* Pirate
+		* Stanley Parable
+		* Storm Spirit
+		* Trine
+	* Halo 4
+* Added 5 more different Unreal Tournament 3 Sound Pack:
+	* Deutch
+	* Spanish
+	* France
+	* Italian
+	* Russian
+* Tons of other fixes.
 
 **3.9.6**
 * Fixed an sound issue in WSG and TP when the flag reset by itself.

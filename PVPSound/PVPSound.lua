@@ -87,7 +87,6 @@ function PVPSound:RegisterEvents()
 end
 
 function PVPSound:UnregisterEvents()
-	print("UNREG")
 	PVPSoundFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	PVPSoundFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 	PVPSoundFrame:UnregisterEvent("PLAYER_DEAD")
@@ -360,10 +359,10 @@ local function AVobj_state(id)
 	end
 end
 
--- Warsong Gulch and Twin Peaks Time Remaining
-local WSGandTPTimeobjectives = {TimeRemaining = nil}
+-- Time Remaining
+local TimeRemainingobjectives = {TimeRemaining = nil}
 
-local function WSGandTPTimeget_objective(id)
+local function TimeRemainingget_objective(id)
 	if id then
 		return "TimeRemaining"
 	else
@@ -371,19 +370,19 @@ local function WSGandTPTimeget_objective(id)
 	end
 end
 
-local function WSGandTPTimeobj_state(id)
-	if id == 6 then
-		return 1 -- Time Remaining: 6 min.
-	elseif id == 5 then
-		return 2 -- Time Remaining: 5 min.
+local function TimeRemainingobj_state(id)
+	if id == 5 then
+		return 1 -- Time Remaining: 5:59-5:00
 	elseif id == 4 then
-		return 3 -- Time Remaining: 4 min.
+		return 2 -- Time Remaining: 4:59-4:00
 	elseif id == 3 then
-		return 4 -- Time Remaining: 3 min.
+		return 3 -- Time Remaining: 3:59-3:00
 	elseif id == 2 then
-		return 5 -- Time Remaining: 2 min.
+		return 4 -- Time Remaining: 2:59-2:00
 	elseif id == 1 then
-		return 6 -- Time Remaining: 1 min.
+		return 5 -- Time Remaining: 1:59-1:00
+	elseif id == 0 then
+		return 6 -- Time Remaining: 0:59-0:00
 	else
 		return 0
 	end
@@ -987,12 +986,20 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 			end
-			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
-				if (select(4, GetWorldStateUIInfo(4))) ~= nil then
+			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" --[[or MyZone == "Zone_Arenas"]] then
+				local i
+				if MyZone == "Zone_StrandoftheAncients" then
+					i = 7
+				--[[elseif MyZone == "Zone_Arenas" then
+					i = 6]]
+				else
+					i = 4
+				end
+				if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 					-- Time Remaining
-					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)"))
-					WSGandTPTimeobjectives.TimeRemaining = nil
-					WSGandTPTimeobjectives.TimeRemaining = TimeRemainingInit
+					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
+					TimeRemainingobjectives.TimeRemaining = nil
+					TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
 				end
 				if (select(4, GetWorldStateUIInfo(2))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
 					-- Alliance Score
@@ -1507,12 +1514,20 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 				end
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
-					if (select(4, GetWorldStateUIInfo(4))) ~= nil then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" --[[or MyZone == "Zone_Arenas"]] then
+					local i
+					if MyZone == "Zone_StrandoftheAncients" then
+						i = 7
+					--[[elseif MyZone == "Zone_Arenas" then
+						i = 6]]
+					else
+						i = 4
+					end
+					if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 						-- Time Remaining
-						local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)"))
-						WSGandTPTimeobjectives.TimeRemaining = nil
-						WSGandTPTimeobjectives.TimeRemaining = TimeRemainingInit
+						local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
+						TimeRemainingobjectives.TimeRemaining = nil
+						TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
 					end
 					if (select(4, GetWorldStateUIInfo(2))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
 						-- Alliance Score
@@ -3987,46 +4002,33 @@ function PVPSound:OnEventTwo(event, ...)
 
 		if PS_BattlegroundSound == true then
 			if event == "UPDATE_WORLD_STATES" then
-				-- Arenas
-				if MyZone == "Zone_Arenas" then
-					if (select(4, GetWorldStateUIInfo(1))) ~= nil then
-						-- Time Remaining
-						local TimeRemaining = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
-						if TimeRemaining then
-							local type = WSGandTPTimeget_objective(TimeRemaining)
-							if type then
-								if WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 1 and WSGandTPTimeobj_state(TimeRemaining) == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.ogg")
-								elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 3 and WSGandTPTimeobj_state(TimeRemaining) == 4 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.ogg")
-								elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 4 and WSGandTPTimeobj_state(TimeRemaining) == 5 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.ogg")
-								elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 5 and WSGandTPTimeobj_state(TimeRemaining) == 6 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.ogg")
-								end
-								WSGandTPTimeobjectives[type] = TimeRemaining
-							end
-						end
-					end
-				-- Warsong Gulch and Twin Peaks
-				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_Arenas" then
+				-- Time Remaining
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" --[[or MyZone == "Zone_Arenas"]] then
 					if BgIsOver ~= true then
-						if (select(4, GetWorldStateUIInfo(1))) ~= nil then
+						local i
+						if MyZone == "Zone_StrandoftheAncients" then
+							i = 7
+						--[[elseif MyZone == "Zone_Arenas" then
+							i = 6]]
+						else
+							i = 4
+						end
+						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
 							-- Time Remaining
-							local TimeRemaining = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)"))
+							local TimeRemaining = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
 							if TimeRemaining then
-								local type = WSGandTPTimeget_objective(TimeRemaining)
+								local type = TimeRemainingget_objective(TimeRemaining)
 								if type then
-									if WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 1 and WSGandTPTimeobj_state(TimeRemaining) == 2 then
+									if TimeRemainingobj_state(TimeRemainingobjectives[type]) == 1 and TimeRemainingobj_state(TimeRemaining) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.ogg")
-									elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 3 and WSGandTPTimeobj_state(TimeRemaining) == 4 then
+									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 3 and TimeRemainingobj_state(TimeRemaining) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.ogg")
-									elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 4 and WSGandTPTimeobj_state(TimeRemaining) == 5 then
+									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 4 and TimeRemainingobj_state(TimeRemaining) == 5 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.ogg")
-									elseif WSGandTPTimeobj_state(WSGandTPTimeobjectives[type]) == 5 and WSGandTPTimeobj_state(TimeRemaining) == 6 then
+									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 5 and TimeRemainingobj_state(TimeRemaining) == 6 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.ogg")
 									end
-									WSGandTPTimeobjectives[type] = TimeRemaining
+									TimeRemainingobjectives[type] = TimeRemaining
 								end
 							end
 						end
@@ -5186,8 +5188,4 @@ function PVPSound:TriggerKill(killtype, streaknumber)
 			end
 		end
 	end
-end
-
-function ASD()
-	print(MyZone)
 end
