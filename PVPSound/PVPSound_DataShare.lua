@@ -6,8 +6,10 @@ local PVPSoundDataFrame = CreateFrame("Frame", nil)
 PVPSoundDataFrame:RegisterEvent("ADDON_LOADED")
 
 function PVPSound:DataOnLoad()
-	PVPSoundDataFrame:RegisterEvent("CHAT_MSG_ADDON")
-	PVPSoundDataFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	if PS_EnableAddon == true then
+		PVPSoundDataFrame:RegisterEvent("CHAT_MSG_ADDON")
+		PVPSoundDataFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	end
 end
 
 function PVPSound:RegisterDataEvents()
@@ -75,7 +77,7 @@ function PVPSound:DataOnEvent(event, prefix, message, channel, sender, ...)
 									if KillerName ~= nil then
 										-- If the killer is NPC
 										if string.sub(KillerName, - 1) == "!" then
-											KillerName = string.sub(KillerName, 1, string.len(KillerName)-1)
+											KillerName = string.sub(KillerName, 1, string.len(KillerName) - 1)
 											if SenderName ~= nil and DeathSpree ~= nil and KillerName ~= nil then
 												PVPSound:PrintDeath(SenderName, DeathSpree, KillerName)
 											end

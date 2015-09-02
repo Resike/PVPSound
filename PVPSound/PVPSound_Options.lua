@@ -974,7 +974,7 @@ function PVPSoundOptions:OptionsSoundPack(name, soundpackname)
 		end
 		PVPSoundOptions:OptionsSetSoundPack()
 		UIDropDownMenu_SetText(frame, L["Unreal Tournament 3"])
-		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.ogg", PS_Channel)
+		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
 		CloseDropDownMenus()
 	elseif soundpackname == "Custom" then
 		PS_SoundPackName = soundpackname
@@ -984,7 +984,7 @@ function PVPSoundOptions:OptionsSoundPack(name, soundpackname)
 		end
 		PVPSoundOptions:OptionsSetSoundPack()
 		UIDropDownMenu_SetText(frame, L["Custom"])
-		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.ogg", PS_Channel)
+		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
 		CloseDropDownMenus()
 	end
 	--print(PS_SoundPackName)
@@ -1177,7 +1177,7 @@ function PVPSoundOptions:OptionsSoundPackLanguage(name, soundpacklanguage)
 		CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsSetSoundPack()
-	PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.ogg", PS_Channel)
+	PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
 	--print(PS_SoundPackLanguage)
 end
 
@@ -1756,7 +1756,7 @@ function PVPSound:SlashCommands(arg1)
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
 		PVPSound:TriggerSct(TestSoundLengthTable[1].name.."!", PSSctFrame)
 	elseif arg2 == "testbg" or arg2 == "bgtest" or arg2 == "tb" or arg2 == "bt" then
-		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.ogg", PS_Channel)
+		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
 	elseif arg2 == "reset" then
 		PVPSound:ClearSoundQueue()
 		PVPSound:ClearKillSoundQueue()

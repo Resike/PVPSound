@@ -8,6 +8,16 @@ ToDo List:
 * Class colored Death and Data Shares.
 * Variable color for SCT messages.
 
+
+**4.0.3**
+* Updated for 6.2.2.
+
+**4.0.2**
+* Updated for 6.2.0.
+
+**4.0.1**
+* Updated for 6.1.0.
+
 **4.0.0**
 * Updated for 6.0.2.
 * Added initial GUI menu. ("/ps")
