@@ -1785,10 +1785,10 @@ function PVPSound:SlashCommands(arg1)
 		end
 	elseif arg2 == "id" then
 		for i = 1, GetNumMapLandmarks(), 1 do
-			local name = select(1, GetMapLandmarkInfo(i))
-			local textureIndex = select(3, GetMapLandmarkInfo(i))
-			local x = select(4, GetMapLandmarkInfo(i))
-			local y = select(5, GetMapLandmarkInfo(i))
+			local name = select(2, GetMapLandmarkInfo(i))
+			local textureIndex = select(4, GetMapLandmarkInfo(i))
+			local x = select(5, GetMapLandmarkInfo(i))
+			local y = select(6, GetMapLandmarkInfo(i))
 			if name and textureIndex and x and y then
 				local MessageFormat = "%s %s %s %s %s"
 				local Message = format(MessageFormat, i, name, textureIndex, x, y)
