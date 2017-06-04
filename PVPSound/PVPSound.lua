@@ -1102,23 +1102,57 @@ function PVPSound:OnEvent(event, ...)
 				AVobjectives.WestFrostwolfTower = nil
 				AVandIOCAobjectives.AllianceReinforcements = AVandIOCAInit
 				AVandIOCHobjectives.HordeReinforcements = AVandIOCHInit
-				AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
-				AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
-				AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
-				AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
-				AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
-				AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
-				AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
-				AVobjectives.IcebloodTower = IcebloodTowerInit + 800
-				AVobjectives.IcewingBunker = IcewingBunkerInit + 900
-				AVobjectives.IrondeepMine = IrondeepMineInit + 1000
-				AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
-				AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
-				AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
-				AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
-				AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
-				AVobjectives.TowerPoint = TowerPointInit + 1600
-				AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
+				if ColdtoothMineInit then
+					AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
+				end
+				if DunBaldarNorthBunkerInit then
+					AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
+				end
+				if DunBaldarSouthBunkerInit then
+					AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
+				end
+				if EastFrostwolfTowerInit then
+					AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
+				end
+				if FrostwolfGraveyardInit then
+					AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
+				end
+				if FrostwolfReliefHutInit then
+					AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
+				end
+				if IcebloodGraveyardInit then
+					AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
+				end
+				if IcebloodTowerInit then
+					AVobjectives.IcebloodTower = IcebloodTowerInit + 800
+				end
+				if IcewingBunkerInit then
+					AVobjectives.IcewingBunker = IcewingBunkerInit + 900
+				end
+				if IrondeepMineInit then
+					AVobjectives.IrondeepMine = IrondeepMineInit + 1000
+				end
+				if SnowfallGraveyardInit then
+					AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
+				end
+				if StonehearthBunkerInit then
+					AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
+				end
+				if StonehearthGraveyardInit then
+					AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
+				end
+				if StormpikeAidStationInit then
+					AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
+				end
+				if StormpikeGraveyardInit then
+					AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
+				end
+				if TowerPointInit then
+					AVobjectives.TowerPoint = TowerPointInit + 1600
+				end
+				if WestFrostwolfTowerInit then
+					AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
+				end
 			end
 			if MyZone == "Zone_IsleofConquest" then
 				--[[local j, k, l, m, n, o, p, q, r, s, t
@@ -1639,23 +1673,57 @@ function PVPSound:OnEvent(event, ...)
 					AVobjectives.WestFrostwolfTower = nil
 					AVandIOCAobjectives.AllianceReinforcements = AVandIOCAInit
 					AVandIOCHobjectives.HordeReinforcements = AVandIOCHInit
-					AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
-					AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
-					AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
-					AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
-					AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
-					AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
-					AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
-					AVobjectives.IcebloodTower = IcebloodTowerInit + 800
-					AVobjectives.IcewingBunker = IcewingBunkerInit + 900
-					AVobjectives.IrondeepMine = IrondeepMineInit + 1000
-					AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
-					AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
-					AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
-					AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
-					AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
-					AVobjectives.TowerPoint = TowerPointInit + 1600
-					AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
+					if ColdtoothMineInit then
+						AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
+					end
+					if DunBaldarNorthBunkerInit then
+						AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
+					end
+					if DunBaldarSouthBunkerInit then
+						AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
+					end
+					if EastFrostwolfTowerInit then
+						AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
+					end
+					if FrostwolfGraveyardInit then
+						AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
+					end
+					if FrostwolfReliefHutInit then
+						AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
+					end
+					if IcebloodGraveyardInit then
+						AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
+					end
+					if IcebloodTowerInit then
+						AVobjectives.IcebloodTower = IcebloodTowerInit + 800
+					end
+					if IcewingBunkerInit then
+						AVobjectives.IcewingBunker = IcewingBunkerInit + 900
+					end
+					if IrondeepMineInit then
+						AVobjectives.IrondeepMine = IrondeepMineInit + 1000
+					end
+					if SnowfallGraveyardInit then
+						AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
+					end
+					if StonehearthBunkerInit then
+						AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
+					end
+					if StonehearthGraveyardInit then
+						AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
+					end
+					if StormpikeAidStationInit then
+						AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
+					end
+					if StormpikeGraveyardInit then
+						AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
+					end
+					if TowerPointInit then
+						AVobjectives.TowerPoint = TowerPointInit + 1600
+					end
+					if WestFrostwolfTowerInit then
+						AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
+					end
 				end
 				if MyZone == "Zone_IsleofConquest" then
 					--[[local j, k, l, m, n, o, p, q, r, s, t
@@ -3657,9 +3725,9 @@ function PVPSound:OnEvent(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
@@ -3723,9 +3791,9 @@ function PVPSound:OnEvent(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
@@ -3789,9 +3857,9 @@ function PVPSound:OnEvent(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
@@ -3855,9 +3923,9 @@ function PVPSound:OnEvent(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
 									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
