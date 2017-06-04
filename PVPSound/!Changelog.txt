@@ -9,6 +9,9 @@ ToDo List:
 * Variable color for SCT messages.
 
 
+**4.0.5**
+* Updated for 7.0.3.
+
 **4.0.4**
 * Fixed EOTS RBG.
 * Some other smaller fixes.

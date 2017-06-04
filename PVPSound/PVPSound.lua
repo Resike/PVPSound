@@ -757,17 +757,17 @@ local function WGobj_state(id)
 end
 
 -- Tol Barad
-local TBobjectives = {BaradinHold = nil, IroncladGarrison = nil, Slagworks = nil, WardensVigil = nil, EastSpire = nil, SouthSpire = nil, WestSpire = nil}
+local TBobjectives = {BaradinHold = nil, IroncladGarrison = nil, WardensVigil = nil, Slagworks = nil, EastSpire = nil, SouthSpire = nil, WestSpire = nil}
 
 local function TBget_objective(id)
 	if id == 46 or id == 48 then
 		return "BaradinHold"
 	elseif id >= 109 and id <= 112 then
 		return "IroncladGarrison"
-	elseif id >= 227 and id <= 230 then
-		return "Slagworks"
-	elseif id >= 309 and id <= 312 then
+	elseif id >= 209 and id <= 212 then
 		return "WardensVigil"
+	elseif id >= 327 and id <= 330 then
+		return "Slagworks"
 	elseif id == 410 or id == 411 or id == 450 or id == 452 or id == 455 then
 		return "EastSpire"
 	elseif id == 510 or id == 511 or id == 550 or id == 552 or id == 555 then
@@ -982,13 +982,13 @@ function PVPSound:OnEvent(event, ...)
 				IocHordeGateDown = false
 				-- Alliance Gates
 				for i = 9, 11, 1 do 
-					if (select(3, GetMapLandmarkInfo(i))) == 82 then
+					if (select(4, GetMapLandmarkInfo(i))) == 82 then
 						IocAllianceGateDown = true
 					end
 				end
 				-- Horde Gates
 				for i = 6, 8, 1 do 
-					if (select(3, GetMapLandmarkInfo(i))) == 79 then
+					if (select(4, GetMapLandmarkInfo(i))) == 79 then
 						IocHordeGateDown = true
 					end
 				end
@@ -999,6 +999,10 @@ function PVPSound:OnEvent(event, ...)
 					i = 7
 				--[[elseif MyZone == "Zone_Arenas" then
 					i = 6]]
+				elseif MyZone == "Zone_TolBarad" then
+					i = 1
+				elseif MyZone == "Zone_WarsongGulch" then
+					i = 3
 				else
 					i = 4
 				end
@@ -1008,13 +1012,13 @@ function PVPSound:OnEvent(event, ...)
 					TimeRemainingobjectives.TimeRemaining = nil
 					TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
 				end
-				if (select(4, GetWorldStateUIInfo(2))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
+				if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
 					-- Alliance Score
-					local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
+					local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d)/"))
 					WSGandTPAobjectives.AllianceScore = nil
 					WSGandTPAobjectives.AllianceScore = AllianceScoreInit
 					-- Horde Score
-					local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d)/"))
+					local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
 					WSGandTPHobjectives.HordeScore = nil
 					WSGandTPHobjectives.HordeScore = HordeScoreInit
 				end
@@ -1027,10 +1031,10 @@ function PVPSound:OnEvent(event, ...)
 					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 					EOTSWINobjectives.VictoryPoints = EOTSWINInit
 				end]]
-				local BloodElfTowerInit = select(3, GetMapLandmarkInfo(1))
-				local DraeneiRuinsInit = select(3, GetMapLandmarkInfo(4))
-				local FelReaverRuinsInit = select(3, GetMapLandmarkInfo(3))
-				local MageTowerInit = select(3, GetMapLandmarkInfo(3))
+				local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))
+				local DraeneiRuinsInit = select(4, GetMapLandmarkInfo(4))
+				local FelReaverRuinsInit = select(4, GetMapLandmarkInfo(3))
+				local MageTowerInit = select(4, GetMapLandmarkInfo(3))
 				EOTSobjectives.BloodElfTower = nil
 				EOTSobjectives.DraeneiRuins = nil
 				EOTSobjectives.FelReaverRuins = nil
@@ -1041,11 +1045,11 @@ function PVPSound:OnEvent(event, ...)
 				EOTSobjectives.MageTower = MageTowerInit + 400
 			end
 			if MyZone == "Zone_ArathiBasin" then
-				local BlacksmithInit = select(3, GetMapLandmarkInfo(2))
-				local FarmInit = select(3, GetMapLandmarkInfo(5))
-				local GoldMineInit = select(3, GetMapLandmarkInfo(4))
-				local LumberMillInit = select(3, GetMapLandmarkInfo(3))
-				local StablesInit = select(3, GetMapLandmarkInfo(1))
+				local BlacksmithInit = select(4, GetMapLandmarkInfo(2))
+				local FarmInit = select(4, GetMapLandmarkInfo(5))
+				local GoldMineInit = select(4, GetMapLandmarkInfo(4))
+				local LumberMillInit = select(4, GetMapLandmarkInfo(3))
+				local StablesInit = select(4, GetMapLandmarkInfo(1))
 				ABobjectives.Blacksmith = nil
 				ABobjectives.Farm = nil
 				ABobjectives.GoldMine = nil
@@ -1060,23 +1064,23 @@ function PVPSound:OnEvent(event, ...)
 			if MyZone == "Zone_AlteracValley" then
 				local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
 				local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
-				local ColdtoothMineInit = select(3, GetMapLandmarkInfo(1))
-				local DunBaldarNorthBunkerInit = select(3, GetMapLandmarkInfo(3))
-				local DunBaldarSouthBunkerInit = select(3, GetMapLandmarkInfo(4))
-				local EastFrostwolfTowerInit = select(3, GetMapLandmarkInfo(5))
-				local FrostwolfGraveyardInit = select(3, GetMapLandmarkInfo(6))
-				local FrostwolfReliefHutInit = select(3, GetMapLandmarkInfo(8))
-				local IcebloodGraveyardInit = select(3, GetMapLandmarkInfo(10))
-				local IcebloodTowerInit = select(3, GetMapLandmarkInfo(11))
-				local IcewingBunkerInit = select(3, GetMapLandmarkInfo(12))
-				local IrondeepMineInit = select(3, GetMapLandmarkInfo(14))
-				local SnowfallGraveyardInit = select(3, GetMapLandmarkInfo(15))
-				local StonehearthBunkerInit = select(3, GetMapLandmarkInfo(16))
-				local StonehearthGraveyardInit = select(3, GetMapLandmarkInfo(17))
-				local StormpikeAidStationInit = select(3, GetMapLandmarkInfo(19))
-				local StormpikeGraveyardInit = select(3, GetMapLandmarkInfo(20))
-				local TowerPointInit = select(3, GetMapLandmarkInfo(21))
-				local WestFrostwolfTowerInit = select(3, GetMapLandmarkInfo(22))
+				local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
+				local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
+				local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
+				local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
+				local FrostwolfGraveyardInit = select(4, GetMapLandmarkInfo(6))
+				local FrostwolfReliefHutInit = select(4, GetMapLandmarkInfo(8))
+				local IcebloodGraveyardInit = select(4, GetMapLandmarkInfo(10))
+				local IcebloodTowerInit = select(4, GetMapLandmarkInfo(11))
+				local IcewingBunkerInit = select(4, GetMapLandmarkInfo(12))
+				local IrondeepMineInit = select(4, GetMapLandmarkInfo(14))
+				local SnowfallGraveyardInit = select(4, GetMapLandmarkInfo(15))
+				local StonehearthBunkerInit = select(4, GetMapLandmarkInfo(16))
+				local StonehearthGraveyardInit = select(4, GetMapLandmarkInfo(17))
+				local StormpikeAidStationInit = select(4, GetMapLandmarkInfo(19))
+				local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
+				local TowerPointInit = select(4, GetMapLandmarkInfo(21))
+				local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
 				AVandIOCAobjectives.AllianceReinforcements = nil
 				AVandIOCHobjectives.HordeReinforcements = nil
 				AVobjectives.ColdtoothMine = nil
@@ -1118,7 +1122,7 @@ function PVPSound:OnEvent(event, ...)
 			end
 			if MyZone == "Zone_IsleofConquest" then
 				--[[local j, k, l, m, n, o, p, q, r, s, t
-				if (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+				if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 					j = 1
 					k = 2
 					l = 3
@@ -1130,7 +1134,7 @@ function PVPSound:OnEvent(event, ...)
 					r = 13
 					s = 14
 					t = 15
-				elseif (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
+				elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
 					j = 1
 					k = 2
 					l = 3
@@ -1142,7 +1146,7 @@ function PVPSound:OnEvent(event, ...)
 					r = 12
 					s = 13
 					t = 14
-				elseif (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+				elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 					j = 1
 					k = 2
 					l = 3
@@ -1167,17 +1171,17 @@ function PVPSound:OnEvent(event, ...)
 					s = 12
 					t = 13
 				end]]
-				local AllianceGateEInit = select(3, GetMapLandmarkInfo(9))
-				local AllianceGateWInit = select(3, GetMapLandmarkInfo(10))
-				local AllianceGateSInit = select(3, GetMapLandmarkInfo(11))
-				local DocksInit = select(3, GetMapLandmarkInfo(3))
-				local HangarInit = select(3, GetMapLandmarkInfo(2))
-				local HordeGateEInit = select(3, GetMapLandmarkInfo(7))
-				local HordeGateWInit = select(3, GetMapLandmarkInfo(8))
-				local HordeGateNInit = select(3, GetMapLandmarkInfo(6))
-				local QuarryInit = select(3, GetMapLandmarkInfo(4))
-				local RefinerieInit = select(3, GetMapLandmarkInfo(5))
-				local WorkshopInit = select(3, GetMapLandmarkInfo(1))
+				local AllianceGateEInit = select(4, GetMapLandmarkInfo(9))
+				local AllianceGateWInit = select(4, GetMapLandmarkInfo(10))
+				local AllianceGateSInit = select(4, GetMapLandmarkInfo(11))
+				local DocksInit = select(4, GetMapLandmarkInfo(3))
+				local HangarInit = select(4, GetMapLandmarkInfo(2))
+				local HordeGateEInit = select(4, GetMapLandmarkInfo(7))
+				local HordeGateWInit = select(4, GetMapLandmarkInfo(8))
+				local HordeGateNInit = select(4, GetMapLandmarkInfo(6))
+				local QuarryInit = select(4, GetMapLandmarkInfo(4))
+				local RefinerieInit = select(4, GetMapLandmarkInfo(5))
+				local WorkshopInit = select(4, GetMapLandmarkInfo(1))
 				IOCobjectives.AllianceGateE = nil
 				IOCobjectives.AllianceGateW = nil
 				IOCobjectives.AllianceGateS = nil
@@ -1203,7 +1207,7 @@ function PVPSound:OnEvent(event, ...)
 			end
 			if MyZone == "Zone_StrandoftheAncients" then
 				local j, k, l, m, n, o, p, q, r
-				if (select(4, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
+				if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
 					j = 1
 					k = 2
 					l = 3
@@ -1213,7 +1217,7 @@ function PVPSound:OnEvent(event, ...)
 					p = 7
 					q = 9
 					r = 12
-				elseif (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
+				elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
 					j = 2
 					k = 3
 					l = 4
@@ -1234,23 +1238,23 @@ function PVPSound:OnEvent(event, ...)
 					q = nil
 					r = nil
 				end
-				local ChamberofAncientRelicsInit = select(3, GetMapLandmarkInfo(j))
-				local EastGraveyardInit = select(3, GetMapLandmarkInfo(k))
-				local GateoftheBlueSapphireInit = select(3, GetMapLandmarkInfo(3))
-				local GateoftheGreenEmeraldInit = select(3, GetMapLandmarkInfo(4))
-				local GateofthePurpleAmethystInit = select(3, GetMapLandmarkInfo(1))
-				local GateoftheRedSunInit = select(3, GetMapLandmarkInfo(2))
+				local ChamberofAncientRelicsInit = select(4, GetMapLandmarkInfo(j))
+				local EastGraveyardInit = select(4, GetMapLandmarkInfo(k))
+				local GateoftheBlueSapphireInit = select(4, GetMapLandmarkInfo(3))
+				local GateoftheGreenEmeraldInit = select(4, GetMapLandmarkInfo(4))
+				local GateofthePurpleAmethystInit = select(4, GetMapLandmarkInfo(1))
+				local GateoftheRedSunInit = select(4, GetMapLandmarkInfo(2))
 				local GateoftheYellowMoonInit
 				local SouthGraveyardInit
 				local WestGraveyardInit
 				if p ~= nil then
-					GateoftheYellowMoonInit = select(3, GetMapLandmarkInfo(p))
+					GateoftheYellowMoonInit = select(4, GetMapLandmarkInfo(p))
 				end
 				if q ~= nil then
-					SouthGraveyardInit = select(3, GetMapLandmarkInfo(q))
+					SouthGraveyardInit = select(4, GetMapLandmarkInfo(q))
 				end
 				if r ~= nil then
-					WestGraveyardInit = select(3, GetMapLandmarkInfo(r))
+					WestGraveyardInit = select(4, GetMapLandmarkInfo(r))
 				end
 				SOTAobjectives.ChamberofAncientRelics = nil
 				SOTAobjectives.EastGraveyard = nil
@@ -1278,9 +1282,9 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			if MyZone == "Zone_TheBattleforGilneas" then
-				local LighthouseInit = select(3, GetMapLandmarkInfo(3))
-				local MinesInit = select(3, GetMapLandmarkInfo(1))
-				local WaterworksInit = select(3, GetMapLandmarkInfo(2))
+				local LighthouseInit = select(4, GetMapLandmarkInfo(3))
+				local MinesInit = select(4, GetMapLandmarkInfo(1))
+				local WaterworksInit = select(4, GetMapLandmarkInfo(2))
 				TBFGobjectives.Lighthouse = nil
 				TBFGobjectives.Mines = nil
 				TBFGobjectives.Waterworks = nil
@@ -1289,9 +1293,9 @@ function PVPSound:OnEvent(event, ...)
 				TBFGobjectives.Waterworks = WaterworksInit + 300
 			end
 			if MyZone == "Zone_DeepwindGorge" then
-				local CentralMineInit = select(3, GetMapLandmarkInfo(3))
-				local GoblinMineInit = select(3, GetMapLandmarkInfo(2))
-				local PandarenMineInit = select(3, GetMapLandmarkInfo(1))
+				local CentralMineInit = select(4, GetMapLandmarkInfo(3))
+				local GoblinMineInit = select(4, GetMapLandmarkInfo(2))
+				local PandarenMineInit = select(4, GetMapLandmarkInfo(1))
 				DGobjectives.CentralMine = nil
 				DGobjectives.GoblinMine = nil
 				DGobjectives.PandarenMine = nil
@@ -1300,8 +1304,8 @@ function PVPSound:OnEvent(event, ...)
 				DGobjectives.PandarenMine = PandarenMineInit + 300
 			end
 			if MyZone == "Zone_SilvershardMines" then
-				local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
-				local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
+				local HordeScoreInit = (select(5, GetMapLandmarkInfo(2)))
+				local AllianceScoreInit = (select(5, GetMapLandmarkInfo(3)))
 				SMWINobjectives.Resources = nil
 				if HordeScoreInit then
 					SMWINobjectives.Resources = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
@@ -1311,18 +1315,18 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			if MyZone == "Zone_Wintergrasp" then
-				local isActive = select(3, GetWorldPVPAreaInfo(1))
-				if isActive == true then
+				local isActive = (select(5, GetWorldPVPAreaInfo(1)))
+				if isActive == 0 then
 					BgIsOver = false
 				end
-				local FlamewatchTowerInit = select(3, GetMapLandmarkInfo(5))
-				local FortressGraveyardInit = select(3, GetMapLandmarkInfo(6))
-				local ShadowsightTowerInit = select(3, GetMapLandmarkInfo(9))
-				local WintersEdgeTowerInit = select(3, GetMapLandmarkInfo(15))
-				local WintergraspFortressTowerNEInit = select(3, GetMapLandmarkInfo(18))
-				local WintergraspFortressTowerNWInit = select(3, GetMapLandmarkInfo(19))
-				local WintergraspFortressTowerSEInit = select(3, GetMapLandmarkInfo(20))
-				local WintergraspFortressTowerSWInit = select(3, GetMapLandmarkInfo(21))
+				local FlamewatchTowerInit = select(4, GetMapLandmarkInfo(5))
+				local FortressGraveyardInit = select(4, GetMapLandmarkInfo(6))
+				local ShadowsightTowerInit = select(4, GetMapLandmarkInfo(9))
+				local WintersEdgeTowerInit = select(4, GetMapLandmarkInfo(15))
+				local WintergraspFortressTowerNEInit = select(4, GetMapLandmarkInfo(18))
+				local WintergraspFortressTowerNWInit = select(4, GetMapLandmarkInfo(19))
+				local WintergraspFortressTowerSEInit = select(4, GetMapLandmarkInfo(20))
+				local WintergraspFortressTowerSWInit = select(4, GetMapLandmarkInfo(21))
 				WGobjectives.FlamewatchTower = nil
 				WGobjectives.FortressGraveyard = nil
 				WGobjectives.ShadowsightTower = nil
@@ -1341,26 +1345,26 @@ function PVPSound:OnEvent(event, ...)
 				WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
 			end
 			if MyZone == "Zone_TolBarad" then
-				local isActive = select(3, GetWorldPVPAreaInfo(2))
-				if isActive == true then
+				local isActive = (select(5, GetWorldPVPAreaInfo(2)))
+				if isActive == 0 then
 					BgIsOver = false
 				end
-				local j, k, l, m, n, o
-				if (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(4, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
+				--[[local j, k, l, m, n, o
+				if (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
 					j = 4
 					k = 5
 					l = 8
 					m = 2
 					n = 6
 					o = 9
-				elseif (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
+				elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
 					j = 4
 					k = 5
 					l = 7
 					m = 2
 					n = 6
 					o = 8
-				elseif (select(4, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
+				elseif (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
 					j = 3
 					k = 4
 					l = 7
@@ -1374,25 +1378,18 @@ function PVPSound:OnEvent(event, ...)
 					m = 2
 					n = 5
 					o = 7
-				end
-				local BaradinHoldInit = select(3, GetMapLandmarkInfo(1))
-				local IroncladGarrisonInit = select(3, GetMapLandmarkInfo(j))
-				local SlagworksInit = select(3, GetMapLandmarkInfo(k))
-				local WardensVigilInit = select(3, GetMapLandmarkInfo(l))
-				local EastSpireInit = select(3, GetMapLandmarkInfo(m))
-				local SouthSpireInit = select(3, GetMapLandmarkInfo(n))
-				local WestSpireInit = select(3, GetMapLandmarkInfo(o))
-				TBobjectives.BaradinHold = nil
-				TBobjectives.IroncladGarrison = nil
-				TBobjectives.Slagworks = nil
-				TBobjectives.WardensVigil = nil
-				TBobjectives.EastSpire = nil
-				TBobjectives.SouthSpire = nil
-				TBobjectives.WestSpire = nil
+				end]]
+				local BaradinHoldInit = (select(5, GetMapLandmarkInfo(GetNumMapLandmarks())))
+				local IroncladGarrisonInit = (select(5, GetMapLandmarkInfo(1)))
+				local SlagworksInit = (select(5, GetMapLandmarkInfo(2)))
+				local WardensVigilInit = (select(5, GetMapLandmarkInfo(3)))
+				local EastSpireInit = (select(5, GetMapLandmarkInfo(4)))
+				local SouthSpireInit = (select(5, GetMapLandmarkInfo(5)))
+				local WestSpireInit = (select(5, GetMapLandmarkInfo(6)))
 				TBobjectives.BaradinHold = BaradinHoldInit
 				TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
-				TBobjectives.Slagworks = SlagworksInit + 200
-				TBobjectives.WardensVigil = WardensVigilInit + 300
+				TBobjectives.WardensVigil = WardensVigilInit + 200
+				TBobjectives.Slagworks = SlagworksInit + 300
 				TBobjectives.EastSpire = EastSpireInit + 400
 				TBobjectives.SouthSpire = SouthSpireInit + 500
 				TBobjectives.WestSpire = WestSpireInit + 600
@@ -1514,13 +1511,13 @@ function PVPSound:OnEvent(event, ...)
 					IocHordeGateDown = false
 					-- Alliance Gates
 					for i = 9, 11, 1 do 
-						if select(3, GetMapLandmarkInfo(i)) == 82 then
+						if select(4, GetMapLandmarkInfo(i)) == 82 then
 							IocAllianceGateDown = true
 						end
 					end
 					-- Horde Gates
 					for i = 6, 8, 1 do 
-						if select(3, GetMapLandmarkInfo(i)) == 79 then
+						if select(4, GetMapLandmarkInfo(i)) == 79 then
 							IocHordeGateDown = true
 						end
 					end
@@ -1531,6 +1528,10 @@ function PVPSound:OnEvent(event, ...)
 						i = 7
 					--[[elseif MyZone == "Zone_Arenas" then
 						i = 6]]
+					elseif MyZone == "Zone_TolBarad" then
+						i = 1
+					elseif MyZone == "Zone_WarsongGulch" then
+						i = 3
 					else
 						i = 4
 					end
@@ -1540,13 +1541,13 @@ function PVPSound:OnEvent(event, ...)
 						TimeRemainingobjectives.TimeRemaining = nil
 						TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
 					end
-					if (select(4, GetWorldStateUIInfo(2))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
+					if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(2))) ~= nil then
 						-- Alliance Score
-						local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
+						local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d)/"))
 						WSGandTPAobjectives.AllianceScore = nil
 						WSGandTPAobjectives.AllianceScore = AllianceScoreInit
 						-- Horde Score
-						local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d)/"))
+						local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
 						WSGandTPHobjectives.HordeScore = nil
 						WSGandTPHobjectives.HordeScore = HordeScoreInit
 					end
@@ -1559,10 +1560,10 @@ function PVPSound:OnEvent(event, ...)
 						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 						EOTSWINobjectives.VictoryPoints = EOTSWINInit
 					end]]
-					local BloodElfTowerInit = (select(3, GetMapLandmarkInfo(1)))
-					local DraeneiRuinsInit = (select(3, GetMapLandmarkInfo(4)))
-					local FelReaverRuinsInit = (select(3, GetMapLandmarkInfo(2)))
-					local MageTowerInit = (select(3, GetMapLandmarkInfo(3)))
+					local BloodElfTowerInit = (select(4, GetMapLandmarkInfo(1)))
+					local DraeneiRuinsInit = (select(4, GetMapLandmarkInfo(4)))
+					local FelReaverRuinsInit = (select(4, GetMapLandmarkInfo(2)))
+					local MageTowerInit = (select(4, GetMapLandmarkInfo(3)))
 					EOTSobjectives.BloodElfTower = nil
 					EOTSobjectives.DraeneiRuins = nil
 					EOTSobjectives.FelReaverRuins = nil
@@ -1573,11 +1574,11 @@ function PVPSound:OnEvent(event, ...)
 					EOTSobjectives.MageTower = MageTowerInit + 400
 				end
 				if MyZone == "Zone_ArathiBasin" then
-					local BlacksmithInit = (select(3, GetMapLandmarkInfo(2)))
-					local FarmInit = (select(3, GetMapLandmarkInfo(5)))
-					local GoldMineInit = (select(3, GetMapLandmarkInfo(4)))
-					local LumberMillInit = (select(3, GetMapLandmarkInfo(3)))
-					local StablesInit = (select(3, GetMapLandmarkInfo(1)))
+					local BlacksmithInit = (select(4, GetMapLandmarkInfo(2)))
+					local FarmInit = (select(4, GetMapLandmarkInfo(5)))
+					local GoldMineInit = (select(4, GetMapLandmarkInfo(4)))
+					local LumberMillInit = (select(4, GetMapLandmarkInfo(3)))
+					local StablesInit = (select(4, GetMapLandmarkInfo(1)))
 					ABobjectives.Blacksmith = nil
 					ABobjectives.Farm = nil
 					ABobjectives.GoldMine = nil
@@ -1600,23 +1601,23 @@ function PVPSound:OnEvent(event, ...)
 					if HordeReinforcements then
 						AVandIOCHInit = tonumber(string.match(HordeReinforcements, ": (%d+)"))
 					end
-					local ColdtoothMineInit = (select(3, GetMapLandmarkInfo(1)))
-					local DunBaldarNorthBunkerInit = (select(3, GetMapLandmarkInfo(3)))
-					local DunBaldarSouthBunkerInit = (select(3, GetMapLandmarkInfo(4)))
-					local EastFrostwolfTowerInit = (select(3, GetMapLandmarkInfo(5)))
-					local FrostwolfGraveyardInit = (select(3, GetMapLandmarkInfo(6)))
-					local FrostwolfReliefHutInit = (select(3, GetMapLandmarkInfo(8)))
-					local IcebloodGraveyardInit = (select(3, GetMapLandmarkInfo(10)))
-					local IcebloodTowerInit = (select(3, GetMapLandmarkInfo(11)))
-					local IcewingBunkerInit = (select(3, GetMapLandmarkInfo(12)))
-					local IrondeepMineInit = (select(3, GetMapLandmarkInfo(14)))
-					local SnowfallGraveyardInit = (select(3, GetMapLandmarkInfo(15)))
-					local StonehearthBunkerInit = (select(3, GetMapLandmarkInfo(16)))
-					local StonehearthGraveyardInit = (select(3, GetMapLandmarkInfo(17)))
-					local StormpikeAidStationInit = (select(3, GetMapLandmarkInfo(19)))
-					local StormpikeGraveyardInit = (select(3, GetMapLandmarkInfo(20)))
-					local TowerPointInit = (select(3, GetMapLandmarkInfo(21)))
-					local WestFrostwolfTowerInit = (select(3, GetMapLandmarkInfo(22)))
+					local ColdtoothMineInit = (select(4, GetMapLandmarkInfo(1)))
+					local DunBaldarNorthBunkerInit = (select(4, GetMapLandmarkInfo(3)))
+					local DunBaldarSouthBunkerInit = (select(4, GetMapLandmarkInfo(4)))
+					local EastFrostwolfTowerInit = (select(4, GetMapLandmarkInfo(5)))
+					local FrostwolfGraveyardInit = (select(4, GetMapLandmarkInfo(6)))
+					local FrostwolfReliefHutInit = (select(4, GetMapLandmarkInfo(8)))
+					local IcebloodGraveyardInit = (select(4, GetMapLandmarkInfo(10)))
+					local IcebloodTowerInit = (select(4, GetMapLandmarkInfo(11)))
+					local IcewingBunkerInit = (select(4, GetMapLandmarkInfo(12)))
+					local IrondeepMineInit = (select(4, GetMapLandmarkInfo(14)))
+					local SnowfallGraveyardInit = (select(4, GetMapLandmarkInfo(15)))
+					local StonehearthBunkerInit = (select(4, GetMapLandmarkInfo(16)))
+					local StonehearthGraveyardInit = (select(4, GetMapLandmarkInfo(17)))
+					local StormpikeAidStationInit = (select(4, GetMapLandmarkInfo(19)))
+					local StormpikeGraveyardInit = (select(4, GetMapLandmarkInfo(20)))
+					local TowerPointInit = (select(4, GetMapLandmarkInfo(21)))
+					local WestFrostwolfTowerInit = (select(4, GetMapLandmarkInfo(22)))
 					AVandIOCAobjectives.AllianceReinforcements = nil
 					AVandIOCHobjectives.HordeReinforcements = nil
 					AVobjectives.ColdtoothMine = nil
@@ -1658,7 +1659,7 @@ function PVPSound:OnEvent(event, ...)
 				end
 				if MyZone == "Zone_IsleofConquest" then
 					--[[local j, k, l, m, n, o, p, q, r, s, t
-					if (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+					if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 						j = 1
 						k = 2
 						l = 3
@@ -1670,7 +1671,7 @@ function PVPSound:OnEvent(event, ...)
 						r = 13
 						s = 14
 						t = 15
-					elseif (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
+					elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
 						j = 1
 						k = 2
 						l = 3
@@ -1682,7 +1683,7 @@ function PVPSound:OnEvent(event, ...)
 						r = 12
 						s = 13
 						t = 14
-					elseif (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+					elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 						j = 1
 						k = 2
 						l = 3
@@ -1707,17 +1708,17 @@ function PVPSound:OnEvent(event, ...)
 						s = 12
 						t = 13
 					end]]
-					local AllianceGateEInit = (select(3, GetMapLandmarkInfo(9)))
-					local AllianceGateWInit = (select(3, GetMapLandmarkInfo(10)))
-					local AllianceGateSInit = (select(3, GetMapLandmarkInfo(11)))
-					local DocksInit = (select(3, GetMapLandmarkInfo(3)))
-					local HangarInit = (select(3, GetMapLandmarkInfo(2)))
-					local HordeGateEInit = (select(3, GetMapLandmarkInfo(7)))
-					local HordeGateWInit = (select(3, GetMapLandmarkInfo(8)))
-					local HordeGateNInit = (select(3, GetMapLandmarkInfo(6)))
-					local QuarryInit = (select(3, GetMapLandmarkInfo(4)))
-					local RefinerieInit = (select(3, GetMapLandmarkInfo(5)))
-					local WorkshopInit = (select(3, GetMapLandmarkInfo(1)))
+					local AllianceGateEInit = (select(4, GetMapLandmarkInfo(9)))
+					local AllianceGateWInit = (select(4, GetMapLandmarkInfo(10)))
+					local AllianceGateSInit = (select(4, GetMapLandmarkInfo(11)))
+					local DocksInit = (select(4, GetMapLandmarkInfo(3)))
+					local HangarInit = (select(4, GetMapLandmarkInfo(2)))
+					local HordeGateEInit = (select(4, GetMapLandmarkInfo(7)))
+					local HordeGateWInit = (select(4, GetMapLandmarkInfo(8)))
+					local HordeGateNInit = (select(4, GetMapLandmarkInfo(6)))
+					local QuarryInit = (select(4, GetMapLandmarkInfo(4)))
+					local RefinerieInit = (select(4, GetMapLandmarkInfo(5)))
+					local WorkshopInit = (select(4, GetMapLandmarkInfo(1)))
 					IOCobjectives.AllianceGateE = nil
 					IOCobjectives.AllianceGateW = nil
 					IOCobjectives.AllianceGateS = nil
@@ -1743,7 +1744,7 @@ function PVPSound:OnEvent(event, ...)
 				end
 				if MyZone == "Zone_StrandoftheAncients" then
 					local j, k, l, m, n, o, p, q, r
-					if (select(4, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
+					if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
 						j = 1
 						k = 2
 						l = 3
@@ -1753,7 +1754,7 @@ function PVPSound:OnEvent(event, ...)
 						p = 7
 						q = 9
 						r = 12
-					elseif (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
+					elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
 						j = 2
 						k = 3
 						l = 4
@@ -1774,23 +1775,23 @@ function PVPSound:OnEvent(event, ...)
 						q = nil
 						r = nil
 					end
-					local ChamberofAncientRelicsInit = (select(3, GetMapLandmarkInfo(j)))
-					local EastGraveyardInit = (select(3, GetMapLandmarkInfo(k)))
-					local GateoftheBlueSapphireInit = (select(3, GetMapLandmarkInfo(3)))
-					local GateoftheGreenEmeraldInit = (select(3, GetMapLandmarkInfo(4)))
-					local GateofthePurpleAmethystInit = (select(3, GetMapLandmarkInfo(1)))
-					local GateoftheRedSunInit = (select(3, GetMapLandmarkInfo(2)))
+					local ChamberofAncientRelicsInit = (select(4, GetMapLandmarkInfo(j)))
+					local EastGraveyardInit = (select(4, GetMapLandmarkInfo(k)))
+					local GateoftheBlueSapphireInit = (select(4, GetMapLandmarkInfo(3)))
+					local GateoftheGreenEmeraldInit = (select(4, GetMapLandmarkInfo(4)))
+					local GateofthePurpleAmethystInit = (select(4, GetMapLandmarkInfo(1)))
+					local GateoftheRedSunInit = (select(4, GetMapLandmarkInfo(2)))
 					local GateoftheYellowMoonInit
 					local SouthGraveyardInit
 					local WestGraveyardInit
 					if p ~= nil then
-						GateoftheYellowMoonInit = (select(3, GetMapLandmarkInfo(p)))
+						GateoftheYellowMoonInit = (select(4, GetMapLandmarkInfo(p)))
 					end
 					if q ~= nil then
-						SouthGraveyardInit = (select(3, GetMapLandmarkInfo(q)))
+						SouthGraveyardInit = (select(4, GetMapLandmarkInfo(q)))
 					end
 					if r ~= nil then
-						WestGraveyardInit = (select(3, GetMapLandmarkInfo(r)))
+						WestGraveyardInit = (select(4, GetMapLandmarkInfo(r)))
 					end
 					SOTAobjectives.ChamberofAncientRelics = nil
 					SOTAobjectives.EastGraveyard = nil
@@ -1818,9 +1819,9 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 				if MyZone == "Zone_TheBattleforGilneas" then
-					local LighthouseInit = (select(3, GetMapLandmarkInfo(3)))
-					local MinesInit = (select(3, GetMapLandmarkInfo(1)))
-					local WaterworksInit = (select(3, GetMapLandmarkInfo(2)))
+					local LighthouseInit = (select(4, GetMapLandmarkInfo(3)))
+					local MinesInit = (select(4, GetMapLandmarkInfo(1)))
+					local WaterworksInit = (select(4, GetMapLandmarkInfo(2)))
 					TBFGobjectives.Lighthouse = nil
 					TBFGobjectives.Mines = nil
 					TBFGobjectives.Waterworks = nil
@@ -1829,9 +1830,9 @@ function PVPSound:OnEvent(event, ...)
 					TBFGobjectives.Waterworks = WaterworksInit + 300
 				end
 				if MyZone == "Zone_DeepwindGorge" then
-					local CentralMineInit = (select(3, GetMapLandmarkInfo(3)))
-					local GoblinMineInit = (select(3, GetMapLandmarkInfo(2)))
-					local PandarenMineInit = (select(3, GetMapLandmarkInfo(1)))
+					local CentralMineInit = (select(4, GetMapLandmarkInfo(3)))
+					local GoblinMineInit = (select(4, GetMapLandmarkInfo(2)))
+					local PandarenMineInit = (select(4, GetMapLandmarkInfo(1)))
 					DGobjectives.CentralMine = nil
 					DGobjectives.GoblinMine = nil
 					DGobjectives.PandarenMine = nil
@@ -1840,29 +1841,29 @@ function PVPSound:OnEvent(event, ...)
 					DGobjectives.PandarenMine = PandarenMineInit + 300
 				end
 				if MyZone == "Zone_SilvershardMines" then
-					local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
-					local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
+					local HordeScoreInit = (select(5, GetMapLandmarkInfo(2)))
+					local AllianceScoreInit = (select(5, GetMapLandmarkInfo(3)))
 					SMWINobjectives.Resources = nil
 					if HordeScoreInit then
-						SMWINobjectives.Resources = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
+						SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
 					end
 					if AllianceScoreInit then
-						SMWINobjectives.Resources = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
+						SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
 					end
 				end
 				if MyZone == "Zone_Wintergrasp" then
-					local isActive = select(3, GetWorldPVPAreaInfo(1))
-					if isActive == true then
+					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
+					if isActive == 0 then
 						BgIsOver = false
 					end
-					local FlamewatchTowerInit = (select(3, GetMapLandmarkInfo(5)))
-					local FortressGraveyardInit = (select(3, GetMapLandmarkInfo(6)))
-					local ShadowsightTowerInit = (select(3, GetMapLandmarkInfo(9)))
-					local WintersEdgeTowerInit = (select(3, GetMapLandmarkInfo(15)))
-					local WintergraspFortressTowerNEInit = (select(3, GetMapLandmarkInfo(18)))
-					local WintergraspFortressTowerNWInit = (select(3, GetMapLandmarkInfo(19)))
-					local WintergraspFortressTowerSEInit = (select(3, GetMapLandmarkInfo(20)))
-					local WintergraspFortressTowerSWInit = (select(3, GetMapLandmarkInfo(21)))
+					local FlamewatchTowerInit = (select(4, GetMapLandmarkInfo(5)))
+					local FortressGraveyardInit = (select(4, GetMapLandmarkInfo(6)))
+					local ShadowsightTowerInit = (select(4, GetMapLandmarkInfo(9)))
+					local WintersEdgeTowerInit = (select(4, GetMapLandmarkInfo(15)))
+					local WintergraspFortressTowerNEInit = (select(4, GetMapLandmarkInfo(18)))
+					local WintergraspFortressTowerNWInit = (select(4, GetMapLandmarkInfo(19)))
+					local WintergraspFortressTowerSEInit = (select(4, GetMapLandmarkInfo(20)))
+					local WintergraspFortressTowerSWInit = (select(4, GetMapLandmarkInfo(21)))
 					WGobjectives.FlamewatchTower = nil
 					WGobjectives.FortressGraveyard = nil
 					WGobjectives.ShadowsightTower = nil
@@ -1881,26 +1882,26 @@ function PVPSound:OnEvent(event, ...)
 					WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
 				end
 				if MyZone == "Zone_TolBarad" then
-					local isActive = (select(3, GetWorldPVPAreaInfo(2)))
-					if isActive == true then
+					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
+					if isActive == 0 then
 						BgIsOver = false
 					end
-					local j, k, l, m, n, o
-					if (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(4, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
+					--[[local j, k, l, m, n, o
+					if (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
 						j = 4
 						k = 5
 						l = 8
 						m = 2
 						n = 6
 						o = 9
-					elseif (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
+					elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
 						j = 4
 						k = 5
 						l = 7
 						m = 2
 						n = 6
 						o = 8
-					elseif (select(4, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
+					elseif (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
 						j = 3
 						k = 4
 						l = 7
@@ -1914,25 +1915,18 @@ function PVPSound:OnEvent(event, ...)
 						m = 2
 						n = 5
 						o = 7
-					end
-					local BaradinHoldInit = (select(3, GetMapLandmarkInfo(1)))
-					local IroncladGarrisonInit = (select(3, GetMapLandmarkInfo(j)))
-					local SlagworksInit = (select(3, GetMapLandmarkInfo(k)))
-					local WardensVigilInit = (select(3, GetMapLandmarkInfo(l)))
-					local EastSpireInit = (select(3, GetMapLandmarkInfo(m)))
-					local SouthSpireInit = (select(3, GetMapLandmarkInfo(n)))
-					local WestSpireInit = (select(3, GetMapLandmarkInfo(o)))
-					TBobjectives.BaradinHold = nil
-					TBobjectives.IroncladGarrison = nil
-					TBobjectives.Slagworks = nil
-					TBobjectives.WardensVigil = nil
-					TBobjectives.EastSpire = nil
-					TBobjectives.SouthSpire = nil
-					TBobjectives.WestSpire = nil
+					end]]
+					local BaradinHoldInit = (select(5, GetMapLandmarkInfo(GetNumMapLandmarks())))
+					local IroncladGarrisonInit = (select(5, GetMapLandmarkInfo(1)))
+					local WardensVigilInit = (select(5, GetMapLandmarkInfo(2)))
+					local SlagworksInit = (select(5, GetMapLandmarkInfo(3)))
+					local EastSpireInit = (select(5, GetMapLandmarkInfo(4)))
+					local SouthSpireInit = (select(5, GetMapLandmarkInfo(5)))
+					local WestSpireInit = (select(5, GetMapLandmarkInfo(6)))
 					TBobjectives.BaradinHold = BaradinHoldInit
 					TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
-					TBobjectives.Slagworks = SlagworksInit + 200
-					TBobjectives.WardensVigil = WardensVigilInit + 300
+					TBobjectives.WardensVigil = WardensVigilInit + 200
+					TBobjectives.Slagworks = SlagworksInit + 300
 					TBobjectives.EastSpire = EastSpireInit + 400
 					TBobjectives.SouthSpire = SouthSpireInit + 500
 					TBobjectives.WestSpire = WestSpireInit + 600
@@ -1982,10 +1976,10 @@ function PVPSound:OnEvent(event, ...)
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
-					local isActive = (select(3, GetWorldPVPAreaInfo(1)))
-					if isActive == true then
+					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
+					if isActive == 0 then
 						for i = 7, 7, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
 							if textureIndex then
 								if textureIndex == 68 then
 									WgAttacker = "Alliance"
@@ -2009,16 +2003,14 @@ function PVPSound:OnEvent(event, ...)
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
-					local isActive = (select(3, GetWorldPVPAreaInfo(2)))
-					if isActive == true then
-						for i = 1, 1, 1 do
-							local textureIndex = (select(3, GetMapLandmarkInfo(i)))
-							if textureIndex then
-								if textureIndex == 48 then
-									TbAttacker = "Alliance"
-								elseif textureIndex == 46 then
-									TbAttacker = "Horde"
-								end
+					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
+					if isActive == 0 then
+						local textureIndex = (select(4, GetMapLandmarkInfo(GetNumMapLandmarks())))
+						if textureIndex then
+							if textureIndex == 48 then
+								TbAttacker = "Alliance"
+							elseif textureIndex == 46 then
+								TbAttacker = "Horde"
 							end
 						end
 						if TbAttacker == "Alliance" and MyFaction == "Alliance" then
@@ -2075,7 +2067,7 @@ function PVPSound:OnEvent(event, ...)
 				elseif MyZone == "Zone_StrandoftheAncients" then
 					if string.find(EventMessage, BG_SOTA_ROUND_ONE) or string.find(EventMessage, BG_SOTA_ROUND_TWO) then
 						for i = 7, 7, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
 							if textureIndex then
 								if textureIndex == 46 then
 									SotaAttacker = "Horde"
@@ -2322,9 +2314,15 @@ function PVPSound:OnEvent(event, ...)
 					-- Bunkers
 					-- Dun Baldar North Bunker
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.45 and y == 0.14 then
 								local faketextureIndex = textureIndex + 200
@@ -2344,9 +2342,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Dun Baldar South Bunker
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if (x == 0.43 and y == 0.18) or (x == 0.44 and y == 0.18) then
 								local faketextureIndex = textureIndex + 300
@@ -2366,9 +2370,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Icewing Bunker
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.50 and y == 0.31 then
 								local faketextureIndex = textureIndex + 900
@@ -2388,9 +2398,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Stonehearth Bunker
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.52 and y == 0.44 then
 								local faketextureIndex = textureIndex + 1200
@@ -2411,9 +2427,15 @@ function PVPSound:OnEvent(event, ...)
 					-- Towers
 					-- East Frostwolf Tower
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.49 and y == 0.84 then
 								local faketextureIndex = textureIndex + 400
@@ -2433,9 +2455,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Iceblood Tower
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.48 and y == 0.58 then
 								local faketextureIndex = textureIndex + 800
@@ -2455,9 +2483,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Tower Point
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.50 and y == 0.65 then
 								local faketextureIndex = textureIndex + 1600
@@ -2477,9 +2511,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- West Frostwolf Tower
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.48 and y == 0.84 then
 								local faketextureIndex = textureIndex + 1700
@@ -2500,9 +2540,15 @@ function PVPSound:OnEvent(event, ...)
 					-- Graveyards
 					-- Frostwolf Graveyard
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.49 and y == 0.76 then
 								local faketextureIndex = textureIndex + 500
@@ -2532,9 +2578,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Frostwolf Relief Hut
 					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.49 and y == 0.88 then
 								local faketextureIndex = textureIndex + 600
@@ -2564,9 +2616,15 @@ function PVPSound:OnEvent(event, ...)
 					end]]--
 					-- Iceblood Graveyard
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.57 then
 								local faketextureIndex = textureIndex + 700
@@ -2596,9 +2654,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Snowfall Graveyard
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.44 and y == 0.45 then
 								local faketextureIndex = textureIndex + 1100
@@ -2628,9 +2692,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Stonehearth Graveyard
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.36 then
 								local faketextureIndex = textureIndex + 1300
@@ -2660,9 +2730,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Stormpike Aid Station
 					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.42 and y == 0.15 then
 								local faketextureIndex = textureIndex + 1400
@@ -2692,9 +2768,15 @@ function PVPSound:OnEvent(event, ...)
 					end]]--
 					-- Stormpike Graveyard
 					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.49 and y == 0.14 then
 								local faketextureIndex = textureIndex + 1500
@@ -2725,9 +2807,15 @@ function PVPSound:OnEvent(event, ...)
 					-- Mines
 					-- Coldtooth Mine
 					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.46 and y == 0.71 then
 								local faketextureIndex = textureIndex + 100
@@ -2749,9 +2837,15 @@ function PVPSound:OnEvent(event, ...)
 					end]]--
 					-- Irondeep Mine
 					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.49 and y == 0.10 then
 								local faketextureIndex = textureIndex + 1000
@@ -2785,8 +2879,8 @@ function PVPSound:OnEvent(event, ...)
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 						BgIsOver = true
 					end
-					local isActive = select(3, GetWorldPVPAreaInfo(1))
-					if isActive == true then
+					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
+					if isActive == 0 then
 						BgIsOver = false
 						-- Workshops
 						if string.find(EventMessage, BF_WG_ALLIANCE_ATTACKED) then
@@ -2801,14 +2895,20 @@ function PVPSound:OnEvent(event, ...)
 					end
 				 -- Tol Barad
 				elseif MyZone == "Zone_TolBarad" then
-					local isActive = select(3, GetWorldPVPAreaInfo(2))
-					if isActive == false then
+					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
+					if isActive == 0 then
 						-- WinSounds
 						for i = 1, 1, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							local nextBattle = tostring(string.match(select(4, GetWorldStateUIInfo(9)), ": (.+)"))
+							local textureIndex = select(4, GetMapLandmarkInfo(GetNumMapLandmarks()))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local nextBattle = tostring(string.match(select(4, GetWorldStateUIInfo(7)), ": (.+)"))
 							nextBattle = string.sub(nextBattle, 1, string.len(nextBattle) - 1)
 							if textureIndex and x and y and nextBattle then
 								if x == 0.51 and y == 0.54 then
@@ -2863,7 +2963,7 @@ function PVPSound:OnEvent(event, ...)
 				-- Strand of the Ancients
 				if MyZone == "Zone_StrandoftheAncients" then
 					--[[local j, k, l, m, n, o, p
-					if (select(4, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
+					if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
 						j = 1
 						k = 2
 						l = 3
@@ -2871,7 +2971,7 @@ function PVPSound:OnEvent(event, ...)
 						n = 5
 						o = 6
 						p = 7
-					elseif (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
+					elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
 						j = 2
 						k = 3
 						l = 4
@@ -2893,9 +2993,15 @@ function PVPSound:OnEvent(event, ...)
 							-- Graveyards
 							-- East Graveyard
 							for i = 8, 8, 1 do
-								local textureIndex = select(3, GetMapLandmarkInfo(i))
-								local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-								local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+								local textureIndex = select(4, GetMapLandmarkInfo(i))
+								local x
+								if (select(5, GetMapLandmarkInfo(i))) then
+									x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+								end
+								local y
+								if (select(6, GetMapLandmarkInfo(i))) then
+									y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+								end
 								if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 									if x == 0.54 and y == 0.46 then
 										local faketextureIndex = textureIndex + 200
@@ -2913,9 +3019,15 @@ function PVPSound:OnEvent(event, ...)
 							end
 							-- South Graveyard
 							for i = 9, 10, 1 do
-								local textureIndex = select(3, GetMapLandmarkInfo(i))
-								local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-								local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+								local textureIndex = select(4, GetMapLandmarkInfo(i))
+								local x
+								if (select(5, GetMapLandmarkInfo(i))) then
+									x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+								end
+								local y
+								if (select(6, GetMapLandmarkInfo(i))) then
+									y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+								end
 								if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 									if (x == 0.49 and y == 0.56) or (x == 0.49 and y == 0.57) then
 										local faketextureIndex = textureIndex + 800
@@ -2933,9 +3045,15 @@ function PVPSound:OnEvent(event, ...)
 							end
 							-- West Graveyard
 							for i = 9, 12, 3 do
-								local textureIndex = select(3, GetMapLandmarkInfo(i))
-								local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-								local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+								local textureIndex = select(4, GetMapLandmarkInfo(i))
+								local x
+								if (select(5, GetMapLandmarkInfo(i))) then
+									x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+								end
+								local y
+								if (select(6, GetMapLandmarkInfo(i))) then
+									y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+								end
 								if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 									if x == 0.44 and y == 0.49 then
 										local faketextureIndex = textureIndex + 900
@@ -2956,16 +3074,22 @@ function PVPSound:OnEvent(event, ...)
 					-- Gates
 					-- Chamber of Ancient Relics
 					for i = 11, 12, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.86 then
 								local faketextureIndex = textureIndex + 100
 								local type = SOTAget_objective(faketextureIndex)
 								if type then
 									if SOTAobj_state(SOTAobjectives[type]) == 4 and SOTAobj_state(faketextureIndex) == 5 then
-										local textureIndex = select(3, GetMapLandmarkInfo(7))
+										local textureIndex = select(4, GetMapLandmarkInfo(7))
 										if textureIndex == 46 then
 											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
 										else
@@ -2979,9 +3103,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Gate of the Blue Sapphire
 					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.57 and y == 0.38 then
 								local faketextureIndex = textureIndex
@@ -2997,9 +3127,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Gate of the Green Emerald
 					for i = 4, 4, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.39 and y == 0.40 then
 								-- Intended
@@ -3016,9 +3152,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Gate of the Purple Amethyst
 					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.40 and y == 0.57 then
 								local faketextureIndex = textureIndex
@@ -3034,9 +3176,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Gate of the Red Sun
 					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.57 and y == 0.55 then
 								local faketextureIndex = textureIndex
@@ -3052,9 +3200,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Gate of the Yellow Moon
 					for i = 10, 11, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.70 then
 								local faketextureIndex = textureIndex + 600
@@ -3071,7 +3225,7 @@ function PVPSound:OnEvent(event, ...)
 				 -- Isle of Conquest
 				elseif MyZone == "Zone_IsleofConquest" then
 					--[[local j, k, l, m, n, o, p, q, r, s, t
-					if (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+					if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 						j = 1
 						k = 2
 						l = 3
@@ -3083,7 +3237,7 @@ function PVPSound:OnEvent(event, ...)
 						r = 13
 						s = 14
 						t = 15
-					elseif (select(4, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
+					elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
 						j = 1
 						k = 2
 						l = 3
@@ -3095,7 +3249,7 @@ function PVPSound:OnEvent(event, ...)
 						r = 12
 						s = 13
 						t = 14
-					elseif (select(4, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+					elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
 						j = 1
 						k = 2
 						l = 3
@@ -3123,9 +3277,15 @@ function PVPSound:OnEvent(event, ...)
 					-- Gates
 					-- Alliance Gate (East)
 					for i = 9, 9, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.53 and y == 0.76 then
 								local faketextureIndex = textureIndex + 100
@@ -3144,9 +3304,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Alliance Gate (West)
 					for i = 10, 10, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.48 and y == 0.76 then
 								local faketextureIndex = textureIndex + 200
@@ -3165,9 +3331,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Alliance Gate (Front)
 					for i = 11, 11, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.73 then
 								local faketextureIndex = textureIndex + 300
@@ -3186,9 +3358,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Horde Gate (East)
 					for i = 7, 7, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.27 then
 								local faketextureIndex = textureIndex + 400
@@ -3207,9 +3385,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Horde Gate (West)
 					for i = 8, 8, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.45 and y == 0.27 then
 								local faketextureIndex = textureIndex + 500
@@ -3228,9 +3412,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Horde Gate (Front)
 					for i = 6, 6, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.48 and y == 0.31 then
 								local faketextureIndex = textureIndex + 600
@@ -3250,9 +3440,15 @@ function PVPSound:OnEvent(event, ...)
 					-- Bases
 					-- Docks
 					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.34 and y == 0.51 then
 								local type = IOCget_objective(textureIndex)
@@ -3277,9 +3473,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Hangar
 					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.62 and y == 0.57 then
 								local type = IOCget_objective(textureIndex)
@@ -3304,9 +3506,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Quarry
 					for i = 4, 4, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.64 and y == 0.83 then
 								local type = IOCget_objective(textureIndex)
@@ -3331,9 +3539,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Refinery
 					for i = 5, 5, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.34 and y == 0.24 then
 								local type = IOCget_objective(textureIndex)
@@ -3358,9 +3572,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Workshop
 					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.50 and y == 0.52 then
 								local type = IOCget_objective(textureIndex)
@@ -3387,9 +3607,15 @@ function PVPSound:OnEvent(event, ...)
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					-- Blood Elf Tower
 					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 3))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.5 and y == 0.5 then
 								local faketextureIndex = textureIndex + 100
@@ -3445,71 +3671,17 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					-- Draenei Ruins
-					for i = 4, 4, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.5 and y == 0.4 then
-								local faketextureIndex = textureIndex + 200
-								local type = EOTSget_objective(faketextureIndex)
-								if type then
-									if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									EOTSobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
 					-- Fel Reaver Ruins
 					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 3))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.4 and y == 0.5 then
 								local faketextureIndex = textureIndex + 300
@@ -3567,9 +3739,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 					-- Mage Tower
 					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 3))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 3))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.4 and y == 0.4 then
 								local faketextureIndex = textureIndex + 400
@@ -3625,13 +3803,85 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
+					-- Draenei Ruins
+					for i = 4, 4, 1 do
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 3))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 3))
+						end
+						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+							if x == 0.5 and y == 0.4 then
+								local faketextureIndex = textureIndex + 200
+								local type = EOTSget_objective(faketextureIndex)
+								if type then
+									if EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										-- Alliance Dominating
+										if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+											end
+										end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 1 and EOTSobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										-- Horde Dominating
+										if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+											end
+										end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										-- Alliance Dominating
+										if EOTSobjectives.BloodElfTower == 111 and EOTSobjectives.FelReaverRuins == 311 and EOTSobjectives.MageTower == 411 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+											end
+										end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										-- Horde Dominating
+										if EOTSobjectives.BloodElfTower == 110 and EOTSobjectives.FelReaverRuins == 310 and EOTSobjectives.MageTower == 410 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
+											end
+										end
+									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 3 and EOTSobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 2 and EOTSobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 4 and EOTSobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif EOTSobj_state(EOTSobjectives[type]) == 5 and EOTSobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+									end
+									EOTSobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
 				 -- Wintergrasp
 				elseif MyZone == "Zone_Wintergrasp" then
 					-- Fortress Graveyard
-					for i = 35, 35, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+					for i = 41, 41, 1 do
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							local faketextureIndex = textureIndex
 							local type = WGget_objective(faketextureIndex)
@@ -3651,14 +3901,20 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					local isActive = select(3, GetWorldPVPAreaInfo(1))
-					if isActive == true then
+					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
+					if isActive == 0 then
 						-- Towers
 						-- Flamewatch Tower
 						for i = 3, 3, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.80 and y == 0.63 then
 									local faketextureIndex = textureIndex + 100
@@ -3680,9 +3936,15 @@ function PVPSound:OnEvent(event, ...)
 						end
 						-- Shadowsight Tower
 						for i = 1, 1, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.23 and y == 0.58 then
 									local faketextureIndex = textureIndex + 200
@@ -3704,9 +3966,15 @@ function PVPSound:OnEvent(event, ...)
 						end
 						-- Winter's Edge Tower
 						for i = 2, 2, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.50 and y == 0.66 then
 									local faketextureIndex = textureIndex + 300
@@ -3728,9 +3996,15 @@ function PVPSound:OnEvent(event, ...)
 						end
 						-- Wintergrasp Fortress Tower (NE)
 						for i = 6, 6, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.57 and y == 0.22 then
 									local faketextureIndex = textureIndex + 400
@@ -3752,9 +4026,15 @@ function PVPSound:OnEvent(event, ...)
 						end
 						-- Wintergrasp Fortress Tower (NW)
 						for i = 7, 7, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.43 and y == 0.22 then
 									local faketextureIndex = textureIndex + 500
@@ -3776,9 +4056,15 @@ function PVPSound:OnEvent(event, ...)
 						end
 						-- Wintergrasp Fortress Tower (SE)
 						for i = 5, 5, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.53 and y == 0.27 then
 									local faketextureIndex = textureIndex + 600
@@ -3800,9 +4086,15 @@ function PVPSound:OnEvent(event, ...)
 						end
 						-- Wintergrasp Fortress Tower (SW)
 						for i = 4, 4, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.46 and y == 0.28 then
 									local faketextureIndex = textureIndex + 700
@@ -3826,10 +4118,16 @@ function PVPSound:OnEvent(event, ...)
 				 -- Tol Barad
 				elseif MyZone == "Zone_TolBarad" then
 					-- Baradin Hold
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+					for i = GetNumMapLandmarks(), GetNumMapLandmarks(), 1 do
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.51 and y == 0.54 then
 								local faketextureIndex = textureIndex
@@ -3849,25 +4147,25 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-					local isActive = select(3, GetWorldPVPAreaInfo(2))
-					if isActive == true then
+					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
+					if isActive == 0 then
 						BgIsOver = false
-						local j, k, l, m, n, o
-						if (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(4, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
+						--[[local j, k, l, m, n, o
+						if (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
 							j = 4
 							k = 5
 							l = 8
 							m = 2
 							n = 6
 							o = 9
-						elseif (select(4, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
+						elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
 							j = 4
 							k = 5
 							l = 7
 							m = 2
 							n = 6
 							o = 8
-						elseif (select(4, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(4, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
+						elseif (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
 							j = 3
 							k = 4
 							l = 7
@@ -3881,13 +4179,19 @@ function PVPSound:OnEvent(event, ...)
 							m = 2
 							n = 5
 							o = 7
-						end
+						end]]
 						-- Bases
 						-- Ironclad Garrison
-						for i = j, j, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						for i = 1, 1, 1 do
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.51 and y == 0.26 then
 									local faketextureIndex = textureIndex + 100
@@ -3915,13 +4219,19 @@ function PVPSound:OnEvent(event, ...)
 								end
 							end
 						end
-						-- Slagworks
-						for i = k, k, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						-- Warden's Vigil
+						for i = 2, 2, 1 do
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.65 and y == 0.65 then
+								if x == 0.34 and y == 0.69 then
 									local faketextureIndex = textureIndex + 200
 									local type = TBget_objective(faketextureIndex)
 									if type then
@@ -3947,13 +4257,19 @@ function PVPSound:OnEvent(event, ...)
 								end
 							end
 						end
-						-- Warden's Vigil
-						for i = l, l, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						-- Slagworks
+						for i = 3, 3, 1 do
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.34 and y == 0.69 then
+								if x == 0.65 and y == 0.65 then
 									local faketextureIndex = textureIndex + 300
 									local type = TBget_objective(faketextureIndex)
 									if type then
@@ -3980,11 +4296,47 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- Towers
+						-- West Spire
+						for i = 4, 4, 1 do
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
+								if x == 0.26 and y == 0.28 then
+									local faketextureIndex = textureIndex + 600
+									local type = TBget_objective(faketextureIndex)
+									if type then
+										if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(faketextureIndex) == 7 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+										elseif TBobj_state(TBobjectives[type]) == 7 and TBobj_state(faketextureIndex) == 9 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+										elseif TBobj_state(TBobjectives[type]) == 6 and TBobj_state(faketextureIndex) == 8 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+										elseif TBobj_state(TBobjectives[type]) == 8 and TBobj_state(faketextureIndex) == 9 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+										end
+										TBobjectives[type] = faketextureIndex
+									end
+								end
+							end
+						end
 						-- East Spire
-						for i = m, m, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						for i = 5, 5, 1 do
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.73 and y == 0.33 then
 									local faketextureIndex = textureIndex + 400
@@ -4005,37 +4357,19 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 						-- South Spire
-						for i = n, n, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						for i = 6, 6, 1 do
+							local textureIndex = select(4, GetMapLandmarkInfo(i))
+							local x
+							if (select(5, GetMapLandmarkInfo(i))) then
+								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+							end
+							local y
+							if (select(6, GetMapLandmarkInfo(i))) then
+								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+							end
 							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 								if x == 0.52 and y == 0.78 then
 									local faketextureIndex = textureIndex + 500
-									local type = TBget_objective(faketextureIndex)
-									if type then
-										if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(faketextureIndex) == 7 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif TBobj_state(TBobjectives[type]) == 7 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif TBobj_state(TBobjectives[type]) == 6 and TBobj_state(faketextureIndex) == 8 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif TBobj_state(TBobjectives[type]) == 8 and TBobj_state(faketextureIndex) == 9 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										TBobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
-						-- West Spire
-						for i = o, o, 1 do
-							local textureIndex = select(3, GetMapLandmarkInfo(i))
-							local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-							local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.26 and y == 0.28 then
-									local faketextureIndex = textureIndex + 600
 									local type = TBget_objective(faketextureIndex)
 									if type then
 										if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(faketextureIndex) == 7 then
@@ -4129,6 +4463,10 @@ function PVPSound:OnEventTwo(event, ...)
 							i = 7
 						--[[elseif MyZone == "Zone_Arenas" then
 							i = 6]]
+						elseif MyZone == "Zone_TolBarad" then
+							i = 1
+						elseif  MyZone == "Zone_WarsongGulch" then
+							i = 3
 						else
 							i = 4
 						end
@@ -4152,11 +4490,11 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						end
 					end
-					if (select(4, GetWorldStateUIInfo(2))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
+					if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(2))) ~= nil then
 						-- Alliance Score
-						local AllianceScore = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
+						local AllianceScore = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d)/"))
 						-- Horde Score
-						local HordeScore = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d)/"))
+						local HordeScore = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
 						-- Alliance
 						if AllianceScore and HordeScore then
 							local type = WSGandTPAget_objective(AllianceScore)
@@ -4246,9 +4584,15 @@ function PVPSound:OnEventTwo(event, ...)
 				elseif MyZone == "Zone_ArathiBasin" then
 					-- Stables
 					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.38 and y == 0.27 then
 								local faketextureIndex = textureIndex + 500
@@ -4302,9 +4646,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Blacksmith
 					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.48 and y == 0.44 then
 								local faketextureIndex = textureIndex + 100
@@ -4358,9 +4708,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Lumber Mill
 					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.38 and y == 0.59 then
 								local faketextureIndex = textureIndex + 400
@@ -4414,9 +4770,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Gold Mine
 					for i = 4, 4, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.58 and y == 0.28 then
 								local faketextureIndex = textureIndex + 300
@@ -4470,9 +4832,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Farm
 					for i = 5, 5, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.58 and y == 0.58 then
 								local faketextureIndex = textureIndex + 200
@@ -4528,9 +4896,15 @@ function PVPSound:OnEventTwo(event, ...)
 				elseif MyZone == "Zone_TheBattleforGilneas" then
 					-- Mines
 					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.63 and y == 0.41 then
 								local faketextureIndex = textureIndex + 200
@@ -4584,9 +4958,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Waterworks
 					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.61 and y == 0.71 then
 								local faketextureIndex = textureIndex + 300
@@ -4640,9 +5020,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Lighthouse
 					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.35 and y == 0.62 then
 								local faketextureIndex = textureIndex + 100
@@ -4698,9 +5084,15 @@ function PVPSound:OnEventTwo(event, ...)
 				elseif MyZone == "Zone_DeepwindGorge" then
 					-- Pandaren Mine
 					for i = 1, 1, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.58 and y == 0.16 then
 								local faketextureIndex = textureIndex + 300
@@ -4754,9 +5146,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Goblin Mine
 					for i = 2, 2, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.45 and y == 0.81 then
 								local faketextureIndex = textureIndex + 200
@@ -4810,9 +5208,15 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 					-- Center Mine
 					for i = 3, 3, 1 do
-						local textureIndex = select(3, GetMapLandmarkInfo(i))
-						local x = tonumber(string.sub(tostring(select(4, GetMapLandmarkInfo(i))), 1, 4))
-						local y = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local x
+						if (select(5, GetMapLandmarkInfo(i))) then
+							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
+						end
+						local y
+						if (select(6, GetMapLandmarkInfo(i))) then
+							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							if x == 0.52 and y == 0.49 then
 								local faketextureIndex = textureIndex + 100
