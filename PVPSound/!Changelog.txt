@@ -1,4 +1,4 @@
-﻿Issues:
+Issues:
 * TB and WG partially broken still. (Need to play more battles to fix them.)
 * Time remaining and kills remaining sound are not accurate due a missing event call.
 
@@ -8,6 +8,9 @@ ToDo List:
 * Class colored Death and Data Shares.
 * Variable color for SCT messages.
 
+
+**4.0.7**
+* Updated for 7.2.0.
 
 **4.0.6**
 * Updated for 7.1.0.
