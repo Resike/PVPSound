@@ -361,7 +361,7 @@ local function AVobj_state(id)
 		return 5 -- Destoryed Bunker/Tower
 	elseif id == 101 or id == 1001 then
 		return 6 -- Uncontrolled
-	else 
+	else
 		return 0
 	end
 end
@@ -981,13 +981,13 @@ function PVPSound:OnEvent(event, ...)
 				IocAllianceGateDown = false
 				IocHordeGateDown = false
 				-- Alliance Gates
-				for i = 9, 11, 1 do 
+				for i = 9, 11, 1 do
 					if (select(4, GetMapLandmarkInfo(i))) == 82 then
 						IocAllianceGateDown = true
 					end
 				end
 				-- Horde Gates
-				for i = 6, 8, 1 do 
+				for i = 6, 8, 1 do
 					if (select(4, GetMapLandmarkInfo(i))) == 79 then
 						IocHordeGateDown = true
 					end
@@ -1227,14 +1227,26 @@ function PVPSound:OnEvent(event, ...)
 				IOCobjectives.Quarry = nil
 				IOCobjectives.Refinerie = nil
 				IOCobjectives.Workshop = nil
-				IOCobjectives.AllianceGateE = AllianceGateEInit + 100
-				IOCobjectives.AllianceGateW = AllianceGateWInit + 200
-				IOCobjectives.AllianceGateS = AllianceGateSInit + 300
-				IOCobjectives.Docks = DocksInit
-				IOCobjectives.Hangar = HangarInit
-				IOCobjectives.HordeGateE = HordeGateEInit + 400
-				IOCobjectives.HordeGateW = HordeGateWInit + 500
-				IOCobjectives.HordeGateN = HordeGateNInit + 600
+				if AllianceGateEInit then
+						IOCobjectives.AllianceGateE = AllianceGateEInit + 100
+					end
+					if AllianceGateWInit then
+						IOCobjectives.AllianceGateW = AllianceGateWInit + 200
+					end
+					if AllianceGateSInit then
+						IOCobjectives.AllianceGateS = AllianceGateSInit + 300
+					end
+					IOCobjectives.Docks = DocksInit
+					IOCobjectives.Hangar = HangarInit
+					if HordeGateEInit then
+						IOCobjectives.HordeGateE = HordeGateEInit + 400
+					end
+					if HordeGateWInit then
+						IOCobjectives.HordeGateW = HordeGateWInit + 500
+					end
+					if HordeGateNInit then
+						IOCobjectives.HordeGateN = HordeGateNInit + 600
+					end
 				IOCobjectives.Quarry = QuarryInit
 				IOCobjectives.Refinerie = RefinerieInit
 				IOCobjectives.Workshop = WorkshopInit
@@ -1544,13 +1556,13 @@ function PVPSound:OnEvent(event, ...)
 					IocAllianceGateDown = false
 					IocHordeGateDown = false
 					-- Alliance Gates
-					for i = 9, 11, 1 do 
+					for i = 9, 11, 1 do
 						if select(4, GetMapLandmarkInfo(i)) == 82 then
 							IocAllianceGateDown = true
 						end
 					end
 					-- Horde Gates
-					for i = 6, 8, 1 do 
+					for i = 6, 8, 1 do
 						if select(4, GetMapLandmarkInfo(i)) == 79 then
 							IocHordeGateDown = true
 						end
@@ -1798,14 +1810,26 @@ function PVPSound:OnEvent(event, ...)
 					IOCobjectives.Quarry = nil
 					IOCobjectives.Refinerie = nil
 					IOCobjectives.Workshop = nil
-					IOCobjectives.AllianceGateE = AllianceGateEInit + 100
-					IOCobjectives.AllianceGateW = AllianceGateWInit + 200
-					IOCobjectives.AllianceGateS = AllianceGateSInit + 300
+					if AllianceGateEInit then
+						IOCobjectives.AllianceGateE = AllianceGateEInit + 100
+					end
+					if AllianceGateWInit then
+						IOCobjectives.AllianceGateW = AllianceGateWInit + 200
+					end
+					if AllianceGateSInit then
+						IOCobjectives.AllianceGateS = AllianceGateSInit + 300
+					end
 					IOCobjectives.Docks = DocksInit
 					IOCobjectives.Hangar = HangarInit
-					IOCobjectives.HordeGateE = HordeGateEInit + 400
-					IOCobjectives.HordeGateW = HordeGateWInit + 500
-					IOCobjectives.HordeGateN = HordeGateNInit + 600
+					if HordeGateEInit then
+						IOCobjectives.HordeGateE = HordeGateEInit + 400
+					end
+					if HordeGateWInit then
+						IOCobjectives.HordeGateW = HordeGateWInit + 500
+					end
+					if HordeGateNInit then
+						IOCobjectives.HordeGateN = HordeGateNInit + 600
+					end
 					IOCobjectives.Quarry = QuarryInit
 					IOCobjectives.Refinerie = RefinerieInit
 					IOCobjectives.Workshop = WorkshopInit

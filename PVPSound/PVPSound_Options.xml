@@ -269,7 +269,7 @@
 					</OnLeave>
 					<OnClick>
 						ToggleDropDownMenu(nil, nil, self:GetParent())
-						PlaySound("igMainMenuOptionCheckBoxOn")
+						PlaySound(856)
 					</OnClick>
 				</Scripts>
 				<NormalTexture name = "$parentNormalTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
@@ -632,10 +632,10 @@
 		</Backdrop>
 		<Scripts>
 			<OnShow>
-				PlaySound("TalentScreenOpen", PS_Channel)
+				PlaySound(6144, PS_Channel)
 			</OnShow>
 			<OnHide>
-				PlaySound("TalentScreenClose", PS_Channel)
+				PlaySound(6145, PS_Channel)
 			</OnHide>
 			<OnMouseDown>
 				PVPSoundOptions:OptionsStartMoving(self, button)

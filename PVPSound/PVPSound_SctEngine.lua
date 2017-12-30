@@ -2,7 +2,7 @@
 local PVPSound = ns.PVPSound
 local PS = ns.PS
 
-local PVPSoundSctEngineFrame = CreateFrame("Frame", nil)
+local PVPSoundSctEngineFrame = CreateFrame("Frame")
 local TimeSinceLastSctUpdate = 0
 
 local PVPSound_SctQueue 						= { }
@@ -43,6 +43,12 @@ function PVPSound:AddSctToQueue(killtype, file, message, frame)
 		if message ~= nil and frame ~= nil then
 			PVPSound:AddToSct(message, frame)
 		end
+	end
+
+	if #PVPSound_SctQueue > 0 and not PVPSoundSctEngineFrame:GetScript("OnUpdate") then
+		PVPSound_NextSctUpdate = 0
+
+		PVPSoundSctEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSctEngine)
 	end
 end
 
@@ -213,6 +219,8 @@ function PVPSound:ClearSctQueue()
 	for i = table.getn(PVPSound_SctQueue), 1, - 1 do
 		table.remove(PVPSound_SctQueue, i)
 	end
+
+	PVPSoundSctEngineFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:PlayNextSct()
@@ -243,9 +251,14 @@ function PVPSound:UpdateSctEngine(elapsed)
 		TimeSinceLastSctUpdate = TimeSinceLastSctUpdate + elapsed
 		while TimeSinceLastSctUpdate > PVPSound_NextSctUpdate do
 			TimeSinceLastSctUpdate = TimeSinceLastSctUpdate - PVPSound_NextSctUpdate
+
+			if #PVPSound_SctQueue == 0 then
+				PVPSoundSctEngineFrame:SetScript("OnUpdate", nil)
+			end
+
 			PVPSound_NextSctUpdate = PVPSound:PlayNextSct()
 		end
 	end
 end
 
-PVPSoundSctEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSctEngine)
+--PVPSoundSctEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSctEngine)

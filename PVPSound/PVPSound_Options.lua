@@ -81,7 +81,7 @@ function PVPSoundOptions:OptionsStopMoving(self, button)
 end
 
 function PVPSoundOptions:OptionsTabActive(active, all)
-	PlaySound("igCharacterInfoTab", PS_Channel)
+	PlaySound(841, PS_Channel)
 	for i = 1, all do
 		if i == active then
 			getglobal("PVPSoundTab"..i.."Frame"):Show()
@@ -1952,7 +1952,7 @@ function PVPSound:PrintSlashMenu()
 	end
 	if PSSctFrame ~= nil then
 		print("|cFF50C0FF"..Opt_Frame..": |cFFADFF2F["..PSSctFrame.."]|r")
-	end	
+	end
 	if PS_HideServerName == true then
 		print("|cFF50C0FF"..Opt_HideServerName..": |cFFADFF2F"..Opt_Enable.."|r")
 	else

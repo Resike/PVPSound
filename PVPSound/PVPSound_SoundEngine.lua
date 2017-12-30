@@ -2,13 +2,13 @@ local addon, ns = ...
 local PVPSound = ns.PVPSound
 local PS = ns.PS
 
-local PVPSoundSoundEngineFrame = CreateFrame("Frame", nil)
+local PVPSoundSoundEngineFrame = CreateFrame("Frame")
 local TimeSinceLastUpdate = 0
 
-local PVPSoundKillSoundEngineFrame = CreateFrame("Frame", nil)
+local PVPSoundKillSoundEngineFrame = CreateFrame("Frame")
 local TimeSinceLastKillUpdate = 0
 
-local PVPSoundEffectSoundEngineFrame = CreateFrame("Frame", nil)
+local PVPSoundEffectSoundEngineFrame = CreateFrame("Frame")
 local TimeSinceLastEffectUpdate = 0
 
 local PVPSound_SoundQueue 						= { }
@@ -60,6 +60,12 @@ function PVPSound:AddToQueue(file)
 			PlaySoundFile(file, PS_Channel)
 		end
 	end
+
+	if #PVPSound_SoundQueue > 0 and not PVPSoundSoundEngineFrame:GetScript("OnUpdate") then
+		PVPSound_NextUpdate = 0
+
+		PVPSoundSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSoundEngine)
+	end
 end
 
 function PVPSound:ClearSoundQueue()
@@ -67,6 +73,8 @@ function PVPSound:ClearSoundQueue()
 	for i = table.getn(PVPSound_SoundQueue), 1, - 1 do
 		table.remove(PVPSound_SoundQueue, i)
 	end
+
+	PVPSoundSoundEngineFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:PlayNextSound()
@@ -77,6 +85,7 @@ function PVPSound:PlayNextSound()
 		PlaySoundFile(PVPSound_SoundQueue[1].dir, PS_Channel)
 		x = PVPSound_SoundQueue[1].length
 		table.remove(PVPSound_SoundQueue, 1)
+
 		return x
 	else
 		return 0.3100
@@ -98,13 +107,18 @@ function PVPSound:UpdateSoundEngine(elapsed)
 			TimeSinceLastUpdate = TimeSinceLastUpdate + elapsed
 			while TimeSinceLastUpdate > PVPSound_NextUpdate do
 				TimeSinceLastUpdate = TimeSinceLastUpdate - PVPSound_NextUpdate
+
+				if #PVPSound_SoundQueue == 0 then
+					PVPSoundSoundEngineFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextUpdate = PVPSound:PlayNextSound()
 			end
 		end
 	end
 end
 
-PVPSoundSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSoundEngine)
+--PVPSoundSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSoundEngine)
 
 -- Kill Sound Queue
 function PVPSound:AddKillToQueue(killtype, file)
@@ -145,6 +159,12 @@ function PVPSound:AddKillToQueue(killtype, file)
 			PlaySoundFile(file, PS_Channel)
 		end
 	end
+
+	if #PVPSound_KillSoundQueue > 0 and not PVPSoundKillSoundEngineFrame:GetScript("OnUpdate") then
+		PVPSound_NextKillUpdate = 0
+
+		PVPSoundKillSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateKillSoundEngine)
+	end
 end
 
 function PVPSound:ClearKillSoundQueue()
@@ -152,6 +172,8 @@ function PVPSound:ClearKillSoundQueue()
 	for i = table.getn(PVPSound_KillSoundQueue), 1, - 1 do
 		table.remove(PVPSound_KillSoundQueue, i)
 	end
+
+	PVPSoundKillSoundEngineFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:PlayNextKillSound()
@@ -162,6 +184,7 @@ function PVPSound:PlayNextKillSound()
 		PlaySoundFile(PVPSound_KillSoundQueue[1].dir, PS_Channel)
 		x = PVPSound_KillSoundQueue[1].length
 		table.remove(PVPSound_KillSoundQueue, 1)
+
 		return x
 	else
 		return 0.3000
@@ -183,13 +206,18 @@ function PVPSound:UpdateKillSoundEngine(elapsed)
 			TimeSinceLastKillUpdate = TimeSinceLastKillUpdate + elapsed
 			while TimeSinceLastKillUpdate > PVPSound_NextKillUpdate do
 				TimeSinceLastKillUpdate = TimeSinceLastKillUpdate - PVPSound_NextKillUpdate
+
+				if #PVPSound_KillSoundQueue == 0 then
+					PVPSoundKillSoundEngineFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextKillUpdate = PVPSound:PlayNextKillSound()
 			end
 		end
 	end
 end
 
-PVPSoundKillSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateKillSoundEngine)
+--PVPSoundKillSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateKillSoundEngine)
 
 -- Sound Effect Queue
 function PVPSound:AddEffectToQueue(killtype, file)
@@ -220,6 +248,12 @@ function PVPSound:AddEffectToQueue(killtype, file)
 			end
 		end
 	end
+
+	if #PVPSound_SoundEffectQueue > 0 and not PVPSoundEffectSoundEngineFrame:GetScript("OnUpdate") then
+		PVPSound_NextEffectUpdate = 0
+
+		PVPSoundEffectSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSoundEffectEngine)
+	end
 end
 
 function PVPSound:ClearSoundEffectQueue()
@@ -227,6 +261,8 @@ function PVPSound:ClearSoundEffectQueue()
 	for i = table.getn(PVPSound_SoundEffectQueue), 1, - 1 do
 		table.remove(PVPSound_SoundEffectQueue, i)
 	end
+
+	PVPSoundEffectSoundEngineFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:PlayNextSoundEffect()
@@ -241,6 +277,7 @@ function PVPSound:PlayNextSoundEffect()
 			local x
 			x = PVPSound_SoundEffectQueue[1].length
 			table.remove(PVPSound_SoundEffectQueue, 1)
+
 			return x
 		end
 	else
@@ -263,10 +300,15 @@ function PVPSound:UpdateSoundEffectEngine(elapsed)
 			TimeSinceLastEffectUpdate = TimeSinceLastEffectUpdate + elapsed
 			while TimeSinceLastEffectUpdate > PVPSound_NextEffectUpdate do
 				TimeSinceLastEffectUpdate = TimeSinceLastEffectUpdate - PVPSound_NextEffectUpdate
+
+				if #PVPSound_SoundEffectQueue == 0 then
+					PVPSoundEffectSoundEngineFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextEffectUpdate = PVPSound:PlayNextSoundEffect()
 			end
 		end
 	end
 end
 
-PVPSoundEffectSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSoundEffectEngine)
+--PVPSoundEffectSoundEngineFrame:SetScript("OnUpdate", PVPSound.UpdateSoundEffectEngine)

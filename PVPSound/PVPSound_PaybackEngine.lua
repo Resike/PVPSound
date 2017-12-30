@@ -2,16 +2,16 @@
 local PVPSound = ns.PVPSound
 local PS = ns.PS
 
-local PVPSoundPaysoundFrame = CreateFrame("Frame", nil)
+local PVPSoundPaysoundFrame = CreateFrame("Frame")
 local TimeSinceLastPayUpdate = 0
 
-local PVPSoundRetributionFrame = CreateFrame("Frame", nil)
+local PVPSoundRetributionFrame = CreateFrame("Frame")
 local TimeSinceLastRetUpdate = 0
 
-local PVPSoundRecentlyPaybackFrame = CreateFrame("Frame", nil)
+local PVPSoundRecentlyPaybackFrame = CreateFrame("Frame")
 local TimeSinceLastRecPayUpdate = 0
 
-local PVPSoundRecentlyKilledFrame = CreateFrame("Frame", nil)
+local PVPSoundRecentlyKilledFrame = CreateFrame("Frame")
 local TimeSinceLastRecKillUpdate = 0
 
 local PVPSound_PaybackQueue						= { }
@@ -29,23 +29,32 @@ local string, upper, table, getn, insert, remove = string, upper, table, getn, i
 -- Payback Queue
 function PVPSound:AddToPaybackQueue(name)
 	-- This function will add the name and the killtime into the Payback Queue
-	if name ~= nil then
-		local PaybackQueueNumber
-		local AlreadyPaybackQueued = false
-		for i = 1, table.getn(PVPSound_PaybackQueue), 1 do
-			-- If the name is already in the queue
-			if string.upper(PVPSound_PaybackQueue[i].dir) == string.upper(name) then
-				PaybackQueueNumber = i
-				AlreadyPaybackQueued = true
-			end
+	if not name then
+		return
+	end
+
+	local num
+	local queued = false
+
+	for i = 1, table.getn(PVPSound_PaybackQueue), 1 do
+		-- If the name is already in the queue
+		if string.upper(PVPSound_PaybackQueue[i].dir) == string.upper(name) then
+			num = i
+			queued = true
 		end
-		if AlreadyPaybackQueued == true then
-			PVPSound_PaybackQueue[PaybackQueueNumber].killtime = GetTime()
-		else
-			local PaybackTable = {dir = name, killtime = GetTime()}
-			table.insert(PVPSound_PaybackQueue, PaybackTable)
-		end
-		AlreadyPaybackQueued = false
+	end
+
+	if queued then
+		PVPSound_PaybackQueue[num].killtime = GetTime()
+	else
+		local PaybackTable = {dir = name, killtime = GetTime()}
+		table.insert(PVPSound_PaybackQueue, PaybackTable)
+	end
+
+	if #PVPSound_PaybackQueue > 0 and not PVPSoundPaysoundFrame:GetScript("OnUpdate") then
+		PVPSound_NextPayUpdate = 0
+
+		PVPSoundPaysoundFrame:SetScript("OnUpdate", PVPSound.UpdatePaybackSound)
 	end
 end
 
@@ -64,6 +73,8 @@ function PVPSound:ClearPaybackQueue()
 	for i = table.getn(PVPSound_PaybackQueue), 1, - 1 do
 		table.remove(PVPSound_PaybackQueue, i)
 	end
+
+	PVPSoundPaysoundFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:DeleteFirstPayback()
@@ -74,6 +85,7 @@ function PVPSound:DeleteFirstPayback()
 			table.remove(PVPSound_PaybackQueue, 1)
 		end
 	end
+
 	return 0.3300
 end
 
@@ -92,34 +104,48 @@ function PVPSound:UpdatePaybackSound(elapsed)
 			TimeSinceLastPayUpdate = TimeSinceLastPayUpdate + elapsed
 			while TimeSinceLastPayUpdate > PVPSound_NextPayUpdate do
 				TimeSinceLastPayUpdate = TimeSinceLastPayUpdate - PVPSound_NextPayUpdate
+
+				if #PVPSound_PaybackQueue == 0 then
+					PVPSoundPaysoundFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextPayUpdate = PVPSound:DeleteFirstPayback()
 			end
 		end
 	end
 end
 
-PVPSoundPaysoundFrame:SetScript("OnUpdate", PVPSound.UpdatePaybackSound)
+--PVPSoundPaysoundFrame:SetScript("OnUpdate", PVPSound.UpdatePaybackSound)
 
 -- Retribution Queue
 function PVPSound:AddToRetributionQueue(name)
 	-- This function will add the name and the killtime into the Retribution queue
-	if name ~= nil then
-		local RetributionQueueNumber
-		local AlreadyRetributionQueued = false
-		for i = 1, table.getn(PVPSound_RetributionQueue), 1 do
-			-- If the name is already in the queue
-			if string.upper(PVPSound_RetributionQueue[i].dir) == string.upper(name) then
-				RetributionQueueNumber = i
-				AlreadyRetributionQueued = true
-			end
+	if not name then
+		return
+	end
+
+	local num
+	local queued = false
+
+	for i = 1, table.getn(PVPSound_RetributionQueue), 1 do
+		-- If the name is already in the queue
+		if string.upper(PVPSound_RetributionQueue[i].dir) == string.upper(name) then
+			num = i
+			queued = true
 		end
-		if AlreadyRetributionQueued == true then
-			PVPSound_RetributionQueue[RetributionQueueNumber].killtime = GetTime()
-		else
-			local RetributionTable = {dir = name, killtime = GetTime()}
-			table.insert(PVPSound_RetributionQueue, RetributionTable)
-		end
-		AlreadyRetributionQueued = false
+	end
+
+	if queued then
+		PVPSound_RetributionQueue[num].killtime = GetTime()
+	else
+		local RetributionTable = {dir = name, killtime = GetTime()}
+		table.insert(PVPSound_RetributionQueue, RetributionTable)
+	end
+
+	if #PVPSound_RetributionQueue > 0 and not PVPSoundRetributionFrame:GetScript("OnUpdate") then
+		PVPSound_NextRetUpdate = 0
+
+		PVPSoundRetributionFrame:SetScript("OnUpdate", PVPSound.UpdateRetributionSound)
 	end
 end
 
@@ -138,6 +164,8 @@ function PVPSound:ClearRetributionQueue()
 	for i = table.getn(PVPSound_RetributionQueue), 1, - 1 do
 		table.remove(PVPSound_RetributionQueue, i)
 	end
+
+	PVPSoundRetributionFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:DeleteFirstRetribution()
@@ -148,6 +176,7 @@ function PVPSound:DeleteFirstRetribution()
 			table.remove(PVPSound_RetributionQueue, 1)
 		end
 	end
+
 	return 0.3300
 end
 
@@ -166,33 +195,49 @@ function PVPSound:UpdateRetributionSound(elapsed)
 			TimeSinceLastRetUpdate = TimeSinceLastRetUpdate + elapsed
 			while TimeSinceLastRetUpdate > PVPSound_NextRetUpdate do
 				TimeSinceLastRetUpdate = TimeSinceLastRetUpdate - PVPSound_NextRetUpdate
+
+				if #PVPSound_RetributionQueue == 0 then
+					PVPSoundRetributionFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextRetUpdate = PVPSound:DeleteFirstRetribution()
 			end
 		end
 	end
 end
 
-PVPSoundRetributionFrame:SetScript("OnUpdate", PVPSound.UpdateRetributionSound)
+--PVPSoundRetributionFrame:SetScript("OnUpdate", PVPSound.UpdateRetributionSound)
 
 -- Recenlty Payback Queue
 function PVPSound:AddToRecentlyPaybackQueue(name)
 	-- This function will add Payback or Retribution to the Recently Payback Queue
-	local RecentlyPaybackQueueNumber
-	local AlreadyRecentlyPaybackQueued = false
+	if not name then
+		return
+	end
+
+	local num
+	local queued
+
 	for i = 1, table.getn(PVPSound_RecentlyPaybackQueue), 1 do
 		-- If the name is already in the queue
 		if string.upper(PVPSound_RecentlyPaybackQueue[i].dir) == string.upper(name) then
-			RecentlyPaybackQueueNumber = i
-			AlreadyRecentlyPaybackQueued = true
+			num = i
+			queued = true
 		end
 	end
-	if AlreadyRecentlyPaybackQueued == true then
-		PVPSound_RecentlyPaybackQueue[RecentlyPaybackQueueNumber].killedtime = PS.RecentlyPaybackTime
+
+	if queued then
+		PVPSound_RecentlyPaybackQueue[num].killedtime = PS.RecentlyPaybackTime
 	else
 		local RecentlyPaybackTable = {dir = name, killedtime = PS.RecentlyPaybackTime}
 		table.insert(PVPSound_RecentlyPaybackQueue, RecentlyPaybackTable)
 	end
-	AlreadyRecentlyPaybackQueued = false
+
+	if #PVPSound_RecentlyPaybackQueue > 0 and not PVPSoundRecentlyPaybackFrame:GetScript("OnUpdate") then
+		PVPSound_NextRecPayUpdate = 0
+
+		PVPSoundRecentlyPaybackFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyPayback)
+	end
 end
 
 function PVPSound:CheckRecentlyPaybackQueue(name)
@@ -210,6 +255,8 @@ function PVPSound:ClearRecentlyPaybackQueue()
 	for i = table.getn(PVPSound_RecentlyPaybackQueue), 1, - 1 do
 		table.remove(PVPSound_RecentlyPaybackQueue, i)
 	end
+
+	PVPSoundRecentlyPaybackFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:DeleteFirstRecentlyPayback()
@@ -220,6 +267,7 @@ function PVPSound:DeleteFirstRecentlyPayback()
 			table.remove(PVPSound_RecentlyPaybackQueue, 1)
 		end
 	end
+
 	return 0.3300
 end
 
@@ -238,34 +286,48 @@ function PVPSound:UpdateRecentlyPayback(elapsed)
 			TimeSinceLastRecPayUpdate = TimeSinceLastRecPayUpdate + elapsed
 			while TimeSinceLastRecPayUpdate > PVPSound_NextRecPayUpdate do
 				TimeSinceLastRecPayUpdate = TimeSinceLastRecPayUpdate - PVPSound_NextRecPayUpdate
+
+				if #PVPSound_RecentlyPaybackQueue == 0 then
+					PVPSoundRecentlyPaybackFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextRecPayUpdate = PVPSound:DeleteFirstRecentlyPayback()
 			end
 		end
 	end
 end
 
-PVPSoundRecentlyPaybackFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyPayback)
+--PVPSoundRecentlyPaybackFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyPayback)
 
 -- Recenlty Killed Queue
 function PVPSound:AddToRecentlyKilledQueue(name)
 	-- This function will add the name and the killedtime into the Recently Killed Queue
-	if name ~= nil then
-		local RecentlyKilledQueueNumber
-		local AlreadyRecentlyKilledQueued = false
-		for i = 1, table.getn(PVPSound_RecentlyKilledQueue), 1 do
-			-- If the name is already in the queue
-			if string.upper(PVPSound_RecentlyKilledQueue[i].dir) == string.upper(name) then
-				RecentlyKilledQueueNumber = i
-				AlreadyRecentlyKilledQueued = true
-			end
+	if not name then
+		return
+	end
+
+	local num
+	local queued = false
+
+	for i = 1, table.getn(PVPSound_RecentlyKilledQueue), 1 do
+		-- If the name is already in the queue
+		if string.upper(PVPSound_RecentlyKilledQueue[i].dir) == string.upper(name) then
+			num = i
+			queued = true
 		end
-		if AlreadyRecentlyKilledQueued == true then
-			PVPSound_RecentlyKilledQueue[RecentlyKilledQueueNumber].killedtime = GetTime()
-		else
-			local RecentlyKilledTable = {dir = name, killedtime = GetTime()}
-			table.insert(PVPSound_RecentlyKilledQueue, RecentlyKilledTable)
-		end
-		AlreadyRecentlyKilledQueued = false
+	end
+
+	if queued then
+		PVPSound_RecentlyKilledQueue[num].killedtime = GetTime()
+	else
+		local RecentlyKilledTable = {dir = name, killedtime = GetTime()}
+		table.insert(PVPSound_RecentlyKilledQueue, RecentlyKilledTable)
+	end
+
+	if #PVPSound_RecentlyKilledQueue > 0 and not PVPSoundRecentlyKilledFrame:GetScript("OnUpdate") then
+		PVPSound_NextRecKillUpdate = 0
+
+		PVPSoundRecentlyKilledFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyKilled)
 	end
 end
 
@@ -284,6 +346,8 @@ function PVPSound:ClearRecentlyKilledQueue()
 	for i = table.getn(PVPSound_RecentlyKilledQueue), 1, - 1 do
 		table.remove(PVPSound_RecentlyKilledQueue, i)
 	end
+
+	PVPSoundRecentlyKilledFrame:SetScript("OnUpdate", nil)
 end
 
 function PVPSound:DeleteFirstRecentlyKilled()
@@ -294,6 +358,7 @@ function PVPSound:DeleteFirstRecentlyKilled()
 			table.remove(PVPSound_RecentlyKilledQueue, 1)
 		end
 	end
+
 	return 0.3300
 end
 
@@ -312,10 +377,15 @@ function PVPSound:UpdateRecentlyKilled(elapsed)
 			TimeSinceLastRecKillUpdate = TimeSinceLastRecKillUpdate + elapsed
 			while TimeSinceLastRecKillUpdate > PVPSound_NextRecKillUpdate do
 				TimeSinceLastRecKillUpdate = TimeSinceLastRecKillUpdate - PVPSound_NextRecKillUpdate
+
+				if #PVPSound_RecentlyKilledQueue == 0 then
+					PVPSoundRecentlyKilledFrame:SetScript("OnUpdate", nil)
+				end
+
 				PVPSound_NextRecKillUpdate = PVPSound:DeleteFirstRecentlyKilled()
 			end
 		end
 	end
 end
 
-PVPSoundRecentlyKilledFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyKilled)
+--PVPSoundRecentlyKilledFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyKilled)
