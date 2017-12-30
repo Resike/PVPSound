@@ -176,142 +176,6 @@
 			</Anchors>
 		</HighlightTexture>
 	</Button>
-	<!-- Dropdown Menu Template-->
-	<Frame name = "PVPSoundDropDownMenuTemplate" virtual = "true">
-		<Size>
-			<AbsDimension x = "40" y = "32"/>
-		</Size>
-		<Layers>
-			<Layer level = "ARTWORK">
-				<Texture name = "$parentLeft" file = "Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
-					<Size>
-						<AbsDimension x = "25" y = "64"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "TOPLEFT">
-							<Offset>
-								<AbsDimension x = "0" y = "17"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-					<TexCoords left = "0" right = "0.1953125" top = "0" bottom = "1"/>
-				</Texture>
-				<Texture name = "$parentMiddle" file = "Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
-					<Size>
-						<AbsDimension x = "115" y = "64"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "LEFT" relativeTo = "$parentLeft" relativePoint = "RIGHT"/>
-					</Anchors>
-					<TexCoords left = "0.1953125" right = "0.8046875" top = "0" bottom = "1"/>
-				</Texture>
-				<Texture name = "$parentRight" file = "Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
-					<Size>
-						<AbsDimension x = "25" y = "64"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "LEFT" relativeTo = "$parentMiddle" relativePoint = "RIGHT"/>
-					</Anchors>
-					<TexCoords left = "0.8046875" right = "1" top = "0" bottom = "1"/>
-				</Texture>
-				<FontString name = "$parentText" inherits = "PVPSoundFontSmallWhite" wordwrap = "false" justifyH = "RIGHT">
-					<Size>
-						<AbsDimension x = "0" y = "10"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "RIGHT" relativeTo = "$parentRight">
-							<Offset>
-								<AbsDimension x = "-43" y = "2"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-			</Layer>
-			<Layer level = "OVERLAY">
-				<Texture name = "$parentIcon" hidden = "true">
-					<Size>
-						<AbsDimension x = "16" y = "16"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "LEFT">
-							<Offset x = "30" y = "2"/>
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-		</Layers>
-		<Frames>
-			<Button name = "$parentButton" motionScriptsWhileDisabled = "true" >
-				<Size>
-					<AbsDimension x = "24" y = "24"/>
-				</Size>
-				<Anchors>
-					<Anchor point = "TOPRIGHT" relativeTo = "$parentRight">
-						<Offset>
-							<AbsDimension x = "-16" y = "-18"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnEnter>
-						local parent = self:GetParent()
-						local myscript = parent:GetScript("OnEnter")
-						if(myscript ~= nil) then
-							myscript(parent)
-						end
-					</OnEnter>
-					<OnLeave>
-						local parent = self:GetParent()
-						local myscript = parent:GetScript("OnLeave")
-						if(myscript ~= nil) then
-							myscript(parent)
-						end
-					</OnLeave>
-					<OnClick>
-						ToggleDropDownMenu(nil, nil, self:GetParent())
-						PlaySound(856)
-					</OnClick>
-				</Scripts>
-				<NormalTexture name = "$parentNormalTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
-					<Size>
-						<AbsDimension x = "24" y = "24"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "RIGHT"/>
-					</Anchors>
-				</NormalTexture>
-				<PushedTexture name = "$parentPushedTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down">
-					<Size>
-						<AbsDimension x = "24" y = "24"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "RIGHT"/>
-					</Anchors>
-				</PushedTexture>
-				<DisabledTexture name = "$parentDisabledTexture" file = "Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled">
-					<Size>
-						<AbsDimension x = "24" y = "24"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "RIGHT"/>
-					</Anchors>
-				</DisabledTexture>
-				<HighlightTexture name = "$parentHighlightTexture" file = "Interface\Buttons\UI-Common-MouseHilight" alphaMode = "ADD">
-					<Size>
-						<AbsDimension x = "24" y = "24"/>
-					</Size>
-					<Anchors>
-						<Anchor point = "RIGHT"/>
-					</Anchors>
-				</HighlightTexture>
-			</Button>
-		</Frames>
-		<Scripts>
-			<OnHide>
-				CloseDropDownMenus()
-			</OnHide>
-		</Scripts>
-	</Frame>
 	<!-- GameTooltip Template -->
 	<GameTooltip name = "PVPSoundGameTooltipTemplate" frameStrata = "TOOLTIP" clampedToScreen = "true" hidden = "true" virtual = "true">
 		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
@@ -730,7 +594,7 @@
 					</Layer>
 				</Layers>
 				<Frames>
-					<Frame name = "PVPSoundLanguageDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "0">
+					<Frame name = "PVPSoundLanguageDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "0">
 						<Anchors>
 							<Anchor point = "TOPRIGHT" relativeTo = "PVPSoundTab1Frame" relativePoint = "TOPRIGHT">
 								<Offset>
@@ -759,7 +623,7 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "Addon Language")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
 								PVPSoundOptions:OptionsShowToopTip(self, "Select a Language for the addon to use.")
@@ -798,7 +662,7 @@
 							</OnLeave>
 						</Scripts>
 					</CheckButton>
-					<Frame name = "PVPSoundKillSoundPackDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "1">
+					<Frame name = "PVPSoundKillSoundPackDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "1">
 						<Anchors>
 							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundEnableAddonButton" relativePoint = "BOTTOMLEFT">
 								<Offset>
@@ -827,10 +691,10 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "Kill Sound Pack")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
-								if UIDropDownMenu_IsEnabled(self) then
+								if Lib_UIDropDownMenu_IsEnabled(self) then
 									PVPSoundOptions:OptionsShowToopTip(self, "Select a Sound Pack to use for kill sounds.")
 								end
 							</OnEnter>
@@ -839,7 +703,7 @@
 							</OnLeave>
 						</Scripts>
 					</Frame>
-					<Frame name = "PVPSoundKillSoundPackLanguageDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "2">
+					<Frame name = "PVPSoundKillSoundPackLanguageDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "2">
 						<Anchors>
 							<Anchor point = "LEFT" relativeTo = "PVPSoundKillSoundPackDropDown" relativePoint = "RIGHT">
 								<Offset>
@@ -868,10 +732,10 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "Kill Sound Pack Language")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
-								if UIDropDownMenu_IsEnabled(self) then
+								if Lib_UIDropDownMenu_IsEnabled(self) then
 									PVPSoundOptions:OptionsShowToopTip(self, "Select a Language/Type from the Sound Pack to use for kill sounds.")
 								end
 							</OnEnter>
@@ -880,7 +744,7 @@
 							</OnLeave>
 						</Scripts>
 					</Frame>
-					<Frame name = "PVPSoundSoundChannelDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "3">
+					<Frame name = "PVPSoundSoundChannelDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "3">
 						<Anchors>
 							<Anchor point = "LEFT" relativeTo = "PVPSoundKillSoundPackLanguageDropDown" relativePoint = "RIGHT">
 								<Offset>
@@ -909,10 +773,10 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "Sound Channel")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
-								if UIDropDownMenu_IsEnabled(self) then
+								if Lib_UIDropDownMenu_IsEnabled(self) then
 									PVPSoundOptions:OptionsShowToopTip(self, "Select a Sound Channel to use.")
 								end
 							</OnEnter>
@@ -921,7 +785,7 @@
 							</OnLeave>
 						</Scripts>
 					</Frame>
-					<Frame name = "PVPSoundModeDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "4">
+					<Frame name = "PVPSoundModeDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "4">
 						<Anchors>
 							<Anchor point = "LEFT" relativeTo = "PVPSoundSoundChannelDropDown" relativePoint = "RIGHT">
 								<Offset>
@@ -950,10 +814,10 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "Mode")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
-								if UIDropDownMenu_IsEnabled(self) then
+								if Lib_UIDropDownMenu_IsEnabled(self) then
 									PVPSoundOptions:OptionsShowToopTip(self, "Select a mode to use.")
 								end
 							</OnEnter>
@@ -962,7 +826,7 @@
 							</OnLeave>
 						</Scripts>
 					</Frame>
-					<Frame name = "PVPSoundSoundPackDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "1">
+					<Frame name = "PVPSoundSoundPackDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "1">
 						<Anchors>
 							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundKillSoundPackDropDown" relativePoint = "BOTTOMLEFT">
 								<Offset>
@@ -991,10 +855,10 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "BG Sound Pack")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
-								if UIDropDownMenu_IsEnabled(self) then
+								if Lib_UIDropDownMenu_IsEnabled(self) then
 									PVPSoundOptions:OptionsShowToopTip(self, "Select a Sound Pack to use for battleground sounds.")
 								end
 							</OnEnter>
@@ -1003,7 +867,7 @@
 							</OnLeave>
 						</Scripts>
 					</Frame>
-					<Frame name = "PVPSoundSoundPackLanguageDropDown" inherits = "PVPSoundDropDownMenuTemplate" id = "2">
+					<Frame name = "PVPSoundSoundPackLanguageDropDown" inherits = "Lib_UIDropDownMenuTemplate" id = "2">
 						<Anchors>
 							<Anchor point = "LEFT" relativeTo = "PVPSoundSoundPackDropDown" relativePoint = "RIGHT">
 								<Offset>
@@ -1032,10 +896,10 @@
 								PVPSoundOptions:OptionsSetText(self, "Label", "BG Sound Pack Language")
 							</OnLoad>
 							<OnShow>
-								UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
+								Lib_UIDropDownMenu_Initialize(self, PVPSoundOptions.OptionsDropDownMenuInitialize)
 							</OnShow>
 							<OnEnter>
-								if UIDropDownMenu_IsEnabled(self) then
+								if Lib_UIDropDownMenu_IsEnabled(self) then
 									PVPSoundOptions:OptionsShowToopTip(self, "Select a Language/Type from the Sound Pack to use for battleground sounds.")
 								end
 							</OnEnter>

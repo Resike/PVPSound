@@ -6,13 +6,17 @@ local PVPSoundDataFrame = CreateFrame("Frame", nil)
 PVPSoundDataFrame:RegisterEvent("ADDON_LOADED")
 
 function PVPSound:DataOnLoad()
-	if PS_EnableAddon == true then
+	if PS_EnableAddon then
 		PVPSoundDataFrame:RegisterEvent("CHAT_MSG_ADDON")
 		PVPSoundDataFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	end
 end
 
 function PVPSound:RegisterDataEvents()
+	if not PS_DataShare then
+		return
+	end
+
 	PVPSoundDataFrame:RegisterEvent("CHAT_MSG_ADDON")
 	PVPSoundDataFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end
@@ -33,11 +37,11 @@ local print, select, tostring, string, len, find, match, sub = print, select, to
 
 -- PVPSound Addon Data Sharing
 function PVPSound:DataOnEvent(event, prefix, message, channel, sender, ...)
-	if PS_DataShare == true then
-		if event == "ADDON LOADED" then
+	if PS_DataShare then
+		if event == "ADDON_LOADED" then
 			local Addon = select(1, ...)
 			if Addon == "PVPSound" then
-				if PS_EnableAddon == true then
+				if PS_EnableAddon then
 					PVPSound:DataOnLoad()
 				end
 			end
@@ -127,5 +131,5 @@ end
 PVPSoundDataFrame:SetScript("OnEvent", PVPSound.DataOnEvent)
 
 function PVPSound:PrintDeath(sender, message, killer)
-	print("|cFFFF4500"..sender..Msg_S.." "..message.." "..Msg_WasOverBy.." "..killer..".|cFFFFFFFF")
+	print("|cFFFF4500"..sender..L["'s"].." "..message.." "..L["was over by"].." "..killer..".|cFFFFFFFF")
 end

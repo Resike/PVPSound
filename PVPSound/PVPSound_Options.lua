@@ -137,12 +137,12 @@ function PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
 		PVPSoundKillSoundButtonText:SetTextColor(1, 1, 1)
 		PVPSoundMultiKillSoundButton:Enable()
 		PVPSoundMultiKillSoundButtonText:SetTextColor(1, 1, 1)
-		UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackDropDown)
-		UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackLanguageDropDown)
-		UIDropDownMenu_EnableDropDown(PVPSoundSoundPackDropDown)
-		UIDropDownMenu_EnableDropDown(PVPSoundSoundPackLanguageDropDown)
-		UIDropDownMenu_EnableDropDown(PVPSoundSoundChannelDropDown)
-		UIDropDownMenu_EnableDropDown(PVPSoundModeDropDown)
+		Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackDropDown)
+		Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackLanguageDropDown)
+		Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundPackDropDown)
+		Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundPackLanguageDropDown)
+		Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundChannelDropDown)
+		Lib_UIDropDownMenu_EnableDropDown(PVPSoundModeDropDown)
 	else
 		PS_EnableAddon = false
 		PVPSound:UnregisterEvents()
@@ -151,12 +151,12 @@ function PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
 		PVPSoundKillSoundButtonText:SetTextColor(0.5, 0.5, 0.5)
 		PVPSoundMultiKillSoundButton:Disable()
 		PVPSoundMultiKillSoundButtonText:SetTextColor(0.5, 0.5, 0.5)
-		UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackDropDown)
-		UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackLanguageDropDown)
-		UIDropDownMenu_DisableDropDown(PVPSoundSoundPackDropDown)
-		UIDropDownMenu_DisableDropDown(PVPSoundSoundPackLanguageDropDown)
-		UIDropDownMenu_DisableDropDown(PVPSoundSoundChannelDropDown)
-		UIDropDownMenu_DisableDropDown(PVPSoundModeDropDown)
+		Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackDropDown)
+		Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackLanguageDropDown)
+		Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundPackDropDown)
+		Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundPackLanguageDropDown)
+		Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundChannelDropDown)
+		Lib_UIDropDownMenu_DisableDropDown(PVPSoundModeDropDown)
 	end
 	--print(PS_EnableAddon)
 end
@@ -210,15 +210,15 @@ function PVPSoundOptions:OptionsMultiKillSoundButtonToggle(self)
 end
 
 function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
-	local info = UIDropDownMenu_CreateInfo()
+	local info = Lib_UIDropDownMenu_CreateInfo()
 	local name = self:GetName()
 	if name == "PVPSoundKillSoundPackDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		PVPSoundOptions:OptionsSetKillSoundPack()
 		if PVPSoundEnableAddonButton:GetChecked() then
-			UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackDropDown)
+			Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackDropDown)
 		else
-			UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackDropDown)
+			Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackDropDown)
 		end
 		PVPSoundOptions:OptionsSetKillSoundPackText(self)
 		info.text = L["Devil May Cry"]
@@ -231,7 +231,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsKillSoundPack(name, "DevilMayCry")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Dota 2"]
 		info.fontObject = font
 		if PS_KillSoundPackName == "Dota2" then
@@ -242,7 +242,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsKillSoundPack(name, "Dota2")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Halo 4"]
 		info.fontObject = font
 		if PS_KillSoundPackName == "Halo4" then
@@ -253,7 +253,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsKillSoundPack(name, "Halo4")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Unreal Tournament 3"]
 		info.fontObject = font
 		if PS_KillSoundPackName == "UnrealTournament3" then
@@ -264,7 +264,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsKillSoundPack(name, "UnrealTournament3")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Custom"]
 		info.fontObject = font
 		if PS_KillSoundPackName == "Custom" then
@@ -275,14 +275,14 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsKillSoundPack(name, "Custom")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 	elseif name == "PVPSoundKillSoundPackLanguageDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		PVPSoundOptions:OptionsSetKillSoundPack()
 		if PVPSoundEnableAddonButton:GetChecked() then
-			UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackLanguageDropDown)
+			Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackLanguageDropDown)
 		else
-			UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackLanguageDropDown)
+			Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackLanguageDropDown)
 		end
 		PVPSoundOptions:OptionsSetKillSoundPackLanguageText(self)
 		if PS_KillSoundPackName == "Custom" then
@@ -296,7 +296,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Default")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		elseif PS_KillSoundPackName == "DevilMayCry" then
 			info.text = L["English"]
 			info.fontObject = font
@@ -308,7 +308,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Eng")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		elseif PS_KillSoundPackName == "Dota2" then
 			info.text = L["Axe"]
 			info.fontObject = font
@@ -320,7 +320,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Axe")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Bastion"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Bastion" then
@@ -331,7 +331,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Bastion")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["ClockWerk"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "ClockWerk" then
@@ -342,7 +342,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "ClockWerk")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["DefenseGrid"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "DefenseGrid" then
@@ -353,7 +353,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "DefenseGrid")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Glados"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Glados" then
@@ -364,7 +364,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Glados")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Juggernaut"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Juggernaut" then
@@ -375,7 +375,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Juggernaut")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Lina"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Lina" then
@@ -386,7 +386,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Lina")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["NaturesProphet"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "NaturesProphet" then
@@ -397,7 +397,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "NaturesProphet")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Pflax"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Pflax" then
@@ -408,7 +408,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Pflax")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Pirate"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Pirate" then
@@ -419,7 +419,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Pirate")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["StanleyParable"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "StanleyParable" then
@@ -430,7 +430,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "StanleyParable")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["StormSpirit"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "StormSpirit" then
@@ -441,7 +441,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "StormSpirit")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Trine"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Trine" then
@@ -452,7 +452,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Trine")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		elseif PS_KillSoundPackName == "Halo4" then
 			info.text = L["English"]
 			info.fontObject = font
@@ -464,7 +464,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Eng")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		else
 			info.text = L["English"]
 			info.fontObject = font
@@ -476,7 +476,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Eng")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["German"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Deu" then
@@ -487,7 +487,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Deu")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Spanish"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Esn" then
@@ -498,7 +498,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Esn")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["French"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Fra" then
@@ -509,7 +509,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Fra")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Italian"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Ita" then
@@ -520,7 +520,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Ita")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Russian"]
 			info.fontObject = font
 			if PS_KillSoundPackLanguage == "Rus" then
@@ -531,15 +531,15 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsKillSoundPackLanguage(name, "Rus")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		end
 	elseif name == "PVPSoundSoundPackDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		PVPSoundOptions:OptionsSetSoundPack()
 		if PVPSoundEnableAddonButton:GetChecked() then
-			UIDropDownMenu_EnableDropDown(PVPSoundSoundPackDropDown)
+			Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundPackDropDown)
 		else
-			UIDropDownMenu_DisableDropDown(PVPSoundSoundPackDropDown)
+			Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundPackDropDown)
 		end
 		PVPSoundOptions:OptionsSetSoundPackText(self)
 		info.text = L["Unreal Tournament 3"]
@@ -552,7 +552,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsSoundPack(name, "UnrealTournament3")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Custom"]
 		info.fontObject = font
 		if PS_SoundPackName == "Custom" then
@@ -563,14 +563,14 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsSoundPack(name, "Custom")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 	elseif name == "PVPSoundSoundPackLanguageDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		PVPSoundOptions:OptionsSetSoundPack()
 		if PVPSoundEnableAddonButton:GetChecked() then
-			UIDropDownMenu_EnableDropDown(PVPSoundSoundPackLanguageDropDown)
+			Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundPackLanguageDropDown)
 		else
-			UIDropDownMenu_DisableDropDown(PVPSoundSoundPackLanguageDropDown)
+			Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundPackLanguageDropDown)
 		end
 		PVPSoundOptions:OptionsSetSoundPackLanguageText(self)
 		if PS_SoundPackLanguage == "Default" then
@@ -584,7 +584,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Default")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		else
 			info.text = L["English"]
 			info.fontObject = font
@@ -596,7 +596,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Eng")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["German"]
 			info.fontObject = font
 			if PS_SoundPackLanguage == "Deu" then
@@ -607,7 +607,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Deu")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Spanish"]
 			info.fontObject = font
 			if PS_SoundPackLanguage == "Esn" then
@@ -618,7 +618,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Esn")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["French"]
 			info.fontObject = font
 			if PS_SoundPackLanguage == "Fra" then
@@ -629,7 +629,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Fra")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Italian"]
 			info.fontObject = font
 			if PS_SoundPackLanguage == "Ita" then
@@ -640,7 +640,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Ita")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 			info.text = L["Russian"]
 			info.fontObject = font
 			if PS_SoundPackLanguage == "Rus" then
@@ -651,14 +651,14 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 			info.func = function(self)
 				PVPSoundOptions:OptionsSoundPackLanguage(name, "Rus")
 			end
-			UIDropDownMenu_AddButton(info)
+			Lib_UIDropDownMenu_AddButton(info)
 		end
 	elseif name == "PVPSoundSoundChannelDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		if PVPSoundEnableAddonButton:GetChecked() then
-			UIDropDownMenu_EnableDropDown(PVPSoundSoundChannelDropDown)
+			Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundChannelDropDown)
 		else
-			UIDropDownMenu_DisableDropDown(PVPSoundSoundChannelDropDown)
+			Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundChannelDropDown)
 		end
 		PVPSoundOptions:OptionsSetSoundChannelText(self)
 		info.text = L["Master"]
@@ -671,7 +671,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsSoundChannel(name, "Master")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Sound"]
 		info.fontObject = font
 		if PS_Channel == "Sound" then
@@ -682,7 +682,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsSoundChannel(name, "Sound")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Music"]
 		info.fontObject = font
 		if PS_Channel == "Music" then
@@ -693,7 +693,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsSoundChannel(name, "Music")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["Ambience"]
 		info.fontObject = font
 		if PS_Channel == "Ambience" then
@@ -704,13 +704,13 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsSoundChannel(name, "Ambience")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 	elseif name == "PVPSoundModeDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		if PVPSoundEnableAddonButton:GetChecked() then
-			UIDropDownMenu_EnableDropDown(PVPSoundModeDropDown)
+			Lib_UIDropDownMenu_EnableDropDown(PVPSoundModeDropDown)
 		else
-			UIDropDownMenu_DisableDropDown(PVPSoundModeDropDown)
+			Lib_UIDropDownMenu_DisableDropDown(PVPSoundModeDropDown)
 		end
 		PVPSoundOptions:OptionsSetModeText(self)
 		info.text = L["PVP"]
@@ -723,7 +723,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsMode(name, "PVP")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["PVE"]
 		info.fontObject = font
 		if PS_Mode == "PVE" then
@@ -734,7 +734,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsMode(name, "PVE")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = L["PVP and PVE"]
 		info.fontObject = font
 		if PS_Mode == "PVPandPVE" then
@@ -745,9 +745,9 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsMode(name, "PVPandPVE")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 	elseif name == "PVPSoundLanguageDropDown" then
-		UIDropDownMenu_SetWidth(self, 164)
+		Lib_UIDropDownMenu_SetWidth(self, 164)
 		PVPSoundOptions:OptionsSetAddonLanguageText(self)
 		PVPSound:SetAddonLanguage()
 		info.text = "English"
@@ -760,7 +760,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "English")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "German"
 		info.fontObject = GameFontWhiteSmall
 		if PS_AddonLanguage == "German" then
@@ -771,7 +771,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "German")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "Español"
 		info.fontObject = GameFontWhiteSmall
 		if PS_AddonLanguage == "Spanish" then
@@ -782,7 +782,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "Spanish")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "El español de América"
 		info.fontObject = GameFontWhiteSmall
 		if PS_AddonLanguage == "LatinAmericanSpanish" then
@@ -793,7 +793,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "LatinAmericanSpanish")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "Français"
 		info.fontObject = GameFontWhiteSmall
 		if PS_AddonLanguage == "French" then
@@ -804,7 +804,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "French")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "Italiano"
 		info.fontObject = GameFontWhiteSmall
 		if PS_AddonLanguage == "Italian" then
@@ -815,7 +815,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "Italian")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "한국의"
 		info.fontObject = GameFontNormalSmallLeft_KO
 		if PS_AddonLanguage == "Korean" then
@@ -826,7 +826,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "Korean")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "Português"
 		info.fontObject = GameFontWhiteSmall
 		if PS_AddonLanguage == "Portuguese" then
@@ -837,7 +837,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "Portuguese")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "Русский"
 		info.fontObject = GameFontNormalSmallLeft_RU
 		if PS_AddonLanguage == "Russian" then
@@ -848,7 +848,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "Russian")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "简体中国"
 		info.fontObject = GameFontNormalSmallLeft_ZH
 		if PS_AddonLanguage == "SimplifiedChinese" then
@@ -859,7 +859,7 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "SimplifiedChinese")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 		info.text = "繁體中文"
 		info.fontObject = GameFontNormalSmallLeft_ZH
 		if PS_AddonLanguage == "TraditionalChinese" then
@@ -870,22 +870,22 @@ function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
 		info.func = function(self)
 			PVPSoundOptions:OptionsAddonLanguage(name, "TraditionalChinese")
 		end
-		UIDropDownMenu_AddButton(info)
+		Lib_UIDropDownMenu_AddButton(info)
 	end
 end
 
 -- Sound Packs
 function PVPSoundOptions:OptionsSetKillSoundPackText(self)
 	if PS_KillSoundPackName == "DevilMayCry" then
-		UIDropDownMenu_SetText(self, L["Devil May Cry"])
+		Lib_UIDropDownMenu_SetText(self, L["Devil May Cry"])
 	elseif PS_KillSoundPackName == "Dota2" then
-		UIDropDownMenu_SetText(self, L["Dota 2"])
+		Lib_UIDropDownMenu_SetText(self, L["Dota 2"])
 	elseif PS_KillSoundPackName == "Halo4" then
-		UIDropDownMenu_SetText(self, L["Halo 4"])
+		Lib_UIDropDownMenu_SetText(self, L["Halo 4"])
 	elseif PS_KillSoundPackName == "UnrealTournament3" then
-		UIDropDownMenu_SetText(self, L["Unreal Tournament 3"])
+		Lib_UIDropDownMenu_SetText(self, L["Unreal Tournament 3"])
 	elseif PS_KillSoundPackName == "Custom" then
-		UIDropDownMenu_SetText(self, L["Custom"])
+		Lib_UIDropDownMenu_SetText(self, L["Custom"])
 	end
 end
 
@@ -900,57 +900,57 @@ function PVPSoundOptions:OptionsKillSoundPack(name, soundpackname)
 		PS_KillSoundPackName = soundpackname
 		if PS_KillSoundPackLanguage ~= "Eng" then
 			PS_KillSoundPackLanguage = "Eng"
-			UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["English"])
+			Lib_UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["English"])
 		end
 		PVPSoundOptions:OptionsSetKillSoundPack()
-		UIDropDownMenu_SetText(frame, L["Devil May Cry"])
+		Lib_UIDropDownMenu_SetText(frame, L["Devil May Cry"])
 		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	elseif soundpackname == "Dota2" then
 		PS_KillSoundPackName = soundpackname
 		if PS_KillSoundPackLanguage ~= "Axe" and PS_KillSoundPackLanguage ~= "Bastion" and PS_KillSoundPackLanguage ~= "ClockWerk" and PS_KillSoundPackLanguage ~= "DefenseGrid" and PS_KillSoundPackLanguage ~= "Glados" and PS_KillSoundPackLanguage ~= "Juggernaut" and PS_KillSoundPackLanguage ~= "Lina" and PS_KillSoundPackLanguage ~= "NaturesProphet" and PS_KillSoundPackLanguage ~= "Pflax" and PS_KillSoundPackLanguage ~= "Pirate" and PS_KillSoundPackLanguage ~= "StanleyParable" and PS_KillSoundPackLanguage ~= "StormSpirit" and PS_KillSoundPackLanguage ~= "Trine" then
 			PS_KillSoundPackLanguage = "Axe"
-			UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["Axe"])
+			Lib_UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["Axe"])
 		end
 		PVPSoundOptions:OptionsSetKillSoundPack()
-		UIDropDownMenu_SetText(frame, L["Dota 2"])
+		Lib_UIDropDownMenu_SetText(frame, L["Dota 2"])
 		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	elseif soundpackname == "Halo4" then
 		PS_KillSoundPackName = soundpackname
 		if PS_KillSoundPackLanguage ~= "Eng" then
 			PS_KillSoundPackLanguage = "Eng"
-			UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["English"])
+			Lib_UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["English"])
 		end
 		PVPSoundOptions:OptionsSetKillSoundPack()
-		UIDropDownMenu_SetText(frame, L["Halo 4"])
+		Lib_UIDropDownMenu_SetText(frame, L["Halo 4"])
 		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	elseif soundpackname == "UnrealTournament3" then
 		PS_KillSoundPackName = soundpackname
 		if PS_KillSoundPackLanguage ~= "Deu" and PS_KillSoundPackLanguage ~= "Eng" and PS_KillSoundPackLanguage ~= "Esn" and PS_KillSoundPackLanguage ~= "Fra" and PS_KillSoundPackLanguage ~= "Ita" and PS_KillSoundPackLanguage ~= "Rus" then
 			PS_KillSoundPackLanguage = "Eng"
-			UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["English"])
+			Lib_UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["English"])
 		end
 		PVPSoundOptions:OptionsSetKillSoundPack()
-		UIDropDownMenu_SetText(frame, L["Unreal Tournament 3"])
+		Lib_UIDropDownMenu_SetText(frame, L["Unreal Tournament 3"])
 		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	elseif soundpackname == "Custom" then
 		PS_KillSoundPackName = soundpackname
 		if PS_KillSoundPackLanguage ~= "Default" then
 			PS_KillSoundPackLanguage = "Default"
-			UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["Default"])
+			Lib_UIDropDownMenu_SetText(PVPSoundKillSoundPackLanguageDropDown, L["Default"])
 		end
 		PVPSoundOptions:OptionsSetKillSoundPack()
-		UIDropDownMenu_SetText(frame, L["Custom"])
+		Lib_UIDropDownMenu_SetText(frame, L["Custom"])
 		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsSetSoundPackLocalizations()
 	--print(PS_KillSoundPackName)
@@ -958,9 +958,9 @@ end
 
 function PVPSoundOptions:OptionsSetSoundPackText(self)
 	if PS_SoundPackName == "UnrealTournament3" then
-		UIDropDownMenu_SetText(self, L["Unreal Tournament 3"])
+		Lib_UIDropDownMenu_SetText(self, L["Unreal Tournament 3"])
 	elseif PS_SoundPackName == "Custom" then
-		UIDropDownMenu_SetText(self, L["Custom"])
+		Lib_UIDropDownMenu_SetText(self, L["Custom"])
 	end
 end
 
@@ -970,22 +970,22 @@ function PVPSoundOptions:OptionsSoundPack(name, soundpackname)
 		PS_SoundPackName = soundpackname
 		if PS_SoundPackLanguage ~= "Deu" and PS_SoundPackLanguage ~= "Eng" and PS_SoundPackLanguage ~= "Esn" and PS_SoundPackLanguage ~= "Fra" and PS_SoundPackLanguage ~= "Ita" and PS_SoundPackLanguage ~= "Rus" then
 			PS_SoundPackLanguage = "Eng"
-			UIDropDownMenu_SetText(PVPSoundSoundPackLanguageDropDown, L["English"])
+			Lib_UIDropDownMenu_SetText(PVPSoundSoundPackLanguageDropDown, L["English"])
 		end
 		PVPSoundOptions:OptionsSetSoundPack()
-		UIDropDownMenu_SetText(frame, L["Unreal Tournament 3"])
+		Lib_UIDropDownMenu_SetText(frame, L["Unreal Tournament 3"])
 		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	elseif soundpackname == "Custom" then
 		PS_SoundPackName = soundpackname
 		if PS_SoundPackLanguage ~= "Default" then
 			PS_SoundPackLanguage = "Default"
-			UIDropDownMenu_SetText(PVPSoundSoundPackLanguageDropDown, L["Default"])
+			Lib_UIDropDownMenu_SetText(PVPSoundSoundPackLanguageDropDown, L["Default"])
 		end
 		PVPSoundOptions:OptionsSetSoundPack()
-		UIDropDownMenu_SetText(frame, L["Custom"])
+		Lib_UIDropDownMenu_SetText(frame, L["Custom"])
 		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
-		CloseDropDownMenus()
+		Lib_CloseDropDownMenus()
 	end
 	--print(PS_SoundPackName)
 end
@@ -993,45 +993,45 @@ end
 -- Sound Pack Languages
 function PVPSoundOptions:OptionsSetKillSoundPackLanguageText(self)
 	if PS_KillSoundPackLanguage == "Default" then
-		UIDropDownMenu_SetText(self, L["Default"])
+		Lib_UIDropDownMenu_SetText(self, L["Default"])
 	elseif PS_KillSoundPackLanguage == "Eng" then
-		UIDropDownMenu_SetText(self, L["English"])
+		Lib_UIDropDownMenu_SetText(self, L["English"])
 	elseif PS_KillSoundPackLanguage == "Deu" then
-		UIDropDownMenu_SetText(self, L["German"])
+		Lib_UIDropDownMenu_SetText(self, L["German"])
 	elseif PS_KillSoundPackLanguage == "Esn" then
-		UIDropDownMenu_SetText(self, L["Spanish"])
+		Lib_UIDropDownMenu_SetText(self, L["Spanish"])
 	elseif PS_KillSoundPackLanguage == "Fra" then
-		UIDropDownMenu_SetText(self, L["French"])
+		Lib_UIDropDownMenu_SetText(self, L["French"])
 	elseif PS_KillSoundPackLanguage == "Ita" then
-		UIDropDownMenu_SetText(self, L["Italian"])
+		Lib_UIDropDownMenu_SetText(self, L["Italian"])
 	elseif PS_KillSoundPackLanguage == "Rus" then
-		UIDropDownMenu_SetText(self, L["Russian"])
+		Lib_UIDropDownMenu_SetText(self, L["Russian"])
 	elseif PS_KillSoundPackLanguage == "Axe" then
-		UIDropDownMenu_SetText(self, L["Axe"])
+		Lib_UIDropDownMenu_SetText(self, L["Axe"])
 	elseif PS_KillSoundPackLanguage == "Bastion" then
-		UIDropDownMenu_SetText(self, L["Bastion"])
+		Lib_UIDropDownMenu_SetText(self, L["Bastion"])
 	elseif PS_KillSoundPackLanguage == "ClockWerk" then
-		UIDropDownMenu_SetText(self, L["ClockWerk"])
+		Lib_UIDropDownMenu_SetText(self, L["ClockWerk"])
 	elseif PS_KillSoundPackLanguage == "DefenseGrid" then
-		UIDropDownMenu_SetText(self, L["DefenseGrid"])
+		Lib_UIDropDownMenu_SetText(self, L["DefenseGrid"])
 	elseif PS_KillSoundPackLanguage == "Glados" then
-		UIDropDownMenu_SetText(self, L["Glados"])
+		Lib_UIDropDownMenu_SetText(self, L["Glados"])
 	elseif PS_KillSoundPackLanguage == "Juggernaut" then
-		UIDropDownMenu_SetText(self, L["Juggernaut"])
+		Lib_UIDropDownMenu_SetText(self, L["Juggernaut"])
 	elseif PS_KillSoundPackLanguage == "Lina" then
-		UIDropDownMenu_SetText(self, L["Lina"])
+		Lib_UIDropDownMenu_SetText(self, L["Lina"])
 	elseif PS_KillSoundPackLanguage == "NaturesProphet" then
-		UIDropDownMenu_SetText(self, L["NaturesProphet"])
+		Lib_UIDropDownMenu_SetText(self, L["NaturesProphet"])
 	elseif PS_KillSoundPackLanguage == "Pflax" then
-		UIDropDownMenu_SetText(self, L["Pflax"])
+		Lib_UIDropDownMenu_SetText(self, L["Pflax"])
 	elseif PS_KillSoundPackLanguage == "Pirate" then
-		UIDropDownMenu_SetText(self, L["Pirate"])
+		Lib_UIDropDownMenu_SetText(self, L["Pirate"])
 	elseif PS_KillSoundPackLanguage == "StanleyParable" then
-		UIDropDownMenu_SetText(self, L["StanleyParable"])
+		Lib_UIDropDownMenu_SetText(self, L["StanleyParable"])
 	elseif PS_KillSoundPackLanguage == "StormSpirit" then
-		UIDropDownMenu_SetText(self, L["StormSpirit"])
+		Lib_UIDropDownMenu_SetText(self, L["StormSpirit"])
 	elseif PS_KillSoundPackLanguage == "Trine" then
-		UIDropDownMenu_SetText(self, L["Trine"])
+		Lib_UIDropDownMenu_SetText(self, L["Trine"])
 	end
 end
 
@@ -1039,84 +1039,84 @@ function PVPSoundOptions:OptionsKillSoundPackLanguage(name, soundpacklanguage)
 	local frame = getglobal(name)
 	if soundpacklanguage == "Default" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Default"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Default"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Eng" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["English"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["English"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Deu" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["German"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["German"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Esn" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Spanish"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Spanish"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Fra" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["French"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["French"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Ita" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Italian"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Italian"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Rus" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Russian"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Russian"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Axe" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Axe"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Axe"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Bastion" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Bastion"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Bastion"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "ClockWerk" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["ClockWerk"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["ClockWerk"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "DefenseGrid" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["DefenseGrid"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["DefenseGrid"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Glados" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Glados"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Glados"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Juggernaut" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Juggernaut"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Juggernaut"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Lina" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Lina"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Lina"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "NaturesProphet" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["NaturesProphet"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["NaturesProphet"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Pflax" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Pflax"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Pflax"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Pirate" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Pirate"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Pirate"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "StanleyParable" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["StanleyParable"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["StanleyParable"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "StormSpirit" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["StormSpirit"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["StormSpirit"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Trine" then
 		PS_KillSoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Trine"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Trine"])
+		Lib_CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsSetKillSoundPack()
 	PVPSoundOptions:OptionsSetSoundPackLocalizations()
@@ -1127,20 +1127,20 @@ end
 
 function PVPSoundOptions:OptionsSetSoundPackLanguageText(self)
 	if PS_SoundPackLanguage == "Default" then
-		UIDropDownMenu_SetText(self, L["Default"])
+		Lib_UIDropDownMenu_SetText(self, L["Default"])
 	else
 		if PS_SoundPackLanguage == "Eng" then
-			UIDropDownMenu_SetText(self, L["English"])
+			Lib_UIDropDownMenu_SetText(self, L["English"])
 		elseif PS_SoundPackLanguage == "Deu" then
-			UIDropDownMenu_SetText(self, L["German"])
+			Lib_UIDropDownMenu_SetText(self, L["German"])
 		elseif PS_SoundPackLanguage == "Esn" then
-			UIDropDownMenu_SetText(self, L["Spanish"])
+			Lib_UIDropDownMenu_SetText(self, L["Spanish"])
 		elseif PS_SoundPackLanguage == "Fra" then
-			UIDropDownMenu_SetText(self, L["French"])
+			Lib_UIDropDownMenu_SetText(self, L["French"])
 		elseif PS_SoundPackLanguage == "Ita" then
-			UIDropDownMenu_SetText(self, L["Italian"])
+			Lib_UIDropDownMenu_SetText(self, L["Italian"])
 		elseif PS_SoundPackLanguage == "Rus" then
-			UIDropDownMenu_SetText(self, L["Russian"])
+			Lib_UIDropDownMenu_SetText(self, L["Russian"])
 		end
 	end
 end
@@ -1149,32 +1149,32 @@ function PVPSoundOptions:OptionsSoundPackLanguage(name, soundpacklanguage)
 	local frame = getglobal(name)
 	if soundpacklanguage == "Default" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Default"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Default"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Eng" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["English"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["English"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Deu" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["German"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["German"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Esn" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Spanish"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Spanish"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Fra" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["French"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["French"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Ita" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Italian"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Italian"])
+		Lib_CloseDropDownMenus()
 	elseif soundpacklanguage == "Rus" then
 		PS_SoundPackLanguage = soundpacklanguage
-		UIDropDownMenu_SetText(frame, L["Russian"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Russian"])
+		Lib_CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsSetSoundPack()
 	PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
@@ -1184,13 +1184,13 @@ end
 -- Channels
 function PVPSoundOptions:OptionsSetSoundChannelText(self)
 	if PS_Channel == "Master" then
-		UIDropDownMenu_SetText(self, L["Master"])
+		Lib_UIDropDownMenu_SetText(self, L["Master"])
 	elseif PS_Channel == "Sound" then
-		UIDropDownMenu_SetText(self, L["Sound"])
+		Lib_UIDropDownMenu_SetText(self, L["Sound"])
 	elseif PS_Channel == "Music" then
-		UIDropDownMenu_SetText(self, L["Music"])
+		Lib_UIDropDownMenu_SetText(self, L["Music"])
 	elseif PS_Channel == "Ambience" then
-		UIDropDownMenu_SetText(self, L["Ambience"])
+		Lib_UIDropDownMenu_SetText(self, L["Ambience"])
 	end
 end
 
@@ -1198,20 +1198,20 @@ function PVPSoundOptions:OptionsSoundChannel(name, soundchannel)
 	local frame = getglobal(name)
 	if soundchannel == "Master" then
 		PS_Channel = soundchannel
-		UIDropDownMenu_SetText(frame, L["Master"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Master"])
+		Lib_CloseDropDownMenus()
 	elseif soundchannel == "Sound" then
 		PS_Channel = soundchannel
-		UIDropDownMenu_SetText(frame, L["Sound"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Sound"])
+		Lib_CloseDropDownMenus()
 	elseif soundchannel == "Music" then
 		PS_Channel = soundchannel
-		UIDropDownMenu_SetText(frame, L["Music"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Music"])
+		Lib_CloseDropDownMenus()
 	elseif soundchannel == "Ambience" then
 		PS_Channel = soundchannel
-		UIDropDownMenu_SetText(frame, L["Ambience"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["Ambience"])
+		Lib_CloseDropDownMenus()
 	end
 	local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 	PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
@@ -1221,11 +1221,11 @@ end
 -- Modes
 function PVPSoundOptions:OptionsSetModeText(self)
 	if PS_Mode == "PVP" then
-		UIDropDownMenu_SetText(self, L["PVP"])
+		Lib_UIDropDownMenu_SetText(self, L["PVP"])
 	elseif PS_Mode == "PVE" then
-		UIDropDownMenu_SetText(self, L["PVE"])
+		Lib_UIDropDownMenu_SetText(self, L["PVE"])
 	elseif PS_Mode == "PVPandPVE" then
-		UIDropDownMenu_SetText(self, L["PVP and PVE"])
+		Lib_UIDropDownMenu_SetText(self, L["PVP and PVE"])
 	end
 end
 
@@ -1233,16 +1233,16 @@ function PVPSoundOptions:OptionsMode(name, mode)
 	local frame = getglobal(name)
 	if mode == "PVP" then
 		PS_Mode = mode
-		UIDropDownMenu_SetText(frame, L["PVP"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["PVP"])
+		Lib_CloseDropDownMenus()
 	elseif mode == "PVE" then
 		PS_Mode = mode
-		UIDropDownMenu_SetText(frame, L["PVE"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["PVE"])
+		Lib_CloseDropDownMenus()
 	elseif mode == "PVPandPVE" then
 		PS_Mode = mode
-		UIDropDownMenu_SetText(frame, L["PVP and PVE"])
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, L["PVP and PVE"])
+		Lib_CloseDropDownMenus()
 	end
 	--print(PS_Mode)
 end
@@ -1250,27 +1250,27 @@ end
 -- Addon Languages
 function PVPSoundOptions:OptionsSetAddonLanguageText(self)
 	if PS_AddonLanguage == "English" then
-		UIDropDownMenu_SetText(self, "English")
+		Lib_UIDropDownMenu_SetText(self, "English")
 	elseif PS_AddonLanguage == "German" then
-		UIDropDownMenu_SetText(self, "German")
+		Lib_UIDropDownMenu_SetText(self, "German")
 	elseif PS_AddonLanguage == "Spanish" then
-		UIDropDownMenu_SetText(self, "Español")
+		Lib_UIDropDownMenu_SetText(self, "Español")
 	elseif PS_AddonLanguage == "LatinAmericanSpanish" then
-		UIDropDownMenu_SetText(self, "El español de América")
+		Lib_UIDropDownMenu_SetText(self, "El español de América")
 	elseif PS_AddonLanguage == "French" then
-		UIDropDownMenu_SetText(self, "Français")
+		Lib_UIDropDownMenu_SetText(self, "Français")
 	elseif PS_AddonLanguage == "Italian" then
-		UIDropDownMenu_SetText(self, "Italiano")
+		Lib_UIDropDownMenu_SetText(self, "Italiano")
 	elseif PS_AddonLanguage == "Korean" then
-		UIDropDownMenu_SetText(self, "한국의")
+		Lib_UIDropDownMenu_SetText(self, "한국의")
 	elseif PS_AddonLanguage == "Portuguese" then
-		UIDropDownMenu_SetText(self, "Português")
+		Lib_UIDropDownMenu_SetText(self, "Português")
 	elseif PS_AddonLanguage == "Russian" then
-		UIDropDownMenu_SetText(self, "Русский")
+		Lib_UIDropDownMenu_SetText(self, "Русский")
 	elseif PS_AddonLanguage == "SimplifiedChinese" then
-		UIDropDownMenu_SetText(self, "简体中国")
+		Lib_UIDropDownMenu_SetText(self, "简体中国")
 	elseif PS_AddonLanguage == "TraditionalChinese" then
-		UIDropDownMenu_SetText(self, "繁體中文")
+		Lib_UIDropDownMenu_SetText(self, "繁體中文")
 	end
 end
 
@@ -1279,68 +1279,68 @@ function PVPSoundOptions:OptionsAddonLanguage(name, language)
 	if language == "English" then
 		PS_AddonLanguage = language
 		PVPSound:English()
-		UIDropDownMenu_SetText(frame, "English")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "English")
+		Lib_CloseDropDownMenus()
 	elseif language == "German" then
 		PS_AddonLanguage = language
 		PVPSound:German()
-		UIDropDownMenu_SetText(frame, "German")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "German")
+		Lib_CloseDropDownMenus()
 	elseif language == "Spanish" then
 		PS_AddonLanguage = language
 		PVPSound:Spanish()
-		UIDropDownMenu_SetText(frame, "Español")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "Español")
+		Lib_CloseDropDownMenus()
 	elseif language == "LatinAmericanSpanish" then
 		PS_AddonLanguage = language
 		PVPSound:LatinAmericanSpanish()
-		UIDropDownMenu_SetText(frame, "El español de América")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "El español de América")
+		Lib_CloseDropDownMenus()
 	elseif language == "French" then
 		PS_AddonLanguage = language
 		PVPSound:French()
-		UIDropDownMenu_SetText(frame, "Français")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "Français")
+		Lib_CloseDropDownMenus()
 	elseif language == "Italian" then
 		PS_AddonLanguage = language
 		PVPSound:Italian()
-		UIDropDownMenu_SetText(frame, "Italiano")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "Italiano")
+		Lib_CloseDropDownMenus()
 	elseif language == "Korean" then
 		PS_AddonLanguage = language
 		PVPSound:Korean()
-		UIDropDownMenu_SetText(frame, "한국의")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "한국의")
+		Lib_CloseDropDownMenus()
 	elseif language == "Portuguese" then
 		PS_AddonLanguage = language
 		PVPSound:Portuguese()
-		UIDropDownMenu_SetText(frame, "Português")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "Português")
+		Lib_CloseDropDownMenus()
 	elseif language == "Russian" then
 		PS_AddonLanguage = language
 		PVPSound:Russian()
-		UIDropDownMenu_SetText(frame, "Русский")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "Русский")
+		Lib_CloseDropDownMenus()
 	elseif language == "SimplifiedChinese" then
 		PS_AddonLanguage = language
 		PVPSound:SimplifiedChinese()
-		UIDropDownMenu_SetText(frame, "简体中国")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "简体中国")
+		Lib_CloseDropDownMenus()
 	elseif language == "TraditionalChinese" then
 		PS_AddonLanguage = language
 		PVPSound:TraditionalChinese()
-		UIDropDownMenu_SetText(frame, "繁體中文")
-		CloseDropDownMenus()
+		Lib_UIDropDownMenu_SetText(frame, "繁體中文")
+		Lib_CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsUpdateLocalization()
 	PVPSoundOptions:OptionsUpdateFonts()
-	UIDropDownMenu_Initialize(frame, PVPSoundOptions.OptionsDropDownMenuInitialize)
-	UIDropDownMenu_Initialize(PVPSoundKillSoundPackDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
-	UIDropDownMenu_Initialize(PVPSoundKillSoundPackLanguageDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
-	UIDropDownMenu_Initialize(PVPSoundSoundPackDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
-	UIDropDownMenu_Initialize(PVPSoundSoundPackLanguageDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
-	UIDropDownMenu_Initialize(PVPSoundSoundChannelDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
-	UIDropDownMenu_Initialize(PVPSoundModeDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(frame, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(PVPSoundKillSoundPackDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(PVPSoundKillSoundPackLanguageDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(PVPSoundSoundPackDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(PVPSoundSoundPackLanguageDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(PVPSoundSoundChannelDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
+	Lib_UIDropDownMenu_Initialize(PVPSoundModeDropDown, PVPSoundOptions.OptionsDropDownMenuInitialize)
 end
 
 function PVPSoundOptions:OptionsUpdateLocalization()
@@ -1441,10 +1441,10 @@ end
 function PVPSoundOptions:OptionsSetSoundPackLocalizations()
 	if PS_KillSoundPackName == "DevilMayCry" then
 		--[[if PS_KillSoundPackLanguage == "Eng" then
-			Msg_Streak1Male = "is"
-			Msg_Streak1Female = "is"
-			Msg_Streak2 = "is"
-			Msg_Streak3 = "is"
+			L["Streak1Male"] = "is"
+			L["Streak1Female"] = "is"
+			L["Streak2"] = "is"
+			L["Streak3"] = "is"
 		end]]
 	else
 		--[[if PS_KillSoundPackLanguage == "Eng" then
@@ -1504,131 +1504,131 @@ function PVPSound:SlashCommands(arg1)
 	elseif arg2 == "enable" then
 		PS_EnableAddon = not PS_EnableAddon
 		if PS_EnableAddon == true then
-			print("|cFF50C0FFEnable Addon: |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FFEnable Addon: |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FFEnable Addon: |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FFEnable Addon: |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "pvp" then
 		PS_Mode = "PVP"
 		if PS_Mode == "PVP" then
-			print("|cFF50C0FF"..Opt_Mode..": |cFFADFF2F"..Opt_PVP.."|r")
+			print("|cFF50C0FF"..L["Mode"]..": |cFFADFF2F"..L["[PVP]"].."|r")
 		end
 	elseif arg2 == "pve" then
 		PS_Mode = "PVE"
 		if PS_Mode == "PVE" then
-			print("|cFF50C0FF"..Opt_Mode..": |cFFFF4500"..Opt_PVE.."|r")
+			print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVE]"].."|r")
 		end
 	elseif arg2 == "emote" then
 		PS_Emote = not PS_Emote
 		if PS_Emote == true then
-			print("|cFF50C0FF"..Opt_Emotes..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Emotes"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_Emotes..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Emotes"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "emotemode" or arg2 == "emote mode" then
 		PS_EmoteMode = not PS_EmoteMode
 		if PS_EmoteMode == true then
-			print("|cFF50C0FF"..Opt_EmoteMode..": |cFFADFF2F"..Opt_Emote.."|r")
+			print("|cFF50C0FF"..L["Emote mode"]..": |cFFADFF2F"..L["[Emote]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_EmoteMode..": |cFFFF4500"..Opt_ChatMessage.."|r")
+			print("|cFF50C0FF"..L["Emote mode"]..": |cFFFF4500"..L["[Chat Message]"].."|r")
 		end
 	elseif arg2 == "dm" or arg2 == "deathmessage" or arg2 == "death message" or arg2 == "deathmessages" or arg2 == "death messages" then
 		PS_DeathMessage = not PS_DeathMessage
 		if PS_DeathMessage == true then
-			print("|cFF50C0FF"..Opt_DeathMsg..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Death messages"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_DeathMsg..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Death messages"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "ks" or arg2 == "killsound" or arg2 == "kill sound" or arg2 == "killsounds" or arg2 == "kill sounds" then
 		PS_KillSound = not PS_KillSound
 		if PS_KillSound == true then
-			print("|cFF50C0FF"..Opt_KillSound..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Killing Blow sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_KillSound..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Killing Blow sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "mks" or arg2 == "multikillsound" or arg2 == "multikill sound" or arg2 == "multi kill sound" or arg2 == "multi killsound" or arg2 == "multikillsounds" or arg2 == "multikill sounds" or arg2 == "multi kill sounds" or arg2 == "multi killsounds" then
 		PS_MultiKillSound = not PS_MultiKillSound
 		if PS_MultiKillSound == true then
-			print("|cFF50C0FF"..Opt_MultiKillSound..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Multi Killing sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_MultiKillSound..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Multi Killing sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "pk" or arg2 == "petkill" or arg2 == "pet kill" or arg2 == "petkills" or arg2 == "pet kills" then
 		PS_PetKill = not PS_PetKill
 		if PS_PetKill == true then
-			print("|cFF50C0FF"..Opt_PetKill..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Pet Killing Blows"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_PetKill..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Pet Killing Blows"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "ps" or arg2 == "paysound" or arg2 == "pay sound" or arg2 == "paybacksound" or arg2 == "payback sound" or arg2 == "paysounds" or arg2 == "pay sounds" or arg2 == "paybacksounds" or arg2 == "payback sounds" then
 		PS_PaybackSound = not PS_PaybackSound
 		if PS_PaybackSound == true then
-			print("|cFF50C0FF"..Opt_PaySound..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Payback sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_PaySound..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Payback sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "bs" or arg2 == "bgsound" or arg2 == "bg sound" or arg2 == "battlegroundsound" or arg2 == "battleground sound" or arg2 == "bgsounds" or arg2 == "bg sounds" or arg2 == "battlegroundsounds" or arg2 == "battleground sounds" then
 		PS_BattlegroundSound = not PS_BattlegroundSound
 		if PS_BattlegroundSound == true then
-			print("|cFF50C0FF"..Opt_BgSound..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Battleground sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_BgSound..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Battleground sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "se" or arg2 == "soundeffect" or arg2 == "sound effect" or arg2 == "effectsound" or arg2 == "effect sound" then
 		PS_SoundEffect = not PS_SoundEffect
 		if PS_SoundEffect == true then
-			print("|cFF50C0FF"..Opt_SoundEffect..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Sound Effects"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_SoundEffect..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Sound Effects"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "kse" or arg2 == "killsoundengine" or arg2 == "killsound engine" or arg2 == "kill sound engine" or arg2 == "kill soundengine" then
 		PS_KillSoundEngine = not PS_KillSoundEngine
 		if PS_KillSoundEngine == true then
-			print("|cFF50C0FF"..Opt_KillSoundEngine..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Kill Sound Engine"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_KillSoundEngine..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Kill Sound Engine"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "bse" or arg2 == "bgsoundengine" or arg2 == "bgsound engine" or arg2 == "bg sound engine" or arg2 == "bg soundengine" or arg2 == "battleground soundengine" or arg2 == "battlegroundsoundengine" or arg2 == "battleground sound engine" or arg2 == "battlegroundsound engine" then
 		PS_BattlegroundSoundEngine = not PS_BattlegroundSoundEngine
 		if PS_BattlegroundSoundEngine == true then
-			print("|cFF50C0FF"..Opt_BgSoundEngine..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Battleground Sound Engine"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_BgSoundEngine..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Battleground Sound Engine"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "ds" or arg2 == "datashare" or arg2 == "data share" or arg2 == "datasharing" or arg2 == "data sharing" then
 		PS_DataShare = not PS_DataShare
 		if PS_DataShare == true then
-			print("|cFF50C0FF"..Opt_DataShare..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Data Sharing"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_DataShare..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Data Sharing"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "ksct" or arg2 == "killsct" or arg2 == "kill sct" then
 		PS_KillSct = not PS_KillSct
 		if PS_KillSct == true then
-			print("|cFF50C0FF"..Opt_KillSct..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Kill Scrolling Combat Text mode"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_KillSct..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Kill Scrolling Combat Text mode"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "mksct" or arg2 == "multikillsct" or arg2 == "multikill sct" or arg2 == "multi kill sct" or arg2 == "multi killsct" then
 		PS_MultiKillSct = not PS_MultiKillSct
 		if PS_MultiKillSct == true then
-			print("|cFF50C0FF"..Opt_MultiKillSct..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Multi Kill Scrolling Combat Text"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_MultiKillSct..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Multi Kill Scrolling Combat Text"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "psct" or arg2 == "paybacksct" or arg2 == "payback sct" then
 		PS_PaybackSct = not PS_PaybackSct
 		if PS_PaybackSct == true then
-			print("|cFF50C0FF"..Opt_PaybackSct..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Payback Scrolling Combat Text"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_PaybackSct..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Payback Scrolling Combat Text"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "scte" or arg2 == "sctengine" or arg2 == "sct engine" then
 		PS_SctEngine = not PS_SctEngine
 		if PS_SctEngine == true then
-			print("|cFF50C0FF"..Opt_SctEngine..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Scrolling Combat Text Engine"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_SctEngine..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Scrolling Combat Text Engine"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif string.find(arg1, "frame(.+)") then
 		if string.find(arg1, "frame ") then
@@ -1637,121 +1637,121 @@ function PVPSound:SlashCommands(arg1)
 			PSSctFrame = tostring(string.match(arg1, "frame(.+)"))
 		end
 		if PSSctFrame ~= nil then
-			print("|cFF50C0FF"..Opt_Frame..": |cFFADFF2F["..PSSctFrame.."]|r")
+			print("|cFF50C0FF"..L["Scrolling Combat Text frame name"]..": |cFFADFF2F["..PSSctFrame.."]|r")
 		end
 	elseif arg2 == "hsn" or arg2 == "hideservername" or arg2 == "hideserver name" or arg2 == "hide server name" or arg2 == "hide servername" or arg2 == "hideservernames" or arg2 == "hideserver names" or arg2 == "hide server names" or arg2 == "hide servernames" or arg2 == "hs" or arg2 == "hide server" or arg2 == "hideserver" then
 		PS_HideServerName = not PS_HideServerName
 		if PS_HideServerName == true then
-			print("|cFF50C0FF"..Opt_HideServerName..": |cFFADFF2F"..Opt_Enable.."|r")
+			print("|cFF50C0FF"..L["Hide server names"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
-			print("|cFF50C0FF"..Opt_HideServerName..": |cFFFF4500"..Opt_Disable.."|r")
+			print("|cFF50C0FF"..L["Hide server names"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "cm" or arg2 == "channelmaster" or arg2 == "channel master" then
 		PS_Channel = "Master"
 		if PS_Channel == "Master" then
-			print("|cFF50C0FF"..Opt_Channel..": |cFFADFF2F"..Opt_Master.."|r")
+			print("|cFF50C0FF"..L["Sound channel output"]..": |cFFADFF2F"..L["[Master]"].."|r")
 		end
 	elseif arg2 == "cs" or arg2 == "channelsound" or arg2 == "channel sound" then
 		PS_Channel = "Sound"
 		if PS_Channel == "Sound" then
-			print("|cFF50C0FF"..Opt_Channel..": |cFFFF4500"..Opt_Sound.."|r")
+			print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Sound]"].."|r")
 		end
 	elseif arg2 == "cmu" or arg2 == "channelmusic" or arg2 == "channel music" then
 		PS_Channel = "Music"
 		if PS_Channel == "Music" then
-			print("|cFF50C0FF"..Opt_Channel..": |cFFFF4500"..Opt_Music.."|r")
+			print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Music]"].."|r")
 		end
 	elseif arg2 == "ca" or arg2 == "channelambience" or arg2 == "channel ambience" then
 		PS_Channel = "Ambience"
 		if PS_Channel == "Ambience" then
-			print("|cFF50C0FF"..Opt_Channel..": |cFFFF4500"..Opt_Ambience.."|r")
+			print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Ambience]"].."|r")
 		end
 	elseif arg2 == "soundpack ut3" or arg2 == "soundpack unrealtournament3" or arg2 == "sp ut3" or arg2 == "sp unrealtournament3" or arg2 == "soundpackut3" or arg2 == "soundpackunrealtournament3" or arg2 == "sput3" or arg2 == "spunrealtournament3" then
 		PS_SoundPackName = "UnrealTournament3"
 		PS.SoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_SoundPackName
 		if PS_SoundPackName == "UnrealTournament3" then
-			print("|cFF50C0FF"..Opt_SoundPack..": |cFFADFF2F"..Opt_UnrealTournament3.."|r")
+			print("|cFF50C0FF"..L["Sound Pack"]..": |cFFADFF2F"..L["[Unreal Tournament 3]"].."|r")
 		end
 		if PS_SoundPackLanguage == "Deu" or PS_SoundPackLanguage == "Eng" or PS_SoundPackLanguage == "Esn" or PS_SoundPackLanguage == "Fra" or PS_SoundPackLanguage == "Ita" or PS_SoundPackLanguage == "Rus" then
 			return false
 		else
 			PS_SoundPackLanguage = "Eng"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_English.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
 		end
 	elseif arg2 == "soundpack custom" or arg2 == "sp custom" or arg2 == "soundpackcustom" or arg2 == "spcustom" then
 		PS_SoundPackName = "Custom"
 		PS.SoundPackDirectory = "Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\"..PS_SoundPackName
 		if PS_SoundPackName == "Custom" then
-			print("|cFF50C0FF"..Opt_SoundPack..": |cFFFF4500"..Opt_Custom.."|r")
+			print("|cFF50C0FF"..L["Sound Pack"]..": |cFFFF4500"..L["[Custom]"].."|r")
 		end
 		if PS_SoundPackLanguage ~= "Default" then
 			PS_SoundPackLanguage = "Default"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Default.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Default]"].."|r")
 		end
 	elseif arg2 == "language deu" or arg2 == "language deutsch" or arg2 == "languagedeu" or arg2 == "languagedeutsch" or arg2 == "lang deu" or arg2 == "lang deutsch" or arg2 == "langdeu" or arg2 == "langdeutsch" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Deu"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 		else
-			print("|cFF50C0FF"..Opt_CustomDoesntSupport)
+			print("|cFF50C0FF"..L["Custom Sound Pack doesn't support that language!"])
 		end
 		if PS_SoundPackLanguage == "Deu" then
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Deutsch.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Deutsch]"].."|r")
 		end
 	elseif arg2 == "language eng" or arg2 == "language english" or arg2 == "languageeng" or arg2 == "languageenglish" or arg2 == "lang eng" or arg2 == "lang english" or arg2 == "langeng" or arg2 == "langenglish" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Eng"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 		else
-			print("|cFF50C0FF"..Opt_CustomDoesntSupport)
+			print("|cFF50C0FF"..L["Custom Sound Pack doesn't support that language!"])
 		end
 		if PS_SoundPackLanguage == "Eng" then
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_English.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
 		end
 	elseif arg2 == "language esn" or arg2 == "language espanol" or arg2 == "languageesn" or arg2 == "languageespanol" or arg2 == "lang esn" or arg2 == "lang espanol" or arg2 == "langesn" or arg2 == "langespanol" or arg2 == "language spa" or arg2 == "language spanish" or arg2 == "languagespa" or arg2 == "languagespanish" or arg2 == "lang spa" or arg2 == "lang spanish" or arg2 == "langspa" or arg2 == "langspanish"then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Esn"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 		else
-			print("|cFF50C0FF"..Opt_CustomDoesntSupport)
+			print("|cFF50C0FF"..L["Custom Sound Pack doesn't support that language!"])
 		end
 		if PS_SoundPackLanguage == "Esn" then
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Spanish.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
 		end
 	elseif arg2 == "language fra" or arg2 == "language france" or arg2 == "languagefra" or arg2 == "languagefrance" or arg2 == "lang fra" or arg2 == "lang france" or arg2 == "langfra" or arg2 == "langfrance" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Fra"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 		else
-			print("|cFF50C0FF"..Opt_CustomDoesntSupport)
+			print("|cFF50C0FF"..L["Custom Sound Pack doesn't support that language!"])
 		end
 		if PS_SoundPackLanguage == "Fra" then
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_France.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[France]"].."|r")
 		end
 	elseif arg2 == "language ita" or arg2 == "language italian" or arg2 == "languageita" or arg2 == "languageitalian" or arg2 == "lang ita" or arg2 == "lang italian" or arg2 == "langita" or arg2 == "langitalian" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Ita"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 		else
-			print("|cFF50C0FF"..Opt_CustomDoesntSupport)
+			print("|cFF50C0FF"..L["Custom Sound Pack doesn't support that language!"])
 		end
 		if PS_SoundPackLanguage == "Ita" then
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Italian.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
 		end
 	elseif arg2 == "language rus" or arg2 == "language russian" or arg2 == "languagerus" or arg2 == "languagerussian" or arg2 == "lang rus" or arg2 == "lang russian" or arg2 == "langrus" or arg2 == "langrussian" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Rus"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 		else
-			print("|cFF50C0FF"..Opt_CustomDoesntSupport)
+			print("|cFF50C0FF"..L["Custom Sound Pack doesn't support that language!"])
 		end
 		if PS_SoundPackLanguage == "Rus" then
-			print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Russian.."|r")
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
 		end
 	elseif arg2 == "test" or arg2 == "t" then
-		print("|cFF50C0FF"..Opt_Test.."...")
+		print("|cFF50C0FF"..L["Scrolling Combat Text and sound test"].."...")
 		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
 		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
 		PVPSound:TriggerSct(TestSoundLengthTable[1].name.."!", PSSctFrame)
@@ -1767,7 +1767,7 @@ function PVPSound:SlashCommands(arg1)
 		PVPSound:ClearRecentlyKilledQueue()
 		PVPSound:ClearSctQueue()
 		PVPSound:TimerReset()
-		print("|cFF50C0FF"..Opt_Reset..".|r")
+		print("|cFF50C0FF"..L["Killing Counter and Sound Queue reset"]..".|r")
 	elseif arg2 == "kt" or arg2 == "killtest" then
 		local KillSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
 		for i = 1, table.getn(KillSoundLengthTable), 1 do
@@ -1834,157 +1834,157 @@ function PVPSound:SlashCommands(arg1)
 end
 
 function PVPSound:PrintSlashHelp()
-	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..Opt_CmdList.."|r")
-	print("|cFF50C0FF/ps - |cFFFFFFA0"..Opt_HelpStatus.."|r")
-	print("|cFF50C0FF/ps pvp - |cFFFFFFA0"..Opt_HelpMode.."|r")
-	print("|cFF50C0FF/ps emote - |cFFFFFFA0"..Opt_HelpEmote.."|r")
-	print("|cFF50C0FF/ps emotemode - |cFFFFFFA0"..Opt_HelpEmoteMode.."|r")
-	print("|cFF50C0FF/ps deathmessage - |cFFFFFFA0"..Opt_HelpDeathMessage.."|r")
-	print("|cFF50C0FF/ps killsound - |cFFFFFFA0"..Opt_HelpKillSound.."|r")
-	print("|cFF50C0FF/ps multikillsound - |cFFFFFFA0"..Opt_HelpMultiKillSound.."|r")
-	print("|cFF50C0FF/ps petkill - |cFFFFFFA0"..Opt_HelpPetKill.."|r")
-	print("|cFF50C0FF/ps paysound - |cFFFFFFA0"..Opt_HelpPaybackSound.."|r")
-	print("|cFF50C0FF/ps bgsound - |cFFFFFFA0"..Opt_HelpBattlegroundSound.."|r")
-	print("|cFF50C0FF/ps soundeffect - |cFFFFFFA0"..Opt_HelpSoundEffect.."|r")
-	print("|cFF50C0FF/ps killsoundengine - |cFFFFFFA0"..Opt_HelpKillSoundEngine.."|r")
-	print("|cFF50C0FF/ps bgsoundengine - |cFFFFFFA0"..Opt_HelpBattlegroundSoundEngine.."|r")
-	print("|cFF50C0FF/ps datashare - |cFFFFFFA0"..Opt_HelpDataShare.."|r")
-	print("|cFF50C0FF/ps killsct - |cFFFFFFA0"..Opt_HelpKillSct.."|r")
-	print("|cFF50C0FF/ps multikillsct - |cFFFFFFA0"..Opt_HelpMultiKillSct.."|r")
-	print("|cFF50C0FF/ps paybacksct - |cFFFFFFA0"..Opt_HelpPaybackSct.."|r")
-	print("|cFF50C0FF/ps sctengine - |cFFFFFFA0"..Opt_HelpSctEngine.."|r")
-	print("|cFF50C0FF/ps frame'framename' - |cFFFFFFA0"..Opt_HelpFrame.."|r")
-	print("|cFF50C0FF/ps hideservername - |cFFFFFFA0"..Opt_HelpHideServerName.."|r")
-	print("|cFF50C0FF/ps channel'channelname' - |cFFFFFFA0"..Opt_HelpChannel.."|r")
-	print("|cFF50C0FF/ps soundpack'soundpackname' - |cFFFFFFA0"..Opt_HelpSoundPack.."|r")
-	print("|cFF50C0FF/ps lang'soundpacklanguage' - |cFFFFFFA0"..Opt_HelpSoundPackLanguage.."|r")
-	print("|cFF50C0FF/ps test - |cFFFFFFA0"..Opt_HelpTest.."|r")
-	print("|cFF50C0FF/ps reset - |cFFFFFFA0"..Opt_HelpReset.."|r")
-	print("|cFF50C0FF/ps help - |cFFFFFFA0"..Opt_HelpCmdList.."|r")
+	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Command list"].."|r")
+	print("|cFF50C0FF/ps - |cFFFFFFA0"..L["Show status"].."|r")
+	print("|cFF50C0FF/ps pvp - |cFFFFFFA0"..L["Switch between PVP and PVE mode"].."|r")
+	print("|cFF50C0FF/ps emote - |cFFFFFFA0"..L["Enables or Disables Emotes completely"].."|r")
+	print("|cFF50C0FF/ps emotemode - |cFFFFFFA0"..L["Switch between Emote and Chat Message mode"].."|r")
+	print("|cFF50C0FF/ps deathmessage - |cFFFFFFA0"..L["Enables or Disables Death Messages"].."|r")
+	print("|cFF50C0FF/ps killsound - |cFFFFFFA0"..L["Enables or Disables Killing Blow and Multi Killing sounds"].."|r")
+	print("|cFF50C0FF/ps multikillsound - |cFFFFFFA0"..L["Enables or Disables Multi Killing sounds"].."|r")
+	print("|cFF50C0FF/ps petkill - |cFFFFFFA0"..L["Enables or Disables Pet Killing Blow sounds"].."|r")
+	print("|cFF50C0FF/ps paysound - |cFFFFFFA0"..L["Enables or Disables Payback Killing sounds"].."|r")
+	print("|cFF50C0FF/ps bgsound - |cFFFFFFA0"..L["Enables or Disables Battleground sounds"].."|r")
+	print("|cFF50C0FF/ps soundeffect - |cFFFFFFA0"..L["Enables or Disables Sound Effects"].."|r")
+	print("|cFF50C0FF/ps killsoundengine - |cFFFFFFA0"..L["Enables or Disables Sound Queue System usage in Killing Sounds"].."|r")
+	print("|cFF50C0FF/ps bgsoundengine - |cFFFFFFA0"..L["Enables or Disables Sound Queue System usage in Battleground Sounds"].."|r")
+	print("|cFF50C0FF/ps datashare - |cFFFFFFA0"..L["Enables or Disables Spree and Death Data Sharing and Receiving with raid/party/battleground members"].."|r")
+	print("|cFF50C0FF/ps killsct - |cFFFFFFA0"..L["Enables or Disables Kill Scrolling Combat Text usage"].."|r")
+	print("|cFF50C0FF/ps multikillsct - |cFFFFFFA0"..L["Enables or Disables Multi Kill Scrolling Combat Text usage"].."|r")
+	print("|cFF50C0FF/ps paybacksct - |cFFFFFFA0"..L["Enables or Disables Payback and Retribution Scrolling Combat Text usage"].."|r")
+	print("|cFF50C0FF/ps sctengine - |cFFFFFFA0"..L["Enables or Disables Scrolling Combat Text Queue System usage"].."|r")
+	print("|cFF50C0FF/ps frame'framename' - |cFFFFFFA0"..L["Name of the output frame in the supported Scrolling Combat Text"].."|r")
+	print("|cFF50C0FF/ps hideservername - |cFFFFFFA0"..L["Enables or Disables hiding the player's server name from Data Sharing and Death Messages"].."|r")
+	print("|cFF50C0FF/ps channel'channelname' - |cFFFFFFA0"..L["Switch between sound channels ('master' 'sound' 'music' 'ambience')"].."|r")
+	print("|cFF50C0FF/ps soundpack'soundpackname' - |cFFFFFFA0"..L["Switch between Sound Packs ('ut3' 'custom')"].."|r")
+	print("|cFF50C0FF/ps lang'soundpacklanguage' - |cFFFFFFA0"..L["Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita')"].."|r")
+	print("|cFF50C0FF/ps test - |cFFFFFFA0"..L["Scrolling Combat Text and sound test"].."|r")
+	print("|cFF50C0FF/ps reset - |cFFFFFFA0"..L["Reset the counter of Killing Blows and the Payback-, Retibution-, Sound-, and SCT Queue System"].."|r")
+	print("|cFF50C0FF/ps help - |cFFFFFFA0"..L["Command help"].."|r")
 end
 
 function PVPSound:PrintSlashMenu()
-	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..Opt_HelpInput.."|r")
+	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Loaded. Type /ps help for options"].."|r")
 	if PS_Mode == "PVP" then
-		print("|cFF50C0FF"..Opt_Mode..": |cFFADFF2F"..Opt_PVP.."|r")
+		print("|cFF50C0FF"..L["Mode"]..": |cFFADFF2F"..L["[PVP]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_Mode..": |cFFFF4500"..Opt_PVE.."|r")
+		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVE]"].."|r")
 	end
 	if PS_Emote == true then
-		print("|cFF50C0FF"..Opt_Emotes..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Emotes"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_Emotes..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Emotes"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_EmoteMode == true then
-		print("|cFF50C0FF"..Opt_EmoteMode..": |cFFADFF2F"..Opt_Emote.."|r")
+		print("|cFF50C0FF"..L["Emote mode"]..": |cFFADFF2F"..L["[Emote]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_EmoteMode..": |cFFFF4500"..Opt_ChatMessage.."|r")
+		print("|cFF50C0FF"..L["Emote mode"]..": |cFFFF4500"..L["[Chat Message]"].."|r")
 	end
 	if PS_DeathMessage == true then
-		print("|cFF50C0FF"..Opt_DeathMsg..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Death messages"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_DeathMsg..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Death messages"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_KillSound == true then
-		print("|cFF50C0FF"..Opt_KillSound..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Killing Blow sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_KillSound..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Killing Blow sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_MultiKillSound == true then
-		print("|cFF50C0FF"..Opt_MultiKillSound..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Multi Killing sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_MultiKillSound..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Multi Killing sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_PetKill == true then
-		print("|cFF50C0FF"..Opt_PetKill..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Pet Killing Blows"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_PetKill..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Pet Killing Blows"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_PaybackSound == true then
-		print("|cFF50C0FF"..Opt_PaySound..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Payback sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_PaySound..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Payback sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_BattlegroundSound == true then
-		print("|cFF50C0FF"..Opt_BgSound..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Battleground sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_BgSound..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Battleground sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_SoundEffect == true then
-		print("|cFF50C0FF"..Opt_SoundEffect..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Sound Effects"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_SoundEffect..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Sound Effects"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_KillSoundEngine == true then
-		print("|cFF50C0FF"..Opt_KillSoundEngine..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Kill Sound Engine"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_KillSoundEngine..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Kill Sound Engine"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_BattlegroundSoundEngine == true then
-		print("|cFF50C0FF"..Opt_BgSoundEngine..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Battleground Sound Engine"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_BgSoundEngine..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Battleground Sound Engine"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_DataShare == true then
-		print("|cFF50C0FF"..Opt_DataShare..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Data Sharing"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_DataShare..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Data Sharing"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_KillSct == true then
-		print("|cFF50C0FF"..Opt_KillSct..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Kill Scrolling Combat Text mode"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_KillSct..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Kill Scrolling Combat Text mode"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_MultiKillSct == true then
-		print("|cFF50C0FF"..Opt_MultiKillSct..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Multi Kill Scrolling Combat Text"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_MultiKillSct..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Multi Kill Scrolling Combat Text"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_PaybackSct == true then
-		print("|cFF50C0FF"..Opt_PaybackSct..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Payback Scrolling Combat Text"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_PaybackSct..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Payback Scrolling Combat Text"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_SctEngine == true then
-		print("|cFF50C0FF"..Opt_SctEngine..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Scrolling Combat Text Engine"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_SctEngine..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Scrolling Combat Text Engine"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PSSctFrame ~= nil then
-		print("|cFF50C0FF"..Opt_Frame..": |cFFADFF2F["..PSSctFrame.."]|r")
+		print("|cFF50C0FF"..L["Scrolling Combat Text frame name"]..": |cFFADFF2F["..PSSctFrame.."]|r")
 	end
 	if PS_HideServerName == true then
-		print("|cFF50C0FF"..Opt_HideServerName..": |cFFADFF2F"..Opt_Enable.."|r")
+		print("|cFF50C0FF"..L["Hide server names"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
-		print("|cFF50C0FF"..Opt_HideServerName..": |cFFFF4500"..Opt_Disable.."|r")
+		print("|cFF50C0FF"..L["Hide server names"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_Channel == "Master" then
-		print("|cFF50C0FF"..Opt_Channel..": |cFFADFF2F"..Opt_Master.."|r")
+		print("|cFF50C0FF"..L["Sound channel output"]..": |cFFADFF2F"..L["[Master]"].."|r")
 	elseif PS_Channel == "Sound" then
-		print("|cFF50C0FF"..Opt_Channel..": |cFFFF4500"..Opt_Sound.."|r")
+		print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Sound]"].."|r")
 	elseif PS_Channel == "Music" then
-		print("|cFF50C0FF"..Opt_Channel..": |cFFFF4500"..Opt_Music.."|r")
+		print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Music]"].."|r")
 	elseif PS_Channel == "Ambience" then
-		print("|cFF50C0FF"..Opt_Channel..": |cFFFF4500"..Opt_Ambience.."|r")
+		print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Ambience]"].."|r")
 	end
 	if PS_SoundPackName == "UnrealTournament3" then
-		print("|cFF50C0FF"..Opt_SoundPack..": |cFFADFF2F"..Opt_UnrealTournament3.."|r")
+		print("|cFF50C0FF"..L["Sound Pack"]..": |cFFADFF2F"..L["[Unreal Tournament 3]"].."|r")
 	elseif PS_SoundPackName == "Custom" then
-		print("|cFF50C0FF"..Opt_SoundPack..": |cFFFF4500"..Opt_Custom.."|r")
+		print("|cFF50C0FF"..L["Sound Pack"]..": |cFFFF4500"..L["[Custom]"].."|r")
 	end
 	if PS_SoundPackLanguage == "Default" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Default.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Default]"].."|r")
 	elseif PS_SoundPackLanguage == "Deu" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Deutsch.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Deutsch]"].."|r")
 	elseif PS_SoundPackLanguage == "Eng" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_English.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
 	elseif PS_SoundPackLanguage == "Esn" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Spanish.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
 	elseif PS_SoundPackLanguage == "Fra" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_France.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[France]"].."|r")
 	elseif PS_SoundPackLanguage == "Ita" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Italian.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
 	elseif PS_SoundPackLanguage == "Rus" then
-		print("|cFF50C0FF"..Opt_SoundPackLanguage..": |cFFADFF2F"..Opt_Russian.."|r")
+		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
 	end
 end

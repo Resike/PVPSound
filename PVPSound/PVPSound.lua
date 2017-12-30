@@ -65,6 +65,7 @@ function PVPSound:OnLoadTwo()
 		PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
 		PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
 		PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES")
+		PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE")
 	end
 end
 
@@ -90,6 +91,7 @@ function PVPSound:RegisterEvents()
 	PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
 	PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
 	PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES")
+	PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE")
 	PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
@@ -107,6 +109,7 @@ function PVPSound:UnregisterEvents()
 	PVPSoundFrameTwo:UnregisterEvent("UNIT_HEALTH")
 	PVPSoundFrameTwo:UnregisterEvent("UNIT_MAXHEALTH")
 	PVPSoundFrameTwo:UnregisterEvent("UPDATE_WORLD_STATES")
+	PVPSoundFrameTwo:UnregisterEvent("WORLD_STATE_UI_TIMER_UPDATE")
 	PVPSoundFrameThree:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
@@ -379,17 +382,17 @@ end
 
 local function TimeRemainingobj_state(id)
 	if id == 5 then
-		return 1 -- Time Remaining: 5:59-5:00
+		return 5 -- Time Remaining: 5:59-5:00
 	elseif id == 4 then
-		return 2 -- Time Remaining: 4:59-4:00
+		return 4 -- Time Remaining: 4:59-4:00
 	elseif id == 3 then
 		return 3 -- Time Remaining: 3:59-3:00
 	elseif id == 2 then
-		return 4 -- Time Remaining: 2:59-2:00
+		return 2 -- Time Remaining: 2:59-2:00
 	elseif id == 1 then
-		return 5 -- Time Remaining: 1:59-1:00
+		return 1 -- Time Remaining: 1:59-1:00
 	elseif id == 0 then
-		return 6 -- Time Remaining: 0:59-0:00
+		return 0 -- Time Remaining: 0:59-0:00
 	else
 		return 0
 	end
@@ -408,13 +411,27 @@ end
 
 local function WSGandTPAobj_state(id)
 	if id == 0 then
-		return 1 -- Alliance Score: 0/3
+		return 0 -- Alliance Score: 0/X
 	elseif id == 1 then
-		return 2 -- Alliance Score: 1/3
+		return 1 -- Alliance Score: 1/X
 	elseif id == 2 then
-		return 3 -- Alliance Score: 2/3
+		return 2 -- Alliance Score: 2/X
 	elseif id == 3 then
-		return 4 -- Alliance Score: 3/3
+		return 3 -- Alliance Score: 3/X
+	elseif id == 4 then
+		return 4 -- Alliance Score: 4/X
+	elseif id == 5 then
+		return 5 -- Alliance Score: 5/X
+	elseif id == 6 then
+		return 6 -- Alliance Score: 6/X
+	elseif id == 7 then
+		return 7 -- Alliance Score: 7/X
+	elseif id == 8 then
+		return 8 -- Alliance Score: 8/X
+	elseif id == 9 then
+		return 9 -- Alliance Score: 9/X
+	elseif id == 10 then
+		return 10 -- Alliance Score: 10/X
 	else
 		return 0
 	end
@@ -433,13 +450,27 @@ end
 
 local function WSGandTPHobj_state(id)
 	if id == 0 then
-		return 1 -- Horde Score: 0/3
+		return 0 -- Horde Score: 0/X
 	elseif id == 1 then
-		return 2 -- Horde Score: 1/3
+		return 1 -- Horde Score: 1/X
 	elseif id == 2 then
-		return 3 -- Horde Score: 2/3
+		return 2 -- Horde Score: 2/X
 	elseif id == 3 then
-		return 4 -- Horde Score: 3/3
+		return 3 -- Horde Score: 3/X
+	elseif id == 4 then
+		return 4 -- Horde Score: 4/X
+	elseif id == 5 then
+		return 5 -- Horde Score: 5/X
+	elseif id == 6 then
+		return 6 -- Horde Score: 6/X
+	elseif id == 7 then
+		return 7 -- Horde Score: 7/X
+	elseif id == 8 then
+		return 8 -- Horde Score: 8/X
+	elseif id == 9 then
+		return 9 -- Horde Score: 9/X
+	elseif id == 10 then
+		return 10 -- Horde Score: 10/X
 	else
 		return 0
 	end
@@ -816,17 +847,17 @@ end
 
 local function AVandIOCAobj_state(id)
 	if id == 11 then
-		return 1 -- Reinforcements: 11
+		return 11 -- Reinforcements: 11
 	elseif id == 10 then
-		return 2 -- Reinforcements: 10
+		return 10 -- Reinforcements: 10
 	elseif id == 6 then
-		return 3 -- Reinforcements: 6
+		return 6 -- Reinforcements: 6
 	elseif id == 5 then
-		return 4 -- Reinforcements: 5
+		return 5 -- Reinforcements: 5
 	elseif id == 2 then
-		return 5 -- Reinforcements: 2
+		return 2 -- Reinforcements: 2
 	elseif id == 1 then
-		return 6 -- Reinforcements: 1
+		return 1 -- Reinforcements: 1
 	else
 		return 0
 	end
@@ -993,12 +1024,20 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 			end
-			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" --[[or MyZone == "Zone_Arenas"]] then
+			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
 				local i
 				if MyZone == "Zone_StrandoftheAncients" then
 					i = 7
-				--[[elseif MyZone == "Zone_Arenas" then
-					i = 6]]
+				elseif MyZone == "Zone_Arenas" then
+					if CurrentZoneText == L["Ashamane's Fall"] or CurrentZoneText == L["Blade's Edge Arena"] then
+						i = 4
+					elseif CurrentZoneText == L["Nagrand Arena"] then
+						i = 6
+					elseif CurrentZoneText == L["Dalaran Arena"] or CurrentZoneText == L["Ruins of Lordaeron"] or CurrentZoneText == L["The Tiger's Peak"] or CurrentZoneText == L["Tol'viron Arena"] then
+						i = 3
+					else
+						i = 4
+					end
 				elseif MyZone == "Zone_TolBarad" then
 					i = 1
 				elseif MyZone == "Zone_WarsongGulch" then
@@ -1014,13 +1053,18 @@ function PVPSound:OnEvent(event, ...)
 				end
 				if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
 					-- Alliance Score
-					local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d)/"))
+					local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
 					WSGandTPAobjectives.AllianceScore = nil
 					WSGandTPAobjectives.AllianceScore = AllianceScoreInit
 					-- Horde Score
-					local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
+					local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
 					WSGandTPHobjectives.HordeScore = nil
 					WSGandTPHobjectives.HordeScore = HordeScoreInit
+
+					self.AllianceFlagPositionX = nil
+					self.AllianceFlagPositionY = nil
+					self.HordeFlagPositionX = nil
+					self.HordeFlagPositionY = nil
 				end
 			end
 			if MyZone == "Zone_EyeoftheStorm" then
@@ -1228,25 +1272,25 @@ function PVPSound:OnEvent(event, ...)
 				IOCobjectives.Refinerie = nil
 				IOCobjectives.Workshop = nil
 				if AllianceGateEInit then
-						IOCobjectives.AllianceGateE = AllianceGateEInit + 100
-					end
-					if AllianceGateWInit then
-						IOCobjectives.AllianceGateW = AllianceGateWInit + 200
-					end
-					if AllianceGateSInit then
-						IOCobjectives.AllianceGateS = AllianceGateSInit + 300
-					end
-					IOCobjectives.Docks = DocksInit
-					IOCobjectives.Hangar = HangarInit
-					if HordeGateEInit then
-						IOCobjectives.HordeGateE = HordeGateEInit + 400
-					end
-					if HordeGateWInit then
-						IOCobjectives.HordeGateW = HordeGateWInit + 500
-					end
-					if HordeGateNInit then
-						IOCobjectives.HordeGateN = HordeGateNInit + 600
-					end
+					IOCobjectives.AllianceGateE = AllianceGateEInit + 100
+				end
+				if AllianceGateWInit then
+					IOCobjectives.AllianceGateW = AllianceGateWInit + 200
+				end
+				if AllianceGateSInit then
+					IOCobjectives.AllianceGateS = AllianceGateSInit + 300
+				end
+				IOCobjectives.Docks = DocksInit
+				IOCobjectives.Hangar = HangarInit
+				if HordeGateEInit then
+					IOCobjectives.HordeGateE = HordeGateEInit + 400
+				end
+				if HordeGateWInit then
+					IOCobjectives.HordeGateW = HordeGateWInit + 500
+				end
+				if HordeGateNInit then
+					IOCobjectives.HordeGateN = HordeGateNInit + 600
+				end
 				IOCobjectives.Quarry = QuarryInit
 				IOCobjectives.Refinerie = RefinerieInit
 				IOCobjectives.Workshop = WorkshopInit
@@ -1348,6 +1392,11 @@ function PVPSound:OnEvent(event, ...)
 				DGobjectives.CentralMine = CentralMineInit + 100
 				DGobjectives.GoblinMine = GoblinMineInit + 200
 				DGobjectives.PandarenMine = PandarenMineInit + 300
+
+				self.AllianceCartPositionX = nil
+				self.AllianceCartPositionY = nil
+				self.HordeCartPositionX = nil
+				self.HordeCartPositionY = nil
 			end
 			if MyZone == "Zone_SilvershardMines" then
 				local HordeScoreInit = (select(5, GetMapLandmarkInfo(2)))
@@ -1493,7 +1542,7 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 					if GotKilledBy ~= nil then
-						print("|cFFFF4500"..Msg_YouGotKilledBy.." "..GotKilledBy.."!|r")
+						print("|cFFFF4500"..L["You got killed by"].." "..GotKilledBy.."!|r")
 					end
 					GotKilledBy = nil
 				end
@@ -1568,12 +1617,20 @@ function PVPSound:OnEvent(event, ...)
 						end
 					end
 				end
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" --[[or MyZone == "Zone_Arenas"]] then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
 					local i
 					if MyZone == "Zone_StrandoftheAncients" then
 						i = 7
-					--[[elseif MyZone == "Zone_Arenas" then
-						i = 6]]
+					elseif MyZone == "Zone_Arenas" then
+						if CurrentZoneText == L["Ashamane's Fall"] or CurrentZoneText == L["Blade's Edge Arena"] then
+							i = 4
+						elseif CurrentZoneText == L["Nagrand Arena"] then
+							i = 6
+						elseif CurrentZoneText == L["Dalaran Arena"] or CurrentZoneText == L["Ruins of Lordaeron"] or CurrentZoneText == L["The Tiger's Peak"] or CurrentZoneText == L["Tol'viron Arena"] then
+							i = 3
+						else
+							i = 4
+						end
 					elseif MyZone == "Zone_TolBarad" then
 						i = 1
 					elseif MyZone == "Zone_WarsongGulch" then
@@ -1589,13 +1646,18 @@ function PVPSound:OnEvent(event, ...)
 					end
 					if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(2))) ~= nil then
 						-- Alliance Score
-						local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d)/"))
+						local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
 						WSGandTPAobjectives.AllianceScore = nil
 						WSGandTPAobjectives.AllianceScore = AllianceScoreInit
 						-- Horde Score
-						local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
+						local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
 						WSGandTPHobjectives.HordeScore = nil
 						WSGandTPHobjectives.HordeScore = HordeScoreInit
+
+						self.AllianceFlagPositionX = nil
+						self.AllianceFlagPositionY = nil
+						self.HordeFlagPositionX = nil
+						self.HordeFlagPositionY = nil
 					end
 				end
 				if MyZone == "Zone_EyeoftheStorm" then
@@ -1931,6 +1993,11 @@ function PVPSound:OnEvent(event, ...)
 					DGobjectives.CentralMine = CentralMineInit + 100
 					DGobjectives.GoblinMine = GoblinMineInit + 200
 					DGobjectives.PandarenMine = PandarenMineInit + 300
+
+					self.AllianceCartPositionX = nil
+					self.AllianceCartPositionY = nil
+					self.HordeCartPositionX = nil
+					self.HordeCartPositionY = nil
 				end
 				if MyZone == "Zone_SilvershardMines" then
 					local HordeScoreInit = (select(5, GetMapLandmarkInfo(2)))
@@ -2124,12 +2191,12 @@ function PVPSound:OnEvent(event, ...)
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
 				local EventMessage = select(1, ...)
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" then
-					if (string.find(EventMessage, BG_ALLIANCE_WINS) and BgIsOver ~= true) or (string.find(EventMessage, BG_ALLIANCE_WINS_TWO) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
+					if (string.find(EventMessage, L["Alliance wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Alliance wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 						BgIsOver = true
 						PVPSound:ClearPaybackQueue()
 						PVPSound:ClearRetributionQueue()
-					elseif (string.find(EventMessage, BG_HORDE_WINS) and BgIsOver ~= true) or (string.find(EventMessage, BG_HORDE_WINS_TWO) and BgIsOver ~= true) or (string.find(EventMessage, L["The Horde is victorious"]) and BgIsOver ~= true) then
+					elseif (string.find(EventMessage, L["Horde wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Horde wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Horde is victorious"]) and BgIsOver ~= true) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 						BgIsOver = true
 						PVPSound:ClearPaybackQueue()
@@ -2141,23 +2208,29 @@ function PVPSound:OnEvent(event, ...)
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
 				-- Tie Game
-				if string.find(EventMessage, BG_TIE_GAME) and BgIsOver ~= true then
+				if string.find(EventMessage, L["Tie game"]) and BgIsOver ~= true then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
 					BgIsOver = true
 					PVPSound:ClearPaybackQueue()
 					PVPSound:ClearRetributionQueue()
 				 -- Warsong Gulch and Twin Peaks Vulnerable
 				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
-					if string.find(EventMessage, BG_ALLIANCE_FLAG_RETURNED) then
+					if string.find(EventMessage, L["Alliance Flag has returned"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
-					elseif string.find(EventMessage, BG_HORDE_FLAG_RETURNED) then
+
+						self.AllianceFlagPositionX = nil
+						self.AllianceFlagPositionY = nil
+					elseif string.find(EventMessage, L["Horde Flag has returned"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
-					elseif string.find(EventMessage, BG_VULNERABLE) then
+
+						self.HordeFlagPositionX = nil
+						self.HordeFlagPositionY = nil
+					elseif string.find(EventMessage, L["vulnerable"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\Overtime.mp3")
 					end
 				 -- Strand of the Ancients Attack and Defend Sounds
 				elseif MyZone == "Zone_StrandoftheAncients" then
-					if string.find(EventMessage, BG_SOTA_ROUND_ONE) or string.find(EventMessage, BG_SOTA_ROUND_TWO) then
+					if string.find(EventMessage, L["The battle for the Strand of the Ancients begins in 1 minute"]) or string.find(EventMessage, L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"]) then
 						for i = 7, 7, 1 do
 							local textureIndex = select(4, GetMapLandmarkInfo(i))
 							if textureIndex then
@@ -2177,7 +2250,7 @@ function PVPSound:OnEvent(event, ...)
 						elseif SotaAttacker == "Horde" and MyFaction == "Horde" then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.mp3")
 						end
-					elseif string.find(EventMessage, BG_SOTA_ROUND_TWO_TWO) then
+					elseif string.find(EventMessage, L["Round 2 begins in 30 seconds"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\FinalRound.mp3")
 						SotaRoundOver = false
 					end
@@ -2189,44 +2262,63 @@ function PVPSound:OnEvent(event, ...)
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
 					-- Alliance
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-						-- Alliance Flag Coordinates
-						local AllianceFlagPositionX
-						local AllianceFlagPositionY
 						if string.find(EventMessage, L["picked"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
-						elseif string.find(EventMessage, BG_DROPPED) then
+
+							if C_PvP.IsInBrawl() then
+								return
+							end
+
+							self.AllianceFlagPositionX = nil
+							self.AllianceFlagPositionY = nil
+						elseif string.find(EventMessage, L["dropped"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
-							if (select(1, GetBattlefieldFlagPosition(1))) ~= nil then
-								AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(1))
+
+							if C_PvP.IsInBrawl() then
+								return
 							end
-							if (select(2, GetBattlefieldFlagPosition(1))) ~= nil then
-								AllianceFlagPositionY = select(2, GetBattlefieldFlagPosition(1))
+
+							for i = 1, 2 do
+								local type = select(3, GetBattlefieldFlagPosition(i))
+
+								if type == "AllianceFlag" then
+									self.AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
+									self.AllianceFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
+
+									break
+								end
 							end
-						elseif string.find(EventMessage, BG_RETURNED) then
+						elseif string.find(EventMessage, L["returned"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
+
+							if C_PvP.IsInBrawl() then
+								return
+							end
+
 							-- Subzone
 							local CurrentSubZoneText = GetSubZoneText()
 							-- Horde Flag Taken
-							local HordeFlagIsTaken
+							local HordeFlagStatus
 							if (select(2, GetWorldStateUIInfo(2))) ~= nil then
-								HordeFlagIsTaken = select(2, GetWorldStateUIInfo(2))
+								HordeFlagStatus = select(2, GetWorldStateUIInfo(2))
 							end
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
-							if MyFaction == "Alliance" and HordeFlagIsTaken == 1 and (CurrentSubZoneText == L["Warsong Flag Room"] or CurrentSubZoneText == L["Dragonmaw Forge"]) then
+
+							if MyFaction == "Alliance" and HordeFlagStatus == 1 and (CurrentSubZoneText == L["Warsong Flag Room"] or CurrentSubZoneText == L["Dragonmaw Forge"]) then
 								if MyZone == "Zone_WarsongGulch" then
-									if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
-										if AllianceFlagPositionY and AllianceFlagPositionY ~= nil and AllianceFlagPositionY ~= "" then
-											if AllianceFlagPositionX >= 0.503 and AllianceFlagPositionX <= 0.545 then
-												if AllianceFlagPositionY >= 0.884 and AllianceFlagPositionY <= 0.934 then
+									if self.AllianceFlagPositionX and self.AllianceFlagPositionX ~= 0 and self.AllianceFlagPositionX ~= "" then
+										if self.AllianceFlagPositionY and self.AllianceFlagPositionY ~= 0 and self.AllianceFlagPositionY ~= "" then
+											if self.AllianceFlagPositionX >= 0.503 and self.AllianceFlagPositionX <= 0.545 then
+												if self.AllianceFlagPositionY >= 0.884 and self.AllianceFlagPositionY <= 0.934 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
 												end
 											end
 										end
 									end
 								elseif MyZone == "Zone_TwinPeaks" then
-									if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
-										if AllianceFlagPositionY and AllianceFlagPositionY ~= nil and AllianceFlagPositionY ~= "" then
-											if AllianceFlagPositionX >= 0.452 and AllianceFlagPositionX <= 0.509 then
-												if AllianceFlagPositionY >= 0.795 and AllianceFlagPositionY <= 0.908 then
+									if self.AllianceFlagPositionX and self.AllianceFlagPositionX ~= 0 and self.AllianceFlagPositionX ~= "" then
+										if self.AllianceFlagPositionY and self.AllianceFlagPositionY ~= 0 and self.AllianceFlagPositionY ~= "" then
+											if self.AllianceFlagPositionX >= 0.452 and self.AllianceFlagPositionX <= 0.509 then
+												if self.AllianceFlagPositionY >= 0.795 and self.AllianceFlagPositionY <= 0.908 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
 												end
 											end
@@ -2234,47 +2326,69 @@ function PVPSound:OnEvent(event, ...)
 									end
 								end
 							end
+
+							self.AllianceFlagPositionX = nil
+							self.AllianceFlagPositionY = nil
 						end
 					 -- Horde
 					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
-						-- Horde Flag Coordinates
-						local HordeFlagPositionX
-						local HordeFlagPositionY
 						if string.find(EventMessage, L["picked"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
-						elseif string.find(EventMessage, BG_DROPPED) then
+
+							if C_PvP.IsInBrawl() then
+								return
+							end
+
+							self.HordeFlagPositionX = nil
+							self.HordeFlagPositionY = nil
+						elseif string.find(EventMessage, L["dropped"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
-							if (select(1, GetBattlefieldFlagPosition(2))) ~= nil then
-								HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(2))
+
+							if C_PvP.IsInBrawl() then
+								return
 							end
-							if (select(2, GetBattlefieldFlagPosition(2))) ~= nil then
-								HordeFlagPositionY = select(2, GetBattlefieldFlagPosition(2))
+
+							for i = 1, 2 do
+								local type = select(3, GetBattlefieldFlagPosition(i))
+
+								if type == "HordeFlag" then
+									self.HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
+									self.HordeFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
+
+									break
+								end
 							end
-						elseif string.find(EventMessage, BG_RETURNED) then
+						elseif string.find(EventMessage, L["returned"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
+
+							if C_PvP.IsInBrawl() then
+								return
+							end
+
 							-- Zone
 							local CurrentSubZoneText = GetSubZoneText()
 							-- Alliance Flag Taken
-							local AllianceFlagIsTaken
-							if (select(2, GetWorldStateUIInfo(3))) ~= nil then
-								AllianceFlagIsTaken = select(2, GetWorldStateUIInfo(3))
+							local AllianceFlagStatus
+							if (select(2, GetWorldStateUIInfo(1))) ~= nil then
+								AllianceFlagStatus = select(2, GetWorldStateUIInfo(1))
 							end
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
-							if MyFaction == "Horde" and AllianceFlagIsTaken == 1 and (CurrentSubZoneText == L["Silverwing Hold"] or CurrentSubZoneText == L["Wildhammer Stronghold"]) then
+
+							if MyFaction == "Horde" and AllianceFlagStatus == 1 and (CurrentSubZoneText == L["Silverwing Hold"] or CurrentSubZoneText == L["Wildhammer Stronghold"]) then
 								if MyZone == "Zone_WarsongGulch" then
-									if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
-										if HordeFlagPositionY and HordeFlagPositionY ~= 0 and HordeFlagPositionY ~= "" then
-											if HordeFlagPositionX >= 0.473 and HordeFlagPositionX <= 0.516 then
-												if HordeFlagPositionY >= 0.111 and HordeFlagPositionY <= 0.176 then
+									if self.HordeFlagPositionX and self.HordeFlagPositionX ~= 0 and self.HordeFlagPositionX ~= "" then
+										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and Hself.ordeFlagPositionY ~= "" then
+											if self.HordeFlagPositionX >= 0.473 and self.HordeFlagPositionX <= 0.516 then
+												if self.HordeFlagPositionY >= 0.111 and self.HordeFlagPositionY <= 0.176 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
 												end
 											end
 										end
 									end
 								elseif MyZone == "Zone_TwinPeaks" then
-									if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
-										if HordeFlagPositionY and HordeFlagPositionY ~= 0 and HordeFlagPositionY ~= "" then
-											if HordeFlagPositionX >= 0.563 and HordeFlagPositionX <= 0.640 then
-												if HordeFlagPositionY >= 0.124 and HordeFlagPositionY <= 0.252 then
+									if self.HordeFlagPositionX and self.HordeFlagPositionX ~= 0 and self.HordeFlagPositionX ~= "" then
+										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and self.HordeFlagPositionY ~= "" then
+											if self.HordeFlagPositionX >= 0.563 and self.HordeFlagPositionX <= 0.640 then
+												if self.HordeFlagPositionY >= 0.124 and self.HordeFlagPositionY <= 0.252 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
 												end
 											end
@@ -2282,47 +2396,49 @@ function PVPSound:OnEvent(event, ...)
 									end
 								end
 							end
+
+							self.HordeFlagPositionX = nil
+							self.HordeFlagPositionY = nil
 						end
 					end
 				 -- Deepwind Gorge
 				elseif MyZone == "Zone_DeepwindGorge" then
 					-- Alliance
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-						-- Alliance Flag Coordinates
-						local AllianceFlagPositionX
-						local AllianceFlagPositionY
-						-- Player Coordinates
-						local PlayerPositionX
-						local PlayerPositionY
 						if string.find(EventMessage, L["taken the"]) or string.find(EventMessage, L["picked"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
+
+							self.AllianceCartPositionX = nil
+							self.AllianceCartPositionY = nil
 						elseif string.find(EventMessage, L["dropped"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
-							if (select(1, GetBattlefieldFlagPosition(1))) ~= nil then
-								AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(1))
+
+							for i = 1, 2 do
+								local type = select(3, GetBattlefieldFlagPosition(i))
+
+								if type == "AllianceFlag" then
+									self.AllianceCartPositionX = select(1, GetBattlefieldFlagPosition(i))
+									self.AllianceCartPositionY = select(2, GetBattlefieldFlagPosition(i))
+
+									break
+								end
 							end
-							if (select(2, GetBattlefieldFlagPosition(1))) ~= nil then
-								AllianceFlagPositionY = select(2, GetBattlefieldFlagPosition(1))
-							end
-							SetMapToCurrentZone()
-							PlayerPositionX, PlayerPositionY = GetPlayerMapPosition("player")
 						elseif string.find(EventMessage, L["returned"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
 							if MyFaction == "Alliance" then
-								if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
-									if AllianceFlagPositionY and AllianceFlagPositionY ~= nil and AllianceFlagPositionY ~= "" then
-										if AllianceFlagPositionX >= 0.000 and AllianceFlagPositionX <= 0.277 then
-											if AllianceFlagPositionY >= 0.272 and AllianceFlagPositionY <= 0.465 then
-												if PlayerPositionX >= 0.000 and PlayerPositionX <= 0.277 then
-													if PlayerPositionY >= 0.272 and PlayerPositionY <= 0.456 then
-														PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
-													end
-												end
+								if self.AllianceCartPositionX and self.AllianceCartPositionX ~= 0 and self.AllianceCartPositionX ~= "" then
+									if self.AllianceCartPositionY and self.AllianceCartPositionY ~= 0 and self.AllianceCartPositionY ~= "" then
+										if self.AllianceCartPositionX >= 0.000 and self.AllianceCartPositionX <= 0.277 then
+											if self.AllianceCartPositionY >= 0.272 and self.AllianceCartPositionY <= 0.465 then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
 											end
 										end
 									end
 								end
 							end
+
+							self.AllianceCartPositionX = nil
+							self.AllianceCartPositionY = nil
 						elseif string.find(EventMessage, L["captured"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 						--[[elseif string.find(EventMessage, L["The Alliance is near victory"]) then
@@ -2330,41 +2446,40 @@ function PVPSound:OnEvent(event, ...)
 						end
 					-- Horde
 					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
-						-- Horde Flag Coordinates
-						local HordeFlagPositionX
-						local HordeFlagPositionY
-						-- Player Coordinates
-						local PlayerPositionX
-						local PlayerPositionY
 						if string.find(EventMessage, L["taken the"]) or string.find(EventMessage, L["picked"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
+
+							self.HordeCartPositionX = nil
+							self.HordeCartPositionY = nil
 						elseif string.find(EventMessage, L["dropped"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
-							if (select(1, GetBattlefieldFlagPosition(2))) ~= nil then
-								HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(2))
+
+							for i = 1, 2 do
+								local type = select(3, GetBattlefieldFlagPosition(i))
+
+								if type == "HordeFlag" then
+									self.HordeCartPositionX = select(1, GetBattlefieldFlagPosition(i))
+									self.HordeCartPositionY = select(2, GetBattlefieldFlagPosition(i))
+
+									break
+								end
 							end
-							if (select(2, GetBattlefieldFlagPosition(2))) ~= nil then
-								HordeFlagPositionY = select(2, GetBattlefieldFlagPosition(2))
-							end
-							SetMapToCurrentZone()
-							PlayerPositionX, PlayerPositionY = GetPlayerMapPosition("player")
 						elseif string.find(EventMessage, L["returned"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
 							if MyFaction == "Horde" then
-								if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
-									if HordeFlagPositionY and HordeFlagPositionY ~= nil and HordeFlagPositionY ~= "" then
-										if HordeFlagPositionX >= 0.772 and HordeFlagPositionX <= 1.000 then
-											if HordeFlagPositionY >= 0.523 and HordeFlagPositionY <= 0.712 then
-												if PlayerPositionX >= 0.772 and PlayerPositionX <= 1.000 then
-													if PlayerPositionY >= 0.523 and PlayerPositionY <= 0.712 then
-														PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
-													end
-												end
+								if self.HordeCartPositionX and self.HordeCartPositionX ~= 0 and self.HordeCartPositionX ~= "" then
+									if self.HordeCartPositionY and self.HordeCartPositionY ~= 0 and self.HordeCartPositionY ~= "" then
+										if self.HordeCartPositionX >= 0.772 and self.HordeCartPositionX <= 1.000 then
+											if self.HordeCartPositionY >= 0.523 and self.HordeCartPositionY <= 0.712 then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
 											end
 										end
 									end
 								end
 							end
+
+							self.HordeCartPositionX = nil
+							self.HordeCartPositionY = nil
 						elseif string.find(EventMessage, L["captured"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 						--[[elseif string.find(EventMessage, L["The Horde is near victory"]) then
@@ -2373,7 +2488,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 				 -- Eye of the Storm Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
-					if string.find(EventMessage, BG_CAPTURED) then
+					if string.find(EventMessage, L["captured"]) then
 						if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 						elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
@@ -2964,10 +3079,10 @@ function PVPSound:OnEvent(event, ...)
 				-- Wintergrasp
 				if MyZone == "Zone_Wintergrasp" then
 					-- WinSounds
-					if string.find(EventMessage, BF_WG_ALLIANCE_WIN_DEFENDED) and BgIsOver ~= true then
+					if string.find(EventMessage, L["Alliance has defended"]) and BgIsOver ~= true then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 						BgIsOver = true
-					elseif string.find(EventMessage, BF_WG_HORDE_WIN_DEFENDED) and BgIsOver ~= true then
+					elseif string.find(EventMessage, L["Horde has defended"]) and BgIsOver ~= true then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 						BgIsOver = true
 					end
@@ -2975,13 +3090,13 @@ function PVPSound:OnEvent(event, ...)
 					if isActive == 0 then
 						BgIsOver = false
 						-- Workshops
-						if string.find(EventMessage, BF_WG_ALLIANCE_ATTACKED) then
+						if string.find(EventMessage, L["workshop has been attacked by the Alliance"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-						elseif string.find(EventMessage, BF_WG_ALLIANCE_CAPTURED) then
+						elseif string.find(EventMessage, L["workshop has been captured by the Alliance"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-						elseif string.find(EventMessage, BF_WG_HORDE_ATTACKED) then
+						elseif string.find(EventMessage, L["workshop has been attacked by the Horde"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-						elseif string.find(EventMessage, BF_WG_HORDE_CAPTURED) then
+						elseif string.find(EventMessage, L["workshop has been captured by the Horde"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 						end
 					end
@@ -3021,7 +3136,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 				 -- Strand of the Ancients Round One Finished
 				elseif MyZone == "Zone_StrandoftheAncients" then
-					if string.find(EventMessage, BG_SOTA_ROUND_ONE_FINISHED) then
+					if string.find(EventMessage, L["Round 1"]) then
 						SOTAobjectives.ChamberofAncientRelics = nil
 						SOTAobjectives.EastGraveyard = nil
 						SOTAobjectives.GateoftheBlueSapphire = nil
@@ -3033,14 +3148,14 @@ function PVPSound:OnEvent(event, ...)
 						SOTAobjectives.WestGraveyard = nil
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\EndOfRound.mp3")
 						SotaRoundOver = true
-					elseif string.find(EventMessage, BG_SOTA_LET_THE_BATTLE) then
+					elseif string.find(EventMessage, L["Let the battle for the Strand of the Ancients begin"]) then
 						SotaRoundOver = false
 					end
 				 -- Eye of the Storm RBG Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
-					if string.find(EventMessage, BG_EOTSRBG_ALLIANCE_CAPTURED) then
+					if string.find(EventMessage, L["Alliance have captured"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-					elseif string.find(EventMessage, BG_EOTSRBG_HORDE_CAPTURED) then
+					elseif string.find(EventMessage, L["Horde have captured"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 					end
 				 -- Temple of Kotmogu Orb Reset
@@ -4546,15 +4661,23 @@ function PVPSound:OnEventTwo(event, ...)
 		end
 
 		if PS_BattlegroundSound == true then
-			if event == "UPDATE_WORLD_STATES" then
-				-- Time Remaining
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" --[[or MyZone == "Zone_Arenas"]] then
+			if event == "WORLD_STATE_UI_TIMER_UPDATE" then
+				-- Time Reamining
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
 					if BgIsOver ~= true then
 						local i
 						if MyZone == "Zone_StrandoftheAncients" then
 							i = 7
-						--[[elseif MyZone == "Zone_Arenas" then
-							i = 6]]
+						elseif MyZone == "Zone_Arenas" then
+							if CurrentZoneText == L["Ashamane's Fall"] or CurrentZoneText == L["Blade's Edge Arena"] then
+								i = 4
+							elseif CurrentZoneText == L["Nagrand Arena"] then
+								i = 6
+							elseif CurrentZoneText == L["Dalaran Arena"] or CurrentZoneText == L["Ruins of Lordaeron"] or CurrentZoneText == L["The Tiger's Peak"] or CurrentZoneText == L["Tol'viron Arena"] then
+								i = 3
+							else
+								i = 4
+							end
 						elseif MyZone == "Zone_TolBarad" then
 							i = 1
 						elseif  MyZone == "Zone_WarsongGulch" then
@@ -4568,13 +4691,13 @@ function PVPSound:OnEventTwo(event, ...)
 							if TimeRemaining then
 								local type = TimeRemainingget_objective(TimeRemaining)
 								if type then
-									if TimeRemainingobj_state(TimeRemainingobjectives[type]) == 1 and TimeRemainingobj_state(TimeRemaining) == 2 then
+									if TimeRemainingobj_state(TimeRemainingobjectives[type]) == 5 and TimeRemainingobj_state(TimeRemaining) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.mp3")
-									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 3 and TimeRemainingobj_state(TimeRemaining) == 4 then
+									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 3 and TimeRemainingobj_state(TimeRemaining) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.mp3")
-									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 4 and TimeRemainingobj_state(TimeRemaining) == 5 then
+									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 2 and TimeRemainingobj_state(TimeRemaining) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.mp3")
-									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 5 and TimeRemainingobj_state(TimeRemaining) == 6 then
+									elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 1 and TimeRemainingobj_state(TimeRemaining) == 0 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.mp3")
 									end
 									TimeRemainingobjectives[type] = TimeRemaining
@@ -4582,93 +4705,459 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						end
 					end
+				 -- Alterac Valley and Isle of Conquest Kill Countdown
+				elseif MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" then
+					-- Alliance Reinforcements
+					for i = 2, 2, 1 do
+						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
+							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
+							if faketextureIndex then
+								local type = AVandIOCAget_objective(faketextureIndex)
+								if type then
+									if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 11 and AVandIOCAobj_state(faketextureIndex) == 10 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
+									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 6 and AVandIOCAobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
+									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 2 and AVandIOCAobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
+									end
+									AVandIOCAobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+					-- Horde Reinforcements
+					for i = 3, 3, 1 do
+						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
+							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
+							if faketextureIndex then
+								local type = AVandIOCHget_objective(faketextureIndex)
+								if type then
+									if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(faketextureIndex) == 10 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
+									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 6 and AVandIOCHobj_state(faketextureIndex) == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
+									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 2 and AVandIOCHobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
+									end
+									AVandIOCHobjectives[type] = faketextureIndex
+								end
+							end
+						end
+					end
+				end
+			elseif event == "UPDATE_WORLD_STATES" then
+				-- Time Remaining
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" then
 					if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(2))) ~= nil then
 						-- Alliance Score
-						local AllianceScore = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d)/"))
+						local AllianceScore = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
 						-- Horde Score
-						local HordeScore = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d)/"))
+						local HordeScore = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
 						-- Alliance
 						if AllianceScore and HordeScore then
 							local type = WSGandTPAget_objective(AllianceScore)
 							if type then
-								if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
-									LastScored = "Alliance"
-								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 1 then
-									if LastScored == "Alliance" then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-									elseif LastScored == "Horde" then
+								if C_PvP.IsInBrawl() then
+									if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 0 and WSGandTPAobj_state(AllianceScore) == 1 and HordeScore == 0 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
-									else
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 0 and WSGandTPAobj_state(AllianceScore) == 1 and HordeScore == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 0 and WSGandTPAobj_state(AllianceScore) == 1 and HordeScore >= 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 0 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 1 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore >= 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore >= 0 and HordeScore <= 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 2 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore >= 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore >= 0 and HordeScore <= 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 3 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore >= 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 4 and WSGandTPAobj_state(AllianceScore) == 5 and HordeScore >= 0 and HordeScore <= 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 4 and WSGandTPAobj_state(AllianceScore) == 5 and HordeScore == 4 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 4 and WSGandTPAobj_state(AllianceScore) == 5 and HordeScore == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 4 and WSGandTPAobj_state(AllianceScore) == 5 and HordeScore >= 6 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 5 and WSGandTPAobj_state(AllianceScore) == 6 and HordeScore >= 0 and HordeScore <= 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 5 and WSGandTPAobj_state(AllianceScore) == 6 and HordeScore == 5 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 5 and WSGandTPAobj_state(AllianceScore) == 6 and HordeScore == 6 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 5 and WSGandTPAobj_state(AllianceScore) == 6 and HordeScore >= 7 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 6 and WSGandTPAobj_state(AllianceScore) == 7 and HordeScore >= 0 and HordeScore <= 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 6 and WSGandTPAobj_state(AllianceScore) == 7 and HordeScore == 6 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 6 and WSGandTPAobj_state(AllianceScore) == 7 and HordeScore == 7 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 6 and WSGandTPAobj_state(AllianceScore) == 7 and HordeScore >= 8 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 7 and WSGandTPAobj_state(AllianceScore) == 8 and HordeScore >= 0 and HordeScore <= 6 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 7 and WSGandTPAobj_state(AllianceScore) == 8 and HordeScore == 7 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 7 and WSGandTPAobj_state(AllianceScore) == 8 and HordeScore == 8 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 7 and WSGandTPAobj_state(AllianceScore) == 8 and HordeScore >= 9 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 8 and WSGandTPAobj_state(AllianceScore) == 9 and HordeScore >= 0 and HordeScore <= 7 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 8 and WSGandTPAobj_state(AllianceScore) == 9 and HordeScore == 8 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 8 and WSGandTPAobj_state(AllianceScore) == 9 and HordeScore == 9 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
 									end
-									LastScored = "Alliance"
-								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-									LastScored = "Alliance"
-								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 1 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
-									LastScored = "Alliance"
-								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
-									LastScored = "Alliance"
-								elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
-									LastScored = "Alliance"
-								end
-								if PS_BattlegroundSoundEngine == true then
-									-- 3/3 Scores
-									if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 0 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+									if PS_BattlegroundSoundEngine == true then
+										-- 10/10 Scores
+										if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 9 and WSGandTPAobj_state(AllianceScore) == 10 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 									end
+									WSGandTPAobjectives[type] = AllianceScore
+								else
+									if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 0 and WSGandTPAobj_state(AllianceScore) == 1 and HordeScore == 0 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 0 and WSGandTPAobj_state(AllianceScore) == 1 and HordeScore == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 0 and WSGandTPAobj_state(AllianceScore) == 1 and HordeScore == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 0 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 1 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+										LastScored = "Alliance"
+									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 1 and WSGandTPAobj_state(AllianceScore) == 2 and HordeScore == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+										LastScored = "Alliance"
+									end
+									if PS_BattlegroundSoundEngine == true then
+										-- 3/3 Scores
+										if WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 0 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 1 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 2 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
+									end
+									WSGandTPAobjectives[type] = AllianceScore
 								end
-								WSGandTPAobjectives[type] = AllianceScore
 							end
 						end
 						-- Horde
 						if AllianceScore and HordeScore then
 							local type = WSGandTPHget_objective(HordeScore)
 							if type then
-								if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
-									LastScored = "Horde"
-								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 1 then
-									if LastScored == "Alliance" then
+								if C_PvP.IsInBrawl() then
+									if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 0 and WSGandTPHobj_state(HordeScore) == 1 and AllianceScore == 0 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
-									elseif LastScored == "Horde" then
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 0 and WSGandTPHobj_state(HordeScore) == 1 and AllianceScore == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 0 and WSGandTPHobj_state(HordeScore) == 1 and AllianceScore >= 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
-									else
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 0 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 1 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore >= 3 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore >= 0 and AllianceScore <= 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 2 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore >= 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore >= 0 and AllianceScore <= 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 3 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore >= 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 4 and WSGandTPHobj_state(HordeScore) == 5 and AllianceScore >= 0 and AllianceScore <= 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 4 and WSGandTPHobj_state(HordeScore) == 5 and AllianceScore == 4 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 4 and WSGandTPHobj_state(HordeScore) == 5 and AllianceScore == 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 4 and WSGandTPHobj_state(HordeScore) == 5 and AllianceScore >= 6 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 5 and WSGandTPHobj_state(HordeScore) == 6 and AllianceScore >= 0 and AllianceScore <= 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 5 and WSGandTPHobj_state(HordeScore) == 6 and AllianceScore == 5 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 5 and WSGandTPHobj_state(HordeScore) == 6 and AllianceScore == 6 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 5 and WSGandTPHobj_state(HordeScore) == 6 and AllianceScore >= 7 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 6 and WSGandTPHobj_state(HordeScore) == 7 and AllianceScore >= 0 and AllianceScore <= 5 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 6 and WSGandTPHobj_state(HordeScore) == 7 and AllianceScore == 6 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 6 and WSGandTPHobj_state(HordeScore) == 7 and AllianceScore == 7 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 6 and WSGandTPHobj_state(HordeScore) == 7 and AllianceScore >= 8 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 7 and WSGandTPHobj_state(HordeScore) == 8 and AllianceScore >= 0 and AllianceScore <= 6 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 7 and WSGandTPHobj_state(HordeScore) == 8 and AllianceScore == 7 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 7 and WSGandTPHobj_state(HordeScore) == 8 and AllianceScore == 8 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 7 and WSGandTPHobj_state(HordeScore) == 8 and AllianceScore >= 9 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 8 and WSGandTPHobj_state(HordeScore) == 9 and AllianceScore >= 0 and AllianceScore <= 7 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 8 and WSGandTPHobj_state(HordeScore) == 9 and AllianceScore == 8 then
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 8 and WSGandTPHobj_state(HordeScore) == 9 and AllianceScore == 9 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
 									end
-									LastScored = "Horde"
-								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
-									LastScored = "Horde"
-								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 1 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
-									LastScored = "Horde"
-								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 2 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
-									LastScored = "Horde"
-								elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 0 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
-									LastScored = "Horde"
-								end
-								if PS_BattlegroundSoundEngine == true then
-									-- 3/3 Scores
-									if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 0 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
-									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
-									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+									if PS_BattlegroundSoundEngine == true then
+										-- 10/10 Scores
+										if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 9 and WSGandTPHobj_state(HordeScore) == 10 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 									end
+									WSGandTPHobjectives[type] = HordeScore
+								else
+									if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 0 and WSGandTPHobj_state(HordeScore) == 1 and AllianceScore == 0 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 0 and WSGandTPHobj_state(HordeScore) == 1 and AllianceScore == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 0 and WSGandTPHobj_state(HordeScore) == 1 and AllianceScore == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 0 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 1 then
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+										LastScored = "Horde"
+									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 1 and WSGandTPHobj_state(HordeScore) == 2 and AllianceScore == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+										LastScored = "Horde"
+									end
+									if PS_BattlegroundSoundEngine == true then
+										-- 3/3 Scores
+										if WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 0 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 1 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 2 then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
+									end
+									WSGandTPHobjectives[type] = HordeScore
 								end
-								WSGandTPHobjectives[type] = HordeScore
 							end
 						end
 					end
@@ -5450,46 +5939,6 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						end
 					end
-				 -- Alterac Valley and Isle of Conquest Countdown
-				elseif MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" then
-					-- Alliance Reinforcements
-					for i = 2, 2, 1 do
-						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
-							if faketextureIndex then
-								local type = AVandIOCAget_objective(faketextureIndex)
-								if type then
-									if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 1 and AVandIOCAobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
-									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 3 and AVandIOCAobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
-									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 5 and AVandIOCAobj_state(faketextureIndex) == 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
-									end
-									AVandIOCAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Horde Reinforcements
-					for i = 3, 3, 1 do
-						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
-							if faketextureIndex then
-								local type = AVandIOCHget_objective(faketextureIndex)
-								if type then
-									if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 1 and AVandIOCHobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
-									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 3 and AVandIOCHobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
-									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 5 and AVandIOCHobj_state(faketextureIndex) == 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
-									end
-									AVandIOCHobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
 				end
 			end
 		end
@@ -5564,18 +6013,18 @@ function PVPSound:OnEventThree(event, ...)
 							local KillSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
 							if PS_EmoteMode == true then
 								if MyGender == "Male" then
-									local Message = Msg_Streak1Male
+									local Message = L["Streak1Male"]
 									SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!", "EMOTE")
 								elseif MyGender == "Female" then
-									local Message = Msg_Streak1Female
+									local Message = L["Streak1Female"]
 									SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!", "EMOTE")
 								end
 							elseif PS_EmoteMode == false then
 								if MyGender == "Male" then
-									local Message = Msg_Streak1Male
+									local Message = L["Streak1Male"]
 									print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[CurrentStreak].name.."!".."|r")
 								elseif MyGender == "Female" then
-									local Message = Msg_Streak1Female
+									local Message = L["Streak1Female"]
 									print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[CurrentStreak].name.."!".."|r")
 								end
 							end
@@ -5613,9 +6062,9 @@ function PVPSound:OnEventThree(event, ...)
 									local KillSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
 									if PS_EmoteMode == true then
 										if CurrentStreak > 1 then
-											local Message = getglobal("Msg_Streak"..CurrentStreak)
+											local Message = L["Streak"..CurrentStreak]
 											if CurrentStreak > 10 then
-												Message = Msg_Streak10
+												Message = L["Streak10"]
 											end
 											local Decimal = tonumber(string.match(tostring(CurrentStreak), "%.(%d+)"))
 											if Decimal == nil then
@@ -5630,9 +6079,9 @@ function PVPSound:OnEventThree(event, ...)
 										end
 									elseif PS_EmoteMode == false then
 										if CurrentStreak > 1 then
-											local Message = getglobal("Msg_Streak"..CurrentStreak)
+											local Message = L["Streak"..CurrentStreak]
 											if CurrentStreak > 10 then
-												Message = Msg_Streak10
+												Message = L["Streak10"]
 											end
 											local Decimal = tonumber(string.match(tostring(CurrentStreak), "%.(%d+)"))
 											if Decimal == nil then
