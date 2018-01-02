@@ -1083,10 +1083,18 @@ function PVPSound:OnEvent(event, ...)
 				EOTSobjectives.DraeneiRuins = nil
 				EOTSobjectives.FelReaverRuins = nil
 				EOTSobjectives.MageTower = nil
-				EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100
-				EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
-				EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
-				EOTSobjectives.MageTower = MageTowerInit + 400
+				if BloodElfTowerInit then
+					EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100
+				end
+				if DraeneiRuinsInit then
+					EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
+				end
+				if FelReaverRuinsInit then
+					EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
+				end
+				if MageTowerInit then
+					EOTSobjectives.MageTower = MageTowerInit + 400
+				end
 			end
 			if MyZone == "Zone_ArathiBasin" then
 				local BlacksmithInit = select(4, GetMapLandmarkInfo(2))
@@ -1099,11 +1107,21 @@ function PVPSound:OnEvent(event, ...)
 				ABobjectives.GoldMine = nil
 				ABobjectives.LumberMill = nil
 				ABobjectives.Stables = nil
-				ABobjectives.Blacksmith = BlacksmithInit + 100
-				ABobjectives.Farm = FarmInit + 200
-				ABobjectives.GoldMine = GoldMineInit + 300
-				ABobjectives.LumberMill = LumberMillInit + 400
-				ABobjectives.Stables = StablesInit + 500
+				if BlacksmithInit then
+					ABobjectives.Blacksmith = BlacksmithInit + 100
+				end
+				if FarmInit then
+					ABobjectives.Farm = FarmInit + 200
+				end
+				if GoldMineInit then
+					ABobjectives.GoldMine = GoldMineInit + 300
+				end
+				if LumberMillInit then
+					ABobjectives.LumberMill = LumberMillInit + 400
+				end
+				if StablesInit then
+					ABobjectives.Stables = StablesInit + 500
+				end
 			end
 			if MyZone == "Zone_AlteracValley" then
 				local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
@@ -1355,19 +1373,23 @@ function PVPSound:OnEvent(event, ...)
 				SOTAobjectives.GateoftheYellowMoon = nil
 				SOTAobjectives.SouthGraveyard = nil
 				SOTAobjectives.WestGraveyard = nil
-				SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
-				SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
+				if ChamberofAncientRelicsInit then
+					SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
+				end
+				if EastGraveyardInit then
+					SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
+				end
 				SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
 				SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
 				SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
 				SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
-				if p ~= nil then
+				if p ~= nil and GateoftheYellowMoonInit then
 					SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
 				end
-				if q ~= nil then
+				if q ~= nil and SouthGraveyardInit then
 					SOTAobjectives.SouthGraveyard = SouthGraveyardInit + 800
 				end
-				if r ~= nil then
+				if r ~= nil and WestGraveyardInit then
 					SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
 				end
 			end
@@ -1378,9 +1400,15 @@ function PVPSound:OnEvent(event, ...)
 				TBFGobjectives.Lighthouse = nil
 				TBFGobjectives.Mines = nil
 				TBFGobjectives.Waterworks = nil
-				TBFGobjectives.Lighthouse = LighthouseInit + 100
-				TBFGobjectives.Mines = MinesInit + 200
-				TBFGobjectives.Waterworks = WaterworksInit + 300
+				if LighthouseInit then
+					TBFGobjectives.Lighthouse = LighthouseInit + 100
+				end
+				if MinesInit then
+					TBFGobjectives.Mines = MinesInit + 200
+				end
+				if WaterworksInit then
+					TBFGobjectives.Waterworks = WaterworksInit + 300
+				end
 			end
 			if MyZone == "Zone_DeepwindGorge" then
 				local CentralMineInit = select(4, GetMapLandmarkInfo(3))
@@ -1389,9 +1417,15 @@ function PVPSound:OnEvent(event, ...)
 				DGobjectives.CentralMine = nil
 				DGobjectives.GoblinMine = nil
 				DGobjectives.PandarenMine = nil
-				DGobjectives.CentralMine = CentralMineInit + 100
-				DGobjectives.GoblinMine = GoblinMineInit + 200
-				DGobjectives.PandarenMine = PandarenMineInit + 300
+				if CentralMineInit then
+					DGobjectives.CentralMine = CentralMineInit + 100
+				end
+				if GoblinMineInit then
+					DGobjectives.GoblinMine = GoblinMineInit + 200
+				end
+				if PandarenMineInit then
+					DGobjectives.PandarenMine = PandarenMineInit + 300
+				end
 
 				self.AllianceCartPositionX = nil
 				self.AllianceCartPositionY = nil
@@ -1399,14 +1433,14 @@ function PVPSound:OnEvent(event, ...)
 				self.HordeCartPositionY = nil
 			end
 			if MyZone == "Zone_SilvershardMines" then
-				local HordeScoreInit = (select(5, GetMapLandmarkInfo(2)))
-				local AllianceScoreInit = (select(5, GetMapLandmarkInfo(3)))
+				local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
+				local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
 				SMWINobjectives.Resources = nil
 				if HordeScoreInit then
-					SMWINobjectives.Resources = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
+					SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
 				end
 				if AllianceScoreInit then
-					SMWINobjectives.Resources = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
+					SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
 				end
 			end
 			if MyZone == "Zone_Wintergrasp" then
@@ -1430,14 +1464,36 @@ function PVPSound:OnEvent(event, ...)
 				WGobjectives.WintergraspFortressTowerNW = nil
 				WGobjectives.WintergraspFortressTowerSE = nil
 				WGobjectives.WintergraspFortressTowerSW = nil
-				WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
-				WGobjectives.FortressGraveyard = FortressGraveyardInit
-				WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
-				WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
-				WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
-				WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
-				WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
-				WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
+				if FlamewatchTowerInit then
+					WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
+				end
+				if FortressGraveyardInit then
+					WGobjectives.FortressGraveyard = FortressGraveyardInit
+
+				end
+				if ShadowsightTowerInit then
+					WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
+
+				end
+				if WintersEdgeTowerInit then
+					WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
+
+				end
+				if WintergraspFortressTowerNEInit then
+					WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
+
+				end
+				if WintergraspFortressTowerNWInit then
+					WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
+
+				end
+				if WintergraspFortressTowerSEInit then
+					WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
+
+				end
+				if WintergraspFortressTowerSWInit then
+					WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
+				end
 			end
 			if MyZone == "Zone_TolBarad" then
 				local isActive = (select(5, GetWorldPVPAreaInfo(2)))
@@ -1482,12 +1538,24 @@ function PVPSound:OnEvent(event, ...)
 				local SouthSpireInit = (select(5, GetMapLandmarkInfo(5)))
 				local WestSpireInit = (select(5, GetMapLandmarkInfo(6)))
 				TBobjectives.BaradinHold = BaradinHoldInit
-				TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
-				TBobjectives.WardensVigil = WardensVigilInit + 200
-				TBobjectives.Slagworks = SlagworksInit + 300
-				TBobjectives.EastSpire = EastSpireInit + 400
-				TBobjectives.SouthSpire = SouthSpireInit + 500
-				TBobjectives.WestSpire = WestSpireInit + 600
+				if IroncladGarrisonInit then
+					TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
+				end
+				if WardensVigilInit then
+					TBobjectives.WardensVigil = WardensVigilInit + 200
+				end
+				if SlagworksInit then
+					TBobjectives.Slagworks = SlagworksInit + 300
+				end
+				if EastSpireInit then
+					TBobjectives.EastSpire = EastSpireInit + 400
+				end
+				if SouthSpireInit then
+					TBobjectives.SouthSpire = SouthSpireInit + 500
+				end
+				if WestSpireInit then
+					TBobjectives.WestSpire = WestSpireInit + 600
+				end
 			end
 		end
 
@@ -1668,64 +1736,74 @@ function PVPSound:OnEvent(event, ...)
 						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 						EOTSWINobjectives.VictoryPoints = EOTSWINInit
 					end]]
-					local BloodElfTowerInit = (select(4, GetMapLandmarkInfo(1)))
-					local DraeneiRuinsInit = (select(4, GetMapLandmarkInfo(4)))
-					local FelReaverRuinsInit = (select(4, GetMapLandmarkInfo(2)))
-					local MageTowerInit = (select(4, GetMapLandmarkInfo(3)))
+					local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))
+					local DraeneiRuinsInit = select(4, GetMapLandmarkInfo(4))
+					local FelReaverRuinsInit = select(4, GetMapLandmarkInfo(3))
+					local MageTowerInit = select(4, GetMapLandmarkInfo(3))
 					EOTSobjectives.BloodElfTower = nil
 					EOTSobjectives.DraeneiRuins = nil
 					EOTSobjectives.FelReaverRuins = nil
 					EOTSobjectives.MageTower = nil
-					EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100
-					EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
-					EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
-					EOTSobjectives.MageTower = MageTowerInit + 400
+					if BloodElfTowerInit then
+						EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100
+					end
+					if DraeneiRuinsInit then
+						EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
+					end
+					if FelReaverRuinsInit then
+						EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
+					end
+					if MageTowerInit then
+						EOTSobjectives.MageTower = MageTowerInit + 400
+					end
 				end
 				if MyZone == "Zone_ArathiBasin" then
-					local BlacksmithInit = (select(4, GetMapLandmarkInfo(2)))
-					local FarmInit = (select(4, GetMapLandmarkInfo(5)))
-					local GoldMineInit = (select(4, GetMapLandmarkInfo(4)))
-					local LumberMillInit = (select(4, GetMapLandmarkInfo(3)))
-					local StablesInit = (select(4, GetMapLandmarkInfo(1)))
+					local BlacksmithInit = select(4, GetMapLandmarkInfo(2))
+					local FarmInit = select(4, GetMapLandmarkInfo(5))
+					local GoldMineInit = select(4, GetMapLandmarkInfo(4))
+					local LumberMillInit = select(4, GetMapLandmarkInfo(3))
+					local StablesInit = select(4, GetMapLandmarkInfo(1))
 					ABobjectives.Blacksmith = nil
 					ABobjectives.Farm = nil
 					ABobjectives.GoldMine = nil
 					ABobjectives.LumberMill = nil
 					ABobjectives.Stables = nil
-					ABobjectives.Blacksmith = BlacksmithInit + 100
-					ABobjectives.Farm = FarmInit + 200
-					ABobjectives.GoldMine = GoldMineInit + 300
-					ABobjectives.LumberMill = LumberMillInit + 400
-					ABobjectives.Stables = StablesInit + 500
+					if BlacksmithInit then
+						ABobjectives.Blacksmith = BlacksmithInit + 100
+					end
+					if FarmInit then
+						ABobjectives.Farm = FarmInit + 200
+					end
+					if GoldMineInit then
+						ABobjectives.GoldMine = GoldMineInit + 300
+					end
+					if LumberMillInit then
+						ABobjectives.LumberMill = LumberMillInit + 400
+					end
+					if StablesInit then
+						ABobjectives.Stables = StablesInit + 500
+					end
 				end
 				if MyZone == "Zone_AlteracValley" then
-					local AllianceReinforcements = (select(4, GetWorldStateUIInfo(2)))
-					local AVandIOCAInit
-					if AllianceReinforcements then
-						AVandIOCAInit = tonumber(string.match(AllianceReinforcements, ": (%d+)"))
-					end
-					local HordeReinforcements = (select(4, GetWorldStateUIInfo(3)))
-					local AVandIOCHInit
-					if HordeReinforcements then
-						AVandIOCHInit = tonumber(string.match(HordeReinforcements, ": (%d+)"))
-					end
-					local ColdtoothMineInit = (select(4, GetMapLandmarkInfo(1)))
-					local DunBaldarNorthBunkerInit = (select(4, GetMapLandmarkInfo(3)))
-					local DunBaldarSouthBunkerInit = (select(4, GetMapLandmarkInfo(4)))
-					local EastFrostwolfTowerInit = (select(4, GetMapLandmarkInfo(5)))
-					local FrostwolfGraveyardInit = (select(4, GetMapLandmarkInfo(6)))
-					local FrostwolfReliefHutInit = (select(4, GetMapLandmarkInfo(8)))
-					local IcebloodGraveyardInit = (select(4, GetMapLandmarkInfo(10)))
-					local IcebloodTowerInit = (select(4, GetMapLandmarkInfo(11)))
-					local IcewingBunkerInit = (select(4, GetMapLandmarkInfo(12)))
-					local IrondeepMineInit = (select(4, GetMapLandmarkInfo(14)))
-					local SnowfallGraveyardInit = (select(4, GetMapLandmarkInfo(15)))
-					local StonehearthBunkerInit = (select(4, GetMapLandmarkInfo(16)))
-					local StonehearthGraveyardInit = (select(4, GetMapLandmarkInfo(17)))
-					local StormpikeAidStationInit = (select(4, GetMapLandmarkInfo(19)))
-					local StormpikeGraveyardInit = (select(4, GetMapLandmarkInfo(20)))
-					local TowerPointInit = (select(4, GetMapLandmarkInfo(21)))
-					local WestFrostwolfTowerInit = (select(4, GetMapLandmarkInfo(22)))
+					local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
+					local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
+					local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
+					local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
+					local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
+					local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
+					local FrostwolfGraveyardInit = select(4, GetMapLandmarkInfo(6))
+					local FrostwolfReliefHutInit = select(4, GetMapLandmarkInfo(8))
+					local IcebloodGraveyardInit = select(4, GetMapLandmarkInfo(10))
+					local IcebloodTowerInit = select(4, GetMapLandmarkInfo(11))
+					local IcewingBunkerInit = select(4, GetMapLandmarkInfo(12))
+					local IrondeepMineInit = select(4, GetMapLandmarkInfo(14))
+					local SnowfallGraveyardInit = select(4, GetMapLandmarkInfo(15))
+					local StonehearthBunkerInit = select(4, GetMapLandmarkInfo(16))
+					local StonehearthGraveyardInit = select(4, GetMapLandmarkInfo(17))
+					local StormpikeAidStationInit = select(4, GetMapLandmarkInfo(19))
+					local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
+					local TowerPointInit = select(4, GetMapLandmarkInfo(21))
+					local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
 					AVandIOCAobjectives.AllianceReinforcements = nil
 					AVandIOCHobjectives.HordeReinforcements = nil
 					AVobjectives.ColdtoothMine = nil
@@ -1850,17 +1928,17 @@ function PVPSound:OnEvent(event, ...)
 						s = 12
 						t = 13
 					end]]
-					local AllianceGateEInit = (select(4, GetMapLandmarkInfo(9)))
-					local AllianceGateWInit = (select(4, GetMapLandmarkInfo(10)))
-					local AllianceGateSInit = (select(4, GetMapLandmarkInfo(11)))
-					local DocksInit = (select(4, GetMapLandmarkInfo(3)))
-					local HangarInit = (select(4, GetMapLandmarkInfo(2)))
-					local HordeGateEInit = (select(4, GetMapLandmarkInfo(7)))
-					local HordeGateWInit = (select(4, GetMapLandmarkInfo(8)))
-					local HordeGateNInit = (select(4, GetMapLandmarkInfo(6)))
-					local QuarryInit = (select(4, GetMapLandmarkInfo(4)))
-					local RefinerieInit = (select(4, GetMapLandmarkInfo(5)))
-					local WorkshopInit = (select(4, GetMapLandmarkInfo(1)))
+					local AllianceGateEInit = select(4, GetMapLandmarkInfo(9))
+					local AllianceGateWInit = select(4, GetMapLandmarkInfo(10))
+					local AllianceGateSInit = select(4, GetMapLandmarkInfo(11))
+					local DocksInit = select(4, GetMapLandmarkInfo(3))
+					local HangarInit = select(4, GetMapLandmarkInfo(2))
+					local HordeGateEInit = select(4, GetMapLandmarkInfo(7))
+					local HordeGateWInit = select(4, GetMapLandmarkInfo(8))
+					local HordeGateNInit = select(4, GetMapLandmarkInfo(6))
+					local QuarryInit = select(4, GetMapLandmarkInfo(4))
+					local RefinerieInit = select(4, GetMapLandmarkInfo(5))
+					local WorkshopInit = select(4, GetMapLandmarkInfo(1))
 					IOCobjectives.AllianceGateE = nil
 					IOCobjectives.AllianceGateW = nil
 					IOCobjectives.AllianceGateS = nil
@@ -1929,23 +2007,23 @@ function PVPSound:OnEvent(event, ...)
 						q = nil
 						r = nil
 					end
-					local ChamberofAncientRelicsInit = (select(4, GetMapLandmarkInfo(j)))
-					local EastGraveyardInit = (select(4, GetMapLandmarkInfo(k)))
-					local GateoftheBlueSapphireInit = (select(4, GetMapLandmarkInfo(3)))
-					local GateoftheGreenEmeraldInit = (select(4, GetMapLandmarkInfo(4)))
-					local GateofthePurpleAmethystInit = (select(4, GetMapLandmarkInfo(1)))
-					local GateoftheRedSunInit = (select(4, GetMapLandmarkInfo(2)))
+					local ChamberofAncientRelicsInit = select(4, GetMapLandmarkInfo(j))
+					local EastGraveyardInit = select(4, GetMapLandmarkInfo(k))
+					local GateoftheBlueSapphireInit = select(4, GetMapLandmarkInfo(3))
+					local GateoftheGreenEmeraldInit = select(4, GetMapLandmarkInfo(4))
+					local GateofthePurpleAmethystInit = select(4, GetMapLandmarkInfo(1))
+					local GateoftheRedSunInit = select(4, GetMapLandmarkInfo(2))
 					local GateoftheYellowMoonInit
 					local SouthGraveyardInit
 					local WestGraveyardInit
 					if p ~= nil then
-						GateoftheYellowMoonInit = (select(4, GetMapLandmarkInfo(p)))
+						GateoftheYellowMoonInit = select(4, GetMapLandmarkInfo(p))
 					end
 					if q ~= nil then
-						SouthGraveyardInit = (select(4, GetMapLandmarkInfo(q)))
+						SouthGraveyardInit = select(4, GetMapLandmarkInfo(q))
 					end
 					if r ~= nil then
-						WestGraveyardInit = (select(4, GetMapLandmarkInfo(r)))
+						WestGraveyardInit = select(4, GetMapLandmarkInfo(r))
 					end
 					SOTAobjectives.ChamberofAncientRelics = nil
 					SOTAobjectives.EastGraveyard = nil
@@ -1956,43 +2034,59 @@ function PVPSound:OnEvent(event, ...)
 					SOTAobjectives.GateoftheYellowMoon = nil
 					SOTAobjectives.SouthGraveyard = nil
 					SOTAobjectives.WestGraveyard = nil
-					SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
-					SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
+					if ChamberofAncientRelicsInit then
+						SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
+					end
+					if EastGraveyardInit then
+						SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
+					end
 					SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
 					SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
 					SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
 					SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
-					if p ~= nil then
+					if p ~= nil and GateoftheYellowMoonInit then
 						SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
 					end
-					if q ~= nil then
+					if q ~= nil and SouthGraveyardInit then
 						SOTAobjectives.SouthGraveyard = SouthGraveyardInit + 800
 					end
-					if r ~= nil then
+					if r ~= nil and WestGraveyardInit then
 						SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
 					end
 				end
 				if MyZone == "Zone_TheBattleforGilneas" then
-					local LighthouseInit = (select(4, GetMapLandmarkInfo(3)))
-					local MinesInit = (select(4, GetMapLandmarkInfo(1)))
-					local WaterworksInit = (select(4, GetMapLandmarkInfo(2)))
+					local LighthouseInit = select(4, GetMapLandmarkInfo(3))
+					local MinesInit = select(4, GetMapLandmarkInfo(1))
+					local WaterworksInit = select(4, GetMapLandmarkInfo(2))
 					TBFGobjectives.Lighthouse = nil
 					TBFGobjectives.Mines = nil
 					TBFGobjectives.Waterworks = nil
-					TBFGobjectives.Lighthouse = LighthouseInit + 100
-					TBFGobjectives.Mines = MinesInit + 200
-					TBFGobjectives.Waterworks = WaterworksInit + 300
+					if LighthouseInit then
+						TBFGobjectives.Lighthouse = LighthouseInit + 100
+					end
+					if MinesInit then
+						TBFGobjectives.Mines = MinesInit + 200
+					end
+					if WaterworksInit then
+						TBFGobjectives.Waterworks = WaterworksInit + 300
+					end
 				end
 				if MyZone == "Zone_DeepwindGorge" then
-					local CentralMineInit = (select(4, GetMapLandmarkInfo(3)))
-					local GoblinMineInit = (select(4, GetMapLandmarkInfo(2)))
-					local PandarenMineInit = (select(4, GetMapLandmarkInfo(1)))
+					local CentralMineInit = select(4, GetMapLandmarkInfo(3))
+					local GoblinMineInit = select(4, GetMapLandmarkInfo(2))
+					local PandarenMineInit = select(4, GetMapLandmarkInfo(1))
 					DGobjectives.CentralMine = nil
 					DGobjectives.GoblinMine = nil
 					DGobjectives.PandarenMine = nil
-					DGobjectives.CentralMine = CentralMineInit + 100
-					DGobjectives.GoblinMine = GoblinMineInit + 200
-					DGobjectives.PandarenMine = PandarenMineInit + 300
+					if CentralMineInit then
+						DGobjectives.CentralMine = CentralMineInit + 100
+					end
+					if GoblinMineInit then
+						DGobjectives.GoblinMine = GoblinMineInit + 200
+					end
+					if PandarenMineInit then
+						DGobjectives.PandarenMine = PandarenMineInit + 300
+					end
 
 					self.AllianceCartPositionX = nil
 					self.AllianceCartPositionY = nil
@@ -2000,8 +2094,8 @@ function PVPSound:OnEvent(event, ...)
 					self.HordeCartPositionY = nil
 				end
 				if MyZone == "Zone_SilvershardMines" then
-					local HordeScoreInit = (select(5, GetMapLandmarkInfo(2)))
-					local AllianceScoreInit = (select(5, GetMapLandmarkInfo(3)))
+					local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
+					local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
 					SMWINobjectives.Resources = nil
 					if HordeScoreInit then
 						SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
@@ -2015,14 +2109,14 @@ function PVPSound:OnEvent(event, ...)
 					if isActive == 0 then
 						BgIsOver = false
 					end
-					local FlamewatchTowerInit = (select(4, GetMapLandmarkInfo(5)))
-					local FortressGraveyardInit = (select(4, GetMapLandmarkInfo(6)))
-					local ShadowsightTowerInit = (select(4, GetMapLandmarkInfo(9)))
-					local WintersEdgeTowerInit = (select(4, GetMapLandmarkInfo(15)))
-					local WintergraspFortressTowerNEInit = (select(4, GetMapLandmarkInfo(18)))
-					local WintergraspFortressTowerNWInit = (select(4, GetMapLandmarkInfo(19)))
-					local WintergraspFortressTowerSEInit = (select(4, GetMapLandmarkInfo(20)))
-					local WintergraspFortressTowerSWInit = (select(4, GetMapLandmarkInfo(21)))
+					local FlamewatchTowerInit = select(4, GetMapLandmarkInfo(5))
+					local FortressGraveyardInit = select(4, GetMapLandmarkInfo(6))
+					local ShadowsightTowerInit = select(4, GetMapLandmarkInfo(9))
+					local WintersEdgeTowerInit = select(4, GetMapLandmarkInfo(15))
+					local WintergraspFortressTowerNEInit = select(4, GetMapLandmarkInfo(18))
+					local WintergraspFortressTowerNWInit = select(4, GetMapLandmarkInfo(19))
+					local WintergraspFortressTowerSEInit = select(4, GetMapLandmarkInfo(20))
+					local WintergraspFortressTowerSWInit = select(4, GetMapLandmarkInfo(21))
 					WGobjectives.FlamewatchTower = nil
 					WGobjectives.FortressGraveyard = nil
 					WGobjectives.ShadowsightTower = nil
@@ -2031,14 +2125,36 @@ function PVPSound:OnEvent(event, ...)
 					WGobjectives.WintergraspFortressTowerNW = nil
 					WGobjectives.WintergraspFortressTowerSE = nil
 					WGobjectives.WintergraspFortressTowerSW = nil
-					WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
-					WGobjectives.FortressGraveyard = FortressGraveyardInit
-					WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
-					WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
-					WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
-					WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
-					WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
-					WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
+					if FlamewatchTowerInit then
+						WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
+					end
+					if FortressGraveyardInit then
+						WGobjectives.FortressGraveyard = FortressGraveyardInit
+
+					end
+					if ShadowsightTowerInit then
+						WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
+
+					end
+					if WintersEdgeTowerInit then
+						WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
+
+					end
+					if WintergraspFortressTowerNEInit then
+						WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
+
+					end
+					if WintergraspFortressTowerNWInit then
+						WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
+
+					end
+					if WintergraspFortressTowerSEInit then
+						WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
+
+					end
+					if WintergraspFortressTowerSWInit then
+						WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
+					end
 				end
 				if MyZone == "Zone_TolBarad" then
 					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
@@ -2077,18 +2193,30 @@ function PVPSound:OnEvent(event, ...)
 					end]]
 					local BaradinHoldInit = (select(5, GetMapLandmarkInfo(GetNumMapLandmarks())))
 					local IroncladGarrisonInit = (select(5, GetMapLandmarkInfo(1)))
-					local WardensVigilInit = (select(5, GetMapLandmarkInfo(2)))
-					local SlagworksInit = (select(5, GetMapLandmarkInfo(3)))
+					local SlagworksInit = (select(5, GetMapLandmarkInfo(2)))
+					local WardensVigilInit = (select(5, GetMapLandmarkInfo(3)))
 					local EastSpireInit = (select(5, GetMapLandmarkInfo(4)))
 					local SouthSpireInit = (select(5, GetMapLandmarkInfo(5)))
 					local WestSpireInit = (select(5, GetMapLandmarkInfo(6)))
 					TBobjectives.BaradinHold = BaradinHoldInit
-					TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
-					TBobjectives.WardensVigil = WardensVigilInit + 200
-					TBobjectives.Slagworks = SlagworksInit + 300
-					TBobjectives.EastSpire = EastSpireInit + 400
-					TBobjectives.SouthSpire = SouthSpireInit + 500
-					TBobjectives.WestSpire = WestSpireInit + 600
+					if IroncladGarrisonInit then
+						TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
+					end
+					if WardensVigilInit then
+						TBobjectives.WardensVigil = WardensVigilInit + 200
+					end
+					if SlagworksInit then
+						TBobjectives.Slagworks = SlagworksInit + 300
+					end
+					if EastSpireInit then
+						TBobjectives.EastSpire = EastSpireInit + 400
+					end
+					if SouthSpireInit then
+						TBobjectives.SouthSpire = SouthSpireInit + 500
+					end
+					if WestSpireInit then
+						TBobjectives.WestSpire = WestSpireInit + 600
+					end
 				end
 				-- Battleground PlaySounds
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" then
@@ -2265,18 +2393,18 @@ function PVPSound:OnEvent(event, ...)
 						if string.find(EventMessage, L["picked"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
 
-							if C_PvP.IsInBrawl() then
+							--[[if C_PvP.IsInBrawl() then
 								return
-							end
+							end]]
 
 							self.AllianceFlagPositionX = nil
 							self.AllianceFlagPositionY = nil
 						elseif string.find(EventMessage, L["dropped"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
 
-							if C_PvP.IsInBrawl() then
+							--[[if C_PvP.IsInBrawl() then
 								return
-							end
+							end]]
 
 							for i = 1, 2 do
 								local type = select(3, GetBattlefieldFlagPosition(i))
@@ -2291,9 +2419,9 @@ function PVPSound:OnEvent(event, ...)
 						elseif string.find(EventMessage, L["returned"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
 
-							if C_PvP.IsInBrawl() then
+							--[[if C_PvP.IsInBrawl() then
 								return
-							end
+							end]]
 
 							-- Subzone
 							local CurrentSubZoneText = GetSubZoneText()
@@ -2301,6 +2429,10 @@ function PVPSound:OnEvent(event, ...)
 							local HordeFlagStatus
 							if (select(2, GetWorldStateUIInfo(2))) ~= nil then
 								HordeFlagStatus = select(2, GetWorldStateUIInfo(2))
+							end
+
+							if C_PvP.IsInBrawl() then
+								HordeFlagStatus = 1
 							end
 
 							if MyFaction == "Alliance" and HordeFlagStatus == 1 and (CurrentSubZoneText == L["Warsong Flag Room"] or CurrentSubZoneText == L["Dragonmaw Forge"]) then
@@ -2335,18 +2467,18 @@ function PVPSound:OnEvent(event, ...)
 						if string.find(EventMessage, L["picked"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
 
-							if C_PvP.IsInBrawl() then
+							--[[if C_PvP.IsInBrawl() then
 								return
-							end
+							end]]
 
 							self.HordeFlagPositionX = nil
 							self.HordeFlagPositionY = nil
 						elseif string.find(EventMessage, L["dropped"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
 
-							if C_PvP.IsInBrawl() then
+							--[[if C_PvP.IsInBrawl() then
 								return
-							end
+							end]]
 
 							for i = 1, 2 do
 								local type = select(3, GetBattlefieldFlagPosition(i))
@@ -2361,9 +2493,9 @@ function PVPSound:OnEvent(event, ...)
 						elseif string.find(EventMessage, L["returned"]) then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
 
-							if C_PvP.IsInBrawl() then
+							--[[if C_PvP.IsInBrawl() then
 								return
-							end
+							end]]
 
 							-- Zone
 							local CurrentSubZoneText = GetSubZoneText()
@@ -2371,6 +2503,10 @@ function PVPSound:OnEvent(event, ...)
 							local AllianceFlagStatus
 							if (select(2, GetWorldStateUIInfo(1))) ~= nil then
 								AllianceFlagStatus = select(2, GetWorldStateUIInfo(1))
+							end
+
+							if C_PvP.IsInBrawl() then
+								AllianceFlagStatus = 1
 							end
 
 							if MyFaction == "Horde" and AllianceFlagStatus == 1 and (CurrentSubZoneText == L["Silverwing Hold"] or CurrentSubZoneText == L["Wildhammer Stronghold"]) then
@@ -4787,7 +4923,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore >= 0 and HordeScore <= 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 2 and WSGandTPAobj_state(AllianceScore) == 3 and HordeScore == 2 then
 										if LastScored == "Alliance" then
@@ -4805,7 +4947,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore >= 0 and HordeScore <= 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 3 and WSGandTPAobj_state(AllianceScore) == 4 and HordeScore == 3 then
 										if LastScored == "Alliance" then
@@ -4823,7 +4971,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 4 and WSGandTPAobj_state(AllianceScore) == 5 and HordeScore >= 0 and HordeScore <= 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 4 and WSGandTPAobj_state(AllianceScore) == 5 and HordeScore == 4 then
 										if LastScored == "Alliance" then
@@ -4841,7 +4995,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 5 and WSGandTPAobj_state(AllianceScore) == 6 and HordeScore >= 0 and HordeScore <= 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 5 and WSGandTPAobj_state(AllianceScore) == 6 and HordeScore == 5 then
 										if LastScored == "Alliance" then
@@ -4859,7 +5019,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 6 and WSGandTPAobj_state(AllianceScore) == 7 and HordeScore >= 0 and HordeScore <= 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 6 and WSGandTPAobj_state(AllianceScore) == 7 and HordeScore == 6 then
 										if LastScored == "Alliance" then
@@ -4877,7 +5043,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 7 and WSGandTPAobj_state(AllianceScore) == 8 and HordeScore >= 0 and HordeScore <= 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 7 and WSGandTPAobj_state(AllianceScore) == 8 and HordeScore == 7 then
 										if LastScored == "Alliance" then
@@ -4895,7 +5067,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 8 and WSGandTPAobj_state(AllianceScore) == 9 and HordeScore >= 0 and HordeScore <= 7 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										if LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+										elseif LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+										end
 										LastScored = "Alliance"
 									elseif WSGandTPAobj_state(WSGandTPAobjectives[type]) == 8 and WSGandTPAobj_state(AllianceScore) == 9 and HordeScore == 8 then
 										if LastScored == "Alliance" then
@@ -4990,7 +5168,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore >= 0 and AllianceScore <= 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 2 and WSGandTPHobj_state(HordeScore) == 3 and AllianceScore == 2 then
 										if LastScored == "Horde" then
@@ -5008,7 +5192,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore >= 0 and AllianceScore <= 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 3 and WSGandTPHobj_state(HordeScore) == 4 and AllianceScore == 3 then
 										if LastScored == "Horde" then
@@ -5026,7 +5216,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 4 and WSGandTPHobj_state(HordeScore) == 5 and AllianceScore >= 0 and AllianceScore <= 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 4 and WSGandTPHobj_state(HordeScore) == 5 and AllianceScore == 4 then
 										if LastScored == "Horde" then
@@ -5044,7 +5240,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 5 and WSGandTPHobj_state(HordeScore) == 6 and AllianceScore >= 0 and AllianceScore <= 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 5 and WSGandTPHobj_state(HordeScore) == 6 and AllianceScore == 5 then
 										if LastScored == "Horde" then
@@ -5062,7 +5264,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 6 and WSGandTPHobj_state(HordeScore) == 7 and AllianceScore >= 0 and AllianceScore <= 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 6 and WSGandTPHobj_state(HordeScore) == 7 and AllianceScore == 6 then
 										if LastScored == "Horde" then
@@ -5080,7 +5288,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 7 and WSGandTPHobj_state(HordeScore) == 8 and AllianceScore >= 0 and AllianceScore <= 6 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 7 and WSGandTPHobj_state(HordeScore) == 8 and AllianceScore == 7 then
 										if LastScored == "Horde" then
@@ -5098,7 +5312,13 @@ function PVPSound:OnEventTwo(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 8 and WSGandTPHobj_state(HordeScore) == 9 and AllianceScore >= 0 and AllianceScore <= 7 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										if LastScored == "Horde" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+										elseif LastScored == "Alliance" then
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										else
+											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+										end
 										LastScored = "Horde"
 									elseif WSGandTPHobj_state(WSGandTPHobjectives[type]) == 8 and WSGandTPHobj_state(HordeScore) == 9 and AllianceScore == 8 then
 										if LastScored == "Horde" then

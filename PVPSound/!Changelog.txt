@@ -7,6 +7,9 @@ ToDo List:
 * Variable color for SCT messages.
 
 
+4.1.0
+* Initialization fixes.
+
 4.0.9
 * Update for Brawl: Warsong Scramble.
 * Fixed time and kill remaining sounds.
