@@ -7,6 +7,9 @@ ToDo List:
 * Variable color for SCT messages.
 
 
+4.1.1
+* Tol Barad fix.
+
 4.1.0
 * Initialization fixes.
 

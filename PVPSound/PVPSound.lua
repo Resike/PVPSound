@@ -1530,13 +1530,13 @@ function PVPSound:OnEvent(event, ...)
 					n = 5
 					o = 7
 				end]]
-				local BaradinHoldInit = (select(5, GetMapLandmarkInfo(GetNumMapLandmarks())))
-				local IroncladGarrisonInit = (select(5, GetMapLandmarkInfo(1)))
-				local SlagworksInit = (select(5, GetMapLandmarkInfo(2)))
-				local WardensVigilInit = (select(5, GetMapLandmarkInfo(3)))
-				local EastSpireInit = (select(5, GetMapLandmarkInfo(4)))
-				local SouthSpireInit = (select(5, GetMapLandmarkInfo(5)))
-				local WestSpireInit = (select(5, GetMapLandmarkInfo(6)))
+				local BaradinHoldInit = (select(4, GetMapLandmarkInfo(GetNumMapLandmarks())))
+				local IroncladGarrisonInit = (select(4, GetMapLandmarkInfo(1)))
+				local WardensVigilInit = (select(4, GetMapLandmarkInfo(2)))
+				local SlagworksInit = (select(4, GetMapLandmarkInfo(3)))
+				local EastSpireInit = (select(4, GetMapLandmarkInfo(4)))
+				local SouthSpireInit = (select(4, GetMapLandmarkInfo(5)))
+				local WestSpireInit = (select(4, GetMapLandmarkInfo(6)))
 				TBobjectives.BaradinHold = BaradinHoldInit
 				if IroncladGarrisonInit then
 					TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
@@ -2191,13 +2191,13 @@ function PVPSound:OnEvent(event, ...)
 						n = 5
 						o = 7
 					end]]
-					local BaradinHoldInit = (select(5, GetMapLandmarkInfo(GetNumMapLandmarks())))
-					local IroncladGarrisonInit = (select(5, GetMapLandmarkInfo(1)))
-					local SlagworksInit = (select(5, GetMapLandmarkInfo(2)))
-					local WardensVigilInit = (select(5, GetMapLandmarkInfo(3)))
-					local EastSpireInit = (select(5, GetMapLandmarkInfo(4)))
-					local SouthSpireInit = (select(5, GetMapLandmarkInfo(5)))
-					local WestSpireInit = (select(5, GetMapLandmarkInfo(6)))
+					local BaradinHoldInit = (select(4, GetMapLandmarkInfo(GetNumMapLandmarks())))
+					local IroncladGarrisonInit = (select(4, GetMapLandmarkInfo(1)))
+					local WardensVigilInit = (select(4, GetMapLandmarkInfo(2)))
+					local SlagworksInit = (select(4, GetMapLandmarkInfo(3)))
+					local EastSpireInit = (select(4, GetMapLandmarkInfo(4)))
+					local SouthSpireInit = (select(4, GetMapLandmarkInfo(5)))
+					local WestSpireInit = (select(4, GetMapLandmarkInfo(6)))
 					TBobjectives.BaradinHold = BaradinHoldInit
 					if IroncladGarrisonInit then
 						TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
