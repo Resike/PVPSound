@@ -24,6 +24,8 @@ local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
 local L = ns.L
 
+
+
 local bit = bit
 local getglobal = getglobal
 local print = print
@@ -53,7 +55,7 @@ function PVPSound:OnLoad()
 		PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 		PVPSoundFrame:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 		PVPSoundFrame:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-		PVPSoundFrame:RegisterEvent("WORLD_MAP_UPDATE")
+		--PVPSoundFrame:RegisterEvent("WORLD_MAP_UPDATE")  --deleted EVENT (update zones in bg)
 	end
 end
 
@@ -62,10 +64,10 @@ local PVPSoundFrameTwo = CreateFrame("Frame", nil)
 function PVPSound:OnLoadTwo()
 	if PS_EnableAddon == true then
 		PVPSoundFrameTwo:RegisterEvent("PLAYER_TARGET_CHANGED")
-		PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
+	 	PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
 		PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
-		PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES")
-		PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE")
+		--PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES") --deleted EVENT (bg activity update)
+		--PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE") --deleted EVENT  
 	end
 end
 
@@ -73,7 +75,7 @@ local PVPSoundFrameThree = CreateFrame("Frame", nil)
 
 function PVPSound:OnLoadThree()
 	if PS_EnableAddon == true then
-		PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") --have no payload since 8.0.1
 	end
 end
 
@@ -86,12 +88,12 @@ function PVPSound:RegisterEvents()
 	PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 	PVPSoundFrame:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 	PVPSoundFrame:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-	PVPSoundFrame:RegisterEvent("WORLD_MAP_UPDATE")
+	PVPSoundFrame:RegisterEvent("WORLD_MAP_UPDATE") --deleted
 	PVPSoundFrameTwo:RegisterEvent("PLAYER_TARGET_CHANGED")
 	PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
 	PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
-	PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES")
-	PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE")
+	PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES") --deleted
+	PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE") --deleted
 	PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
@@ -104,12 +106,12 @@ function PVPSound:UnregisterEvents()
 	PVPSoundFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 	PVPSoundFrame:UnregisterEvent("CHAT_MSG_MONSTER_YELL")
 	PVPSoundFrame:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-	PVPSoundFrame:UnregisterEvent("WORLD_MAP_UPDATE")
+	PVPSoundFrame:UnregisterEvent("WORLD_MAP_UPDATE") --deleted
 	PVPSoundFrameTwo:UnregisterEvent("PLAYER_TARGET_CHANGED")
 	PVPSoundFrameTwo:UnregisterEvent("UNIT_HEALTH")
 	PVPSoundFrameTwo:UnregisterEvent("UNIT_MAXHEALTH")
-	PVPSoundFrameTwo:UnregisterEvent("UPDATE_WORLD_STATES")
-	PVPSoundFrameTwo:UnregisterEvent("WORLD_STATE_UI_TIMER_UPDATE")
+	PVPSoundFrameTwo:UnregisterEvent("UPDATE_WORLD_STATES") --deleted
+	PVPSoundFrameTwo:UnregisterEvent("WORLD_STATE_UI_TIMER_UPDATE") --deleted
 	PVPSoundFrameThree:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
@@ -274,7 +276,7 @@ function PVPSound:DefaultSettings()
 	end
 	-- Data Share Register
 	if PS_DataShare == true then
-		RegisterAddonMessagePrefix("PVPSound")
+		C_ChatInfo.RegisterAddonMessagePrefix("PVPSound") --in 8.0.1 changed to C_ChatInfo namespace
 	end
 end
 
@@ -620,8 +622,8 @@ local function IOCobj_state(id)
 	end
 end
 
--- Strand of the Ancients
-local SOTAobjectives = {ChamberofAncientRelics = nil, EastGraveyard = nil, GateoftheBlueSapphire = nil, GateoftheGreenEmerald = nil, GateofthePurpleAmethyst = nil, GateoftheRedSun = nil, GateoftheYellowMoon = nil, SouthGraveyard = nil, WestGraveyard = nil}
+-- Strand of the Ancients //deleted in BFA
+--[[local SOTAobjectives = {ChamberofAncientRelics = nil, EastGraveyard = nil, GateoftheBlueSapphire = nil, GateoftheGreenEmerald = nil, GateofthePurpleAmethyst = nil, GateoftheRedSun = nil, GateoftheYellowMoon = nil, SouthGraveyard = nil, WestGraveyard = nil}
 
 local function SOTAget_objective(id)
 	if id >= 177 and id <= 182 then
@@ -667,7 +669,7 @@ local function SOTAobj_state(id)
 	else
 		return 0
 	end
-end
+end]]--
 
 -- Eye of the Storm
 local EOTSobjectives = {BloodElfTower = nil, DraeneiRuins = nil, FelReaverRuins = nil, MageTower = nil}
@@ -947,29 +949,33 @@ function PVPSound:OnEvent(event, ...)
 				PVPSound:OnLoadTwo()
 				PVPSound:OnLoadThree()
 			end
-			PVPSoundOptions:OptionsAddonIsLoaded()
+			PVPSoundOptions:OptionsAddonIsLoaded() --see this later
 			-- Addon loaded message
 			--print("|cFF50C0FFPVPSound |cFFFFA500"..GetAddOnMetadata("PVPSound", "Version").."|cFF50C0FF loaded.|r")
 		end
 	end
 
 	if PS_EnableAddon == true then
-		if event == "PLAYER_ENTERING_WORLD" then
+		if event == "PLAYER_ENTERING_WORLD" then --event fires evry time, loading screen appears
 			MyFaction = UnitFactionGroup("player")
-			SetMapToCurrentZone()
-			CurrentZoneId = GetCurrentMapAreaID()
-			CurrentZoneText = GetRealZoneText()
-			InstanceType = (select(2, IsInInstance()))
-			IsRated = IsRatedBattleground()
+			--SetMapToCurrentZone()--don't need this anymore
+			--CurrentZoneId = GetCurrentMapAreaID()--replace it!
+			--CurrentZoneText = GetRealZoneText()
+			--InstanceType = (select(2, IsInInstance()))
+			--IsRated = IsRatedBattleground()
 			TimerReset = true
-			-- Battlegrounds
+		end--delete it whith comments
+	end--delete it whith comments
+end--delete it whith comments
+--[===[
+			-- Battlegrounds --need to change zone ids--add new bg
 			if CurrentZoneId == 443 and InstanceType == "pvp" then
 				MyZone = "Zone_WarsongGulch"
 			elseif CurrentZoneId == 461 and InstanceType == "pvp" then
 				MyZone = "Zone_ArathiBasin"
 			elseif CurrentZoneId == 401 and InstanceType == "pvp" then
 				MyZone = "Zone_AlteracValley"
-			elseif (CurrentZoneId == 482 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then
+			elseif (CurrentZoneId == 482 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then --what does it mean?
 				MyZone = "Zone_EyeoftheStorm"
 			elseif CurrentZoneId == 540 and InstanceType == "pvp" then
 				MyZone = "Zone_IsleofConquest"
@@ -1008,24 +1014,26 @@ function PVPSound:OnEvent(event, ...)
 			elseif UnitSex("player") == 3 then
 				MyGender = "Female"
 			end
+			--IoC Gate check
 			if MyZone == "Zone_IsleofConquest" then
 				IocAllianceGateDown = false
 				IocHordeGateDown = false
 				-- Alliance Gates
 				for i = 9, 11, 1 do
-					if (select(4, GetMapLandmarkInfo(i))) == 82 then
+					if (select(4, GetMapLandmarkInfo(i))) == 82 then --4-texture id, 82 is gates destruyed by horde
 						IocAllianceGateDown = true
 					end
 				end
 				-- Horde Gates
 				for i = 6, 8, 1 do
-					if (select(4, GetMapLandmarkInfo(i))) == 79 then
+					if (select(4, GetMapLandmarkInfo(i))) == 79 then --4-texture id, 79 is gates destruyed by alliance
 						IocHordeGateDown = true
 					end
 				end
 			end
+			--world state check
 			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
-				local i
+				local i --world state number of timer
 				if MyZone == "Zone_StrandoftheAncients" then
 					i = 7
 				elseif MyZone == "Zone_Arenas" then
@@ -1045,12 +1053,14 @@ function PVPSound:OnEvent(event, ...)
 				else
 					i = 4
 				end
-				if (select(4, GetWorldStateUIInfo(i))) ~= nil then
+				
+				if (select(4, GetWorldStateUIInfo(i))) ~= nil then --world state text
 					-- Time Remaining
 					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
 					TimeRemainingobjectives.TimeRemaining = nil
 					TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
 				end
+				--world state --here may be an error:init check of 1 and 3...should be 2
 				if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
 					-- Alliance Score
 					local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
@@ -1067,6 +1077,7 @@ function PVPSound:OnEvent(event, ...)
 					self.HordeFlagPositionY = nil
 				end
 			end
+			
 			if MyZone == "Zone_EyeoftheStorm" then
 				--[[if IsRated == false then
 					EOTSWINobjectives.VictoryPoints = nil
@@ -1075,16 +1086,16 @@ function PVPSound:OnEvent(event, ...)
 					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 					EOTSWINobjectives.VictoryPoints = EOTSWINInit
 				end]]
-				local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))
+				local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))--4 - texture indexx
 				local DraeneiRuinsInit = select(4, GetMapLandmarkInfo(4))
 				local FelReaverRuinsInit = select(4, GetMapLandmarkInfo(3))
-				local MageTowerInit = select(4, GetMapLandmarkInfo(3))
+				local MageTowerInit = select(4, GetMapLandmarkInfo(3)) --mageTower and ReaverRuins are equial??
 				EOTSobjectives.BloodElfTower = nil
 				EOTSobjectives.DraeneiRuins = nil
 				EOTSobjectives.FelReaverRuins = nil
 				EOTSobjectives.MageTower = nil
 				if BloodElfTowerInit then
-					EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100
+					EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100 
 				end
 				if DraeneiRuinsInit then
 					EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
@@ -1097,7 +1108,7 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			if MyZone == "Zone_ArathiBasin" then
-				local BlacksmithInit = select(4, GetMapLandmarkInfo(2))
+				local BlacksmithInit = select(4, GetMapLandmarkInfo(2)) --4 - texture index
 				local FarmInit = select(4, GetMapLandmarkInfo(5))
 				local GoldMineInit = select(4, GetMapLandmarkInfo(4))
 				local LumberMillInit = select(4, GetMapLandmarkInfo(3))
@@ -1313,6 +1324,7 @@ function PVPSound:OnEvent(event, ...)
 				IOCobjectives.Refinerie = RefinerieInit
 				IOCobjectives.Workshop = WorkshopInit
 			end
+			--delete it
 			if MyZone == "Zone_StrandoftheAncients" then
 				local j, k, l, m, n, o, p, q, r
 				if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
@@ -1393,6 +1405,7 @@ function PVPSound:OnEvent(event, ...)
 					SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
 				end
 			end
+			
 			if MyZone == "Zone_TheBattleforGilneas" then
 				local LighthouseInit = select(4, GetMapLandmarkInfo(3))
 				local MinesInit = select(4, GetMapLandmarkInfo(1))
@@ -1586,12 +1599,12 @@ function PVPSound:OnEvent(event, ...)
 						else
 							GotKilledBy = tostring(KilledBy)
 						end
-						if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInInstance() then
+						if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInInstance() then --channel choose
 							if InstanceType == "pvp" or InstanceType == "arena" or InstanceType == "raid" or InstanceType == "party" or InstanceType == nil then
-								SendAddonMessage("PVPSound", Message..":"..GotKilledBy, Channel)
+								C_ChatInfo.SendAddonMessage("PVPSound", Message..":"..GotKilledBy, Channel)
 							end
 						else
-							SendAddonMessage("PVPSound", Message..":"..GotKilledBy, "RAID")
+							C_ChatInfo.SendAddonMessage("PVPSound", Message..":"..GotKilledBy, "RAID")
 						end
 					end
 				end
@@ -1619,8 +1632,8 @@ function PVPSound:OnEvent(event, ...)
 			TimerReset = true
 		end
 
-		if PS_BattlegroundSound == true then
-			if event == "ZONE_CHANGED_NEW_AREA" then
+		if PS_BattlegroundSound == true then --only for BG and arena 
+			if event == "ZONE_CHANGED_NEW_AREA" then --repeat things, we do on player entering world each time zone chages the same mistakes--don't know if it's needed after upper set
 				SetMapToCurrentZone()
 				CurrentZoneId = GetCurrentMapAreaID()
 				CurrentZoneText = GetRealZoneText()
@@ -2258,7 +2271,7 @@ function PVPSound:OnEvent(event, ...)
 					KilledMe = nil
 					KilledBy = nil
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PrepareForBattle.mp3")
-				 -- Wintergrasp PlaySounds
+				 -- Wintergrasp PlaySounds --Wintergasp and ashran are now also a bg
 				elseif MyZone == "Zone_Wintergrasp" then
 					TimerReset = true
 					KilledMe = nil
@@ -2332,7 +2345,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 			end
-
+			--parcing pvp info from chat
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
 				-- Tie Game
@@ -2384,7 +2397,7 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 
-			elseif event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then
+			elseif event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then --why are there two events?
 				local EventMessage = select(1, ...)
 				-- Warsong Gulch and Twin Peaks
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
@@ -2427,14 +2440,14 @@ function PVPSound:OnEvent(event, ...)
 							local CurrentSubZoneText = GetSubZoneText()
 							-- Horde Flag Taken
 							local HordeFlagStatus
-							if (select(2, GetWorldStateUIInfo(2))) ~= nil then
+							if (select(2, GetWorldStateUIInfo(2))) ~= nil then --2 is a stete (return1 if team hold a flag, 1- if enemy do)
 								HordeFlagStatus = select(2, GetWorldStateUIInfo(2))
 							end
 
 							if C_PvP.IsInBrawl() then
 								HordeFlagStatus = 1
 							end
-
+							--flag save in a flag enemies flagroom
 							if MyFaction == "Alliance" and HordeFlagStatus == 1 and (CurrentSubZoneText == L["Warsong Flag Room"] or CurrentSubZoneText == L["Dragonmaw Forge"]) then
 								if MyZone == "Zone_WarsongGulch" then
 									if self.AllianceFlagPositionX and self.AllianceFlagPositionX ~= 0 and self.AllianceFlagPositionX ~= "" then
@@ -2651,19 +2664,19 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 
-			elseif event == "CHAT_MSG_MONSTER_YELL" then
+			elseif event == "CHAT_MSG_MONSTER_YELL" then --do we really need this event?
 				-- Alterac Valley
 				if MyZone == "Zone_AlteracValley" then
-					-- Bunkers
+					-- Bunkers --each bunker checked by it's coords--may be there are easier ways to do it
 					-- Dun Baldar North Bunker
 					for i = 1, GetNumMapLandmarks(), 1 do
 						local textureIndex = select(4, GetMapLandmarkInfo(i))
 						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
+						if (select(5, GetMapLandmarkInfo(i))) then --x coord of poi
 							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
 						end
 						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
+						if (select(6, GetMapLandmarkInfo(i))) then --y coord of poi
 							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
 						end
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
@@ -3302,7 +3315,7 @@ function PVPSound:OnEvent(event, ...)
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\MineShaftOpening.mp3")
 				end
 
-			elseif event == "WORLD_MAP_UPDATE" then
+			elseif event == "WORLD_MAP_UPDATE" then --may be it wil be better to put all zone checks in new event (AREA_POIS_UPDATED)
 				-- Strand of the Ancients
 				if MyZone == "Zone_StrandoftheAncients" then
 					--[[local j, k, l, m, n, o, p
@@ -4734,10 +4747,11 @@ function PVPSound:OnEvent(event, ...)
 			end
 		end
 	end
-end
+end 
+]===]--
 
 PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
-
+--[====[
 function PVPSound:OnEventTwo(event, ...)
 	if PS_EnableAddon == true then
 		if event == "PLAYER_TARGET_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MAXHEALTH" then
@@ -6166,19 +6180,23 @@ function PVPSound:OnEventTwo(event, ...)
 end
 
 PVPSoundFrameTwo:SetScript("OnEvent", PVPSound.OnEventTwo)
+]====]--
 
 function PVPSound:OnEventThree(event, ...)
 	if PS_EnableAddon == true then
-		if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+		if event == "COMBAT_LOG_EVENT_UNFILTERED" then --no longer have payload
 			local _, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, swingOverkill, spellOverkill
 			if WowBuildInfo >= 40200 then
-				_, eventType, _, sourceGUID, sourceName, sourceFlags, _, destGUID, destName, destFlags, _, _, swingOverkill, _, _, spellOverkill = ...
+				_, eventType, _, sourceGUID, sourceName, sourceFlags, _, destGUID, destName, destFlags, _, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 			elseif WowBuildInfo >= 40100 then
-				_, eventType, _, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = ...
+				_, eventType, _, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 			else
-				_, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = ...
+				_, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 			end
-
+			if eventType=="UNIT_DIED" then
+				--print(eventType)
+				print(sourceGUID," ",sourceName, " ", destName)
+			end
 			local PS_COMBATLOG_FILTER_MY_PETS					= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MINE, COMBATLOG_OBJECT_REACTION_FRIENDLY, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_OBJECT, COMBATLOG_OBJECT_TYPE_GUARDIAN, COMBATLOG_OBJECT_TYPE_PET)
 			local PS_COMBATLOG_FILTER_ENEMY_NPCS				= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
 			local PS_COMBATLOG_FILTER_ENEMY_PLAYERS				= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER)
