@@ -1783,30 +1783,54 @@ function PVPSound:SlashCommands(arg1)
 		for i = 1, table.getn(PaybackKillSoundLengthTable), 1 do
 			PVPSound:TriggerKill("PaybackKill", i)
 		end
-	elseif arg2 == "id" then
-		for i = 1, GetNumMapLandmarks(), 1 do
-			local name = select(2, GetMapLandmarkInfo(i))
-			local textureIndex = select(4, GetMapLandmarkInfo(i))
-			local x = select(5, GetMapLandmarkInfo(i))
-			local y = select(6, GetMapLandmarkInfo(i))
-			if name and textureIndex and x and y then
-				local MessageFormat = "%s %s %s %s %s"
-				local Message = format(MessageFormat, i, name, textureIndex, x, y)
-				print(Message)
+	elseif arg2 == "poi" then
+		--POIs updated for 8.0.1
+		local mapId=C_Map.GetBestMapForUnit("player")
+		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(mapId)
+		if POIs==nil then
+			print("There is no POIs in this zone")
+		else
+			print("There is "..#POIs.." POIs in this zone")
+			for i = 1, #POIs, 1 do
+				
+				local info=C_AreaPoiInfo.GetAreaPOIInfo(mapId,POIs[i])
+				local name = info.name
+				local textureIndex = info.textureIndex
+				local x = info.position.x
+				local y = info.position.y
+				print("POI info:")
+				print(i," ",name," ",textureIndex," ",x," ",y)
+					
+				
 			end
 		end
 	elseif arg2 == "ui" then
-		for i = 1, GetNumWorldStateUI(), 1 do
-			local name = select(4, GetWorldStateUIInfo(i))
-			if name then
-				local MessageFormat = "%s %s"
-				local Message = format(MessageFormat, i, name)
-				print(Message)
+		--updated for 8.0.1
+		--check only top center "DoubleStatusBar" widgets 
+		local setId=C_UIWidgetManager.GetTopCenterWidgetSetID()
+		local wgts=C_UIWidgetManager.GetAllWidgetsBySetID(setId)
+		if wgts==nil then
+			print("There is no UI widgets in this zone")
+		else
+			print("There is "..#wgts.."top wigets in this zone")
+		
+			for i = 1, #wgts, 1 do
+				print(wgts[i].widgetType)
+				if wgts[i].widgetType==3 then  -- 3="DoubleStatusBar"
+					local info=C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(wgts[i].widgetID)
+				
+				
+					print("Id: ", wgts[i].widgetID)
+					print("Left tooltip: ", info.leftBarTooltip)
+					print("Left val: ", info.leftBarValue)
+					print("Right tooltip: ", info.rightBarTooltip)
+					print("Right val: ", info.rightBarValue)
+				end
 			end
 		end
 	elseif arg2 == "map" then
-		SetMapToCurrentZone()
-		local CurrentZoneId = GetCurrentMapAreaID()
+		--updated for 8.0.1
+		local CurrentZoneId = C_Map.GetBestMapForUnit("player")
 		if CurrentZoneId ~= nil or CurrentZoneId ~= "" then
 			print("|cFF50C0FF"..L["Current Zone's ID:"].."|r")
 			print(CurrentZoneId)
@@ -1822,16 +1846,20 @@ function PVPSound:SlashCommands(arg1)
 			print(CurrentSubZoneText)
 		end
 	elseif arg2 == "pos" then
-		SetMapToCurrentZone()
-		local playerPosX, playerPosY = GetPlayerMapPosition("player")
+		--updated for 8.0.1 
+		local mapId=C_Map.GetBestMapForUnit("player")
+		local playerPos = C_Map.GetPlayerMapPosition(mapId,"player")
 		print("|cFF50C0FF".."X: ".."|r")
-		print(playerPosX)
+		print(playerPos.x)
 		print("|cFF50C0FF".."Y: ".."|r")
-		print(playerPosY)
+		print(playerPos.y)
+	elseif arg2=="conflist" then 
+		PVPSound.ConfigDump()
+	
 	else
 		PVPSound:PrintSlashHelp()
 	end
-end
+end                                 			
 
 function PVPSound:PrintSlashHelp()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Command list"].."|r")

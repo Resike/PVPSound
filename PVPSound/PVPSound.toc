@@ -1,5 +1,5 @@
 ## Interface: 70200
-## Title: PVPSound |cFF99CC01rev|r |cFFFF00004.1.1|r
+## Title: PVPSound |cFF99CC01rev|r |cFFFF0000x.x.x|r
 ## Version: xxx
 ## Author: Resike
 ## Notes: PVP killing blow and battleground notification addon, with sound packs from various games.
@@ -20,3 +20,4 @@ PVPSound_SoundLengths.lua
 ..\PVPSound_CustomSoundPack\PVPSound_SoundLengthsCustom.lua
 
 PVPSound_Options.xml
+PVPSound_test.lua

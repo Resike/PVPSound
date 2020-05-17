@@ -280,6 +280,41 @@ function PVPSound:DefaultSettings()
 	end
 end
 
+function PVPSound:ConfigDump()
+		print("Addon cofig:")
+		print("Addon language:", PS_AddonLanguage)
+		print("Kill soundpack name:", PS_KillSoundPackName)
+		print("Kill soundpack language:", PS_KillSoundPackLanguage)
+		print("Soundpack name:", PS_SoundPackName)
+		print("Soundpack language:", PS_SoundPackLanguage)
+		print("Mode:", PS_Mode)
+		print("Emote:",PS_Emote)
+		print("Emote mode:",PS_EmoteMode)
+		print("Death message:",PS_DeathMessage)
+		print("Kill sounds:",PS_KillSound)
+		print("MultiKill Sound:", PS_MultiKillSound)
+		print("PetKill:", PS_PetKill)
+		print("PaybackSound:", PS_PaybackSound)
+		print("BattlegroundSound:", PS_BattlegroundSound)
+		print("SoundEffect:", PS_SoundEffect)
+		print("KillSoundEngine:", PS_KillSoundEngine)
+		print("BattlegroundSoundEngine:", PS_BattlegroundSoundEngine)
+		print("Datashare:", PS_DataShare)
+		print("Kill SCT:", PS_KillSct)
+		print("MultiKill SCT:", PS_MultiKillSct)
+		print("Payback SCT:", PS_PaybackSct)
+		print("SCT engine:", PS_SctEngine)
+		print("SCT Frame:", PSSctFrame)
+		print("Hide server name:", PS_HideServerName)
+		print("Sound channel name:", PS_Channel)
+		print("Reset time= ",ResetTime)
+		print("Multikill time= ",MultiKillTime)
+		print("Payback time= ",PS.PaybackKillTime)	
+		print("Recently killed penalty time= ",PS.RecentlyKilledTime)
+		print("Recently payback penalty time= ",PS.RecentlyPaybackTime)
+		print("Rank step for kills:", RankStep)
+end
+
 function PVPSound:SetAddonLanguage()
 	if PS_AddonLanguage == "English" then
 		PVPSound:English()
@@ -6182,6 +6217,10 @@ end
 PVPSoundFrameTwo:SetScript("OnEvent", PVPSound.OnEventTwo)
 ]====]--
 
+
+local floor=math.floor
+local ceil=math.ceil
+
 function PVPSound:OnEventThree(event, ...)
 	if PS_EnableAddon == true then
 		if event == "COMBAT_LOG_EVENT_UNFILTERED" then --no longer have payload
@@ -6190,13 +6229,11 @@ function PVPSound:OnEventThree(event, ...)
 				_, eventType, _, sourceGUID, sourceName, sourceFlags, _, destGUID, destName, destFlags, _, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 			elseif WowBuildInfo >= 40100 then
 				_, eventType, _, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
+			--add classic build
 			else
 				_, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 			end
-			if eventType=="UNIT_DIED" then
-				--print(eventType)
-				print(sourceGUID," ",sourceName, " ", destName)
-			end
+			
 			local PS_COMBATLOG_FILTER_MY_PETS					= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MINE, COMBATLOG_OBJECT_REACTION_FRIENDLY, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_OBJECT, COMBATLOG_OBJECT_TYPE_GUARDIAN, COMBATLOG_OBJECT_TYPE_PET)
 			local PS_COMBATLOG_FILTER_ENEMY_NPCS				= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
 			local PS_COMBATLOG_FILTER_ENEMY_PLAYERS				= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER)
@@ -6226,8 +6263,12 @@ function PVPSound:OnEventThree(event, ...)
 				ToEnemy = ToEnemyPlayerAndNPC
 				FromEnemy = FromEnemyPlayerAndNPC
 			end
-
-			if (eventType == "PARTY_KILL" and sourceGUID == UnitGUID("player") and ToEnemy) or ((eventType == "SWING_DAMAGE" and destGUID ~= UnitGUID("player") and FromMyPets and ToEnemy and tonumber(swingOverkill) ~= nil and tonumber(swingOverkill) ~= - 1) and PS_PetKill == true) or (((eventType == "RANGE_DAMAGE" or eventType == "SPELL_DAMAGE" or eventType == "SPELL_PERIODIC_DAMAGE") and destGUID ~= UnitGUID("player") and FromMyPets and ToEnemy and tonumber(spellOverkill) ~= nil and tonumber(spellOverkill) ~= - 1) and PS_PetKill == true) then
+			
+			--check killing source (player, mele pet or range pet)
+			if (eventType == "PARTY_KILL" and sourceGUID == UnitGUID("player") and ToEnemy) 
+				or ((eventType == "SWING_DAMAGE" and destGUID ~= UnitGUID("player") and FromMyPets and ToEnemy and tonumber(swingOverkill) ~= nil and tonumber(swingOverkill) ~= - 1) and PS_PetKill == true) 
+				or (((eventType == "RANGE_DAMAGE" or eventType == "SPELL_DAMAGE" or eventType == "SPELL_PERIODIC_DAMAGE") and destGUID ~= UnitGUID("player") and FromMyPets and ToEnemy and tonumber(spellOverkill) ~= nil and tonumber(spellOverkill) ~= - 1) and PS_PetKill == true) then
+				
 				if PVPSound:CheckRecentlyKilledQueue(destGUID) ~= true then
 					if PS_PaybackSound == true then
 						KilledWho = destName
@@ -6275,12 +6316,14 @@ function PVPSound:OnEventThree(event, ...)
 						TimerReset = false
 					 -- Killing
 					elseif (GetTime() - LastKill <= ResetTime) then
-						if (GetTime() - LastKill <= PS.KillTime) then
+						if (GetTime() - LastKill <= PS.KillTime) then --rank update condition 
 							FirstKill = LastKill
 							if (GetTime() - FirstKill <= PS.KillTime) then
 								local KillSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
 								CurrentStreak = CurrentStreak + (1 / RankStep)
+								
 								if CurrentStreak > table.getn(KillSoundLengthTable) then
+									
 									CurrentStreak = (table.getn(KillSoundLengthTable) - 1) + (1 / RankStep)
 								end
 								if CurrentStreak <= table.getn(KillSoundLengthTable) then
@@ -6306,6 +6349,16 @@ function PVPSound:OnEventThree(event, ...)
 											end
 											local Decimal = tonumber(string.match(tostring(CurrentStreak), "%.(%d+)"))
 											if Decimal == nil then
+												--if rankstep!=1, here can be a situation, when decimals is nil, but CurrentStreak is not an integer. It can be smth like .000...001 or
+												--.999...9. In this situation an error "attempt to index field '?' (a nil value" occured
+												--to avoid this error we should round our namber
+												--The same situation in TriggerKill function
+												if (CurrentStreak-floor(CurrentStreak) >0.5) then
+													CurrentStreak=ceil(CurrentStreak)
+												else 
+													CurrentStreak=floor(CurrentStreak)
+												end
+												
 												if CurrentStreak < table.getn(KillSoundLengthTable) then
 													SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!", "EMOTE")
 												elseif CurrentStreak == table.getn(KillSoundLengthTable) then
@@ -6431,11 +6484,21 @@ function PVPSound:TriggerKill(killtype, streaknumber)
 	if killtype and streaknumber and streaknumber ~= 0 then
 		if killtype == "Kill" then
 			local Decimal = tonumber(string.match(tostring(streaknumber), "%.(%d+)"))
+			
 			if Decimal == nil then
 				local KillLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
+				
 				if streaknumber <= table.getn(KillLengthTable) then
+					
 					-- Kills
 					if PS_KillSound == true then
+						--See comment in upper function in Kills->Emote section
+						if (streaknumber-floor(streaknumber)>0.5) then
+							streaknumber=ceil(streaknumber)
+						else
+							streaknumber=floor(streaknumber)
+						end
+						--print(KillLengthTable[streaknumber])
 						PVPSound:AddKillToQueue(killtype, KillLengthTable[streaknumber].dir)
 					end
 					-- Sounds Effects
