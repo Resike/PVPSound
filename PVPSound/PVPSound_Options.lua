@@ -1812,19 +1812,19 @@ function PVPSound:SlashCommands(arg1)
 		if wgts==nil then
 			print("There is no UI widgets in this zone")
 		else
-			print("There is "..#wgts.."top wigets in this zone")
+			print("There is "..#wgts.." top wigets in this zone")
 		
 			for i = 1, #wgts, 1 do
-				print(wgts[i].widgetType)
+				print("Type: ", wgts[i].widgetType)
 				if wgts[i].widgetType==3 then  -- 3="DoubleStatusBar"
 					local info=C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(wgts[i].widgetID)
 				
 				
-					print("Id: ", wgts[i].widgetID)
-					print("Left tooltip: ", info.leftBarTooltip)
-					print("Left val: ", info.leftBarValue)
-					print("Right tooltip: ", info.rightBarTooltip)
-					print("Right val: ", info.rightBarValue)
+					print(" Id: ", wgts[i].widgetID)
+					print(" Left tooltip: ", info.leftBarTooltip)
+					print(" Left val: ", info.leftBarValue)
+					print(" Right tooltip: ", info.rightBarTooltip)
+					print(" Right val: ", info.rightBarValue)
 				end
 			end
 		end

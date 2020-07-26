@@ -79,6 +79,7 @@ function PVPSound:OnLoadThree()
 	end
 end
 
+--not used?
 function PVPSound:RegisterEvents()
 	PVPSoundFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	PVPSoundFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -434,6 +435,8 @@ local function TimeRemainingobj_state(id)
 		return 0
 	end
 end
+
+
 
 -- Warsong Gulch and Twin Peaks Alliance Score
 local WSGandTPAobjectives = {AllianceScore = nil}
@@ -951,6 +954,630 @@ local function TargetHealthState(healthPercent)
 	end
 end
 
+--function just to use the same code in two places
+local function InitializeBgs(...)
+	MyFaction = UnitFactionGroup("player")
+	local self=...	
+	CurrentZoneId = C_Map.GetBestMapForUnit("player")
+	CurrentZoneText = GetRealZoneText()
+	InstanceType = (select(2, IsInInstance()))
+	IsRated = C_PvP.IsRatedBattleground()
+	print("tech info ",CurrentZoneId,CurrentZoneText,InstanceType,IsRated)
+	TimerReset = true
+
+
+	-- Battlegrounds --need to change zone ids--add new bg
+	if CurrentZoneId == 1339 and InstanceType == "pvp" then
+		MyZone = "Zone_WarsongGulch"--updated
+	elseif CurrentZoneId == 461 and InstanceType == "pvp" then
+		MyZone = "Zone_ArathiBasin"
+--	elseif CurrentZoneId == 1527 then	--for test--SHOULD BE DELETED
+--		MyZone = "Zone_WarsongGulch"
+	elseif CurrentZoneId == 401 and InstanceType == "pvp" then
+		MyZone = "Zone_AlteracValley"
+	elseif (CurrentZoneId == 482 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then --what does it mean?
+		MyZone = "Zone_EyeoftheStorm"
+	elseif CurrentZoneId == 540 and InstanceType == "pvp" then
+		MyZone = "Zone_IsleofConquest"
+	--elseif CurrentZoneId == 512 and InstanceType == "pvp" then --BG was deleted 
+	--	MyZone = "Zone_StrandoftheAncients"
+	elseif CurrentZoneId == 206 and InstanceType == "pvp" then
+		MyZone = "Zone_TwinPeaks"--updated
+	elseif CurrentZoneId == 736 and InstanceType == "pvp" then
+		MyZone = "Zone_TheBattleforGilneas"
+	elseif CurrentZoneId == 856 and InstanceType == "pvp" then
+		MyZone = "Zone_TempleofKotmogu"
+	elseif CurrentZoneId == 860 and InstanceType == "pvp" then
+		MyZone = "Zone_SilvershardMines"
+	elseif CurrentZoneId == 935 and InstanceType == "pvp" then
+		MyZone = "Zone_DeepwindGorge"
+	 -- Battlefields
+	elseif CurrentZoneId == 501 then
+		MyZone = "Zone_Wintergrasp"
+	elseif CurrentZoneId == 708 then
+		MyZone = "Zone_TolBarad"
+	 -- Arenas
+	elseif InstanceType == "arena" then
+		MyZone = "Zone_Arenas"
+	else
+		MyZone = ""
+	end
+	-- Payback Kill time
+	if MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_TolBarad" then
+		PS.PaybackKillTime = 120
+	else
+		PS.PaybackKillTime = 90
+	end
+	-- Player's Gender
+	if UnitSex("player") == 2 then
+		MyGender = "Male"
+	elseif UnitSex("player") == 3 then
+		MyGender = "Female"
+	end
+	--IoC Gate check
+	if MyZone == "Zone_IsleofConquest" then
+		IocAllianceGateDown = false
+		IocHordeGateDown = false
+		-- Alliance Gates
+		for i = 9, 11, 1 do
+			if (select(4, GetMapLandmarkInfo(i))) == 82 then --4-texture id, 82 is gates destruyed by horde
+				IocAllianceGateDown = true
+			end
+		end
+		-- Horde Gates
+		for i = 6, 8, 1 do
+			if (select(4, GetMapLandmarkInfo(i))) == 79 then --4-texture id, 79 is gates destruyed by alliance
+				IocHordeGateDown = true
+			end
+		end
+	end
+	--world state check
+	if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
+		
+		
+		local i --id of timer widget
+		if MyZone == "Zone_StrandoftheAncients" then
+			i = 7
+		elseif MyZone == "Zone_Arenas" then
+			if CurrentZoneText == L["Ashamane's Fall"] or CurrentZoneText == L["Blade's Edge Arena"] then
+				i = 4
+			elseif CurrentZoneText == L["Nagrand Arena"] then
+				i = 6
+			elseif CurrentZoneText == L["Dalaran Arena"] or CurrentZoneText == L["Ruins of Lordaeron"] or CurrentZoneText == L["The Tiger's Peak"] or CurrentZoneText == L["Tol'viron Arena"] then
+				i = 3
+			else
+				i = 4
+			end
+		elseif MyZone == "Zone_TolBarad" then
+			i = 1
+		elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+			i = 6 --updated
+		else
+			i = 4
+		end
+		
+		if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(i)) ~= nil then --world state text
+			-- Time Remaining
+			local TimeRemainingInit = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(i).text, "(%d+)"))
+			print ("time remaining ",TimeRemainingInit)
+			TimeRemainingobjectives.TimeRemaining = nil
+			TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
+		end
+		--world state --here may be an error:init check of 1 and 3...should be 2
+		
+		if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2)) ~= nil then
+			-- Alliance Score
+			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftValue
+			WSGandTPAobjectives.AllianceScore = nil
+			WSGandTPAobjectives.AllianceScore = AllianceScoreInit
+			-- Horde Score
+			local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightValue
+			WSGandTPHobjectives.HordeScore = nil
+			WSGandTPHobjectives.HordeScore = HordeScoreInit
+			--why nil?
+			self.AllianceFlagPositionX = nil
+			self.AllianceFlagPositionY = nil
+			self.HordeFlagPositionX = nil
+			self.HordeFlagPositionY = nil
+		end
+	
+
+	end
+	
+	if MyZone == "Zone_EyeoftheStorm" then
+		--[[if IsRated == false then
+			EOTSWINobjectives.VictoryPoints = nil
+			local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
+			EOTSWINobjectives.VictoryPoints = EOTSWINInit
+			local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
+			EOTSWINobjectives.VictoryPoints = EOTSWINInit
+		end]]
+		local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))--4 - texture indexx
+		local DraeneiRuinsInit = select(4, GetMapLandmarkInfo(4))
+		local FelReaverRuinsInit = select(4, GetMapLandmarkInfo(3))
+		local MageTowerInit = select(4, GetMapLandmarkInfo(3)) --mageTower and ReaverRuins are equial??
+		EOTSobjectives.BloodElfTower = nil
+		EOTSobjectives.DraeneiRuins = nil
+		EOTSobjectives.FelReaverRuins = nil
+		EOTSobjectives.MageTower = nil
+		if BloodElfTowerInit then
+			EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100 
+		end
+		if DraeneiRuinsInit then
+			EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
+		end
+		if FelReaverRuinsInit then
+			EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
+		end
+		if MageTowerInit then
+			EOTSobjectives.MageTower = MageTowerInit + 400
+		end
+	end
+	if MyZone == "Zone_ArathiBasin" then
+		local BlacksmithInit = select(4, GetMapLandmarkInfo(2)) --4 - texture index
+		local FarmInit = select(4, GetMapLandmarkInfo(5))
+		local GoldMineInit = select(4, GetMapLandmarkInfo(4))
+		local LumberMillInit = select(4, GetMapLandmarkInfo(3))
+		local StablesInit = select(4, GetMapLandmarkInfo(1))
+		ABobjectives.Blacksmith = nil
+		ABobjectives.Farm = nil
+		ABobjectives.GoldMine = nil
+		ABobjectives.LumberMill = nil
+		ABobjectives.Stables = nil
+		if BlacksmithInit then
+			ABobjectives.Blacksmith = BlacksmithInit + 100
+		end
+		if FarmInit then
+			ABobjectives.Farm = FarmInit + 200
+		end
+		if GoldMineInit then
+			ABobjectives.GoldMine = GoldMineInit + 300
+		end
+		if LumberMillInit then
+			ABobjectives.LumberMill = LumberMillInit + 400
+		end
+		if StablesInit then
+			ABobjectives.Stables = StablesInit + 500
+		end
+	end
+	if MyZone == "Zone_AlteracValley" then
+		local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
+		local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
+		local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
+		local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
+		local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
+		local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
+		local FrostwolfGraveyardInit = select(4, GetMapLandmarkInfo(6))
+		local FrostwolfReliefHutInit = select(4, GetMapLandmarkInfo(8))
+		local IcebloodGraveyardInit = select(4, GetMapLandmarkInfo(10))
+		local IcebloodTowerInit = select(4, GetMapLandmarkInfo(11))
+		local IcewingBunkerInit = select(4, GetMapLandmarkInfo(12))
+		local IrondeepMineInit = select(4, GetMapLandmarkInfo(14))
+		local SnowfallGraveyardInit = select(4, GetMapLandmarkInfo(15))
+		local StonehearthBunkerInit = select(4, GetMapLandmarkInfo(16))
+		local StonehearthGraveyardInit = select(4, GetMapLandmarkInfo(17))
+		local StormpikeAidStationInit = select(4, GetMapLandmarkInfo(19))
+		local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
+		local TowerPointInit = select(4, GetMapLandmarkInfo(21))
+		local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
+		AVandIOCAobjectives.AllianceReinforcements = nil
+		AVandIOCHobjectives.HordeReinforcements = nil
+		AVobjectives.ColdtoothMine = nil
+		AVobjectives.DunBaldarNorthBunker = nil
+		AVobjectives.DunBaldarSouthBunker = nil
+		AVobjectives.EastFrostwolfTower = nil
+		AVobjectives.FrostwolfGraveyard = nil
+		AVobjectives.FrostwolfReliefHut = nil
+		AVobjectives.IcebloodGraveyard = nil
+		AVobjectives.IcebloodTower = nil
+		AVobjectives.IcewingBunker = nil
+		AVobjectives.IrondeepMine = nil
+		AVobjectives.SnowfallGraveyard = nil
+		AVobjectives.StonehearthBunker = nil
+		AVobjectives.StonehearthGraveyard = nil
+		AVobjectives.StormpikeAidStation = nil
+		AVobjectives.StormpikeGraveyard = nil
+		AVobjectives.TowerPoint = nil
+		AVobjectives.WestFrostwolfTower = nil
+		AVandIOCAobjectives.AllianceReinforcements = AVandIOCAInit
+		AVandIOCHobjectives.HordeReinforcements = AVandIOCHInit
+		if ColdtoothMineInit then
+			AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
+		end
+		if DunBaldarNorthBunkerInit then
+			AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
+		end
+		if DunBaldarSouthBunkerInit then
+			AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
+		end
+		if EastFrostwolfTowerInit then
+			AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
+		end
+		if FrostwolfGraveyardInit then
+			AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
+		end
+		if FrostwolfReliefHutInit then
+			AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
+		end
+		if IcebloodGraveyardInit then
+			AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
+		end
+		if IcebloodTowerInit then
+			AVobjectives.IcebloodTower = IcebloodTowerInit + 800
+		end
+		if IcewingBunkerInit then
+			AVobjectives.IcewingBunker = IcewingBunkerInit + 900
+		end
+		if IrondeepMineInit then
+			AVobjectives.IrondeepMine = IrondeepMineInit + 1000
+		end
+		if SnowfallGraveyardInit then
+			AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
+		end
+		if StonehearthBunkerInit then
+			AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
+		end
+		if StonehearthGraveyardInit then
+			AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
+		end
+		if StormpikeAidStationInit then
+			AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
+		end
+		if StormpikeGraveyardInit then
+			AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
+		end
+		if TowerPointInit then
+			AVobjectives.TowerPoint = TowerPointInit + 1600
+		end
+		if WestFrostwolfTowerInit then
+			AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
+		end
+	end
+	if MyZone == "Zone_IsleofConquest" then
+		--[[local j, k, l, m, n, o, p, q, r, s, t
+		if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+			j = 1
+			k = 2
+			l = 3
+			m = 6
+			n = 7
+			o = 8
+			p = 9
+			q = 10
+			r = 13
+			s = 14
+			t = 15
+		elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
+			j = 1
+			k = 2
+			l = 3
+			m = 6
+			n = 7
+			o = 8
+			p = 9
+			q = 10
+			r = 12
+			s = 13
+			t = 14
+		elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
+			j = 1
+			k = 2
+			l = 3
+			m = 5
+			n = 6
+			o = 7
+			p = 8
+			q = 9
+			r = 12
+			s = 13
+			t = 14
+		else
+			j = 1
+			k = 2
+			l = 3
+			m = 5
+			n = 6
+			o = 7
+			p = 8
+			q = 9
+			r = 11
+			s = 12
+			t = 13
+		end]]
+		local AllianceGateEInit = select(4, GetMapLandmarkInfo(9))
+		local AllianceGateWInit = select(4, GetMapLandmarkInfo(10))
+		local AllianceGateSInit = select(4, GetMapLandmarkInfo(11))
+		local DocksInit = select(4, GetMapLandmarkInfo(3))
+		local HangarInit = select(4, GetMapLandmarkInfo(2))
+		local HordeGateEInit = select(4, GetMapLandmarkInfo(7))
+		local HordeGateWInit = select(4, GetMapLandmarkInfo(8))
+		local HordeGateNInit = select(4, GetMapLandmarkInfo(6))
+		local QuarryInit = select(4, GetMapLandmarkInfo(4))
+		local RefinerieInit = select(4, GetMapLandmarkInfo(5))
+		local WorkshopInit = select(4, GetMapLandmarkInfo(1))
+		IOCobjectives.AllianceGateE = nil
+		IOCobjectives.AllianceGateW = nil
+		IOCobjectives.AllianceGateS = nil
+		IOCobjectives.Docks = nil
+		IOCobjectives.Hangar = nil
+		IOCobjectives.HordeGateE = nil
+		IOCobjectives.HordeGateW = nil
+		IOCobjectives.HordeGateN = nil
+		IOCobjectives.Quarry = nil
+		IOCobjectives.Refinerie = nil
+		IOCobjectives.Workshop = nil
+		if AllianceGateEInit then
+			IOCobjectives.AllianceGateE = AllianceGateEInit + 100
+		end
+		if AllianceGateWInit then
+			IOCobjectives.AllianceGateW = AllianceGateWInit + 200
+		end
+		if AllianceGateSInit then
+			IOCobjectives.AllianceGateS = AllianceGateSInit + 300
+		end
+		IOCobjectives.Docks = DocksInit
+		IOCobjectives.Hangar = HangarInit
+		if HordeGateEInit then
+			IOCobjectives.HordeGateE = HordeGateEInit + 400
+		end
+		if HordeGateWInit then
+			IOCobjectives.HordeGateW = HordeGateWInit + 500
+		end
+		if HordeGateNInit then
+			IOCobjectives.HordeGateN = HordeGateNInit + 600
+		end
+		IOCobjectives.Quarry = QuarryInit
+		IOCobjectives.Refinerie = RefinerieInit
+		IOCobjectives.Workshop = WorkshopInit
+	end
+	--delete it
+	if MyZone == "Zone_StrandoftheAncients" then
+		local j, k, l, m, n, o, p, q, r
+		if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
+			j = 1
+			k = 2
+			l = 3
+			m = 4
+			n = 5
+			o = 6
+			p = 7
+			q = 9
+			r = 12
+		elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
+			j = 2
+			k = 3
+			l = 4
+			m = 5
+			n = 6
+			o = 7
+			p = 8
+			q = 9
+			r = 12
+		else
+			j = 1
+			k = 2
+			l = 3
+			m = 4
+			n = 5
+			o = 6
+			p = nil
+			q = nil
+			r = nil
+		end
+		local ChamberofAncientRelicsInit = select(4, GetMapLandmarkInfo(j))
+		local EastGraveyardInit = select(4, GetMapLandmarkInfo(k))
+		local GateoftheBlueSapphireInit = select(4, GetMapLandmarkInfo(3))
+		local GateoftheGreenEmeraldInit = select(4, GetMapLandmarkInfo(4))
+		local GateofthePurpleAmethystInit = select(4, GetMapLandmarkInfo(1))
+		local GateoftheRedSunInit = select(4, GetMapLandmarkInfo(2))
+		local GateoftheYellowMoonInit
+		local SouthGraveyardInit
+		local WestGraveyardInit
+		if p ~= nil then
+			GateoftheYellowMoonInit = select(4, GetMapLandmarkInfo(p))
+		end
+		if q ~= nil then
+			SouthGraveyardInit = select(4, GetMapLandmarkInfo(q))
+		end
+		if r ~= nil then
+			WestGraveyardInit = select(4, GetMapLandmarkInfo(r))
+		end
+		SOTAobjectives.ChamberofAncientRelics = nil
+		SOTAobjectives.EastGraveyard = nil
+		SOTAobjectives.GateoftheBlueSapphire = nil
+		SOTAobjectives.GateoftheGreenEmerald = nil
+		SOTAobjectives.GateofthePurpleAmethyst = nil
+		SOTAobjectives.GateoftheRedSun = nil
+		SOTAobjectives.GateoftheYellowMoon = nil
+		SOTAobjectives.SouthGraveyard = nil
+		SOTAobjectives.WestGraveyard = nil
+		if ChamberofAncientRelicsInit then
+			SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
+		end
+		if EastGraveyardInit then
+			SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
+		end
+		SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
+		SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
+		SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
+		SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
+		if p ~= nil and GateoftheYellowMoonInit then
+			SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
+		end
+		if q ~= nil and SouthGraveyardInit then
+			SOTAobjectives.SouthGraveyard = SouthGraveyardInit + 800
+		end
+		if r ~= nil and WestGraveyardInit then
+			SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
+		end
+	end
+	
+	if MyZone == "Zone_TheBattleforGilneas" then
+		local LighthouseInit = select(4, GetMapLandmarkInfo(3))
+		local MinesInit = select(4, GetMapLandmarkInfo(1))
+		local WaterworksInit = select(4, GetMapLandmarkInfo(2))
+		TBFGobjectives.Lighthouse = nil
+		TBFGobjectives.Mines = nil
+		TBFGobjectives.Waterworks = nil
+		if LighthouseInit then
+			TBFGobjectives.Lighthouse = LighthouseInit + 100
+		end
+		if MinesInit then
+			TBFGobjectives.Mines = MinesInit + 200
+		end
+		if WaterworksInit then
+			TBFGobjectives.Waterworks = WaterworksInit + 300
+		end
+	end
+	if MyZone == "Zone_DeepwindGorge" then
+		local CentralMineInit = select(4, GetMapLandmarkInfo(3))
+		local GoblinMineInit = select(4, GetMapLandmarkInfo(2))
+		local PandarenMineInit = select(4, GetMapLandmarkInfo(1))
+		DGobjectives.CentralMine = nil
+		DGobjectives.GoblinMine = nil
+		DGobjectives.PandarenMine = nil
+		if CentralMineInit then
+			DGobjectives.CentralMine = CentralMineInit + 100
+		end
+		if GoblinMineInit then
+			DGobjectives.GoblinMine = GoblinMineInit + 200
+		end
+		if PandarenMineInit then
+			DGobjectives.PandarenMine = PandarenMineInit + 300
+		end
+
+		self.AllianceCartPositionX = nil
+		self.AllianceCartPositionY = nil
+		self.HordeCartPositionX = nil
+		self.HordeCartPositionY = nil
+	end
+	if MyZone == "Zone_SilvershardMines" then
+		local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
+		local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
+		SMWINobjectives.Resources = nil
+		if HordeScoreInit then
+			SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
+		end
+		if AllianceScoreInit then
+			SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
+		end
+	end
+	if MyZone == "Zone_Wintergrasp" then
+		local isActive = (select(5, GetWorldPVPAreaInfo(1)))
+		if isActive == 0 then
+			BgIsOver = false
+		end
+		local FlamewatchTowerInit = select(4, GetMapLandmarkInfo(5))
+		local FortressGraveyardInit = select(4, GetMapLandmarkInfo(6))
+		local ShadowsightTowerInit = select(4, GetMapLandmarkInfo(9))
+		local WintersEdgeTowerInit = select(4, GetMapLandmarkInfo(15))
+		local WintergraspFortressTowerNEInit = select(4, GetMapLandmarkInfo(18))
+		local WintergraspFortressTowerNWInit = select(4, GetMapLandmarkInfo(19))
+		local WintergraspFortressTowerSEInit = select(4, GetMapLandmarkInfo(20))
+		local WintergraspFortressTowerSWInit = select(4, GetMapLandmarkInfo(21))
+		WGobjectives.FlamewatchTower = nil
+		WGobjectives.FortressGraveyard = nil
+		WGobjectives.ShadowsightTower = nil
+		WGobjectives.WintersEdgeTower = nil
+		WGobjectives.WintergraspFortressTowerNE = nil
+		WGobjectives.WintergraspFortressTowerNW = nil
+		WGobjectives.WintergraspFortressTowerSE = nil
+		WGobjectives.WintergraspFortressTowerSW = nil
+		if FlamewatchTowerInit then
+			WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
+		end
+		if FortressGraveyardInit then
+			WGobjectives.FortressGraveyard = FortressGraveyardInit
+
+		end
+		if ShadowsightTowerInit then
+			WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
+
+		end
+		if WintersEdgeTowerInit then
+			WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
+
+		end
+		if WintergraspFortressTowerNEInit then
+			WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
+
+		end
+		if WintergraspFortressTowerNWInit then
+			WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
+
+		end
+		if WintergraspFortressTowerSEInit then
+			WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
+
+		end
+		if WintergraspFortressTowerSWInit then
+			WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
+		end
+	end
+	if MyZone == "Zone_TolBarad" then
+		local isActive = (select(5, GetWorldPVPAreaInfo(2)))
+		if isActive == 0 then
+			BgIsOver = false
+		end
+		--[[local j, k, l, m, n, o
+		if (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
+			j = 4
+			k = 5
+			l = 8
+			m = 2
+			n = 6
+			o = 9
+		elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
+			j = 4
+			k = 5
+			l = 7
+			m = 2
+			n = 6
+			o = 8
+		elseif (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
+			j = 3
+			k = 4
+			l = 7
+			m = 2
+			n = 5
+			o = 8
+		else
+			j = 3
+			k = 4
+			l = 6
+			m = 2
+			n = 5
+			o = 7
+		end]]
+		local BaradinHoldInit = (select(4, GetMapLandmarkInfo(GetNumMapLandmarks())))
+		local IroncladGarrisonInit = (select(4, GetMapLandmarkInfo(1)))
+		local WardensVigilInit = (select(4, GetMapLandmarkInfo(2)))
+		local SlagworksInit = (select(4, GetMapLandmarkInfo(3)))
+		local EastSpireInit = (select(4, GetMapLandmarkInfo(4)))
+		local SouthSpireInit = (select(4, GetMapLandmarkInfo(5)))
+		local WestSpireInit = (select(4, GetMapLandmarkInfo(6)))
+		TBobjectives.BaradinHold = BaradinHoldInit
+		if IroncladGarrisonInit then
+			TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
+		end
+		if WardensVigilInit then
+			TBobjectives.WardensVigil = WardensVigilInit + 200
+		end
+		if SlagworksInit then
+			TBobjectives.Slagworks = SlagworksInit + 300
+		end
+		if EastSpireInit then
+			TBobjectives.EastSpire = EastSpireInit + 400
+		end
+		if SouthSpireInit then
+			TBobjectives.SouthSpire = SouthSpireInit + 500
+		end
+		if WestSpireInit then
+			TBobjectives.WestSpire = WestSpireInit + 600
+		end
+	end
+end	
+
 function PVPSound:OnEvent(event, ...)
 	if event == "ADDON_LOADED" then
 		local Addon = ...
@@ -992,619 +1619,10 @@ function PVPSound:OnEvent(event, ...)
 
 	if PS_EnableAddon == true then
 		if event == "PLAYER_ENTERING_WORLD" then --event fires evry time, loading screen appears
-			MyFaction = UnitFactionGroup("player")
-			--SetMapToCurrentZone()--don't need this anymore
-			--CurrentZoneId = GetCurrentMapAreaID()--replace it!
-			--CurrentZoneText = GetRealZoneText()
-			--InstanceType = (select(2, IsInInstance()))
-			--IsRated = IsRatedBattleground()
 			TimerReset = true
-		end--delete it whith comments
-	end--delete it whith comments
-end--delete it whith comments
---[===[
-			-- Battlegrounds --need to change zone ids--add new bg
-			if CurrentZoneId == 443 and InstanceType == "pvp" then
-				MyZone = "Zone_WarsongGulch"
-			elseif CurrentZoneId == 461 and InstanceType == "pvp" then
-				MyZone = "Zone_ArathiBasin"
-			elseif CurrentZoneId == 401 and InstanceType == "pvp" then
-				MyZone = "Zone_AlteracValley"
-			elseif (CurrentZoneId == 482 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then --what does it mean?
-				MyZone = "Zone_EyeoftheStorm"
-			elseif CurrentZoneId == 540 and InstanceType == "pvp" then
-				MyZone = "Zone_IsleofConquest"
-			elseif CurrentZoneId == 512 and InstanceType == "pvp" then
-				MyZone = "Zone_StrandoftheAncients"
-			elseif CurrentZoneId == 626 and InstanceType == "pvp" then
-				MyZone = "Zone_TwinPeaks"
-			elseif CurrentZoneId == 736 and InstanceType == "pvp" then
-				MyZone = "Zone_TheBattleforGilneas"
-			elseif CurrentZoneId == 856 and InstanceType == "pvp" then
-				MyZone = "Zone_TempleofKotmogu"
-			elseif CurrentZoneId == 860 and InstanceType == "pvp" then
-				MyZone = "Zone_SilvershardMines"
-			elseif CurrentZoneId == 935 and InstanceType == "pvp" then
-				MyZone = "Zone_DeepwindGorge"
-			 -- Battlefields
-			elseif CurrentZoneId == 501 then
-				MyZone = "Zone_Wintergrasp"
-			elseif CurrentZoneId == 708 then
-				MyZone = "Zone_TolBarad"
-			 -- Arenas
-			elseif InstanceType == "arena" then
-				MyZone = "Zone_Arenas"
-			else
-				MyZone = ""
-			end
-			-- Payback Kill time
-			if MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_TolBarad" then
-				PS.PaybackKillTime = 120
-			else
-				PS.PaybackKillTime = 90
-			end
-			-- Player's Gender
-			if UnitSex("player") == 2 then
-				MyGender = "Male"
-			elseif UnitSex("player") == 3 then
-				MyGender = "Female"
-			end
-			--IoC Gate check
-			if MyZone == "Zone_IsleofConquest" then
-				IocAllianceGateDown = false
-				IocHordeGateDown = false
-				-- Alliance Gates
-				for i = 9, 11, 1 do
-					if (select(4, GetMapLandmarkInfo(i))) == 82 then --4-texture id, 82 is gates destruyed by horde
-						IocAllianceGateDown = true
-					end
-				end
-				-- Horde Gates
-				for i = 6, 8, 1 do
-					if (select(4, GetMapLandmarkInfo(i))) == 79 then --4-texture id, 79 is gates destruyed by alliance
-						IocHordeGateDown = true
-					end
-				end
-			end
-			--world state check
-			if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
-				local i --world state number of timer
-				if MyZone == "Zone_StrandoftheAncients" then
-					i = 7
-				elseif MyZone == "Zone_Arenas" then
-					if CurrentZoneText == L["Ashamane's Fall"] or CurrentZoneText == L["Blade's Edge Arena"] then
-						i = 4
-					elseif CurrentZoneText == L["Nagrand Arena"] then
-						i = 6
-					elseif CurrentZoneText == L["Dalaran Arena"] or CurrentZoneText == L["Ruins of Lordaeron"] or CurrentZoneText == L["The Tiger's Peak"] or CurrentZoneText == L["Tol'viron Arena"] then
-						i = 3
-					else
-						i = 4
-					end
-				elseif MyZone == "Zone_TolBarad" then
-					i = 1
-				elseif MyZone == "Zone_WarsongGulch" then
-					i = 3
-				else
-					i = 4
-				end
-				
-				if (select(4, GetWorldStateUIInfo(i))) ~= nil then --world state text
-					-- Time Remaining
-					local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
-					TimeRemainingobjectives.TimeRemaining = nil
-					TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
-				end
-				--world state --here may be an error:init check of 1 and 3...should be 2
-				if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(3))) ~= nil then
-					-- Alliance Score
-					local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
-					WSGandTPAobjectives.AllianceScore = nil
-					WSGandTPAobjectives.AllianceScore = AllianceScoreInit
-					-- Horde Score
-					local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
-					WSGandTPHobjectives.HordeScore = nil
-					WSGandTPHobjectives.HordeScore = HordeScoreInit
-
-					self.AllianceFlagPositionX = nil
-					self.AllianceFlagPositionY = nil
-					self.HordeFlagPositionX = nil
-					self.HordeFlagPositionY = nil
-				end
-			end
+			print(event, " my zone is ", MyZone)
+			InitializeBgs(self)
 			
-			if MyZone == "Zone_EyeoftheStorm" then
-				--[[if IsRated == false then
-					EOTSWINobjectives.VictoryPoints = nil
-					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
-					EOTSWINobjectives.VictoryPoints = EOTSWINInit
-					local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
-					EOTSWINobjectives.VictoryPoints = EOTSWINInit
-				end]]
-				local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))--4 - texture indexx
-				local DraeneiRuinsInit = select(4, GetMapLandmarkInfo(4))
-				local FelReaverRuinsInit = select(4, GetMapLandmarkInfo(3))
-				local MageTowerInit = select(4, GetMapLandmarkInfo(3)) --mageTower and ReaverRuins are equial??
-				EOTSobjectives.BloodElfTower = nil
-				EOTSobjectives.DraeneiRuins = nil
-				EOTSobjectives.FelReaverRuins = nil
-				EOTSobjectives.MageTower = nil
-				if BloodElfTowerInit then
-					EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100 
-				end
-				if DraeneiRuinsInit then
-					EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
-				end
-				if FelReaverRuinsInit then
-					EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
-				end
-				if MageTowerInit then
-					EOTSobjectives.MageTower = MageTowerInit + 400
-				end
-			end
-			if MyZone == "Zone_ArathiBasin" then
-				local BlacksmithInit = select(4, GetMapLandmarkInfo(2)) --4 - texture index
-				local FarmInit = select(4, GetMapLandmarkInfo(5))
-				local GoldMineInit = select(4, GetMapLandmarkInfo(4))
-				local LumberMillInit = select(4, GetMapLandmarkInfo(3))
-				local StablesInit = select(4, GetMapLandmarkInfo(1))
-				ABobjectives.Blacksmith = nil
-				ABobjectives.Farm = nil
-				ABobjectives.GoldMine = nil
-				ABobjectives.LumberMill = nil
-				ABobjectives.Stables = nil
-				if BlacksmithInit then
-					ABobjectives.Blacksmith = BlacksmithInit + 100
-				end
-				if FarmInit then
-					ABobjectives.Farm = FarmInit + 200
-				end
-				if GoldMineInit then
-					ABobjectives.GoldMine = GoldMineInit + 300
-				end
-				if LumberMillInit then
-					ABobjectives.LumberMill = LumberMillInit + 400
-				end
-				if StablesInit then
-					ABobjectives.Stables = StablesInit + 500
-				end
-			end
-			if MyZone == "Zone_AlteracValley" then
-				local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
-				local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
-				local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
-				local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
-				local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
-				local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
-				local FrostwolfGraveyardInit = select(4, GetMapLandmarkInfo(6))
-				local FrostwolfReliefHutInit = select(4, GetMapLandmarkInfo(8))
-				local IcebloodGraveyardInit = select(4, GetMapLandmarkInfo(10))
-				local IcebloodTowerInit = select(4, GetMapLandmarkInfo(11))
-				local IcewingBunkerInit = select(4, GetMapLandmarkInfo(12))
-				local IrondeepMineInit = select(4, GetMapLandmarkInfo(14))
-				local SnowfallGraveyardInit = select(4, GetMapLandmarkInfo(15))
-				local StonehearthBunkerInit = select(4, GetMapLandmarkInfo(16))
-				local StonehearthGraveyardInit = select(4, GetMapLandmarkInfo(17))
-				local StormpikeAidStationInit = select(4, GetMapLandmarkInfo(19))
-				local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
-				local TowerPointInit = select(4, GetMapLandmarkInfo(21))
-				local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
-				AVandIOCAobjectives.AllianceReinforcements = nil
-				AVandIOCHobjectives.HordeReinforcements = nil
-				AVobjectives.ColdtoothMine = nil
-				AVobjectives.DunBaldarNorthBunker = nil
-				AVobjectives.DunBaldarSouthBunker = nil
-				AVobjectives.EastFrostwolfTower = nil
-				AVobjectives.FrostwolfGraveyard = nil
-				AVobjectives.FrostwolfReliefHut = nil
-				AVobjectives.IcebloodGraveyard = nil
-				AVobjectives.IcebloodTower = nil
-				AVobjectives.IcewingBunker = nil
-				AVobjectives.IrondeepMine = nil
-				AVobjectives.SnowfallGraveyard = nil
-				AVobjectives.StonehearthBunker = nil
-				AVobjectives.StonehearthGraveyard = nil
-				AVobjectives.StormpikeAidStation = nil
-				AVobjectives.StormpikeGraveyard = nil
-				AVobjectives.TowerPoint = nil
-				AVobjectives.WestFrostwolfTower = nil
-				AVandIOCAobjectives.AllianceReinforcements = AVandIOCAInit
-				AVandIOCHobjectives.HordeReinforcements = AVandIOCHInit
-				if ColdtoothMineInit then
-					AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
-				end
-				if DunBaldarNorthBunkerInit then
-					AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
-				end
-				if DunBaldarSouthBunkerInit then
-					AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
-				end
-				if EastFrostwolfTowerInit then
-					AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
-				end
-				if FrostwolfGraveyardInit then
-					AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
-				end
-				if FrostwolfReliefHutInit then
-					AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
-				end
-				if IcebloodGraveyardInit then
-					AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
-				end
-				if IcebloodTowerInit then
-					AVobjectives.IcebloodTower = IcebloodTowerInit + 800
-				end
-				if IcewingBunkerInit then
-					AVobjectives.IcewingBunker = IcewingBunkerInit + 900
-				end
-				if IrondeepMineInit then
-					AVobjectives.IrondeepMine = IrondeepMineInit + 1000
-				end
-				if SnowfallGraveyardInit then
-					AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
-				end
-				if StonehearthBunkerInit then
-					AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
-				end
-				if StonehearthGraveyardInit then
-					AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
-				end
-				if StormpikeAidStationInit then
-					AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
-				end
-				if StormpikeGraveyardInit then
-					AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
-				end
-				if TowerPointInit then
-					AVobjectives.TowerPoint = TowerPointInit + 1600
-				end
-				if WestFrostwolfTowerInit then
-					AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
-				end
-			end
-			if MyZone == "Zone_IsleofConquest" then
-				--[[local j, k, l, m, n, o, p, q, r, s, t
-				if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-					j = 1
-					k = 2
-					l = 3
-					m = 6
-					n = 7
-					o = 8
-					p = 9
-					q = 10
-					r = 13
-					s = 14
-					t = 15
-				elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
-					j = 1
-					k = 2
-					l = 3
-					m = 6
-					n = 7
-					o = 8
-					p = 9
-					q = 10
-					r = 12
-					s = 13
-					t = 14
-				elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-					j = 1
-					k = 2
-					l = 3
-					m = 5
-					n = 6
-					o = 7
-					p = 8
-					q = 9
-					r = 12
-					s = 13
-					t = 14
-				else
-					j = 1
-					k = 2
-					l = 3
-					m = 5
-					n = 6
-					o = 7
-					p = 8
-					q = 9
-					r = 11
-					s = 12
-					t = 13
-				end]]
-				local AllianceGateEInit = select(4, GetMapLandmarkInfo(9))
-				local AllianceGateWInit = select(4, GetMapLandmarkInfo(10))
-				local AllianceGateSInit = select(4, GetMapLandmarkInfo(11))
-				local DocksInit = select(4, GetMapLandmarkInfo(3))
-				local HangarInit = select(4, GetMapLandmarkInfo(2))
-				local HordeGateEInit = select(4, GetMapLandmarkInfo(7))
-				local HordeGateWInit = select(4, GetMapLandmarkInfo(8))
-				local HordeGateNInit = select(4, GetMapLandmarkInfo(6))
-				local QuarryInit = select(4, GetMapLandmarkInfo(4))
-				local RefinerieInit = select(4, GetMapLandmarkInfo(5))
-				local WorkshopInit = select(4, GetMapLandmarkInfo(1))
-				IOCobjectives.AllianceGateE = nil
-				IOCobjectives.AllianceGateW = nil
-				IOCobjectives.AllianceGateS = nil
-				IOCobjectives.Docks = nil
-				IOCobjectives.Hangar = nil
-				IOCobjectives.HordeGateE = nil
-				IOCobjectives.HordeGateW = nil
-				IOCobjectives.HordeGateN = nil
-				IOCobjectives.Quarry = nil
-				IOCobjectives.Refinerie = nil
-				IOCobjectives.Workshop = nil
-				if AllianceGateEInit then
-					IOCobjectives.AllianceGateE = AllianceGateEInit + 100
-				end
-				if AllianceGateWInit then
-					IOCobjectives.AllianceGateW = AllianceGateWInit + 200
-				end
-				if AllianceGateSInit then
-					IOCobjectives.AllianceGateS = AllianceGateSInit + 300
-				end
-				IOCobjectives.Docks = DocksInit
-				IOCobjectives.Hangar = HangarInit
-				if HordeGateEInit then
-					IOCobjectives.HordeGateE = HordeGateEInit + 400
-				end
-				if HordeGateWInit then
-					IOCobjectives.HordeGateW = HordeGateWInit + 500
-				end
-				if HordeGateNInit then
-					IOCobjectives.HordeGateN = HordeGateNInit + 600
-				end
-				IOCobjectives.Quarry = QuarryInit
-				IOCobjectives.Refinerie = RefinerieInit
-				IOCobjectives.Workshop = WorkshopInit
-			end
-			--delete it
-			if MyZone == "Zone_StrandoftheAncients" then
-				local j, k, l, m, n, o, p, q, r
-				if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
-					j = 1
-					k = 2
-					l = 3
-					m = 4
-					n = 5
-					o = 6
-					p = 7
-					q = 9
-					r = 12
-				elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
-					j = 2
-					k = 3
-					l = 4
-					m = 5
-					n = 6
-					o = 7
-					p = 8
-					q = 9
-					r = 12
-				else
-					j = 1
-					k = 2
-					l = 3
-					m = 4
-					n = 5
-					o = 6
-					p = nil
-					q = nil
-					r = nil
-				end
-				local ChamberofAncientRelicsInit = select(4, GetMapLandmarkInfo(j))
-				local EastGraveyardInit = select(4, GetMapLandmarkInfo(k))
-				local GateoftheBlueSapphireInit = select(4, GetMapLandmarkInfo(3))
-				local GateoftheGreenEmeraldInit = select(4, GetMapLandmarkInfo(4))
-				local GateofthePurpleAmethystInit = select(4, GetMapLandmarkInfo(1))
-				local GateoftheRedSunInit = select(4, GetMapLandmarkInfo(2))
-				local GateoftheYellowMoonInit
-				local SouthGraveyardInit
-				local WestGraveyardInit
-				if p ~= nil then
-					GateoftheYellowMoonInit = select(4, GetMapLandmarkInfo(p))
-				end
-				if q ~= nil then
-					SouthGraveyardInit = select(4, GetMapLandmarkInfo(q))
-				end
-				if r ~= nil then
-					WestGraveyardInit = select(4, GetMapLandmarkInfo(r))
-				end
-				SOTAobjectives.ChamberofAncientRelics = nil
-				SOTAobjectives.EastGraveyard = nil
-				SOTAobjectives.GateoftheBlueSapphire = nil
-				SOTAobjectives.GateoftheGreenEmerald = nil
-				SOTAobjectives.GateofthePurpleAmethyst = nil
-				SOTAobjectives.GateoftheRedSun = nil
-				SOTAobjectives.GateoftheYellowMoon = nil
-				SOTAobjectives.SouthGraveyard = nil
-				SOTAobjectives.WestGraveyard = nil
-				if ChamberofAncientRelicsInit then
-					SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
-				end
-				if EastGraveyardInit then
-					SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
-				end
-				SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
-				SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
-				SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
-				SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
-				if p ~= nil and GateoftheYellowMoonInit then
-					SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
-				end
-				if q ~= nil and SouthGraveyardInit then
-					SOTAobjectives.SouthGraveyard = SouthGraveyardInit + 800
-				end
-				if r ~= nil and WestGraveyardInit then
-					SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
-				end
-			end
-			
-			if MyZone == "Zone_TheBattleforGilneas" then
-				local LighthouseInit = select(4, GetMapLandmarkInfo(3))
-				local MinesInit = select(4, GetMapLandmarkInfo(1))
-				local WaterworksInit = select(4, GetMapLandmarkInfo(2))
-				TBFGobjectives.Lighthouse = nil
-				TBFGobjectives.Mines = nil
-				TBFGobjectives.Waterworks = nil
-				if LighthouseInit then
-					TBFGobjectives.Lighthouse = LighthouseInit + 100
-				end
-				if MinesInit then
-					TBFGobjectives.Mines = MinesInit + 200
-				end
-				if WaterworksInit then
-					TBFGobjectives.Waterworks = WaterworksInit + 300
-				end
-			end
-			if MyZone == "Zone_DeepwindGorge" then
-				local CentralMineInit = select(4, GetMapLandmarkInfo(3))
-				local GoblinMineInit = select(4, GetMapLandmarkInfo(2))
-				local PandarenMineInit = select(4, GetMapLandmarkInfo(1))
-				DGobjectives.CentralMine = nil
-				DGobjectives.GoblinMine = nil
-				DGobjectives.PandarenMine = nil
-				if CentralMineInit then
-					DGobjectives.CentralMine = CentralMineInit + 100
-				end
-				if GoblinMineInit then
-					DGobjectives.GoblinMine = GoblinMineInit + 200
-				end
-				if PandarenMineInit then
-					DGobjectives.PandarenMine = PandarenMineInit + 300
-				end
-
-				self.AllianceCartPositionX = nil
-				self.AllianceCartPositionY = nil
-				self.HordeCartPositionX = nil
-				self.HordeCartPositionY = nil
-			end
-			if MyZone == "Zone_SilvershardMines" then
-				local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
-				local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
-				SMWINobjectives.Resources = nil
-				if HordeScoreInit then
-					SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
-				end
-				if AllianceScoreInit then
-					SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
-				end
-			end
-			if MyZone == "Zone_Wintergrasp" then
-				local isActive = (select(5, GetWorldPVPAreaInfo(1)))
-				if isActive == 0 then
-					BgIsOver = false
-				end
-				local FlamewatchTowerInit = select(4, GetMapLandmarkInfo(5))
-				local FortressGraveyardInit = select(4, GetMapLandmarkInfo(6))
-				local ShadowsightTowerInit = select(4, GetMapLandmarkInfo(9))
-				local WintersEdgeTowerInit = select(4, GetMapLandmarkInfo(15))
-				local WintergraspFortressTowerNEInit = select(4, GetMapLandmarkInfo(18))
-				local WintergraspFortressTowerNWInit = select(4, GetMapLandmarkInfo(19))
-				local WintergraspFortressTowerSEInit = select(4, GetMapLandmarkInfo(20))
-				local WintergraspFortressTowerSWInit = select(4, GetMapLandmarkInfo(21))
-				WGobjectives.FlamewatchTower = nil
-				WGobjectives.FortressGraveyard = nil
-				WGobjectives.ShadowsightTower = nil
-				WGobjectives.WintersEdgeTower = nil
-				WGobjectives.WintergraspFortressTowerNE = nil
-				WGobjectives.WintergraspFortressTowerNW = nil
-				WGobjectives.WintergraspFortressTowerSE = nil
-				WGobjectives.WintergraspFortressTowerSW = nil
-				if FlamewatchTowerInit then
-					WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
-				end
-				if FortressGraveyardInit then
-					WGobjectives.FortressGraveyard = FortressGraveyardInit
-
-				end
-				if ShadowsightTowerInit then
-					WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
-
-				end
-				if WintersEdgeTowerInit then
-					WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
-
-				end
-				if WintergraspFortressTowerNEInit then
-					WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
-
-				end
-				if WintergraspFortressTowerNWInit then
-					WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
-
-				end
-				if WintergraspFortressTowerSEInit then
-					WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
-
-				end
-				if WintergraspFortressTowerSWInit then
-					WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
-				end
-			end
-			if MyZone == "Zone_TolBarad" then
-				local isActive = (select(5, GetWorldPVPAreaInfo(2)))
-				if isActive == 0 then
-					BgIsOver = false
-				end
-				--[[local j, k, l, m, n, o
-				if (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
-					j = 4
-					k = 5
-					l = 8
-					m = 2
-					n = 6
-					o = 9
-				elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
-					j = 4
-					k = 5
-					l = 7
-					m = 2
-					n = 6
-					o = 8
-				elseif (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
-					j = 3
-					k = 4
-					l = 7
-					m = 2
-					n = 5
-					o = 8
-				else
-					j = 3
-					k = 4
-					l = 6
-					m = 2
-					n = 5
-					o = 7
-				end]]
-				local BaradinHoldInit = (select(4, GetMapLandmarkInfo(GetNumMapLandmarks())))
-				local IroncladGarrisonInit = (select(4, GetMapLandmarkInfo(1)))
-				local WardensVigilInit = (select(4, GetMapLandmarkInfo(2)))
-				local SlagworksInit = (select(4, GetMapLandmarkInfo(3)))
-				local EastSpireInit = (select(4, GetMapLandmarkInfo(4)))
-				local SouthSpireInit = (select(4, GetMapLandmarkInfo(5)))
-				local WestSpireInit = (select(4, GetMapLandmarkInfo(6)))
-				TBobjectives.BaradinHold = BaradinHoldInit
-				if IroncladGarrisonInit then
-					TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
-				end
-				if WardensVigilInit then
-					TBobjectives.WardensVigil = WardensVigilInit + 200
-				end
-				if SlagworksInit then
-					TBobjectives.Slagworks = SlagworksInit + 300
-				end
-				if EastSpireInit then
-					TBobjectives.EastSpire = EastSpireInit + 400
-				end
-				if SouthSpireInit then
-					TBobjectives.SouthSpire = SouthSpireInit + 500
-				end
-				if WestSpireInit then
-					TBobjectives.WestSpire = WestSpireInit + 600
-				end
-			end
 		end
 
 		if event == "PLAYER_DEAD" then
@@ -1668,606 +1686,14 @@ end--delete it whith comments
 		end
 
 		if PS_BattlegroundSound == true then --only for BG and arena 
-			if event == "ZONE_CHANGED_NEW_AREA" then --repeat things, we do on player entering world each time zone chages the same mistakes--don't know if it's needed after upper set
-				SetMapToCurrentZone()
-				CurrentZoneId = GetCurrentMapAreaID()
-				CurrentZoneText = GetRealZoneText()
-				InstanceType = (select(2, IsInInstance()))
-				IsRated = IsRatedBattleground()
+			if event == "ZONE_CHANGED_NEW_AREA" then --repeat things we do on player entering world
 				BgIsOver = false
-				-- Battlegrounds
-				if CurrentZoneId == 443 and InstanceType == "pvp" then
-					MyZone = "Zone_WarsongGulch"
-				elseif CurrentZoneId == 461 and InstanceType == "pvp" then
-					MyZone = "Zone_ArathiBasin"
-				elseif CurrentZoneId == 401 and InstanceType == "pvp" then
-					MyZone = "Zone_AlteracValley"
-				elseif (CurrentZoneId == 482 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then
-					MyZone = "Zone_EyeoftheStorm"
-				elseif CurrentZoneId == 540 and InstanceType == "pvp" then
-					MyZone = "Zone_IsleofConquest"
-				elseif CurrentZoneId == 512 and InstanceType == "pvp" then
-					MyZone = "Zone_StrandoftheAncients"
-					SotaRoundOver = false
-				elseif CurrentZoneId == 626 and InstanceType == "pvp" then
-					MyZone = "Zone_TwinPeaks"
-				elseif CurrentZoneId == 736 and InstanceType == "pvp" then
-					MyZone = "Zone_TheBattleforGilneas"
-				elseif CurrentZoneId == 856 and InstanceType == "pvp" then
-					MyZone = "Zone_TempleofKotmogu"
-				elseif CurrentZoneId == 860 and InstanceType == "pvp" then
-					MyZone = "Zone_SilvershardMines"
-				elseif CurrentZoneId == 935 and InstanceType == "pvp" then
-					MyZone = "Zone_DeepwindGorge"
-				 -- Battlefields
-				elseif CurrentZoneId == 501 then
-					MyZone = "Zone_Wintergrasp"
-				elseif CurrentZoneId == 708 then
-					MyZone = "Zone_TolBarad"
-				 -- Arenas
-				elseif InstanceType == "arena" then
-					MyZone = "Zone_Arenas"
-				else
-					MyZone = ""
-				end
-				-- Payback Kill time
-				if MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_TolBarad" then
-					PS.PaybackKillTime = 120
-				else
-					PS.PaybackKillTime = 90
-				end
-				-- Initialization
-				if MyZone == "Zone_IsleofConquest" then
-					IocAllianceGateDown = false
-					IocHordeGateDown = false
-					-- Alliance Gates
-					for i = 9, 11, 1 do
-						if select(4, GetMapLandmarkInfo(i)) == 82 then
-							IocAllianceGateDown = true
-						end
-					end
-					-- Horde Gates
-					for i = 6, 8, 1 do
-						if select(4, GetMapLandmarkInfo(i)) == 79 then
-							IocHordeGateDown = true
-						end
-					end
-				end
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
-					local i
-					if MyZone == "Zone_StrandoftheAncients" then
-						i = 7
-					elseif MyZone == "Zone_Arenas" then
-						if CurrentZoneText == L["Ashamane's Fall"] or CurrentZoneText == L["Blade's Edge Arena"] then
-							i = 4
-						elseif CurrentZoneText == L["Nagrand Arena"] then
-							i = 6
-						elseif CurrentZoneText == L["Dalaran Arena"] or CurrentZoneText == L["Ruins of Lordaeron"] or CurrentZoneText == L["The Tiger's Peak"] or CurrentZoneText == L["Tol'viron Arena"] then
-							i = 3
-						else
-							i = 4
-						end
-					elseif MyZone == "Zone_TolBarad" then
-						i = 1
-					elseif MyZone == "Zone_WarsongGulch" then
-						i = 3
-					else
-						i = 4
-					end
-					if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-						-- Time Remaining
-						local TimeRemainingInit = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
-						TimeRemainingobjectives.TimeRemaining = nil
-						TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
-					end
-					if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(2))) ~= nil then
-						-- Alliance Score
-						local AllianceScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
-						WSGandTPAobjectives.AllianceScore = nil
-						WSGandTPAobjectives.AllianceScore = AllianceScoreInit
-						-- Horde Score
-						local HordeScoreInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
-						WSGandTPHobjectives.HordeScore = nil
-						WSGandTPHobjectives.HordeScore = HordeScoreInit
-
-						self.AllianceFlagPositionX = nil
-						self.AllianceFlagPositionY = nil
-						self.HordeFlagPositionX = nil
-						self.HordeFlagPositionY = nil
-					end
-				end
-				if MyZone == "Zone_EyeoftheStorm" then
-					--[[if IsRated == false then
-						EOTSWINobjectives.VictoryPoints = nil
-						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
-						EOTSWINobjectives.VictoryPoints = EOTSWINInit
-						local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
-						EOTSWINobjectives.VictoryPoints = EOTSWINInit
-					end]]
-					local BloodElfTowerInit = select(4, GetMapLandmarkInfo(1))
-					local DraeneiRuinsInit = select(4, GetMapLandmarkInfo(4))
-					local FelReaverRuinsInit = select(4, GetMapLandmarkInfo(3))
-					local MageTowerInit = select(4, GetMapLandmarkInfo(3))
-					EOTSobjectives.BloodElfTower = nil
-					EOTSobjectives.DraeneiRuins = nil
-					EOTSobjectives.FelReaverRuins = nil
-					EOTSobjectives.MageTower = nil
-					if BloodElfTowerInit then
-						EOTSobjectives.BloodElfTower = BloodElfTowerInit + 100
-					end
-					if DraeneiRuinsInit then
-						EOTSobjectives.DraeneiRuins = DraeneiRuinsInit + 200
-					end
-					if FelReaverRuinsInit then
-						EOTSobjectives.FelReaverRuins = FelReaverRuinsInit + 300
-					end
-					if MageTowerInit then
-						EOTSobjectives.MageTower = MageTowerInit + 400
-					end
-				end
-				if MyZone == "Zone_ArathiBasin" then
-					local BlacksmithInit = select(4, GetMapLandmarkInfo(2))
-					local FarmInit = select(4, GetMapLandmarkInfo(5))
-					local GoldMineInit = select(4, GetMapLandmarkInfo(4))
-					local LumberMillInit = select(4, GetMapLandmarkInfo(3))
-					local StablesInit = select(4, GetMapLandmarkInfo(1))
-					ABobjectives.Blacksmith = nil
-					ABobjectives.Farm = nil
-					ABobjectives.GoldMine = nil
-					ABobjectives.LumberMill = nil
-					ABobjectives.Stables = nil
-					if BlacksmithInit then
-						ABobjectives.Blacksmith = BlacksmithInit + 100
-					end
-					if FarmInit then
-						ABobjectives.Farm = FarmInit + 200
-					end
-					if GoldMineInit then
-						ABobjectives.GoldMine = GoldMineInit + 300
-					end
-					if LumberMillInit then
-						ABobjectives.LumberMill = LumberMillInit + 400
-					end
-					if StablesInit then
-						ABobjectives.Stables = StablesInit + 500
-					end
-				end
-				if MyZone == "Zone_AlteracValley" then
-					local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
-					local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
-					local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
-					local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
-					local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
-					local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
-					local FrostwolfGraveyardInit = select(4, GetMapLandmarkInfo(6))
-					local FrostwolfReliefHutInit = select(4, GetMapLandmarkInfo(8))
-					local IcebloodGraveyardInit = select(4, GetMapLandmarkInfo(10))
-					local IcebloodTowerInit = select(4, GetMapLandmarkInfo(11))
-					local IcewingBunkerInit = select(4, GetMapLandmarkInfo(12))
-					local IrondeepMineInit = select(4, GetMapLandmarkInfo(14))
-					local SnowfallGraveyardInit = select(4, GetMapLandmarkInfo(15))
-					local StonehearthBunkerInit = select(4, GetMapLandmarkInfo(16))
-					local StonehearthGraveyardInit = select(4, GetMapLandmarkInfo(17))
-					local StormpikeAidStationInit = select(4, GetMapLandmarkInfo(19))
-					local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
-					local TowerPointInit = select(4, GetMapLandmarkInfo(21))
-					local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
-					AVandIOCAobjectives.AllianceReinforcements = nil
-					AVandIOCHobjectives.HordeReinforcements = nil
-					AVobjectives.ColdtoothMine = nil
-					AVobjectives.DunBaldarNorthBunker = nil
-					AVobjectives.DunBaldarSouthBunker = nil
-					AVobjectives.EastFrostwolfTower = nil
-					AVobjectives.FrostwolfGraveyard = nil
-					AVobjectives.FrostwolfReliefHut = nil
-					AVobjectives.IcebloodGraveyard = nil
-					AVobjectives.IcebloodTower = nil
-					AVobjectives.IcewingBunker = nil
-					AVobjectives.IrondeepMine = nil
-					AVobjectives.SnowfallGraveyard = nil
-					AVobjectives.StonehearthBunker = nil
-					AVobjectives.StonehearthGraveyard = nil
-					AVobjectives.StormpikeAidStation = nil
-					AVobjectives.StormpikeGraveyard = nil
-					AVobjectives.TowerPoint = nil
-					AVobjectives.WestFrostwolfTower = nil
-					AVandIOCAobjectives.AllianceReinforcements = AVandIOCAInit
-					AVandIOCHobjectives.HordeReinforcements = AVandIOCHInit
-					if ColdtoothMineInit then
-						AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
-					end
-					if DunBaldarNorthBunkerInit then
-						AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
-					end
-					if DunBaldarSouthBunkerInit then
-						AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
-					end
-					if EastFrostwolfTowerInit then
-						AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
-					end
-					if FrostwolfGraveyardInit then
-						AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
-					end
-					if FrostwolfReliefHutInit then
-						AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
-					end
-					if IcebloodGraveyardInit then
-						AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
-					end
-					if IcebloodTowerInit then
-						AVobjectives.IcebloodTower = IcebloodTowerInit + 800
-					end
-					if IcewingBunkerInit then
-						AVobjectives.IcewingBunker = IcewingBunkerInit + 900
-					end
-					if IrondeepMineInit then
-						AVobjectives.IrondeepMine = IrondeepMineInit + 1000
-					end
-					if SnowfallGraveyardInit then
-						AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
-					end
-					if StonehearthBunkerInit then
-						AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
-					end
-					if StonehearthGraveyardInit then
-						AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
-					end
-					if StormpikeAidStationInit then
-						AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
-					end
-					if StormpikeGraveyardInit then
-						AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
-					end
-					if TowerPointInit then
-						AVobjectives.TowerPoint = TowerPointInit + 1600
-					end
-					if WestFrostwolfTowerInit then
-						AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
-					end
-				end
-				if MyZone == "Zone_IsleofConquest" then
-					--[[local j, k, l, m, n, o, p, q, r, s, t
-					if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-						j = 1
-						k = 2
-						l = 3
-						m = 6
-						n = 7
-						o = 8
-						p = 9
-						q = 10
-						r = 13
-						s = 14
-						t = 15
-					elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
-						j = 1
-						k = 2
-						l = 3
-						m = 6
-						n = 7
-						o = 8
-						p = 9
-						q = 10
-						r = 12
-						s = 13
-						t = 14
-					elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-						j = 1
-						k = 2
-						l = 3
-						m = 5
-						n = 6
-						o = 7
-						p = 8
-						q = 9
-						r = 12
-						s = 13
-						t = 14
-					else
-						j = 1
-						k = 2
-						l = 3
-						m = 5
-						n = 6
-						o = 7
-						p = 8
-						q = 9
-						r = 11
-						s = 12
-						t = 13
-					end]]
-					local AllianceGateEInit = select(4, GetMapLandmarkInfo(9))
-					local AllianceGateWInit = select(4, GetMapLandmarkInfo(10))
-					local AllianceGateSInit = select(4, GetMapLandmarkInfo(11))
-					local DocksInit = select(4, GetMapLandmarkInfo(3))
-					local HangarInit = select(4, GetMapLandmarkInfo(2))
-					local HordeGateEInit = select(4, GetMapLandmarkInfo(7))
-					local HordeGateWInit = select(4, GetMapLandmarkInfo(8))
-					local HordeGateNInit = select(4, GetMapLandmarkInfo(6))
-					local QuarryInit = select(4, GetMapLandmarkInfo(4))
-					local RefinerieInit = select(4, GetMapLandmarkInfo(5))
-					local WorkshopInit = select(4, GetMapLandmarkInfo(1))
-					IOCobjectives.AllianceGateE = nil
-					IOCobjectives.AllianceGateW = nil
-					IOCobjectives.AllianceGateS = nil
-					IOCobjectives.Docks = nil
-					IOCobjectives.Hangar = nil
-					IOCobjectives.HordeGateE = nil
-					IOCobjectives.HordeGateW = nil
-					IOCobjectives.HordeGateN = nil
-					IOCobjectives.Quarry = nil
-					IOCobjectives.Refinerie = nil
-					IOCobjectives.Workshop = nil
-					if AllianceGateEInit then
-						IOCobjectives.AllianceGateE = AllianceGateEInit + 100
-					end
-					if AllianceGateWInit then
-						IOCobjectives.AllianceGateW = AllianceGateWInit + 200
-					end
-					if AllianceGateSInit then
-						IOCobjectives.AllianceGateS = AllianceGateSInit + 300
-					end
-					IOCobjectives.Docks = DocksInit
-					IOCobjectives.Hangar = HangarInit
-					if HordeGateEInit then
-						IOCobjectives.HordeGateE = HordeGateEInit + 400
-					end
-					if HordeGateWInit then
-						IOCobjectives.HordeGateW = HordeGateWInit + 500
-					end
-					if HordeGateNInit then
-						IOCobjectives.HordeGateN = HordeGateNInit + 600
-					end
-					IOCobjectives.Quarry = QuarryInit
-					IOCobjectives.Refinerie = RefinerieInit
-					IOCobjectives.Workshop = WorkshopInit
-				end
-				if MyZone == "Zone_StrandoftheAncients" then
-					local j, k, l, m, n, o, p, q, r
-					if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
-						j = 1
-						k = 2
-						l = 3
-						m = 4
-						n = 5
-						o = 6
-						p = 7
-						q = 9
-						r = 12
-					elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
-						j = 2
-						k = 3
-						l = 4
-						m = 5
-						n = 6
-						o = 7
-						p = 8
-						q = 9
-						r = 12
-					else
-						j = 1
-						k = 2
-						l = 3
-						m = 4
-						n = 5
-						o = 6
-						p = nil
-						q = nil
-						r = nil
-					end
-					local ChamberofAncientRelicsInit = select(4, GetMapLandmarkInfo(j))
-					local EastGraveyardInit = select(4, GetMapLandmarkInfo(k))
-					local GateoftheBlueSapphireInit = select(4, GetMapLandmarkInfo(3))
-					local GateoftheGreenEmeraldInit = select(4, GetMapLandmarkInfo(4))
-					local GateofthePurpleAmethystInit = select(4, GetMapLandmarkInfo(1))
-					local GateoftheRedSunInit = select(4, GetMapLandmarkInfo(2))
-					local GateoftheYellowMoonInit
-					local SouthGraveyardInit
-					local WestGraveyardInit
-					if p ~= nil then
-						GateoftheYellowMoonInit = select(4, GetMapLandmarkInfo(p))
-					end
-					if q ~= nil then
-						SouthGraveyardInit = select(4, GetMapLandmarkInfo(q))
-					end
-					if r ~= nil then
-						WestGraveyardInit = select(4, GetMapLandmarkInfo(r))
-					end
-					SOTAobjectives.ChamberofAncientRelics = nil
-					SOTAobjectives.EastGraveyard = nil
-					SOTAobjectives.GateoftheBlueSapphire = nil
-					SOTAobjectives.GateoftheGreenEmerald = nil
-					SOTAobjectives.GateofthePurpleAmethyst = nil
-					SOTAobjectives.GateoftheRedSun = nil
-					SOTAobjectives.GateoftheYellowMoon = nil
-					SOTAobjectives.SouthGraveyard = nil
-					SOTAobjectives.WestGraveyard = nil
-					if ChamberofAncientRelicsInit then
-						SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
-					end
-					if EastGraveyardInit then
-						SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
-					end
-					SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
-					SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
-					SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
-					SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
-					if p ~= nil and GateoftheYellowMoonInit then
-						SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
-					end
-					if q ~= nil and SouthGraveyardInit then
-						SOTAobjectives.SouthGraveyard = SouthGraveyardInit + 800
-					end
-					if r ~= nil and WestGraveyardInit then
-						SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
-					end
-				end
-				if MyZone == "Zone_TheBattleforGilneas" then
-					local LighthouseInit = select(4, GetMapLandmarkInfo(3))
-					local MinesInit = select(4, GetMapLandmarkInfo(1))
-					local WaterworksInit = select(4, GetMapLandmarkInfo(2))
-					TBFGobjectives.Lighthouse = nil
-					TBFGobjectives.Mines = nil
-					TBFGobjectives.Waterworks = nil
-					if LighthouseInit then
-						TBFGobjectives.Lighthouse = LighthouseInit + 100
-					end
-					if MinesInit then
-						TBFGobjectives.Mines = MinesInit + 200
-					end
-					if WaterworksInit then
-						TBFGobjectives.Waterworks = WaterworksInit + 300
-					end
-				end
-				if MyZone == "Zone_DeepwindGorge" then
-					local CentralMineInit = select(4, GetMapLandmarkInfo(3))
-					local GoblinMineInit = select(4, GetMapLandmarkInfo(2))
-					local PandarenMineInit = select(4, GetMapLandmarkInfo(1))
-					DGobjectives.CentralMine = nil
-					DGobjectives.GoblinMine = nil
-					DGobjectives.PandarenMine = nil
-					if CentralMineInit then
-						DGobjectives.CentralMine = CentralMineInit + 100
-					end
-					if GoblinMineInit then
-						DGobjectives.GoblinMine = GoblinMineInit + 200
-					end
-					if PandarenMineInit then
-						DGobjectives.PandarenMine = PandarenMineInit + 300
-					end
-
-					self.AllianceCartPositionX = nil
-					self.AllianceCartPositionY = nil
-					self.HordeCartPositionX = nil
-					self.HordeCartPositionY = nil
-				end
-				if MyZone == "Zone_SilvershardMines" then
-					local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
-					local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
-					SMWINobjectives.Resources = nil
-					if HordeScoreInit then
-						SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
-					end
-					if AllianceScoreInit then
-						SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
-					end
-				end
-				if MyZone == "Zone_Wintergrasp" then
-					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
-					if isActive == 0 then
-						BgIsOver = false
-					end
-					local FlamewatchTowerInit = select(4, GetMapLandmarkInfo(5))
-					local FortressGraveyardInit = select(4, GetMapLandmarkInfo(6))
-					local ShadowsightTowerInit = select(4, GetMapLandmarkInfo(9))
-					local WintersEdgeTowerInit = select(4, GetMapLandmarkInfo(15))
-					local WintergraspFortressTowerNEInit = select(4, GetMapLandmarkInfo(18))
-					local WintergraspFortressTowerNWInit = select(4, GetMapLandmarkInfo(19))
-					local WintergraspFortressTowerSEInit = select(4, GetMapLandmarkInfo(20))
-					local WintergraspFortressTowerSWInit = select(4, GetMapLandmarkInfo(21))
-					WGobjectives.FlamewatchTower = nil
-					WGobjectives.FortressGraveyard = nil
-					WGobjectives.ShadowsightTower = nil
-					WGobjectives.WintersEdgeTower = nil
-					WGobjectives.WintergraspFortressTowerNE = nil
-					WGobjectives.WintergraspFortressTowerNW = nil
-					WGobjectives.WintergraspFortressTowerSE = nil
-					WGobjectives.WintergraspFortressTowerSW = nil
-					if FlamewatchTowerInit then
-						WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
-					end
-					if FortressGraveyardInit then
-						WGobjectives.FortressGraveyard = FortressGraveyardInit
-
-					end
-					if ShadowsightTowerInit then
-						WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
-
-					end
-					if WintersEdgeTowerInit then
-						WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
-
-					end
-					if WintergraspFortressTowerNEInit then
-						WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
-
-					end
-					if WintergraspFortressTowerNWInit then
-						WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
-
-					end
-					if WintergraspFortressTowerSEInit then
-						WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
-
-					end
-					if WintergraspFortressTowerSWInit then
-						WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
-					end
-				end
-				if MyZone == "Zone_TolBarad" then
-					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
-					if isActive == 0 then
-						BgIsOver = false
-					end
-					--[[local j, k, l, m, n, o
-					if (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 and (select(5, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(7)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(7))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(7)))), 1, 4)) == 0.78 then
-						j = 4
-						k = 5
-						l = 8
-						m = 2
-						n = 6
-						o = 9
-					elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.73 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.33 then
-						j = 4
-						k = 5
-						l = 7
-						m = 2
-						n = 6
-						o = 8
-					elseif (select(5, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(6)))), 1, 4)) == 0.52 and (select(6, GetMapLandmarkInfo(6))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(6)))), 1, 4)) == 0.78 then
-						j = 3
-						k = 4
-						l = 7
-						m = 2
-						n = 5
-						o = 8
-					else
-						j = 3
-						k = 4
-						l = 6
-						m = 2
-						n = 5
-						o = 7
-					end]]
-					local BaradinHoldInit = (select(4, GetMapLandmarkInfo(GetNumMapLandmarks())))
-					local IroncladGarrisonInit = (select(4, GetMapLandmarkInfo(1)))
-					local WardensVigilInit = (select(4, GetMapLandmarkInfo(2)))
-					local SlagworksInit = (select(4, GetMapLandmarkInfo(3)))
-					local EastSpireInit = (select(4, GetMapLandmarkInfo(4)))
-					local SouthSpireInit = (select(4, GetMapLandmarkInfo(5)))
-					local WestSpireInit = (select(4, GetMapLandmarkInfo(6)))
-					TBobjectives.BaradinHold = BaradinHoldInit
-					if IroncladGarrisonInit then
-						TBobjectives.IroncladGarrison = IroncladGarrisonInit + 100
-					end
-					if WardensVigilInit then
-						TBobjectives.WardensVigil = WardensVigilInit + 200
-					end
-					if SlagworksInit then
-						TBobjectives.Slagworks = SlagworksInit + 300
-					end
-					if EastSpireInit then
-						TBobjectives.EastSpire = EastSpireInit + 400
-					end
-					if SouthSpireInit then
-						TBobjectives.SouthSpire = SouthSpireInit + 500
-					end
-					if WestSpireInit then
-						TBobjectives.WestSpire = WestSpireInit + 600
-					end
-				end
+				InitializeBgs(self)
+				print(event, " my zone is ", MyZone)
+				print(self.AllianceFlagPositionX)
 				-- Battleground PlaySounds
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" then
+					print("playsound---1------------------")
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
@@ -2292,6 +1718,7 @@ end--delete it whith comments
 							end
 						end
 					else
+						print("playsound---2------------------")
 						if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
 							AlreadyPlaySound = true
@@ -2306,7 +1733,7 @@ end--delete it whith comments
 					KilledMe = nil
 					KilledBy = nil
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PrepareForBattle.mp3")
-				 -- Wintergrasp PlaySounds --Wintergasp and ashran are now also a bg
+				 -- Wintergrasp PlaySounds --Wintergasp and Ashran are now also a bg
 				elseif MyZone == "Zone_Wintergrasp" then
 					TimerReset = true
 					KilledMe = nil
@@ -2380,9 +1807,10 @@ end--delete it whith comments
 					end
 				end
 			end
-			--parcing pvp info from chat
+			--parsing pvp info from chat
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
+				print("---->Event Message    ", EventMessage)
 				-- Tie Game
 				if string.find(EventMessage, L["Tie game"]) and BgIsOver ~= true then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
@@ -2434,6 +1862,7 @@ end--delete it whith comments
 
 			elseif event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then --why are there two events?
 				local EventMessage = select(1, ...)
+				print("---->Event Message A H    ", EventMessage)
 				-- Warsong Gulch and Twin Peaks
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
 					-- Alliance
@@ -4783,7 +4212,7 @@ end--delete it whith comments
 		end
 	end
 end 
-]===]--
+
 
 PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
 --[====[
