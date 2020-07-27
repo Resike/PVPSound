@@ -1620,9 +1620,8 @@ function PVPSound:OnEvent(event, ...)
 	if PS_EnableAddon == true then
 		if event == "PLAYER_ENTERING_WORLD" then --event fires evry time, loading screen appears
 			TimerReset = true
-			print(event, " my zone is ", MyZone)
 			InitializeBgs(self)
-			
+			print(event, " my zone is ", MyZone)
 		end
 
 		if event == "PLAYER_DEAD" then
@@ -1690,10 +1689,10 @@ function PVPSound:OnEvent(event, ...)
 				BgIsOver = false
 				InitializeBgs(self)
 				print(event, " my zone is ", MyZone)
-				print(self.AllianceFlagPositionX)
+				
 				-- Battleground PlaySounds
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" then
-					print("playsound---1------------------")
+					
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
@@ -1718,7 +1717,6 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					else
-						print("playsound---2------------------")
 						if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
 							AlreadyPlaySound = true
@@ -1808,7 +1806,7 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			--parsing pvp info from chat
-			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
+			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then
 				local EventMessage = select(1, ...)
 				print("---->Event Message    ", EventMessage)
 				-- Tie Game
@@ -1819,7 +1817,9 @@ function PVPSound:OnEvent(event, ...)
 					PVPSound:ClearRetributionQueue()
 				 -- Warsong Gulch and Twin Peaks Vulnerable
 				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+					print("IIIIIIIIII----")
 					if string.find(EventMessage, L["Alliance Flag has returned"]) then
+						
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
 
 						self.AllianceFlagPositionX = nil
