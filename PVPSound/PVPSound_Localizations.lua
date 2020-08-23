@@ -1441,8 +1441,8 @@ L["picked"] = "несет" --updated
 L["pickedA"] = "Флаг Альянса у"--updated for 8.0 --for some reason in ru client there is different messages for Alliance and Horde flag picked
 L["returned"] = "вернул"
 L["stolen"] = "получает золото"
-L["The Alliance is victorious"] = "Альянс побеждает"
-L["The Horde is victorious"] = "Орда побеждает"
+L["The Alliance is victorious"] = "Альянс одержал победу!"
+L["The Horde is victorious"] = "Победа за Ордой!"
 -- Battleground Events
 L["Alliance wins"] = "Альянс побеждает"
 L["Alliance wins secondary"] = "Альянс победил"
