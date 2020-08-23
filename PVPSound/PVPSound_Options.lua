@@ -1666,6 +1666,13 @@ function PVPSound:SlashCommands(arg1)
 		if PS_Channel == "Ambience" then
 			print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Ambience]"].."|r")
 		end
+	elseif arg2 == "ex" or arg2 == "execute" or arg2 == "exc" then
+		PS_Execute = not PS_Execute
+		if PS_Execute == true then
+			print("|cFF50C0FF"..L["Execute sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
+		else
+			print("|cFF50C0FF"..L["Execute sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
+		end
 	elseif arg2 == "soundpack ut3" or arg2 == "soundpack unrealtournament3" or arg2 == "sp ut3" or arg2 == "sp unrealtournament3" or arg2 == "soundpackut3" or arg2 == "soundpackunrealtournament3" or arg2 == "sput3" or arg2 == "spunrealtournament3" then
 		PS_SoundPackName = "UnrealTournament3"
 		PS.SoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_SoundPackName
@@ -1816,16 +1823,8 @@ function PVPSound:SlashCommands(arg1)
 		
 			for i = 1, #wgts, 1 do
 				print("Type: ", wgts[i].widgetType)
-				if wgts[i].widgetType==3 then  -- 3="DoubleStatusBar"
-					local info=C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(wgts[i].widgetID)
+				print(" Id: ", wgts[i].widgetID)
 				
-				
-					print(" Id: ", wgts[i].widgetID)
-					print(" Left tooltip: ", info.leftBarTooltip)
-					print(" Left val: ", info.leftBarValue)
-					print(" Right tooltip: ", info.rightBarTooltip)
-					print(" Right val: ", info.rightBarValue)
-				end
 			end
 		end
 	elseif arg2 == "map" then
@@ -1849,10 +1848,14 @@ function PVPSound:SlashCommands(arg1)
 		--updated for 8.0.1 
 		local mapId=C_Map.GetBestMapForUnit("player")
 		local playerPos = C_Map.GetPlayerMapPosition(mapId,"player")
-		print("|cFF50C0FF".."X: ".."|r")
-		print(playerPos.x)
-		print("|cFF50C0FF".."Y: ".."|r")
-		print(playerPos.y)
+		if (playerPos) then
+			print("|cFF50C0FF".."X: ".."|r")
+			print(playerPos.x)
+			print("|cFF50C0FF".."Y: ".."|r")
+			print(playerPos.y)
+		else
+			print("Can't get a position")
+		end
 	elseif arg2=="conflist" then 
 		PVPSound.ConfigDump()
 	
@@ -1883,6 +1886,7 @@ function PVPSound:PrintSlashHelp()
 	print("|cFF50C0FF/ps sctengine - |cFFFFFFA0"..L["Enables or Disables Scrolling Combat Text Queue System usage"].."|r")
 	print("|cFF50C0FF/ps frame'framename' - |cFFFFFFA0"..L["Name of the output frame in the supported Scrolling Combat Text"].."|r")
 	print("|cFF50C0FF/ps hideservername - |cFFFFFFA0"..L["Enables or Disables hiding the player's server name from Data Sharing and Death Messages"].."|r")
+	print("|cFF50C0FF/ps execute - |cFFFFFFA0"..L["Enables or Disables execute sounds"].."|r")
 	print("|cFF50C0FF/ps channel'channelname' - |cFFFFFFA0"..L["Switch between sound channels ('master' 'sound' 'music' 'ambience')"].."|r")
 	print("|cFF50C0FF/ps soundpack'soundpackname' - |cFFFFFFA0"..L["Switch between Sound Packs ('ut3' 'custom')"].."|r")
 	print("|cFF50C0FF/ps lang'soundpacklanguage' - |cFFFFFFA0"..L["Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita')"].."|r")
@@ -1895,8 +1899,10 @@ function PVPSound:PrintSlashMenu()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Loaded. Type /ps help for options"].."|r")
 	if PS_Mode == "PVP" then
 		print("|cFF50C0FF"..L["Mode"]..": |cFFADFF2F"..L["[PVP]"].."|r")
-	else
+	elseif PS_Mode == "PVE" then
 		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVE]"].."|r")
+	else 
+		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVP and PVE]"].."|r")
 	end
 	if PS_Emote == true then
 		print("|cFF50C0FF"..L["Emotes"]..": |cFFADFF2F"..L["[Enable]"].."|r")
@@ -1985,6 +1991,11 @@ function PVPSound:PrintSlashMenu()
 		print("|cFF50C0FF"..L["Hide server names"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
 		print("|cFF50C0FF"..L["Hide server names"]..": |cFFFF4500"..L["[Disable]"].."|r")
+	end
+	if PS_Execute == true then
+		print("|cFF50C0FF"..L["Execute sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
+	else
+		print("|cFF50C0FF"..L["Execute sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_Channel == "Master" then
 		print("|cFF50C0FF"..L["Sound channel output"]..": |cFFADFF2F"..L["[Master]"].."|r")

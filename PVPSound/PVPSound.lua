@@ -68,6 +68,7 @@ function PVPSound:OnLoadTwo()
 		PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
 		--PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES") --deleted EVENT (bg activity update)
 		--PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE") --deleted EVENT  
+		PVPSoundFrameTwo:RegisterEvent("UPDATE_UI_WIDGET")
 	end
 end
 
@@ -279,41 +280,46 @@ function PVPSound:DefaultSettings()
 	if PS_DataShare == true then
 		C_ChatInfo.RegisterAddonMessagePrefix("PVPSound") --in 8.0.1 changed to C_ChatInfo namespace
 	end
+	--finish him/her sounds
+	if PS_Execute == nil then
+		PS_Execute = false
+	end
 end
 
 function PVPSound:ConfigDump()
 		print("Addon cofig:")
-		print("Addon language:", PS_AddonLanguage)
-		print("Kill soundpack name:", PS_KillSoundPackName)
-		print("Kill soundpack language:", PS_KillSoundPackLanguage)
-		print("Soundpack name:", PS_SoundPackName)
-		print("Soundpack language:", PS_SoundPackLanguage)
-		print("Mode:", PS_Mode)
-		print("Emote:",PS_Emote)
-		print("Emote mode:",PS_EmoteMode)
-		print("Death message:",PS_DeathMessage)
-		print("Kill sounds:",PS_KillSound)
-		print("MultiKill Sound:", PS_MultiKillSound)
-		print("PetKill:", PS_PetKill)
-		print("PaybackSound:", PS_PaybackSound)
-		print("BattlegroundSound:", PS_BattlegroundSound)
-		print("SoundEffect:", PS_SoundEffect)
-		print("KillSoundEngine:", PS_KillSoundEngine)
-		print("BattlegroundSoundEngine:", PS_BattlegroundSoundEngine)
-		print("Datashare:", PS_DataShare)
-		print("Kill SCT:", PS_KillSct)
-		print("MultiKill SCT:", PS_MultiKillSct)
-		print("Payback SCT:", PS_PaybackSct)
-		print("SCT engine:", PS_SctEngine)
-		print("SCT Frame:", PSSctFrame)
-		print("Hide server name:", PS_HideServerName)
-		print("Sound channel name:", PS_Channel)
+		print("Addon language: ", PS_AddonLanguage)
+		print("Kill soundpack name: ", PS_KillSoundPackName)
+		print("Kill soundpack language: ", PS_KillSoundPackLanguage)
+		print("Soundpack name: ", PS_SoundPackName)
+		print("Soundpack language: ", PS_SoundPackLanguage)
+		print("Mode: ", PS_Mode)
+		print("Emote: ",PS_Emote)
+		print("Emote mode: ",PS_EmoteMode)
+		print("Death message: ",PS_DeathMessage)
+		print("Kill sounds: ",PS_KillSound)
+		print("MultiKill Sound: ", PS_MultiKillSound)
+		print("PetKill: ", PS_PetKill)
+		print("PaybackSound: ", PS_PaybackSound)
+		print("BattlegroundSound: ", PS_BattlegroundSound)
+		print("SoundEffect: ", PS_SoundEffect)
+		print("KillSoundEngine: ", PS_KillSoundEngine)
+		print("BattlegroundSoundEngine: ", PS_BattlegroundSoundEngine)
+		print("Datashare: ", PS_DataShare)
+		print("Kill SCT: ", PS_KillSct)
+		print("MultiKill SCT: ", PS_MultiKillSct)
+		print("Payback SCT: ", PS_PaybackSct)
+		print("SCT engine: ", PS_SctEngine)
+		print("SCT Frame: ", PSSctFrame)
+		print("Hide server name: ", PS_HideServerName)
+		print("Sound channel name: ", PS_Channel)
+		print("Finishing sounds: ", PS_Execute)
 		print("Reset time= ",ResetTime)
 		print("Multikill time= ",MultiKillTime)
 		print("Payback time= ",PS.PaybackKillTime)	
 		print("Recently killed penalty time= ",PS.RecentlyKilledTime)
 		print("Recently payback penalty time= ",PS.RecentlyPaybackTime)
-		print("Rank step for kills:", RankStep)
+		print("Rank step for kills: ", RankStep)
 end
 
 function PVPSound:SetAddonLanguage()
@@ -1063,15 +1069,15 @@ local function InitializeBgs(...)
 			TimeRemainingobjectives.TimeRemaining = nil
 			TimeRemainingobjectives.TimeRemaining = TimeRemainingInit
 		end
-		--world state --here may be an error:init check of 1 and 3...should be 2
+		--world state 
 		
 		if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2)) ~= nil then
 			-- Alliance Score
-			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftValue
+			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
 			WSGandTPAobjectives.AllianceScore = nil
 			WSGandTPAobjectives.AllianceScore = AllianceScoreInit
 			-- Horde Score
-			local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightValue
+			local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
 			WSGandTPHobjectives.HordeScore = nil
 			WSGandTPHobjectives.HordeScore = HordeScoreInit
 			--why nil?
@@ -1806,9 +1812,9 @@ function PVPSound:OnEvent(event, ...)
 				end
 			end
 			--parsing pvp info from chat
-			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then
+			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
-				print("---->Event Message    ", EventMessage)
+				
 				-- Tie Game
 				if string.find(EventMessage, L["Tie game"]) and BgIsOver ~= true then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
@@ -1817,8 +1823,8 @@ function PVPSound:OnEvent(event, ...)
 					PVPSound:ClearRetributionQueue()
 				 -- Warsong Gulch and Twin Peaks Vulnerable
 				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
-					print("IIIIIIIIII----")
-					if string.find(EventMessage, L["Alliance Flag has returned"]) then
+					
+					if string.find(EventMessage, L["Alliance Flag has returned"]) then --i don't see such messages
 						
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
 
@@ -1860,15 +1866,15 @@ function PVPSound:OnEvent(event, ...)
 					end
 				end
 
-			elseif event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then --why are there two events?
+			elseif event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then
 				local EventMessage = select(1, ...)
-				print("---->Event Message A H    ", EventMessage)
+				
 				-- Warsong Gulch and Twin Peaks
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
 					-- Alliance
 					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-						if string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
+						if string.find(EventMessage, L["pickedA"]) then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\Horde_Flag_Taken.mp3")
 
 							--[[if C_PvP.IsInBrawl() then
 								return
@@ -1877,6 +1883,7 @@ function PVPSound:OnEvent(event, ...)
 							self.AllianceFlagPositionX = nil
 							self.AllianceFlagPositionY = nil
 						elseif string.find(EventMessage, L["dropped"]) then
+							
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
 
 							--[[if C_PvP.IsInBrawl() then
@@ -1886,7 +1893,8 @@ function PVPSound:OnEvent(event, ...)
 							for i = 1, 2 do
 								local type = select(3, GetBattlefieldFlagPosition(i))
 
-								if type == "AllianceFlag" then
+								--if type == "AllianceFlag" then
+								if type == 137218 then
 									self.AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
 									self.AllianceFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
 
@@ -1901,20 +1909,27 @@ function PVPSound:OnEvent(event, ...)
 							end]]
 
 							-- Subzone
-							local CurrentSubZoneText = GetSubZoneText()
+							--local CurrentSubZoneText = GetSubZoneText()
+							
 							-- Horde Flag Taken
 							local HordeFlagStatus
-							if (select(2, GetWorldStateUIInfo(2))) ~= nil then --2 is a stete (return1 if team hold a flag, 1- if enemy do)
-								HordeFlagStatus = select(2, GetWorldStateUIInfo(2))
+							--1 - Alliance flag dropped when Horde flag was taken
+							--0 - Alliance flag dropped when Horde flag was not taken
+							if (C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1640)) then --1640 is a icon row widget with A & H flag icons
+								HordeFlagStatus = C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1640).leftIcons[1].iconState
+								print(HordeFlagStatus)
 							end
+							
 
-							if C_PvP.IsInBrawl() then
-								HordeFlagStatus = 1
+							if C_PvP.IsInBrawl() then --need to change for only one type of brawls (wsg scramble)
+								--C_PvP.GetActiveBrawlInfo()
+								HordeFlagStatus = 0
 							end
 							--flag save in a flag enemies flagroom
-							if MyFaction == "Alliance" and HordeFlagStatus == 1 and (CurrentSubZoneText == L["Warsong Flag Room"] or CurrentSubZoneText == L["Dragonmaw Forge"]) then
+							
+							if MyFaction == "Alliance" and HordeFlagStatus == 0 then
 								if MyZone == "Zone_WarsongGulch" then
-									if self.AllianceFlagPositionX and self.AllianceFlagPositionX ~= 0 and self.AllianceFlagPositionX ~= "" then
+									if self.AllianceFlagPositionX and self.AllianceFlagPositionX ~= 0 and self.AllianceFlagPositionX ~= "" then --subzone check was removed
 										if self.AllianceFlagPositionY and self.AllianceFlagPositionY ~= 0 and self.AllianceFlagPositionY ~= "" then
 											if self.AllianceFlagPositionX >= 0.503 and self.AllianceFlagPositionX <= 0.545 then
 												if self.AllianceFlagPositionY >= 0.884 and self.AllianceFlagPositionY <= 0.934 then
@@ -1959,11 +1974,12 @@ function PVPSound:OnEvent(event, ...)
 
 							for i = 1, 2 do
 								local type = select(3, GetBattlefieldFlagPosition(i))
-
-								if type == "HordeFlag" then
+								--print("type ",type)
+								--if type == "HordeFlag" then
+								if type == 137200 then
 									self.HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
 									self.HordeFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
-
+									--print("HFdropped ",self.HordeFlagPositionX,self.HordeFlagPositionY)
 									break
 								end
 							end
@@ -1975,21 +1991,29 @@ function PVPSound:OnEvent(event, ...)
 							end]]
 
 							-- Zone
-							local CurrentSubZoneText = GetSubZoneText()
+							--local CurrentSubZoneText = GetSubZoneText()
 							-- Alliance Flag Taken
 							local AllianceFlagStatus
-							if (select(2, GetWorldStateUIInfo(1))) ~= nil then
-								AllianceFlagStatus = select(2, GetWorldStateUIInfo(1))
+							--1 - Alliance flag dropped when Horde flag was taken
+							--0 - Alliance flag dropped when Horde flag was not taken
+							if (C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1640)) then --1640 is a icon row widget with A & H flag icons
+								AllianceFlagStatus = C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1640).rightIcons[1].iconState
+								print(AllianceFlagStatus)
 							end
 
 							if C_PvP.IsInBrawl() then
-								AllianceFlagStatus = 1
+								--C_PvP.GetActiveBrawlInfo()
+								AllianceFlagStatus = 0
 							end
-
-							if MyFaction == "Horde" and AllianceFlagStatus == 1 and (CurrentSubZoneText == L["Silverwing Hold"] or CurrentSubZoneText == L["Wildhammer Stronghold"]) then
+							
+							
+							--print(self.HordeFlagPositionX,self.HordeFlagPositionY)
+							
+							if MyFaction == "Horde" and AllianceFlagStatus == 0 then
 								if MyZone == "Zone_WarsongGulch" then
 									if self.HordeFlagPositionX and self.HordeFlagPositionX ~= 0 and self.HordeFlagPositionX ~= "" then
-										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and Hself.ordeFlagPositionY ~= "" then
+										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and self.HordeFlagPositionY ~= "" then
+											
 											if self.HordeFlagPositionX >= 0.473 and self.HordeFlagPositionX <= 0.516 then
 												if self.HordeFlagPositionY >= 0.111 and self.HordeFlagPositionY <= 0.176 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
@@ -2000,6 +2024,7 @@ function PVPSound:OnEvent(event, ...)
 								elseif MyZone == "Zone_TwinPeaks" then
 									if self.HordeFlagPositionX and self.HordeFlagPositionX ~= 0 and self.HordeFlagPositionX ~= "" then
 										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and self.HordeFlagPositionY ~= "" then
+											
 											if self.HordeFlagPositionX >= 0.563 and self.HordeFlagPositionX <= 0.640 then
 												if self.HordeFlagPositionY >= 0.124 and self.HordeFlagPositionY <= 0.252 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
@@ -4215,12 +4240,20 @@ end
 
 
 PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
---[====[
+
 function PVPSound:OnEventTwo(event, ...)
-	if PS_EnableAddon == true then
-		if event == "PLAYER_TARGET_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MAXHEALTH" then
-			local isEnemy = UnitIsEnemy("player", "target")
-			if UnitExists("target") and isEnemy == 1 and UnitIsDeadOrGhost("target") ~= 1 then
+	if PS_EnableAddon == true  then
+	--
+	--execute sounds can not be places in ideology of kill or bg sounds
+	--because it is more about an dueling announcement
+	--so it can not be placed in any sound engine queues
+	--so i just play the sound file without a queues
+	
+		if (event == "PLAYER_TARGET_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MAXHEALTH") and PS_Execute == true then
+			local isEnemy = UnitIsEnemy("target","player")
+
+			if UnitExists("target") and isEnemy == true and UnitIsDeadOrGhost("target") == false then
+
 				local TargetGender
 				if UnitSex("target") == 1 then
 					TargetGender = "Unknown"
@@ -4231,28 +4264,32 @@ function PVPSound:OnEventTwo(event, ...)
 				end
 				local TargetHealthPercent = UnitHealth("target") / UnitHealthMax("target")
 				if PS_Mode == "PVP" then
-					if UnitIsPlayer("target") == 1 then
+					if UnitIsPlayer("target") == true then
 						local type = TargetHealthGetObjective(TargetHealthPercent)
 						if type then
 							if TargetHealthState(TargetHealthObjectives[type]) == 1 and TargetHealthState(TargetHealthPercent) == 2 then
 								if TargetGender == "Male" or TargetGender == "Unknown" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+									--PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+									PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHim.mp3", PS_Channel)
 								elseif TargetGender == "Female" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+									--PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+									PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHer.mp3", PS_Channel)
 								end
 							end
 							TargetHealthObjectives[type] = TargetHealthPercent
 						end
 					end
 				elseif PS_Mode == "PVE" then
-					if UnitIsPlayer("target") == nil then
+					if UnitIsPlayer("target") == false then
 						local type = TargetHealthGetObjective(TargetHealthPercent)
 						if type then
 							if TargetHealthState(TargetHealthObjectives[type]) == 1 and TargetHealthState(TargetHealthPercent) == 2 then
 								if TargetGender == "Male" or TargetGender == "Unknown" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+									--PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+									PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHim.mp3", PS_Channel)
 								elseif TargetGender == "Female" then
-									PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+									--PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+									PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHer.mp3", PS_Channel)
 								end
 							end
 							TargetHealthObjectives[type] = TargetHealthPercent
@@ -4263,9 +4300,11 @@ function PVPSound:OnEventTwo(event, ...)
 					if type then
 						if TargetHealthState(TargetHealthObjectives[type]) == 1 and TargetHealthState(TargetHealthPercent) == 2 then
 							if TargetGender == "Male" or TargetGender == "Unknown" then
-								PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+								--PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHim.mp3")
+								PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHim.mp3", PS_Channel)
 							elseif TargetGender == "Female" then
-								PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+								--PVPSound:AddKillToQueue("Execute", PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\Execute\\FinishHer.mp3")
+								PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHer.mp3", PS_Channel)
 							end
 						end
 						TargetHealthObjectives[type] = TargetHealthPercent
@@ -4275,9 +4314,14 @@ function PVPSound:OnEventTwo(event, ...)
 		end
 
 		if PS_BattlegroundSound == true then
-			if event == "WORLD_STATE_UI_TIMER_UPDATE" then
+			if event == "UPDATE_UI_WIDGET" then
+				info=...
+				for k,v in pairs(info) do
+					print(k,v)
+				end	
+				
 				-- Time Reamining
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" then --timers does not work
 					if BgIsOver ~= true then
 						local i
 						if MyZone == "Zone_StrandoftheAncients" then
@@ -4294,14 +4338,16 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						elseif MyZone == "Zone_TolBarad" then
 							i = 1
-						elseif  MyZone == "Zone_WarsongGulch" then
-							i = 3
+						elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+							i = 6 --updated
 						else
 							i = 4
 						end
-						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
+						
+						if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(i)) then
 							-- Time Remaining
-							local TimeRemaining = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)"))
+							local TimeRemaining = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(i).text, "(%d+)"))
+							print("time rem ",TimeRemaining)
 							if TimeRemaining then
 								local type = TimeRemainingget_objective(TimeRemaining)
 								if type then
@@ -4360,15 +4406,17 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				end
-			elseif event == "UPDATE_WORLD_STATES" then
-				-- Time Remaining
+			--elseif event == "UPDATE_UI_WIDGET" then
+				
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" then
-					if (select(4, GetWorldStateUIInfo(1))) ~= nil and (select(4, GetWorldStateUIInfo(2))) ~= nil then
+					
+					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2)) then
 						-- Alliance Score
-						local AllianceScore = tonumber(string.match(select(4, GetWorldStateUIInfo(1)), "(%d+)/"))
+						local AllianceScore = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
 						-- Horde Score
-						local HordeScore = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), "(%d+)/"))
+						local HordeScore = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
 						-- Alliance
+						print("scores ",AllianceScore,HordeScore)
 						if AllianceScore and HordeScore then
 							local type = WSGandTPAget_objective(AllianceScore)
 							if type then
@@ -5644,7 +5692,7 @@ function PVPSound:OnEventTwo(event, ...)
 end
 
 PVPSoundFrameTwo:SetScript("OnEvent", PVPSound.OnEventTwo)
-]====]--
+
 
 
 local floor=math.floor
