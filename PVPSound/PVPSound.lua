@@ -69,6 +69,7 @@ function PVPSound:OnLoadTwo()
 		--PVPSoundFrameTwo:RegisterEvent("UPDATE_WORLD_STATES") --deleted EVENT (bg activity update)
 		--PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE") --deleted EVENT  
 		PVPSoundFrameTwo:RegisterEvent("UPDATE_UI_WIDGET")
+		PVPSoundFrameTwo:RegisterEvent("AREA_POIS_UPDATED")
 	end
 end
 
@@ -976,7 +977,7 @@ local function InitializeBgs(...)
 	if CurrentZoneId == 1339 and InstanceType == "pvp" then
 		MyZone = "Zone_WarsongGulch"--updated
 	elseif CurrentZoneId == 1366 and InstanceType == "pvp" then
-		MyZone = "Zone_ArathiBasin"
+		MyZone = "Zone_ArathiBasin"--updated
 --	elseif CurrentZoneId == 1527 then	--for test--SHOULD BE DELETED
 --		MyZone = "Zone_WarsongGulch"
 	elseif CurrentZoneId == 401 and InstanceType == "pvp" then
@@ -989,8 +990,8 @@ local function InitializeBgs(...)
 	--	MyZone = "Zone_StrandoftheAncients"
 	elseif CurrentZoneId == 206 and InstanceType == "pvp" then
 		MyZone = "Zone_TwinPeaks"--updated
-	elseif CurrentZoneId == 736 and InstanceType == "pvp" then
-		MyZone = "Zone_TheBattleforGilneas"
+	elseif CurrentZoneId == 275 and InstanceType == "pvp" then
+		MyZone = "Zone_TheBattleforGilneas"--updated
 	elseif CurrentZoneId == 856 and InstanceType == "pvp" then
 		MyZone = "Zone_TempleofKotmogu"
 	elseif CurrentZoneId == 860 and InstanceType == "pvp" then
@@ -1432,9 +1433,20 @@ local function InitializeBgs(...)
 	end
 	
 	if MyZone == "Zone_TheBattleforGilneas" then
-		local LighthouseInit = select(4, GetMapLandmarkInfo(3))
-		local MinesInit = select(4, GetMapLandmarkInfo(1))
-		local WaterworksInit = select(4, GetMapLandmarkInfo(2))
+	
+		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		
+		local LighthouseInit
+		local MinesInit
+		local WaterworksInit
+
+		if #POIs==3 then
+			LighthouseInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[1]).textureIndex
+			MinesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
+			WaterworksInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
+		end
+		
+
 		TBFGobjectives.Lighthouse = nil
 		TBFGobjectives.Mines = nil
 		TBFGobjectives.Waterworks = nil
@@ -1448,6 +1460,7 @@ local function InitializeBgs(...)
 			TBFGobjectives.Waterworks = WaterworksInit + 300
 		end
 	end
+	
 	if MyZone == "Zone_DeepwindGorge" then
 		local CentralMineInit = select(4, GetMapLandmarkInfo(3))
 		local GoblinMineInit = select(4, GetMapLandmarkInfo(2))
@@ -1711,7 +1724,7 @@ function PVPSound:OnEvent(event, ...)
 				
 				-- Battleground PlaySounds
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" then
-					print("announcement")
+					--print("announcement")
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
@@ -4920,8 +4933,10 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						end
 					end
+				end
+			elseif event == "AREA_POIS_UPDATED" then
 				 -- Arathi Basin
-				elseif MyZone == "Zone_ArathiBasin" then
+				if MyZone == "Zone_ArathiBasin" then
 					-- Stables
 					
 					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
@@ -5259,18 +5274,22 @@ function PVPSound:OnEventTwo(event, ...)
 				 -- The Battle for Gilneas
 				elseif MyZone == "Zone_TheBattleforGilneas" then
 					-- Mines
-					for i = 1, 1, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
+					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					
+					for i = 3, 3, 1 do
+						
+						local textureIndex
 						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
 						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						
+						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
+							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
+							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
 						end
+						
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.63 and y == 0.41 then
+							--if x == 0.63 and y == 0.41 then
 								local faketextureIndex = textureIndex + 200
 								local type = TBFGget_objective(faketextureIndex)
 								if type then
@@ -5317,22 +5336,23 @@ function PVPSound:OnEventTwo(event, ...)
 									end
 									TBFGobjectives[type] = faketextureIndex
 								end
-							end
+							--end
 						end
 					end
 					-- Waterworks
 					for i = 2, 2, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
+						local textureIndex
 						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
 						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						
+						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
+							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
+							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
 						end
+						
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.61 and y == 0.71 then
+							--if x == 0.61 and y == 0.71 then
 								local faketextureIndex = textureIndex + 300
 								local type = TBFGget_objective(faketextureIndex)
 								if type then
@@ -5379,22 +5399,23 @@ function PVPSound:OnEventTwo(event, ...)
 									end
 									TBFGobjectives[type] = faketextureIndex
 								end
-							end
+							--end
 						end
 					end
 					-- Lighthouse
-					for i = 3, 3, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
+					for i = 1, 1, 1 do
+						local textureIndex
 						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
 						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
+						
+						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
+							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
+							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
 						end
+						
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.35 and y == 0.62 then
+							--if x == 0.35 and y == 0.62 then
 								local faketextureIndex = textureIndex + 100
 								local type = TBFGget_objective(faketextureIndex)
 								if type then
@@ -5441,7 +5462,7 @@ function PVPSound:OnEventTwo(event, ...)
 									end
 									TBFGobjectives[type] = faketextureIndex
 								end
-							end
+							--end
 						end
 					end
 				 -- Deepwind Gorge
