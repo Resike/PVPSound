@@ -225,8 +225,8 @@ L["Horde wins secondary"] = "Horde wins"
 L["Alliance Flag has returned"] = "Alliance Flag has returned"
 L["Horde Flag has returned"] = "Horde Flag has returned"
 L["vulnerable"] = "vulnerable"
-L["Alliance have captured"] = "Alliance have captured"
-L["Horde have captured"] = "Horde have captured"
+L["Alliance have captured"] = "has captured the flag"
+L["Horde have captured"] = "has captured the flag"
 L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin"
 L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute"
 L["Round 1"] = "Round 1"
@@ -1446,9 +1446,12 @@ L["The Horde is victorious"] = "Победа за Ордой!"
 -- Battleground Events
 L["Alliance wins"] = "Альянс побеждает"
 L["Alliance wins secondary"] = "Альянс победил"
-L["Alliance have captured"] = "Альянс захватил флаг"
-L["Horde have captured"] = "Орда захватила флаг"
+--for RU clien I use Alliance for male characters and Horde for female...it is about grammatics.  
+L["Alliance have captured"] = "захватил флаг"
+L["Horde have captured"] = "захватила флаг"
+
 L["captured"] = "захвачено"
+
 L["dropped"] = "роняет"--updated
 L["Horde wins"] = "Орда побеждает"
 L["Horde wins secondary"] = "Орда победила"

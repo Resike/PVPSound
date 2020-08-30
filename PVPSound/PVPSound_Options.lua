@@ -1800,13 +1800,15 @@ function PVPSound:SlashCommands(arg1)
 			print("There is "..#POIs.." POIs in this zone")
 			for i = 1, #POIs, 1 do
 				
-				local info=C_AreaPoiInfo.GetAreaPOIInfo(mapId,POIs[i])
+				local info = C_AreaPoiInfo.GetAreaPOIInfo(mapId,POIs[i])
+				local id = info.areaPoiID
 				local name = info.name
+				local desc = info.description
 				local textureIndex = info.textureIndex
 				local x = info.position.x
 				local y = info.position.y
 				print("POI info:")
-				print(i," ",name," ",textureIndex," ",x," ",y)
+				print(i," ",id," ",name," ",desc," ",textureIndex," ",x," ",y)
 					
 				
 			end
