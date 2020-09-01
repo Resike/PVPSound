@@ -988,8 +988,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_TwinPeaks"--updated
 	elseif CurrentZoneId == 275 and InstanceType == "pvp" then
 		MyZone = "Zone_TheBattleforGilneas"--updated
-	elseif CurrentZoneId == 856 and InstanceType == "pvp" then
-		MyZone = "Zone_TempleofKotmogu"
+	elseif CurrentZoneId == 417 and InstanceType == "pvp" then
+		MyZone = "Zone_TempleofKotmogu"--updated
 	elseif CurrentZoneId == 860 and InstanceType == "pvp" then
 		MyZone = "Zone_SilvershardMines"
 	elseif CurrentZoneId == 935 and InstanceType == "pvp" then
