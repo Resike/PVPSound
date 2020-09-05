@@ -1450,7 +1450,7 @@ L["Alliance wins secondary"] = "Альянс победил"
 L["Alliance have captured"] = "захватил флаг"
 L["Horde have captured"] = "захватила флаг"
 
-L["captured"] = "захвачено"
+L["captured"] = "захват" --SM and DWG --in BFA full message for horde is "орда захватывает вагонетку" and for alliance is "альянс захватил вагонетку" so i decided to look for cutted "захват" 
 
 L["dropped"] = "роняет"--updated
 L["Horde wins"] = "Орда побеждает"

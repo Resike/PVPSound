@@ -70,6 +70,7 @@ function PVPSound:OnLoadTwo()
 		--PVPSoundFrameTwo:RegisterEvent("WORLD_STATE_UI_TIMER_UPDATE") --deleted EVENT  
 		PVPSoundFrameTwo:RegisterEvent("UPDATE_UI_WIDGET")
 		PVPSoundFrameTwo:RegisterEvent("AREA_POIS_UPDATED")
+		PVPSoundFrameTwo:RegisterEvent("PVP_MATCH_COMPLETE") --experimental
 	end
 end
 
@@ -80,6 +81,8 @@ function PVPSound:OnLoadThree()
 		PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED") --have no payload since 8.0.1
 	end
 end
+
+
 
 --not used?
 function PVPSound:RegisterEvents()
@@ -776,10 +779,10 @@ local function SMWINget_objective(id)
 end
 
 local function SMWINobj_state(id)
-	if id == 1600 then
-		return 1 -- Resources: 1600/1600
+	if id == 1500 then
+		return 1 -- Resources: 1500/1500
 	else
-		return 2 -- Resources: 0-1599/1600
+		return 2 -- Resources: 0-1499/1500
 	end
 end
 
@@ -990,8 +993,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_TheBattleforGilneas"--updated
 	elseif CurrentZoneId == 417 and InstanceType == "pvp" then
 		MyZone = "Zone_TempleofKotmogu"--updated
-	elseif CurrentZoneId == 860 and InstanceType == "pvp" then
-		MyZone = "Zone_SilvershardMines"
+	elseif CurrentZoneId == 423 and InstanceType == "pvp" then
+		MyZone = "Zone_SilvershardMines"--updated
 	elseif CurrentZoneId == 935 and InstanceType == "pvp" then
 		MyZone = "Zone_DeepwindGorge"
 	 -- Battlefields
@@ -1494,17 +1497,20 @@ local function InitializeBgs(...)
 		self.HordeCartPositionX = nil
 		self.HordeCartPositionY = nil
 	end
-	if MyZone == "Zone_SilvershardMines" then
-		local HordeScoreInit = (select(4, GetMapLandmarkInfo(2)))
-		local AllianceScoreInit = (select(4, GetMapLandmarkInfo(3)))
-		SMWINobjectives.Resources = nil
-		if HordeScoreInit then
-			SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
-		end
-		if AllianceScoreInit then
-			SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
-		end
-	end
+	--there is no win message in SM. should be replaced with PVP_MATCH_COMPELTE event
+	--if MyZone == "Zone_SilvershardMines" then
+	--	if C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1687) then
+	--		local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
+	--		local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
+	--				
+	--		SMWINobjectives.Resources = nil
+	--	if HordeScoreInit then
+	--		SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
+	--	end
+	--	if AllianceScoreInit then
+	--		SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
+	--	end
+	--end
 	if MyZone == "Zone_Wintergrasp" then
 		local isActive = (select(5, GetWorldPVPAreaInfo(1)))
 		if isActive == 0 then
@@ -5507,50 +5513,63 @@ function PVPSound:OnEventTwo(event, ...)
 							end
 						end
 					end]]
-				 -- Silvershard Mines WinSounds
-				elseif MyZone == "Zone_SilvershardMines" then
-					if BgIsOver ~= true then
-						-- Alliance Resources
-						for i = 2, 2, 1 do
-							if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-								local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
-								if faketextureIndex then
-									local type = SMWINget_objective(faketextureIndex)
-									if BgIsOver ~= true then
-										if type then
-											if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
-												BgIsOver = true
-												PVPSound:ClearPaybackQueue()
-												PVPSound:ClearRetributionQueue()
-											end
-											SMWINobjectives[type] = faketextureIndex
-										end
-									end
-								end
-							end
-						end
-						-- Horde Resources
-						for i = 3, 3, 1 do
-							if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-								local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
-								if faketextureIndex then
-									local type = SMWINget_objective(faketextureIndex)
-									if BgIsOver ~= true then
-										if type then
-											if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
-												BgIsOver = true
-												PVPSound:ClearPaybackQueue()
-												PVPSound:ClearRetributionQueue()
-											end
-											SMWINobjectives[type] = faketextureIndex
-										end
-									end
-								end
-							end
-						end
+				 -- Silvershard Mines WinSounds 
+				 -- there is no win message in this BG. later I will replace it with PVP_MATCH_COMPELTE
+				--elseif MyZone == "Zone_SilvershardMines" then
+				--	if BgIsOver ~= true then
+				--		-- Alliance Resources
+				--		for i = 2, 2, 1 do
+				--			if (select(4, GetWorldStateUIInfo(i))) ~= nil then
+				--				local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
+				--				if faketextureIndex then
+				--					local type = SMWINget_objective(faketextureIndex)
+				--					if BgIsOver ~= true then
+				--						if type then
+				--							if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
+				--								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+				--								BgIsOver = true
+				--								PVPSound:ClearPaybackQueue()
+				--								PVPSound:ClearRetributionQueue()
+				--							end
+				--							SMWINobjectives[type] = faketextureIndex
+				--						end
+				--					end
+				--				end
+				--			end
+				--		end
+				--		-- Horde Resources
+				--		for i = 3, 3, 1 do
+				--			if (select(4, GetWorldStateUIInfo(i))) ~= nil then
+				--				local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
+				--				if faketextureIndex then
+				--					local type = SMWINget_objective(faketextureIndex)
+				--					if BgIsOver ~= true then
+				--						if type then
+				--							if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
+				--								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+				--								BgIsOver = true
+				--								PVPSound:ClearPaybackQueue()
+				--								PVPSound:ClearRetributionQueue()
+				--							end
+				--							SMWINobjectives[type] = faketextureIndex
+				--						end
+				--					end
+				--				end
+				--			end
+				--		end
+				--	end
+				end
+			elseif event == "PVP_MATCH_COMPLETE" then
+				if MyZone == "Zone_SilvershardMines" then 
+				 local winner=...
+				 	if winner == 0 then
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+					else 
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 					end
+					BgIsOver = true
+					PVPSound:ClearPaybackQueue()
+					PVPSound:ClearRetributionQueue()
 				end
 			end
 		end
