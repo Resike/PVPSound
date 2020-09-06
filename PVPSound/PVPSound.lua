@@ -529,7 +529,7 @@ end
 -- Arathi Basin
 local ABobjectives = {Blacksmith = nil, Farm = nil, GoldMine = nil, LumberMill = nil, Stables = nil}
 
-local function ABget_objective(id)
+--[[local function ABget_objective(id)
 	if id >= 126 and id <= 130 then
 		return "Blacksmith"
 	elseif id >= 231 and id <= 235 then
@@ -553,6 +553,36 @@ local function ABobj_state(id)
 	elseif id == 127 or id == 232 or id == 317 or id == 422 or id == 537 then
 		return 3 -- Alliance trys to capture
 	elseif id == 129 or id == 234 or id == 319 or id == 424 or id == 539 then
+		return 4 -- Horde trys to capture
+	else
+		return 0
+	end
+end]]--
+
+local function ABget_objective(id)
+	if id >= 26 and id <= 30 then
+		return "Blacksmith"
+	elseif id >= 31 and id <= 35 then
+		return "Farm"
+	elseif id >= 16 and id <= 20 then
+		return "GoldMine"
+	elseif id >= 21 and id <= 25 then
+		return "LumberMill"
+	elseif id >= 36 and id <= 40 then
+		return "Stables"
+	else
+		return false
+	end
+end
+
+local function ABobj_state(id)
+	if id == 28 or id == 33 or id == 18 or id == 23 or id == 38 then
+		return 1 -- Alliance Bases
+	elseif id == 30 or id == 35 or id == 20 or id == 25 or id == 40 then
+		return 2 -- Horde Bases
+	elseif id == 27 or id == 32 or id == 17 or id == 22 or id == 37 then
+		return 3 -- Alliance trys to capture
+	elseif id == 29 or id == 34 or id == 19 or id == 24 or id == 39 then
 		return 4 -- Horde trys to capture
 	else
 		return 0
@@ -975,7 +1005,7 @@ local function InitializeBgs(...)
 	-- Battlegrounds --need to change zone ids--add new bg
 	if CurrentZoneId == 1339 and InstanceType == "pvp" then
 		MyZone = "Zone_WarsongGulch"--updated
-	elseif CurrentZoneId == 1366 and InstanceType == "pvp" then
+	elseif (CurrentZoneId == 1366 or CurrentZoneId == 837) and InstanceType == "pvp" then --837 is winter AB
 		MyZone = "Zone_ArathiBasin"--updated
 --	elseif CurrentZoneId == 1527 then	--for test--SHOULD BE DELETED
 --		MyZone = "Zone_WarsongGulch"
@@ -995,8 +1025,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_TempleofKotmogu"--updated
 	elseif CurrentZoneId == 423 and InstanceType == "pvp" then
 		MyZone = "Zone_SilvershardMines"--updated
-	elseif CurrentZoneId == 935 and InstanceType == "pvp" then
-		MyZone = "Zone_DeepwindGorge"
+	elseif CurrentZoneId == 1576 and InstanceType == "pvp" then
+		MyZone = "Zone_DeepwindGorge"--updated
 	 -- Battlefields
 	elseif CurrentZoneId == 501 then
 		MyZone = "Zone_Wintergrasp"
@@ -1145,11 +1175,26 @@ local function InitializeBgs(...)
 		local StablesInit
 
 		if #POIs==5 then
-			BlacksmithInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
-			FarmInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[4]).textureIndex
-			GoldMineInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[5]).textureIndex
-			LumberMillInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
-			StablesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[1]).textureIndex
+			for i=1,#POIs do 
+				if ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Blacksmith" then
+					BlacksmithInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Farm" then
+					FarmInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "GoldMine" then
+					GoldMineInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "LumberMill" then
+					LumberMillInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Stables" then
+					StablesInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				end
+			end
+		
+		
+			--BlacksmithInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
+			--FarmInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[4]).textureIndex
+			--GoldMineInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[5]).textureIndex
+			--LumberMillInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
+			--StablesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[1]).textureIndex
 		end
 		
 		ABobjectives.Blacksmith = nil
@@ -1158,19 +1203,19 @@ local function InitializeBgs(...)
 		ABobjectives.LumberMill = nil
 		ABobjectives.Stables = nil
 		if BlacksmithInit then
-			ABobjectives.Blacksmith = BlacksmithInit + 100
+			ABobjectives.Blacksmith = BlacksmithInit-- + 100
 		end
 		if FarmInit then
-			ABobjectives.Farm = FarmInit + 200
+			ABobjectives.Farm = FarmInit-- + 200
 		end
 		if GoldMineInit then
-			ABobjectives.GoldMine = GoldMineInit + 300
+			ABobjectives.GoldMine = GoldMineInit-- + 300
 		end
 		if LumberMillInit then
-			ABobjectives.LumberMill = LumberMillInit + 400
+			ABobjectives.LumberMill = LumberMillInit-- + 400
 		end
 		if StablesInit then
-			ABobjectives.Stables = StablesInit + 500
+			ABobjectives.Stables = StablesInit-- + 500
 		end
 		
 	end
@@ -4751,11 +4796,103 @@ function PVPSound:OnEventTwo(event, ...)
 			elseif event == "AREA_POIS_UPDATED" then
 				 -- Arathi Basin
 				if MyZone == "Zone_ArathiBasin" then
-					-- Stables
+				
 					
 					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 					
-					for i = 1, 1, 1 do
+					for i=1,#POIs do
+						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+						--local x
+						--local y
+
+					
+						
+						if textureIndex then
+							
+							--if x == 0.38 and y == 0.27 then
+								
+								local faketextureIndex = textureIndex-- + 500
+								local type = ABget_objective(faketextureIndex)
+								if type then
+									if ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										-- Alliance Dominating
+										local ABases = 0
+										for k, v in pairs(ABobjectives) do
+											if k ~= type and ABobj_state(v)==1 then
+												ABases=ABases+1
+											end
+										end
+										print ("abase ", ABases)	
+										if ABases == 4 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+											end
+										end						
+																				
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										-- Horde Dominating
+										local HBases = 0
+										for k, v in pairs(ABobjectives) do
+											if k ~= type and ABobj_state(v)==2 then
+												HBases=HBases+1
+											end
+										end
+										print ("hbase ", HBases)	
+										if HBases == 4 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+											end
+										end	
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+										-- Alliance Dominating
+										local ABases = 0
+										for k, v in pairs(ABobjectives) do
+											if k ~= type and ABobj_state(v)==1 then
+												ABases=ABases+1
+											end
+										end
+										print ("abase ", ABases)	
+										if ABases == 4 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+											end
+										end	
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+										-- Horde Dominating
+										local HBases = 0
+										for k, v in pairs(ABobjectives) do
+											if k ~= type and ABobj_state(v)==2 then
+												HBases=HBases+1
+											end
+										end
+										print ("hbase ", HBases)	
+										if HBases == 4 then
+											if PS_BattlegroundSoundEngine == true then
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+											end
+										end	
+									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 4 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 3 then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+									end
+									ABobjectives[type] = faketextureIndex
+								end
+							--end
+						end
+					end
+					
+					
+					
+					--[[for i = 1, 1, 1 do
 						local textureIndex
 						local x
 						local y
@@ -5082,7 +5219,7 @@ function PVPSound:OnEventTwo(event, ...)
 								end
 							--end
 						end
-					end					
+					end		]]--			
 				
 					
 				 -- The Battle for Gilneas
