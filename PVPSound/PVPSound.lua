@@ -1651,7 +1651,7 @@ local function InitializeBgs(...)
 						TowerWallsInit = TowerWallsInit + 1
 					end
 				elseif WGget_objective(POIs[i]) == "WintergraspFortress" then
-					WintergraspFortressInit == C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					WintergraspFortressInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				end
 			end
 			
