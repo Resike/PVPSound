@@ -143,14 +143,15 @@ PVPSound_UnrealTournament3EngDurations[119]				=	{ dir = "Interface\\Addons\\PVP
 PVPSound_UnrealTournament3EngDurations[120]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\ALLIANCE_Base_Offense.mp3",										duration = 2.1915 }
 PVPSound_UnrealTournament3EngDurations[121]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\ALLIANCE_TowerNode_Destroyed.mp3",								duration = 2.0955 }
 PVPSound_UnrealTournament3EngDurations[122]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\ALLIANCE_TowerNode_HeavilyDamaged.mp3",							duration = 2.5755 }
-PVPSound_UnrealTournament3EngDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 1.8555 }
-PVPSound_UnrealTournament3EngDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.0715 }
-PVPSound_UnrealTournament3EngDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 2.1435 }
-PVPSound_UnrealTournament3EngDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.6235 }
-PVPSound_UnrealTournament3EngDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 3.6555 }
-PVPSound_UnrealTournament3EngDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 3.4155 }
-PVPSound_UnrealTournament3EngDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 3.7515 }
-PVPSound_UnrealTournament3EngDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 3.5115 }
+PVPSound_UnrealTournament3EngDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\BarricadeDestroyed.mp3",										duration = 1.7835 }
+PVPSound_UnrealTournament3EngDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 1.8555 }
+PVPSound_UnrealTournament3EngDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.0715 }
+PVPSound_UnrealTournament3EngDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 2.1435 }
+PVPSound_UnrealTournament3EngDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.6235 }
+PVPSound_UnrealTournament3EngDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 3.6555 }
+PVPSound_UnrealTournament3EngDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 3.4155 }
+PVPSound_UnrealTournament3EngDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 3.7515 }
+PVPSound_UnrealTournament3EngDurations[131]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Eng\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 3.5115 }
 
 -- Deu
 PVPSound_UnrealTournament3DeuDurations = { }
@@ -296,14 +297,15 @@ PVPSound_UnrealTournament3DeuDurations[119]				=	{ dir = "Interface\\Addons\\PVP
 PVPSound_UnrealTournament3DeuDurations[120]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\ALLIANCE_Base_Offense.mp3",										duration = 2.2635 }
 PVPSound_UnrealTournament3DeuDurations[121]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\ALLIANCE_TowerNode_Destroyed.mp3",								duration = 1.8315 }
 PVPSound_UnrealTournament3DeuDurations[122]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\ALLIANCE_TowerNode_HeavilyDamaged.mp3",							duration = 2.3595 }
-PVPSound_UnrealTournament3DeuDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 2.4315 }
-PVPSound_UnrealTournament3DeuDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.1435 }
-PVPSound_UnrealTournament3DeuDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.9515 }
-PVPSound_UnrealTournament3DeuDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.5515 }
-PVPSound_UnrealTournament3DeuDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 2.1435 }
-PVPSound_UnrealTournament3DeuDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 2.0475 }
-PVPSound_UnrealTournament3DeuDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 2.1435 }
-PVPSound_UnrealTournament3DeuDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 2.0475 }
+PVPSound_UnrealTournament3DeuDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\BarricadeDestroyed.mp3",										duration = 1.7595 }
+PVPSound_UnrealTournament3DeuDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 2.4315 }
+PVPSound_UnrealTournament3DeuDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.1435 }
+PVPSound_UnrealTournament3DeuDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.9515 }
+PVPSound_UnrealTournament3DeuDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.5515 }
+PVPSound_UnrealTournament3DeuDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 2.1435 }
+PVPSound_UnrealTournament3DeuDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 2.0475 }
+PVPSound_UnrealTournament3DeuDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 2.1435 }
+PVPSound_UnrealTournament3DeuDurations[131]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 2.0475 }
 
 -- Esn
 PVPSound_UnrealTournament3EsnDurations = { }
@@ -449,14 +451,15 @@ PVPSound_UnrealTournament3EsnDurations[119]				=	{ dir = "Interface\\Addons\\PVP
 PVPSound_UnrealTournament3EsnDurations[120]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\ALLIANCE_Base_Offense.mp3",										duration = 2.2395 }
 PVPSound_UnrealTournament3EsnDurations[121]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\ALLIANCE_TowerNode_Destroyed.mp3",								duration = 1.9035 }
 PVPSound_UnrealTournament3EsnDurations[122]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\ALLIANCE_TowerNode_HeavilyDamaged.mp3",							duration = 2.4555 }
-PVPSound_UnrealTournament3EsnDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 2.1675 }
-PVPSound_UnrealTournament3EsnDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.1915 }
-PVPSound_UnrealTournament3EsnDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.8315 }
-PVPSound_UnrealTournament3EsnDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.3595 }
-PVPSound_UnrealTournament3EsnDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 1.7115 }
-PVPSound_UnrealTournament3EsnDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 1.4955 }
-PVPSound_UnrealTournament3EsnDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 1.7115 }
-PVPSound_UnrealTournament3EsnDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 1.4955 }
+PVPSound_UnrealTournament3EsnDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\BarricadeDestroyed.mp3",										duration = 1.7835 }
+PVPSound_UnrealTournament3EsnDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 2.1675 }
+PVPSound_UnrealTournament3EsnDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.1915 }
+PVPSound_UnrealTournament3EsnDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.8315 }
+PVPSound_UnrealTournament3EsnDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.3595 }
+PVPSound_UnrealTournament3EsnDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 1.7115 }
+PVPSound_UnrealTournament3EsnDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 1.4955 }
+PVPSound_UnrealTournament3EsnDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 1.7115 }
+PVPSound_UnrealTournament3EsnDurations[131]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Esn\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 1.4955 }
 
 -- Fra
 PVPSound_UnrealTournament3FraDurations = { }
@@ -602,14 +605,15 @@ PVPSound_UnrealTournament3FraDurations[119]				=	{ dir = "Interface\\Addons\\PVP
 PVPSound_UnrealTournament3FraDurations[120]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\ALLIANCE_Base_Offense.mp3",										duration = 2.0475 }
 PVPSound_UnrealTournament3FraDurations[121]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\ALLIANCE_TowerNode_Destroyed.mp3",								duration = 1.6155 }
 PVPSound_UnrealTournament3FraDurations[122]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\ALLIANCE_TowerNode_HeavilyDamaged.mp3",							duration = 2.2635 }
-PVPSound_UnrealTournament3FraDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 1.9275 }
-PVPSound_UnrealTournament3FraDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.1435 }
-PVPSound_UnrealTournament3FraDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.6155 }
-PVPSound_UnrealTournament3FraDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.1675 }
-PVPSound_UnrealTournament3FraDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 1.6635 }
-PVPSound_UnrealTournament3FraDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 1.4955 }
-PVPSound_UnrealTournament3FraDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 1.6635 }
-PVPSound_UnrealTournament3FraDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 1.4955 }
+PVPSound_UnrealTournament3FraDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\BarricadeDestroyed.mp3",										duration = 1.7595 }
+PVPSound_UnrealTournament3FraDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 1.9275 }
+PVPSound_UnrealTournament3FraDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.1435 }
+PVPSound_UnrealTournament3FraDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.6155 }
+PVPSound_UnrealTournament3FraDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.1675 }
+PVPSound_UnrealTournament3FraDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 1.6635 }
+PVPSound_UnrealTournament3FraDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 1.4955 }
+PVPSound_UnrealTournament3FraDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 1.6635 }
+PVPSound_UnrealTournament3FraDurations[131]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Fra\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 1.4955 }
 
 -- Ita
 PVPSound_UnrealTournament3ItaDurations = { }
@@ -755,14 +759,15 @@ PVPSound_UnrealTournament3ItaDurations[119]				=	{ dir = "Interface\\Addons\\PVP
 PVPSound_UnrealTournament3ItaDurations[120]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\ALLIANCE_Base_Offense.mp3",										duration = 2.1915 }
 PVPSound_UnrealTournament3ItaDurations[121]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\ALLIANCE_TowerNode_Destroyed.mp3",								duration = 1.8795 }
 PVPSound_UnrealTournament3ItaDurations[122]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\ALLIANCE_TowerNode_HeavilyDamaged.mp3",							duration = 2.6955 }
-PVPSound_UnrealTournament3ItaDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 1.8555 }
-PVPSound_UnrealTournament3ItaDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.3355 }
-PVPSound_UnrealTournament3ItaDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.9755 }
-PVPSound_UnrealTournament3ItaDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.6715 }
-PVPSound_UnrealTournament3ItaDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 2.0475 }
-PVPSound_UnrealTournament3ItaDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 1.9995 }
-PVPSound_UnrealTournament3ItaDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 2.0475 }
-PVPSound_UnrealTournament3ItaDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 1.9995 }
+PVPSound_UnrealTournament3ItaDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\BarricadeDestroyed.mp3",										duration = 1.8075 }
+PVPSound_UnrealTournament3ItaDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 1.8555 }
+PVPSound_UnrealTournament3ItaDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.3355 }
+PVPSound_UnrealTournament3ItaDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 1.9755 }
+PVPSound_UnrealTournament3ItaDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.6715 }
+PVPSound_UnrealTournament3ItaDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 2.0475 }
+PVPSound_UnrealTournament3ItaDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 1.9995 }
+PVPSound_UnrealTournament3ItaDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 2.0475 }
+PVPSound_UnrealTournament3ItaDurations[131]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 1.9995 }
 
 -- Rus
 PVPSound_UnrealTournament3RusDurations = { }
@@ -908,14 +913,15 @@ PVPSound_UnrealTournament3RusDurations[119]				=	{ dir = "Interface\\Addons\\PVP
 PVPSound_UnrealTournament3RusDurations[120]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\ALLIANCE_Base_Offense.mp3",										duration = 2.3595 }
 PVPSound_UnrealTournament3RusDurations[121]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\ALLIANCE_TowerNode_Destroyed.mp3",								duration = 2.3595 }
 PVPSound_UnrealTournament3RusDurations[122]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\ALLIANCE_TowerNode_HeavilyDamaged.mp3",							duration = 2.7675 }
-PVPSound_UnrealTournament3RusDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 2.5995 }
-PVPSound_UnrealTournament3RusDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.3595 }
-PVPSound_UnrealTournament3RusDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 2.3595 }
-PVPSound_UnrealTournament3RusDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.8395 }
-PVPSound_UnrealTournament3RusDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 2.2875 }
-PVPSound_UnrealTournament3RusDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 2.3115 }
-PVPSound_UnrealTournament3RusDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 2.2875 }
-PVPSound_UnrealTournament3RusDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 2.3115 }
+PVPSound_UnrealTournament3RusDurations[123]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\BarricadeDestroyed.mp3",										duration = 1.9515 }
+PVPSound_UnrealTournament3RusDurations[124]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_Base_Defense.mp3",										duration = 2.5995 }
+PVPSound_UnrealTournament3RusDurations[125]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_Base_Offense.mp3",										duration = 2.3595 }
+PVPSound_UnrealTournament3RusDurations[126]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_TowerNode_Destroyed.mp3",									duration = 2.3595 }
+PVPSound_UnrealTournament3RusDurations[127]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\HORDE_TowerNode_HeavilyDamaged.mp3",							duration = 2.8395 }
+PVPSound_UnrealTournament3RusDurations[128]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnBlueAttackTheEnemyCore.mp3",						duration = 2.2875 }
+PVPSound_UnrealTournament3RusDurations[129]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnBlueDefendYourCore.mp3",							duration = 2.3115 }
+PVPSound_UnrealTournament3RusDurations[130]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnRedAttackTheEnemyCore.mp3",							duration = 2.2875 }
+PVPSound_UnrealTournament3RusDurations[131]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Rus\\Zone_Wintergrasp\\PlayYouAreOnRedDefendYourCore.mp3",								duration = 2.3115 }
 
 -- Devil May Cry SoundPacks
 -- Eng

@@ -822,47 +822,60 @@ local function SMWINobj_state(id)
 end
 
 -- Wintergrasp
-local WGobjectives = {FlamewatchTower = nil, FortressGraveyard = nil, ShadowsightTower = nil, WintersEdgeTower = nil, WintergraspFortressTowerNE = nil, WintergraspFortressTowerNW = nil, WintergraspFortressTowerSE = nil, WintergraspFortressTowerSW = nil,}
+local WGobjectives = {FlamewatchTower = nil, ShadowsightTower = nil, WintersEdgeTower = nil, WintergraspFortressTowerNE = nil, WintergraspFortressTowerNW = nil, WintergraspFortressTowerSE = nil, WintergraspFortressTowerSW = nil, WintergraspFortress = nil, TowerWalls = nil}
 
+--getobjective were remade. Now it compares POIs ids, not textures
+--we have pairs of IDs because BG and battlefield versions have different IDs
+--6XXX for BG, 2XXX for BF
 local function WGget_objective(id)
-	if id == 13 or id == 15 then
-		return "FortressGraveyard"
-	elseif id == 110 or id == 111 or id == 150 or id == 151 or id == 152 or id == 153 then
+	if id == 6066 or id == 2143 then
 		return "FlamewatchTower"
-	elseif id == 210 or id == 211 or id == 250 or id == 251 or id == 252 or id == 253 then
+	elseif id == 6067 or id == 2141 then
 		return "ShadowsightTower"
-	elseif id == 310 or id == 311 or id == 350 or id == 351 or id == 352 or id == 353 then
+	elseif id == 6065 or id == 2142 then
 		return "WintersEdgeTower"
-	elseif id == 410 or id == 411 or id == 450 or id == 451 or id == 452 or id == 453 then
+	elseif id == 6053 or id == 2146 then
 		return "WintergraspFortressTowerNE"
-	elseif id == 510 or id == 511 or id == 550 or id == 551 or id == 552 or id == 553 then
+	elseif id == 6052 or id == 2147 then
 		return "WintergraspFortressTowerNW"
-	elseif id == 610 or id == 611 or id == 650 or id == 651 or id == 652 or id == 653 then
+	elseif id == 6054 or id == 2145 then
 		return "WintergraspFortressTowerSE"
-	elseif id == 710 or id == 711 or id == 750 or id == 751 or id == 752 or id == 753 then
+	elseif id == 6055 or id == 2144 then
 		return "WintergraspFortressTowerSW"
+	elseif id == 2222 or id == 2223 or id == 2224 or id == 2225 or id == 2226 or id == 2227 or id == 2228 or id == 2230 or id == 2231 or id == 2232 or
+		id == 2233 or id == 2234 or id == 2235 or id == 2236 or id == 2237 or id == 2238 or id == 2239 or id == 2240 or id == 2241 or id == 2242 or id == 2243 or id == 2244 or
+		id == 2245 or id == 6028 or id == 6029 or id == 6030 or id == 6031 or id == 6032 or id == 6033 or id == 6034 or id == 6035 or id == 6036 or id == 6037 or id == 6038 or
+		id == 6039 or id == 6040 or id == 6041 or id == 6042 or id == 6043 or id == 6045 or id == 6046 or id == 6047 or id == 6048 or id == 6049 or id == 6050 or id == 6051 or
+		id == 2229 or id == 6056 then --these two ids are for WG gates
+		return "TowerWalls"		
+	elseif id == 2246 or id == 6027 then
+		return "WintergraspFortress"
 	else
 		return false
 	end
 end
 
+
+
 local function WGobj_state(id)
-	if id == 111 or id == 211 or id == 311 or id == 411 or id == 511 or id == 611 or id == 711 then
+	if id == 11 then
 		return 1 -- Alliance Towers Undamaged
-	elseif id == 110 or id == 210 or id == 310 or id == 410 or id == 510 or id == 610 or id == 710 then
+	elseif id == 10 then
 		return 2 -- Horde Towers Undamaged
-	elseif id == 150 or id == 250 or id == 350 or id == 450 or id == 550 or id == 650 or id == 750 then
+	elseif id == 50 then
 		return 3 -- Alliance Towers Heavily Damaged
-	elseif id == 151 or id == 251 or id == 351 or id == 451 or id == 551 or id == 651 or id == 751 then
+	elseif id == 51 then
 		return 4 -- Alliance Towers Destroyed
-	elseif id == 152 or id == 252 or id == 352 or id == 452 or id == 552 or id == 652 or id == 752 then
+	elseif id == 52 then
 		return 5 -- Horde Towers Heavily Damaged
-	elseif id == 153 or id == 253 or id == 353 or id == 453 or id == 553 or id == 653 or id == 753 then
+	elseif id == 53 then
 		return 6 -- Horde Towers Destroyed
-	elseif id == 13 then
-		return 7 -- Horde Graveyard
-	elseif id == 15 then
-		return 8 -- Alliance Graveyard
+	elseif id == 88 or id == 91 or id == 97 or id == 100 or id == 79 or id == 82 then
+		return 9 -- Walls destroyed
+	elseif id == 77 or id == 78 or id == 80 or id == 81 then
+		return 10 -- fortress is ok
+	elseif id == 79 or id == 82 then
+		return 11 -- fortrss destroyed
 	else
 		return 0
 	end
@@ -1037,8 +1050,8 @@ local function InitializeBgs(...)
 	elseif CurrentZoneId == 907 and InstanceType == "pvp" then
 		MyZone = "Zone_SeethingShore"--added
 	 -- Battlefields
-	elseif CurrentZoneId == 501 then
-		MyZone = "Zone_Wintergrasp"
+	elseif CurrentZoneId == 123 or ( CurrentZoneId == 1334 and InstanceType == "pvp") then --1334 is BG version of this zone
+		MyZone = "Zone_Wintergrasp"--updated
 	elseif CurrentZoneId == 708 then
 		MyZone = "Zone_TolBarad"
 	 -- Arenas
@@ -1594,55 +1607,95 @@ local function InitializeBgs(...)
 	--	end
 	--end
 	if MyZone == "Zone_Wintergrasp" then
-		local isActive = (select(5, GetWorldPVPAreaInfo(1)))
-		if isActive == 0 then
+		local isActive
+		if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+			isActive = true
+		elseif CurrentZoneId ==1334 then
+			isActive = true
+		else
+			isActive = false
+		end
+				
+		print("isActive: ", isActive)
+		if isActive == true then
 			BgIsOver = false
-		end
-		local FlamewatchTowerInit = select(4, GetMapLandmarkInfo(5))
-		local FortressGraveyardInit = select(4, GetMapLandmarkInfo(6))
-		local ShadowsightTowerInit = select(4, GetMapLandmarkInfo(9))
-		local WintersEdgeTowerInit = select(4, GetMapLandmarkInfo(15))
-		local WintergraspFortressTowerNEInit = select(4, GetMapLandmarkInfo(18))
-		local WintergraspFortressTowerNWInit = select(4, GetMapLandmarkInfo(19))
-		local WintergraspFortressTowerSEInit = select(4, GetMapLandmarkInfo(20))
-		local WintergraspFortressTowerSWInit = select(4, GetMapLandmarkInfo(21))
-		WGobjectives.FlamewatchTower = nil
-		WGobjectives.FortressGraveyard = nil
-		WGobjectives.ShadowsightTower = nil
-		WGobjectives.WintersEdgeTower = nil
-		WGobjectives.WintergraspFortressTowerNE = nil
-		WGobjectives.WintergraspFortressTowerNW = nil
-		WGobjectives.WintergraspFortressTowerSE = nil
-		WGobjectives.WintergraspFortressTowerSW = nil
-		if FlamewatchTowerInit then
-			WGobjectives.FlamewatchTower = FlamewatchTowerInit + 100
-		end
-		if FortressGraveyardInit then
-			WGobjectives.FortressGraveyard = FortressGraveyardInit
-
-		end
-		if ShadowsightTowerInit then
-			WGobjectives.ShadowsightTower = ShadowsightTowerInit + 200
-
-		end
-		if WintersEdgeTowerInit then
-			WGobjectives.WintersEdgeTower = WintersEdgeTowerInit + 300
-
-		end
-		if WintergraspFortressTowerNEInit then
-			WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit + 400
-
-		end
-		if WintergraspFortressTowerNWInit then
-			WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit + 500
-
-		end
-		if WintergraspFortressTowerSEInit then
-			WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit + 600
-
-		end
-		if WintergraspFortressTowerSWInit then
-			WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit + 700
+			local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+			
+			local FlamewatchTowerInit
+			local ShadowsightTowerInit
+			local WintersEdgeTowerInit
+			local WintergraspFortressTowerNEInit
+			local WintergraspFortressTowerNWInit
+			local WintergraspFortressTowerSEInit
+			local WintergraspFortressTowerSWInit
+			local TowerWallsInit = 0
+			local WintergraspFortressInit
+			
+			for i=1,#POIs do 
+				if WGget_objective(POIs[i]) == "FlamewatchTower" then
+					FlamewatchTowerInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "ShadowsightTower" then
+					ShadowsightTowerInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "WintersEdgeTower" then
+					WintersEdgeTowerInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerNE" then
+					WintergraspFortressTowerNEInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerNW" then
+					WintergraspFortressTowerNWInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerSE" then
+					WintergraspFortressTowerSEInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerSW" then
+					WintergraspFortressTowerSWInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				elseif WGget_objective(POIs[i]) == "TowerWalls" then
+					if WGobj_state(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == 9 then
+						TowerWallsInit = TowerWallsInit + 1
+					end
+				elseif WGget_objective(POIs[i]) == "WintergraspFortress" then
+					WintergraspFortressInit == C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				end
+			end
+			
+			
+			WGobjectives.FlamewatchTower = nil
+			WGobjectives.ShadowsightTower = nil
+			WGobjectives.WintersEdgeTower = nil
+			WGobjectives.WintergraspFortressTowerNE = nil
+			WGobjectives.WintergraspFortressTowerNW = nil
+			WGobjectives.WintergraspFortressTowerSE = nil
+			WGobjectives.WintergraspFortressTowerSW = nil
+			WGobjectives.TowerWalls = nil
+			if FlamewatchTowerInit then
+				WGobjectives.FlamewatchTower = FlamewatchTowerInit
+			end
+			if ShadowsightTowerInit then
+				WGobjectives.ShadowsightTower = ShadowsightTowerInit
+	
+			end
+			if WintersEdgeTowerInit then
+				WGobjectives.WintersEdgeTower = WintersEdgeTowerInit
+	
+			end
+			if WintergraspFortressTowerNEInit then
+				WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit
+	
+			end
+			if WintergraspFortressTowerNWInit then
+				WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit
+	
+			end
+			if WintergraspFortressTowerSEInit then
+				WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit
+	
+			end
+			if WintergraspFortressTowerSWInit then
+				WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit
+			end
+			if TowerWallsInit then
+				WGobjectives.TowerWalls = TowerWallsInit
+			end
+			if WintergraspFortressInit then
+				WGobjectives.WintergraspFortress = WintergraspFortressInit
+			end
 		end
 	end
 	if MyZone == "Zone_TolBarad" then
@@ -1876,23 +1929,39 @@ function PVPSound:OnEvent(event, ...)
 					KilledMe = nil
 					KilledBy = nil
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PrepareForBattle.mp3")
-				 -- Wintergrasp PlaySounds --Wintergasp and Ashran are now also a bg
+				 -- Wintergrasp PlaySounds --Wintergasp and Ashran are now also BGs
 				elseif MyZone == "Zone_Wintergrasp" then
 					TimerReset = true
 					KilledMe = nil
 					KilledBy = nil
-					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
-					if isActive == 0 then
-						for i = 7, 7, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							if textureIndex then
-								if textureIndex == 68 then
-									WgAttacker = "Alliance"
-								elseif textureIndex == 71 then
-									WgAttacker = "Horde"
-								end
+					local isActive
+					if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+						isActive = true
+					elseif CurrentZoneId ==1334 then
+						isActive = true
+					else
+						isActive = false
+					end
+					
+					if isActive == true then
+						--check texture for west fortress workshop
+						--if it's blue - alliance defended
+						--else - horde
+						--2150 - fortress in BF version, 6074 - in BG version
+						local textureIndex
+						if CurrentZoneId ==123 then
+							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,2150).textureIndex
+						else
+							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,6074).textureIndex
+						end
+						if textureIndex then
+							if textureIndex == 68 then
+								WgAttacker = "Alliance"
+							elseif textureIndex == 71 then
+								WgAttacker = "Horde"
 							end
 						end
+						print("attacker=",WgAttacker," faction", MyFaction)
 						if WgAttacker == "Alliance" and MyFaction == "Alliance" then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueAttackTheEnemyCore.mp3")
 						elseif WgAttacker == "Alliance" and MyFaction == "Horde" then
@@ -2864,8 +2933,15 @@ function PVPSound:OnEvent(event, ...)
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 						BgIsOver = true
 					end
-					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
-					if isActive == 0 then
+					local isActive
+					if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+						isActive = true
+					elseif CurrentZoneId ==1334 then
+						isActive = true
+					else
+						isActive = false
+					end
+					if isActive == true then
 						BgIsOver = false
 						-- Workshops
 						if string.find(EventMessage, L["workshop has been attacked by the Alliance"]) then
@@ -3652,249 +3728,54 @@ function PVPSound:OnEvent(event, ...)
 					
 				 -- Wintergrasp
 				elseif MyZone == "Zone_Wintergrasp" then
-					-- Fortress Graveyard
-					for i = 41, 41, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							local faketextureIndex = textureIndex
-							local type = WGget_objective(faketextureIndex)
-							if x == 0.48 and y == 0.08 then
-								if BgIsOver ~= true then
-									if type then
-										if WGobj_state(WGobjectives[type]) == 7 and WGobj_state(faketextureIndex) == 8 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
-											BgIsOver = true
-										elseif WGobj_state(WGobjectives[type]) == 8 and WGobj_state(faketextureIndex) == 7 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
-											BgIsOver = true
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
+					local isActive
+					if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+						isActive = true
+					elseif CurrentZoneId ==1334 then
+						isActive = true
+					else
+						isActive = false
 					end
-					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
-					if isActive == 0 then
+					
+					if isActive == true then
 						-- Towers
+						local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 						-- Flamewatch Tower
-						for i = 3, 3, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.80 and y == 0.63 then
-									local faketextureIndex = textureIndex + 100
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
+						local destroyedWalls = 0
+						for i = 0, #POIs do 
+							local type = WGget_objective(POIs[i])
+							if type and type ~= "TowerWalls" then
+								local faketextureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+								
+								if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
+								elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
+								elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
+								elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+								elseif WGobj_state(WGobjectives[type]) == 10 and WGobj_state(faketextureIndex) == 11 then --this only used for battlefield version
+									if WgAttacker == "Horde" then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
+									else
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 									end
+									BgIsOver = true
+								end
+								WGobjectives[type] = faketextureIndex
+							elseif type == "TowerWalls" then
+								if WGobj_state(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == 9 then
+									destroyedWalls = destroyedWalls + 1
 								end
 							end
 						end
-						-- Shadowsight Tower
-						for i = 1, 1, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.23 and y == 0.58 then
-									local faketextureIndex = textureIndex + 200
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
+						
+						if destroyedWalls > WGobjectives.TowerWalls then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
+							WGobjectives.TowerWalls = destroyedWalls
 						end
-						-- Winter's Edge Tower
-						for i = 2, 2, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.50 and y == 0.66 then
-									local faketextureIndex = textureIndex + 300
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
-						-- Wintergrasp Fortress Tower (NE)
-						for i = 6, 6, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.57 and y == 0.22 then
-									local faketextureIndex = textureIndex + 400
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
-						-- Wintergrasp Fortress Tower (NW)
-						for i = 7, 7, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.43 and y == 0.22 then
-									local faketextureIndex = textureIndex + 500
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
-						-- Wintergrasp Fortress Tower (SE)
-						for i = 5, 5, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.53 and y == 0.27 then
-									local faketextureIndex = textureIndex + 600
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
-						-- Wintergrasp Fortress Tower (SW)
-						for i = 4, 4, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							local x
-							if (select(5, GetMapLandmarkInfo(i))) then
-								x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							local y
-							if (select(6, GetMapLandmarkInfo(i))) then
-								y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-							end
-							if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-								if x == 0.46 and y == 0.28 then
-									local faketextureIndex = textureIndex + 700
-									local type = WGget_objective(faketextureIndex)
-									if type then
-										if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 2 and WGobj_state(faketextureIndex) == 5 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_HeavilyDamaged.mp3")
-										elseif WGobj_state(WGobjectives[type]) == 5 and WGobj_state(faketextureIndex) == 6 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-										end
-										WGobjectives[type] = faketextureIndex
-									end
-								end
-							end
-						end
+						
 					end
 				 -- Tol Barad
 				elseif MyZone == "Zone_TolBarad" then
@@ -5252,110 +5133,12 @@ function PVPSound:OnEventTwo(event, ...)
 							--end
 						end
 					end					
-					
-					
-					
-					
-					
-					
-					
-					
 
-				 -- Eye of the Storm WinSounds
-				--[[elseif MyZone == "Zone_EyeoftheStorm" then
-					if BgIsOver ~= true then
-						if IsRated == false then
-							-- Alliance Victory Points
-							for i = 3, 3, 1 do
-								if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-									local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
-									if faketextureIndex then
-										local type = EOTSWINget_objective(faketextureIndex)
-										if BgIsOver ~= true then
-											if type then
-												if EOTSWINobj_state(EOTSWINobjectives[type]) == 2 and EOTSWINobj_state(faketextureIndex) == 1 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
-													BgIsOver = true
-													PVPSound:ClearPaybackQueue()
-													PVPSound:ClearRetributionQueue()
-												end
-												EOTSWINobjectives[type] = faketextureIndex
-											end
-										end
-									end
-								end
-							end
-							-- Horde Victory Points
-							for i = 4, 4, 1 do
-								if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-									local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
-									if faketextureIndex then
-										local type = EOTSWINget_objective(faketextureIndex)
-										if BgIsOver ~= true then
-											if type then
-												if EOTSWINobj_state(EOTSWINobjectives[type]) == 2 and EOTSWINobj_state(faketextureIndex) == 1 then
-													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
-													BgIsOver = true
-													PVPSound:ClearPaybackQueue()
-													PVPSound:ClearRetributionQueue()
-												end
-												EOTSWINobjectives[type] = faketextureIndex
-											end
-										end
-									end
-								end
-							end
-						end
-					end]]
-				 -- Silvershard Mines WinSounds 
-				 -- there is no win message in this BG. later I will replace it with PVP_MATCH_COMPELTE
-				--elseif MyZone == "Zone_SilvershardMines" then
-				--	if BgIsOver ~= true then
-				--		-- Alliance Resources
-				--		for i = 2, 2, 1 do
-				--			if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-				--				local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
-				--				if faketextureIndex then
-				--					local type = SMWINget_objective(faketextureIndex)
-				--					if BgIsOver ~= true then
-				--						if type then
-				--							if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
-				--								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
-				--								BgIsOver = true
-				--								PVPSound:ClearPaybackQueue()
-				--								PVPSound:ClearRetributionQueue()
-				--							end
-				--							SMWINobjectives[type] = faketextureIndex
-				--						end
-				--					end
-				--				end
-				--			end
-				--		end
-				--		-- Horde Resources
-				--		for i = 3, 3, 1 do
-				--			if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-				--				local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), "(%d+)/"))
-				--				if faketextureIndex then
-				--					local type = SMWINget_objective(faketextureIndex)
-				--					if BgIsOver ~= true then
-				--						if type then
-				--							if SMWINobj_state(SMWINobjectives[type]) == 2 and SMWINobj_state(faketextureIndex) == 1 then
-				--								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
-				--								BgIsOver = true
-				--								PVPSound:ClearPaybackQueue()
-				--								PVPSound:ClearRetributionQueue()
-				--							end
-				--							SMWINobjectives[type] = faketextureIndex
-				--						end
-				--					end
-				--				end
-				--			end
-				--		end
-				--	end
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
-				if MyZone == "Zone_SilvershardMines" then 
-				 local winner=...
+				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" then 
+					--for Wintergasp it only works in BG version, for BF version there is old methdos
+					local winner=...
 				 	if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 					else 
@@ -5365,6 +5148,8 @@ function PVPSound:OnEventTwo(event, ...)
 					PVPSound:ClearPaybackQueue()
 					PVPSound:ClearRetributionQueue()
 				end
+				
+
 			end
 		end
 	end

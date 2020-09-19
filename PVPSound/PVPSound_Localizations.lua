@@ -234,10 +234,10 @@ L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "
 L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds"
 L["Tie game"] = "Tie game"
 -- Battlefield Events
-L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance"
-L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance"
-L["workshop has been attacked by the Horde"] = "workshop has been attacked by the Horde"
-L["workshop has been captured by the Horde"] = "workshop has been captured by the Horde"
+L["workshop has been attacked by the Alliance"] = "has been attacked by the Alliance"--updated for WG
+L["workshop has been captured by the Alliance"] = "has been captured by the Alliance"--updated for WG
+L["workshop has been attacked by the Horde"] = "has been attacked by the Horde"--updated for WG
+L["workshop has been captured by the Horde"] = "has been captured by the Horde"--updated for WG
 L["Alliance has defended"] = "Alliance has defended"
 L["Horde has defended"] = "Horde has defended"
 end
@@ -1466,11 +1466,11 @@ L["Round 2 begins in 30 seconds"] = "Раунд 2 начинается чере�
 L["vulnerable"] = "уязвимо"
 L["Tie game"] = "Ничья"
 -- Battlefield Events
-L["workshop has been attacked by the Alliance"] = "мастерская атакована Альянсом"
-L["workshop has been captured by the Alliance"] = "мастерская захвачена Альянсом"
+L["workshop has been attacked by the Alliance"] = "атакована Альянсом"--updated for WG
+L["workshop has been captured by the Alliance"] = "захвачена Альянсом"--updated for WG
 L["Alliance has defended"] = "Альянс защитил"
-L["workshop has been attacked by the Horde"] = "мастерская атакована Ордой"
-L["workshop has been captured by the Horde"] = "мастерская захвачена Ордой"
+L["workshop has been attacked by the Horde"] = "атакована Ордой"--updated for WG
+L["workshop has been captured by the Horde"] = "захвачена Ордой"--updated for WG
 L["Horde has defended"] = "Орда защитила"
 end
 
