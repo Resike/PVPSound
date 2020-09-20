@@ -618,7 +618,7 @@ local function TBFGobj_state(id)
 	end
 end
 
--- Deepwind Gorge--redisigned in 8.3.0
+-- Deepwind Gorge--redesigned in 8.3.0
 
 local DGobjectives = {Market = nil, Farm = nil, Ruins = nil, Shrine = nil, Quarry = nil}
 
@@ -653,106 +653,63 @@ local function DGobj_state(id)
 end
 
 -- Isle of Conquest
-local IOCobjectives = {AllianceGateE = nil, AllianceGateW = nil, AllianceGateS = nil, HordeGateE = nil, HordeGateW = nil, HordeGateN = nil, Quarry = nil, Workshop = nil, Hangar = nil, Docks = nil, Refinerie = nil}
+local IOCobjectives = {AllianceGateE = nil, AllianceGateW = nil, AllianceGateS = nil, HordeGateE = nil, HordeGateW = nil, HordeGateN = nil, Quarry = nil, Workshop = nil, Hangar = nil, Docks = nil, Refinerie = nil, HordeKeep = nil, AllianceKeep = nil}
 
+--remade it to POI IDs, not texture IDs, because now the position of POI in POI table not permanent
 local function IOCget_objective(id)
-	if id >= 16 and id <= 20 then
+	if id >= 2361 and id <= 2365 then
 		return "Quarry"
-	elseif id >= 135 and id <= 139 then
+	elseif id >= 2345 and id <= 2349 then
 		return "Workshop"
-	elseif id >= 140 and id <= 144 then
+	elseif id >= 2350 and id <= 2355 then
 		return "Hangar"
-	elseif id >= 145 and id <= 149 then
+	elseif id >= 2356 and id <= 2360 then
 		return "Docks"
-	elseif id >= 150 and id <= 154 then
+	elseif id >= 2366 and id <= 2370 then
 		return "Refinerie"
-	elseif id == 180 or id == 182 then
+	elseif id == 2377 or id == 2379 then
 		return "AllianceGateE"
-	elseif id == 280 or id == 282 then
+	elseif id == 2380 or id == 2381 then
 		return "AllianceGateW"
-	elseif id == 380 or id == 382 then
+	elseif id == 2378 or id == 2382 then
 		return "AllianceGateS"
-	elseif id == 477 or id == 479 then
+	elseif id == 2373 or id == 2374 then
 		return "HordeGateE"
-	elseif id == 577 or id == 579 then
+	elseif id == 2375 or id == 2376 then
 		return "HordeGateW"
-	elseif id == 677 or id == 679 then
+	elseif id == 2371 or id == 2372 then
 		return "HordeGateN"
+	elseif id >= 2388 and id <= 2392 then
+		return "HordeKeep"
+	elseif id >= 2383 and id <= 2387 then
+		return "AllianceKeep"
 	else
 		return false
 	end
 end
-
+--at the moment, state checks a texture index, it will be better to replace it by POI id check
 local function IOCobj_state(id)
-	if id == 18 or id == 136 or id == 141 or id == 146 or id == 151 then
+	if id == 11 or id == 18 or id == 136 or id == 141 or id == 146 or id == 151 then
 		return 1 -- Alliance Bases
-	elseif id == 20 or id == 138 or id == 143 or id == 148 or id == 153 then
+	elseif id == 10 or id == 20 or id == 138 or id == 143 or id == 148 or id == 153 then
 		return 2 -- Horde Bases
-	elseif id == 17 or id == 137 or id == 142 or id == 147 or id == 152 then
+	elseif id == 9 or id == 17 or id == 137 or id == 142 or id == 147 or id == 152 then
 		return 3 -- Alliance trys to capture
-	elseif id == 19 or id == 139 or id == 144 or id == 149 or id == 154 then
+	elseif id == 12 or id == 19 or id == 139 or id == 144 or id == 149 or id == 154 then
 		return 4 -- Horde trys to capture
-	elseif id == 180 or id == 280 or id == 380 then
+	elseif id == 80 then
 		return 5 -- Alliance Gate Undamaged
-	elseif id == 477 or id == 577 or id == 677 then
+	elseif id == 77 then
 		return 6 -- Horde Gate Undamaged
-	elseif id == 182 or id == 282 or id == 382 then
+	elseif id == 82 then
 		return 7 -- Alliance Gate Destroyed
-	elseif id == 479 or id == 579 or id == 679 then
+	elseif id == 79 then
 		return 8 -- Horde Gate Destroyed
 	else
 		return 0
 	end
 end
 
--- Strand of the Ancients //deleted in BFA
---[[local SOTAobjectives = {ChamberofAncientRelics = nil, EastGraveyard = nil, GateoftheBlueSapphire = nil, GateoftheGreenEmerald = nil, GateofthePurpleAmethyst = nil, GateoftheRedSun = nil, GateoftheYellowMoon = nil, SouthGraveyard = nil, WestGraveyard = nil}
-
-local function SOTAget_objective(id)
-	if id >= 177 and id <= 182 then
-		return "ChamberofAncientRelics"
-	elseif id == 213 or id == 215 then
-		return "EastGraveyard"
-	elseif id >= 80 and id <= 82 then
-		return "GateoftheBlueSapphire"
-	elseif id >= 108 and id <= 110 then
-		return "GateoftheGreenEmerald"
-	elseif id >= 105 and id <= 107 then
-		return "GateofthePurpleAmethyst"
-	elseif id >= 77 and id <= 79 then
-		return "GateoftheRedSun"
-	elseif id >= 702 and id <= 704 then
-		return "GateoftheYellowMoon"
-	elseif id == 813 or id == 815 then
-		return "SouthGraveyard"
-	elseif id == 913 or id == 915 then
-		return "WestGraveyard"
-	else
-		return false
-	end
-end
-
-local function SOTAobj_state(id)
-	if id == 215 or id == 815 or id == 915 then
-		return 1 -- Alliance Graveyards
-	elseif id == 213 or id == 813 or id == 913 then
-		return 2 -- Horde Graveyards
-	elseif id == 177 or id == 180 then
-		return 3 -- Chamber Gate Undamaged
-	elseif id == 178 or id == 181 then
-		return 4 -- Chamber Gate Damaged
-	elseif id == 179 or id == 182 then
-		return 5 -- Chamber Gate Destroyed
-	elseif id == 80 or id == 108 or id == 105 or id == 77 or id == 702 then
-		return 6 -- Other Gates Undamaged
-	elseif id == 81 or id == 109 or id == 106 or id == 78 or id == 703 then
-		return 7 -- Other Gates Damaged
-	elseif id == 82 or id == 110 or id == 107 or id == 79 or id == 704 then
-		return 8 -- Other Gates Destroyed
-	else
-		return 0
-	end
-end]]--
 
 -- Eye of the Storm
 local EOTSobjectives = {BloodElfTower = nil, DraeneiRuins = nil, FelReaverRuins = nil, MageTower = nil}
@@ -1033,10 +990,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_AlteracValley"
 	elseif (CurrentZoneId == 112 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then 
 		MyZone = "Zone_EyeoftheStorm"--updated
-	elseif CurrentZoneId == 540 and InstanceType == "pvp" then
-		MyZone = "Zone_IsleofConquest"
-	--elseif CurrentZoneId == 512 and InstanceType == "pvp" then --BG was deleted 
-	--	MyZone = "Zone_StrandoftheAncients"
+	elseif CurrentZoneId == 169 and InstanceType == "pvp" then
+		MyZone = "Zone_IsleofConquest"--updated
 	elseif CurrentZoneId == 206 and InstanceType == "pvp" then
 		MyZone = "Zone_TwinPeaks"--updated
 	elseif CurrentZoneId == 275 and InstanceType == "pvp" then
@@ -1072,23 +1027,7 @@ local function InitializeBgs(...)
 	elseif UnitSex("player") == 3 then
 		MyGender = "Female"
 	end
-	--IoC Gate check
-	if MyZone == "Zone_IsleofConquest" then
-		IocAllianceGateDown = false
-		IocHordeGateDown = false
-		-- Alliance Gates
-		for i = 9, 11, 1 do
-			if (select(4, GetMapLandmarkInfo(i))) == 82 then --4-texture id, 82 is gates destroyed by horde
-				IocAllianceGateDown = true
-			end
-		end
-		-- Horde Gates
-		for i = 6, 8, 1 do
-			if (select(4, GetMapLandmarkInfo(i))) == 79 then --4-texture id, 79 is gates destroyed by alliance
-				IocHordeGateDown = true
-			end
-		end
-	end
+
 	--world state check
 	if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_Arenas" or MyZone == "Zone_SeethingShore" then
 		
@@ -1134,7 +1073,7 @@ local function InitializeBgs(...)
 			local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
 			WSGandTPHobjectives.HordeScore = nil
 			WSGandTPHobjectives.HordeScore = HordeScoreInit
-			--why nil?
+			
 			self.AllianceFlagPositionX = nil
 			self.AllianceFlagPositionY = nil
 			self.HordeFlagPositionX = nil
@@ -1212,13 +1151,6 @@ local function InitializeBgs(...)
 					StablesInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				end
 			end
-		
-		
-			--BlacksmithInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
-			--FarmInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[4]).textureIndex
-			--GoldMineInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[5]).textureIndex
-			--LumberMillInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
-			--StablesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[1]).textureIndex
 		end
 		
 		ABobjectives.Blacksmith = nil
@@ -1227,19 +1159,19 @@ local function InitializeBgs(...)
 		ABobjectives.LumberMill = nil
 		ABobjectives.Stables = nil
 		if BlacksmithInit then
-			ABobjectives.Blacksmith = BlacksmithInit-- + 100
+			ABobjectives.Blacksmith = BlacksmithInit
 		end
 		if FarmInit then
-			ABobjectives.Farm = FarmInit-- + 200
+			ABobjectives.Farm = FarmInit
 		end
 		if GoldMineInit then
-			ABobjectives.GoldMine = GoldMineInit-- + 300
+			ABobjectives.GoldMine = GoldMineInit
 		end
 		if LumberMillInit then
-			ABobjectives.LumberMill = LumberMillInit-- + 400
+			ABobjectives.LumberMill = LumberMillInit
 		end
 		if StablesInit then
-			ABobjectives.Stables = StablesInit-- + 500
+			ABobjectives.Stables = StablesInit
 		end
 		
 	end
@@ -1337,182 +1269,151 @@ local function InitializeBgs(...)
 		end
 	end
 	if MyZone == "Zone_IsleofConquest" then
-		--[[local j, k, l, m, n, o, p, q, r, s, t
-		if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-			j = 1
-			k = 2
-			l = 3
-			m = 6
-			n = 7
-			o = 8
-			p = 9
-			q = 10
-			r = 13
-			s = 14
-			t = 15
-		elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
-			j = 1
-			k = 2
-			l = 3
-			m = 6
-			n = 7
-			o = 8
-			p = 9
-			q = 10
-			r = 12
-			s = 13
-			t = 14
-		elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-			j = 1
-			k = 2
-			l = 3
-			m = 5
-			n = 6
-			o = 7
-			p = 8
-			q = 9
-			r = 12
-			s = 13
-			t = 14
-		else
-			j = 1
-			k = 2
-			l = 3
-			m = 5
-			n = 6
-			o = 7
-			p = 8
-			q = 9
-			r = 11
-			s = 12
-			t = 13
-		end]]
-		local AllianceGateEInit = select(4, GetMapLandmarkInfo(9))
-		local AllianceGateWInit = select(4, GetMapLandmarkInfo(10))
-		local AllianceGateSInit = select(4, GetMapLandmarkInfo(11))
-		local DocksInit = select(4, GetMapLandmarkInfo(3))
-		local HangarInit = select(4, GetMapLandmarkInfo(2))
-		local HordeGateEInit = select(4, GetMapLandmarkInfo(7))
-		local HordeGateWInit = select(4, GetMapLandmarkInfo(8))
-		local HordeGateNInit = select(4, GetMapLandmarkInfo(6))
-		local QuarryInit = select(4, GetMapLandmarkInfo(4))
-		local RefinerieInit = select(4, GetMapLandmarkInfo(5))
-		local WorkshopInit = select(4, GetMapLandmarkInfo(1))
+		
+		--IoC Gate initial check
+		--checked in init POI loop
+		IocAllianceGateDown = false
+		IocHordeGateDown = false
+		
+		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		
+		local AllianceGateEInit
+		local AllianceGateWInit
+		local AllianceGateSInit
+		local DocksInit
+		local HangarInit
+		local HordeGateEInit
+		local HordeGateWInit
+		local HordeGateNInit
+		local QuarryInit
+		local RefinerieInit
+		local WorkshopInit
+		local HordeKeepInit
+		local AllianceKeepInit
+		
+		for i = 1, #POIs do
+			if (IOCget_objective(POIs[i]) == "AllianceGateE") then
+				AllianceGateEInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				if IOCobj_state(AllianceGateEInit) == 7 then
+					IocAllianceGateDown = true
+				end
+			elseif (IOCget_objective(POIs[i]) == "AllianceGateW") then
+				AllianceGateWInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				if IOCobj_state(AllianceGateWInit) == 7 then
+					IocAllianceGateDown = true
+				end
+			elseif (IOCget_objective(POIs[i]) == "AllianceGateS") then
+				AllianceGateSInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				if IOCobj_state(AllianceGateSInit) == 7 then
+					IocAllianceGateDown = true
+				end
+			elseif (IOCget_objective(POIs[i]) == "HordeGateE") then
+				HordeGateEInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				if IOCobj_state(HordeGateEInit) == 8 then
+					IocHordeGateDown = true
+				end
+			elseif (IOCget_objective(POIs[i]) == "HordeGateW") then
+				HordeGateWInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				if IOCobj_state(HordeGateWInit) == 8 then
+					IocHordeGateDown = true
+				end
+			elseif (IOCget_objective(POIs[i]) == "HordeGateN") then
+				HordeGateNInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				if IOCobj_state(HordeGateNInit) == 8 then
+					IocHordeGateDown = true
+				end
+			elseif (IOCget_objective(POIs[i]) == "Quarry") then
+				QuarryInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			elseif (IOCget_objective(POIs[i]) == "Refinerie") then
+				RefinerieInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			elseif (IOCget_objective(POIs[i]) == "Workshop") then
+				WorkshopInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			elseif (IOCget_objective(POIs[i]) == "Docks") then
+				DocksInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			elseif (IOCget_objective(POIs[i]) == "Hangar") then
+				HangarInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			elseif (IOCget_objective(POIs[i]) == "HordeKeep") then
+				HordeTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			elseif (IOCget_objective(POIs[i]) == "AllianceKeep") then
+				AllianceTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+			end
+		end
+
 		IOCobjectives.AllianceGateE = nil
 		IOCobjectives.AllianceGateW = nil
 		IOCobjectives.AllianceGateS = nil
-		IOCobjectives.Docks = nil
-		IOCobjectives.Hangar = nil
 		IOCobjectives.HordeGateE = nil
 		IOCobjectives.HordeGateW = nil
 		IOCobjectives.HordeGateN = nil
 		IOCobjectives.Quarry = nil
 		IOCobjectives.Refinerie = nil
 		IOCobjectives.Workshop = nil
+		IOCobjectives.Docks = nil
+		IOCobjectives.Hangar = nil
+		IOCobjectives.HordeKeep = nil
+		IOCobjectives.AllianceKeep = nil
+		
 		if AllianceGateEInit then
-			IOCobjectives.AllianceGateE = AllianceGateEInit + 100
+			IOCobjectives.AllianceGateE = AllianceGateEInit
 		end
 		if AllianceGateWInit then
-			IOCobjectives.AllianceGateW = AllianceGateWInit + 200
+			IOCobjectives.AllianceGateW = AllianceGateWInit
 		end
 		if AllianceGateSInit then
-			IOCobjectives.AllianceGateS = AllianceGateSInit + 300
+			IOCobjectives.AllianceGateS = AllianceGateSInit
 		end
-		IOCobjectives.Docks = DocksInit
-		IOCobjectives.Hangar = HangarInit
 		if HordeGateEInit then
-			IOCobjectives.HordeGateE = HordeGateEInit + 400
+			IOCobjectives.HordeGateE = HordeGateEInit
 		end
 		if HordeGateWInit then
-			IOCobjectives.HordeGateW = HordeGateWInit + 500
+			IOCobjectives.HordeGateW = HordeGateWInit
 		end
 		if HordeGateNInit then
-			IOCobjectives.HordeGateN = HordeGateNInit + 600
+			IOCobjectives.HordeGateN = HordeGateNInit
 		end
-		IOCobjectives.Quarry = QuarryInit
-		IOCobjectives.Refinerie = RefinerieInit
-		IOCobjectives.Workshop = WorkshopInit
-	end
-	--delete it
-	if MyZone == "Zone_StrandoftheAncients" then
-		local j, k, l, m, n, o, p, q, r
-		if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
-			j = 1
-			k = 2
-			l = 3
-			m = 4
-			n = 5
-			o = 6
-			p = 7
-			q = 9
-			r = 12
-		elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
-			j = 2
-			k = 3
-			l = 4
-			m = 5
-			n = 6
-			o = 7
-			p = 8
-			q = 9
-			r = 12
-		else
-			j = 1
-			k = 2
-			l = 3
-			m = 4
-			n = 5
-			o = 6
-			p = nil
-			q = nil
-			r = nil
+		if QuarryInit then
+			IOCobjectives.Quarry = QuarryInit
 		end
-		local ChamberofAncientRelicsInit = select(4, GetMapLandmarkInfo(j))
-		local EastGraveyardInit = select(4, GetMapLandmarkInfo(k))
-		local GateoftheBlueSapphireInit = select(4, GetMapLandmarkInfo(3))
-		local GateoftheGreenEmeraldInit = select(4, GetMapLandmarkInfo(4))
-		local GateofthePurpleAmethystInit = select(4, GetMapLandmarkInfo(1))
-		local GateoftheRedSunInit = select(4, GetMapLandmarkInfo(2))
-		local GateoftheYellowMoonInit
-		local SouthGraveyardInit
-		local WestGraveyardInit
-		if p ~= nil then
-			GateoftheYellowMoonInit = select(4, GetMapLandmarkInfo(p))
+		if RefinerieInit then
+			IOCobjectives.Refinerie = RefinerieInit
 		end
-		if q ~= nil then
-			SouthGraveyardInit = select(4, GetMapLandmarkInfo(q))
+		if WorkshopInit then
+			IOCobjectives.Workshop = WorkshopInit
 		end
-		if r ~= nil then
-			WestGraveyardInit = select(4, GetMapLandmarkInfo(r))
+		if DocksInit then
+			IOCobjectives.Docks = DocksInit
 		end
-		SOTAobjectives.ChamberofAncientRelics = nil
-		SOTAobjectives.EastGraveyard = nil
-		SOTAobjectives.GateoftheBlueSapphire = nil
-		SOTAobjectives.GateoftheGreenEmerald = nil
-		SOTAobjectives.GateofthePurpleAmethyst = nil
-		SOTAobjectives.GateoftheRedSun = nil
-		SOTAobjectives.GateoftheYellowMoon = nil
-		SOTAobjectives.SouthGraveyard = nil
-		SOTAobjectives.WestGraveyard = nil
-		if ChamberofAncientRelicsInit then
-			SOTAobjectives.ChamberofAncientRelics = ChamberofAncientRelicsInit + 100
+		if HangarInit then
+			IOCobjectives.Hangar = HangarInit
 		end
-		if EastGraveyardInit then
-			SOTAobjectives.EastGraveyard = EastGraveyardInit + 200
+		if HordeTowerInit then
+			IOCobjectives.HordeKeep = HordeKeepInit
 		end
-		SOTAobjectives.GateoftheBlueSapphire = GateoftheBlueSapphireInit
-		SOTAobjectives.GateoftheGreenEmerald = GateoftheGreenEmeraldInit
-		SOTAobjectives.GateofthePurpleAmethyst = GateofthePurpleAmethystInit
-		SOTAobjectives.GateoftheRedSun = GateoftheRedSunInit
-		if p ~= nil and GateoftheYellowMoonInit then
-			SOTAobjectives.GateoftheYellowMoon = GateoftheYellowMoonInit + 600 -- Intended
+		if AllianceTowerInit then
+			IOCobjectives.AllianceKeep = AllianceKeepInit
 		end
-		if q ~= nil and SouthGraveyardInit then
-			SOTAobjectives.SouthGraveyard = SouthGraveyardInit + 800
+		
+		--reinforcements init
+		local AReinforcementsInit
+		local HReinforcementsInit
+		
+		
+		AVandIOCAobjectives.AllianceReinforcements = nil
+		AVandIOCHobjectives.HordeReinforcements = nil
+		
+		if C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685) then
+			AReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).leftBarValue
+			HReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).rightBarValue
 		end
-		if r ~= nil and WestGraveyardInit then
-			SOTAobjectives.WestGraveyard = WestGraveyardInit + 900
+		
+		if AReinforcementsInit then 
+			AVandIOCAobjectives.AllianceReinforcements = AReinforcementsInit
 		end
+		if HReinforcementsInit then 
+			AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
+		end
+		
+		
 	end
 	
 	if MyZone == "Zone_TheBattleforGilneas" then
@@ -3020,651 +2921,48 @@ function PVPSound:OnEvent(event, ...)
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\MineShaftOpening.mp3")
 				end
 
-			--elseif event == "WORLD_MAP_UPDATE" then --may be it wil be better to put all zone checks in new event (AREA_POIS_UPDATED)
 			elseif event == "AREA_POIS_UPDATED" then
-				-- Strand of the Ancients
-				if MyZone == "Zone_StrandoftheAncients" then
-					--[[local j, k, l, m, n, o, p
-					if (select(5, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(2)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(2))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(2)))), 1, 4)) == 0.46 then
-						j = 1
-						k = 2
-						l = 3
-						m = 4
-						n = 5
-						o = 6
-						p = 7
-					elseif (select(5, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(3)))), 1, 4)) == 0.54 and (select(6, GetMapLandmarkInfo(3))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(3)))), 1, 4)) == 0.46 then
-						j = 2
-						k = 3
-						l = 4
-						m = 5
-						n = 6
-						o = 7
-						p = 8
-					else
-						j = 1
-						k = nil
-						l = 2
-						m = 3
-						n = 4
-						o = 5
-						p = 6
-					end]]
-					if SotaRoundOver ~= true then
-						--if k ~= nil then
-							-- Graveyards
-							-- East Graveyard
-							for i = 8, 8, 1 do
-								local textureIndex = select(4, GetMapLandmarkInfo(i))
-								local x
-								if (select(5, GetMapLandmarkInfo(i))) then
-									x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-								end
-								local y
-								if (select(6, GetMapLandmarkInfo(i))) then
-									y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-								end
-								if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-									if x == 0.54 and y == 0.46 then
-										local faketextureIndex = textureIndex + 200
-										local type = SOTAget_objective(faketextureIndex)
-										if type then
-											if SOTAobj_state(SOTAobjectives[type]) == 2 and SOTAobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-											elseif SOTAobj_state(SOTAobjectives[type]) == 1 and SOTAobj_state(faketextureIndex) == 2 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-											end
-											SOTAobjectives[type] = faketextureIndex
-										end
-									end
-								end
-							end
-							-- South Graveyard
-							for i = 9, 10, 1 do
-								local textureIndex = select(4, GetMapLandmarkInfo(i))
-								local x
-								if (select(5, GetMapLandmarkInfo(i))) then
-									x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-								end
-								local y
-								if (select(6, GetMapLandmarkInfo(i))) then
-									y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-								end
-								if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-									if (x == 0.49 and y == 0.56) or (x == 0.49 and y == 0.57) then
-										local faketextureIndex = textureIndex + 800
-										local type = SOTAget_objective(faketextureIndex)
-										if type then
-											if SOTAobj_state(SOTAobjectives[type]) == 2 and SOTAobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-											elseif SOTAobj_state(SOTAobjectives[type]) == 1 and SOTAobj_state(faketextureIndex) == 2 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-											end
-											SOTAobjectives[type] = faketextureIndex
-										end
-									end
-								end
-							end
-							-- West Graveyard
-							for i = 9, 12, 3 do
-								local textureIndex = select(4, GetMapLandmarkInfo(i))
-								local x
-								if (select(5, GetMapLandmarkInfo(i))) then
-									x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-								end
-								local y
-								if (select(6, GetMapLandmarkInfo(i))) then
-									y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-								end
-								if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-									if x == 0.44 and y == 0.49 then
-										local faketextureIndex = textureIndex + 900
-										local type = SOTAget_objective(faketextureIndex)
-										if type then
-											if SOTAobj_state(SOTAobjectives[type]) == 2 and SOTAobj_state(faketextureIndex) == 1 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-											elseif SOTAobj_state(SOTAobjectives[type]) == 1 and SOTAobj_state(faketextureIndex) == 2 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-											end
-											SOTAobjectives[type] = faketextureIndex
-										end
-									end
-								end
-							end
-						--end
-					end
-					-- Gates
-					-- Chamber of Ancient Relics
-					for i = 11, 12, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.86 then
-								local faketextureIndex = textureIndex + 100
-								local type = SOTAget_objective(faketextureIndex)
-								if type then
-									if SOTAobj_state(SOTAobjectives[type]) == 4 and SOTAobj_state(faketextureIndex) == 5 then
-										local textureIndex = select(4, GetMapLandmarkInfo(7))
-										if textureIndex == 46 then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
-										else
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
-										end
-									end
-									SOTAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Gate of the Blue Sapphire
-					for i = 3, 3, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.57 and y == 0.38 then
-								local faketextureIndex = textureIndex
-								local type = SOTAget_objective(faketextureIndex)
-								if type then
-									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
-									end
-									SOTAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Gate of the Green Emerald
-					for i = 4, 4, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.39 and y == 0.40 then
-								-- Intended
-								local faketextureIndex = textureIndex
-								local type = SOTAget_objective(faketextureIndex)
-								if type then
-									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
-									end
-									SOTAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Gate of the Purple Amethyst
-					for i = 1, 1, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.40 and y == 0.57 then
-								local faketextureIndex = textureIndex
-								local type = SOTAget_objective(faketextureIndex)
-								if type then
-									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
-									end
-									SOTAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Gate of the Red Sun
-					for i = 2, 2, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.57 and y == 0.55 then
-								local faketextureIndex = textureIndex
-								local type = SOTAget_objective(faketextureIndex)
-								if type then
-									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
-									end
-									SOTAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Gate of the Yellow Moon
-					for i = 10, 11, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.70 then
-								local faketextureIndex = textureIndex + 600
-								local type = SOTAget_objective(faketextureIndex)
-								if type then
-									if SOTAobj_state(SOTAobjectives[type]) == 7 and SOTAobj_state(faketextureIndex) == 8 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
-									end
-									SOTAobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
+
 				 -- Isle of Conquest
-				elseif MyZone == "Zone_IsleofConquest" then
-					--[[local j, k, l, m, n, o, p, q, r, s, t
-					if (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 and (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-						j = 1
-						k = 2
-						l = 3
-						m = 6
-						n = 7
-						o = 8
-						p = 9
-						q = 10
-						r = 13
-						s = 14
-						t = 15
-					elseif (select(5, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(5)))), 1, 4)) == 0.51 and (select(6, GetMapLandmarkInfo(5))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(5)))), 1, 4)) == 0.77 then
-						j = 1
-						k = 2
-						l = 3
-						m = 6
-						n = 7
-						o = 8
-						p = 9
-						q = 10
-						r = 12
-						s = 13
-						t = 14
-					elseif (select(5, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(5, GetMapLandmarkInfo(11)))), 1, 4)) == 0.48 and (select(6, GetMapLandmarkInfo(11))) ~= nil and tonumber(string.sub(tostring((select(6, GetMapLandmarkInfo(11)))), 1, 4)) == 0.28 then
-						j = 1
-						k = 2
-						l = 3
-						m = 5
-						n = 6
-						o = 7
-						p = 8
-						q = 9
-						r = 12
-						s = 13
-						t = 14
-					else
-						j = 1
-						k = 2
-						l = 3
-						m = 5
-						n = 6
-						o = 7
-						p = 8
-						q = 9
-						r = 11
-						s = 12
-						t = 13
-					end]]
+				if MyZone == "Zone_IsleofConquest" then
 					-- Gates
 					-- Alliance Gate (East)
-					for i = 9, 9, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.53 and y == 0.76 then
-								local faketextureIndex = textureIndex + 100
-								local type = IOCget_objective(faketextureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(faketextureIndex) == 7 then
-										if IocAllianceGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
-											IocAllianceGateDown = true
-										end
+					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					
+					for i = 1, #POIs do
+						local type = IOCget_objective(POIs[i])
+						--print(type) 
+						if type then
+							local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+							if textureIndex then
+								if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(textureIndex) == 7 then
+									if IocAllianceGateDown ~= true then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
+										IocAllianceGateDown = true
 									end
-									IOCobjectives[type] = faketextureIndex
+								elseif IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(textureIndex) == 8 then
+									if IocHordeGateDown ~= true then
+										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
+										IocHordeGateDown = true
+									end
+								elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
 								end
+								IOCobjectives[type] = textureIndex
 							end
 						end
 					end
-					-- Alliance Gate (West)
-					for i = 10, 10, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.48 and y == 0.76 then
-								local faketextureIndex = textureIndex + 200
-								local type = IOCget_objective(faketextureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(faketextureIndex) == 7 then
-										if IocAllianceGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
-											IocAllianceGateDown = true
-										end
-									end
-									IOCobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Alliance Gate (Front)
-					for i = 11, 11, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.73 then
-								local faketextureIndex = textureIndex + 300
-								local type = IOCget_objective(faketextureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(faketextureIndex) == 7 then
-										if IocAllianceGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedBlueCoreIsVulnerable.mp3")
-											IocAllianceGateDown = true
-										end
-									end
-									IOCobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Horde Gate (East)
-					for i = 7, 7, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.27 then
-								local faketextureIndex = textureIndex + 400
-								local type = IOCget_objective(faketextureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(faketextureIndex) == 8 then
-										if IocHordeGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
-											IocHordeGateDown = true
-										end
-									end
-									IOCobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Horde Gate (West)
-					for i = 8, 8, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.45 and y == 0.27 then
-								local faketextureIndex = textureIndex + 500
-								local type = IOCget_objective(faketextureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(faketextureIndex) == 8 then
-										if IocHordeGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
-											IocHordeGateDown = true
-										end
-									end
-									IOCobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Horde Gate (Front)
-					for i = 6, 6, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.48 and y == 0.31 then
-								local faketextureIndex = textureIndex + 600
-								local type = IOCget_objective(faketextureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 6 and IOCobj_state(faketextureIndex) == 8 then
-										if IocHordeGateDown ~= true then
-											PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyedRedCoreIsVulnerable.mp3")
-											IocHordeGateDown = true
-										end
-									end
-									IOCobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Bases
-					-- Docks
-					for i = 3, 3, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.34 and y == 0.51 then
-								local type = IOCget_objective(textureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									IOCobjectives[type] = textureIndex
-								end
-							end
-						end
-					end
-					-- Hangar
-					for i = 2, 2, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.62 and y == 0.57 then
-								local type = IOCget_objective(textureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									IOCobjectives[type] = textureIndex
-								end
-							end
-						end
-					end
-					-- Quarry
-					for i = 4, 4, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.64 and y == 0.83 then
-								local type = IOCget_objective(textureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									IOCobjectives[type] = textureIndex
-								end
-							end
-						end
-					end
-					-- Refinery
-					for i = 5, 5, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.34 and y == 0.24 then
-								local type = IOCget_objective(textureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									IOCobjectives[type] = textureIndex
-								end
-							end
-						end
-					end
-					-- Workshop
-					for i = 1, 1, 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.50 and y == 0.52 then
-								local type = IOCget_objective(textureIndex)
-								if type then
-									if IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									IOCobjectives[type] = textureIndex
-								end
-							end
-						end
-					end
+	
 				 -- Eye of the Storm
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					--print("ent")
@@ -4187,41 +3485,32 @@ function PVPSound:OnEventTwo(event, ...)
 				 -- Alterac Valley and Isle of Conquest Kill Countdown
 				elseif MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" then
 					-- Alliance Reinforcements
-					for i = 2, 2, 1 do
-						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
-							if faketextureIndex then
-								local type = AVandIOCAget_objective(faketextureIndex)
-								if type then
-									if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 11 and AVandIOCAobj_state(faketextureIndex) == 10 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
-									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 6 and AVandIOCAobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
-									elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 2 and AVandIOCAobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
-									end
-									AVandIOCAobjectives[type] = faketextureIndex
-								end
+					
+					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685)) then
+						local faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).leftBarValue
+						local type = AVandIOCAget_objective(faketextureIndex)
+						if type then
+							if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 11 and AVandIOCAobj_state(faketextureIndex) == 10 then
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
+							elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 6 and AVandIOCAobj_state(faketextureIndex) == 5 then
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
+							elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 2 and AVandIOCAobj_state(faketextureIndex) == 1 then
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
 							end
+							AVandIOCAobjectives[type] = faketextureIndex
 						end
-					end
 					-- Horde Reinforcements
-					for i = 3, 3, 1 do
-						if (select(4, GetWorldStateUIInfo(i))) ~= nil then
-							local faketextureIndex = tonumber(string.match(select(4, GetWorldStateUIInfo(i)), ": (%d+)"))
-							if faketextureIndex then
-								local type = AVandIOCHget_objective(faketextureIndex)
-								if type then
-									if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(faketextureIndex) == 10 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
-									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 6 and AVandIOCHobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
-									elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 2 and AVandIOCHobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
-									end
-									AVandIOCHobjectives[type] = faketextureIndex
-								end
+						faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).rightBarValue
+						type = AVandIOCAget_objective(faketextureIndex)
+						if type then
+							if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(faketextureIndex) == 10 then
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
+							elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 6 and AVandIOCHobj_state(faketextureIndex) == 5 then
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
+							elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 2 and AVandIOCHobj_state(faketextureIndex) == 1 then
+								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
 							end
+							AVandIOCHobjectives[type] = faketextureInde
 						end
 					end
 				end
