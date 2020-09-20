@@ -687,23 +687,23 @@ local function IOCget_objective(id)
 		return false
 	end
 end
---at the moment, state checks a texture index, it will be better to replace it by POI id check
+
 local function IOCobj_state(id)
-	if id == 11 or id == 18 or id == 136 or id == 141 or id == 146 or id == 151 then
+	if id == 2345 or id == 2350 or id == 2358 or id == 2362 or id == 2367 or id == 2384 or id == 2389 then
 		return 1 -- Alliance Bases
-	elseif id == 10 or id == 20 or id == 138 or id == 143 or id == 148 or id == 153 then
+	elseif id == 2346 or id == 2352 or id == 2357 or id == 2363 or id == 2366 or id == 2387 or id == 2388 then
 		return 2 -- Horde Bases
-	elseif id == 9 or id == 17 or id == 137 or id == 142 or id == 147 or id == 152 then
+	elseif id == 2347 or id == 2353 or id == 2356 or id == 2364 or id == 2369 or id == 2385 or id == 2390 then
 		return 3 -- Alliance trys to capture
-	elseif id == 12 or id == 19 or id == 139 or id == 144 or id == 149 or id == 154 then
+	elseif id == 2348 or id == 2354 or id == 2359 or id == 2365 or id == 2368 or id == 2386 or id == 2391 then
 		return 4 -- Horde trys to capture
-	elseif id == 80 then
+	elseif id == 2377 or id == 2380 or id == 2382 then
 		return 5 -- Alliance Gate Undamaged
-	elseif id == 77 then
+	elseif id == 2371 or id == 2373 or id == 2375 then
 		return 6 -- Horde Gate Undamaged
-	elseif id == 82 then
+	elseif id == 2378 or id == 2379 or id == 2381 then
 		return 7 -- Alliance Gate Destroyed
-	elseif id == 79 then
+	elseif id == 2372 or id == 2374 or id == 2376 then
 		return 8 -- Horde Gate Destroyed
 	else
 		return 0
@@ -1293,49 +1293,49 @@ local function InitializeBgs(...)
 		
 		for i = 1, #POIs do
 			if (IOCget_objective(POIs[i]) == "AllianceGateE") then
-				AllianceGateEInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				AllianceGateEInit = POIs[i]
 				if IOCobj_state(AllianceGateEInit) == 7 then
 					IocAllianceGateDown = true
 				end
 			elseif (IOCget_objective(POIs[i]) == "AllianceGateW") then
-				AllianceGateWInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				AllianceGateWInit = POIs[i]
 				if IOCobj_state(AllianceGateWInit) == 7 then
 					IocAllianceGateDown = true
 				end
 			elseif (IOCget_objective(POIs[i]) == "AllianceGateS") then
-				AllianceGateSInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				AllianceGateSInit = POIs[i]
 				if IOCobj_state(AllianceGateSInit) == 7 then
 					IocAllianceGateDown = true
 				end
 			elseif (IOCget_objective(POIs[i]) == "HordeGateE") then
-				HordeGateEInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				HordeGateEInit = POIs[i]
 				if IOCobj_state(HordeGateEInit) == 8 then
 					IocHordeGateDown = true
 				end
 			elseif (IOCget_objective(POIs[i]) == "HordeGateW") then
-				HordeGateWInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				HordeGateWInit = POIs[i]
 				if IOCobj_state(HordeGateWInit) == 8 then
 					IocHordeGateDown = true
 				end
 			elseif (IOCget_objective(POIs[i]) == "HordeGateN") then
-				HordeGateNInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				HordeGateNInit = POIs[i]
 				if IOCobj_state(HordeGateNInit) == 8 then
 					IocHordeGateDown = true
 				end
 			elseif (IOCget_objective(POIs[i]) == "Quarry") then
-				QuarryInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				QuarryInit = POIs[i]
 			elseif (IOCget_objective(POIs[i]) == "Refinerie") then
-				RefinerieInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				RefinerieInit = POIs[i]
 			elseif (IOCget_objective(POIs[i]) == "Workshop") then
-				WorkshopInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				WorkshopInit = POIs[i]
 			elseif (IOCget_objective(POIs[i]) == "Docks") then
-				DocksInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				DocksInit = POIs[i]
 			elseif (IOCget_objective(POIs[i]) == "Hangar") then
-				HangarInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				HangarInit = POIs[i]
 			elseif (IOCget_objective(POIs[i]) == "HordeKeep") then
-				HordeTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				HordeTowerInit = POIs[i]
 			elseif (IOCget_objective(POIs[i]) == "AllianceKeep") then
-				AllianceTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				AllianceTowerInit = POIs[i]
 			end
 		end
 
@@ -2931,9 +2931,9 @@ function PVPSound:OnEvent(event, ...)
 					
 					for i = 1, #POIs do
 						local type = IOCget_objective(POIs[i])
-						--print(type) 
+						print(type) 
 						if type then
-							local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+							local textureIndex = POIs[i]
 							if textureIndex then
 								if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(textureIndex) == 7 then
 									if IocAllianceGateDown ~= true then
