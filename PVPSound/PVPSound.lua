@@ -121,6 +121,16 @@ function PVPSound:UnregisterEvents()
 	PVPSoundFrameThree:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
+--addon performanse info
+function PVPSound:perfDump()
+	UpdateAddOnMemoryUsage()
+	UpdateAddOnCPUUsage()
+	local mem = GetAddOnMemoryUsage(addon)
+	local cpu = GetAddOnCPUUsage(addon)
+	print("current memory usege: ", mem)
+	print("current CPU usege: ", cpu)
+end
+
 -- Build Version
 local WowBuildInfo
 
@@ -354,6 +364,36 @@ end
 
 function PVPSound:TimerReset()
 	TimerReset = true
+end
+
+--
+-- general Objective setter for initialization
+-- I'll try it in AV, if it's ok, I'll use it in ither BGs
+--
+local function ObgInit (objectives, get, textureMode)
+	local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		
+	local objective
+	--reset all objectives
+	for k,v in pairs(objectives) do
+		objectives[k] = nil
+	end
+	
+	for i=1,#POIs do
+	--if texturemod parameter exists, then check textures, else check POI id	
+		if textureMode then
+			if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
+				objective = get(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex)
+			end
+		else
+			objective = get(POIs[i])
+		end
+		
+		if objective then
+			objectives[objective] = POIs[i]
+		end
+	end
+	
 end
 
 -- Alterac Valley
@@ -655,7 +695,7 @@ end
 -- Isle of Conquest
 local IOCobjectives = {AllianceGateE = nil, AllianceGateW = nil, AllianceGateS = nil, HordeGateE = nil, HordeGateW = nil, HordeGateN = nil, Quarry = nil, Workshop = nil, Hangar = nil, Docks = nil, Refinerie = nil, HordeKeep = nil, AllianceKeep = nil}
 
---remade it to POI IDs, not texture IDs, because now the position of POI in POI table not permanent
+--remade to POI IDs, not texture IDs, because now the position of POI in POI table not permanent
 local function IOCget_objective(id)
 	if id >= 2361 and id <= 2365 then
 		return "Quarry"
@@ -946,6 +986,9 @@ end
 --SeethingShore objectives
 local SeSobjectives = {AllianceScore = nil, HordeScore = nil}
 
+--Cooking Impossible
+local CIobjectives = {AllianceScore = nil, HordeScore = nil}
+--later it will be good to add some variety in sounds to SeS and CI
 
 local TargetHealthObjectives = {Percent = nil}
 
@@ -986,8 +1029,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_WarsongGulch"--updated
 	elseif (CurrentZoneId == 1366 or CurrentZoneId == 837) and InstanceType == "pvp" then --837 is winter AB
 		MyZone = "Zone_ArathiBasin"--updated
-	elseif CurrentZoneId == 401 and InstanceType == "pvp" then
-		MyZone = "Zone_AlteracValley"
+	elseif CurrentZoneId == 91 and InstanceType == "pvp" then
+		MyZone = "Zone_AlteracValley"--updated
 	elseif (CurrentZoneId == 112 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then 
 		MyZone = "Zone_EyeoftheStorm"--updated
 	elseif CurrentZoneId == 169 and InstanceType == "pvp" then
@@ -1004,6 +1047,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_DeepwindGorge"--updated
 	elseif CurrentZoneId == 907 and InstanceType == "pvp" then
 		MyZone = "Zone_SeethingShore"--added
+	elseif CurrentZoneId == 1335 and InstanceType == "pvp" then
+		MyZone = "Zone_CookingImpossible"--Brawl Cooking Impossible added
 	 -- Battlefields
 	elseif CurrentZoneId == 123 or ( CurrentZoneId == 1334 and InstanceType == "pvp") then --1334 is BG version of this zone
 		MyZone = "Zone_Wintergrasp"--updated
@@ -1176,9 +1221,18 @@ local function InitializeBgs(...)
 		
 	end
 	if MyZone == "Zone_AlteracValley" then
-		local AVandIOCAInit = tonumber(string.match(select(4, GetWorldStateUIInfo(2)), ": (%d+)"))
-		local AVandIOCHInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), ": (%d+)"))
-		local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
+		local AReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).leftBarValue
+		local HReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).rightBarValue
+		AVandIOCAobjectives.AllianceReinforcements = nil
+		AVandIOCHobjectives.HordeReinforcements = nil
+		AVandIOCAobjectives.AllianceReinforcements = AReinforcementsInit
+		AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
+		
+		ObgInit (AVobjectives, AVget_objective)
+		for k,v in pairs(AVobjectives) do
+			print (k,' ',v)
+		end
+		--[=[local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
 		local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
 		local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
 		local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
@@ -1195,8 +1249,7 @@ local function InitializeBgs(...)
 		local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
 		local TowerPointInit = select(4, GetMapLandmarkInfo(21))
 		local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
-		AVandIOCAobjectives.AllianceReinforcements = nil
-		AVandIOCHobjectives.HordeReinforcements = nil
+		
 		AVobjectives.ColdtoothMine = nil
 		AVobjectives.DunBaldarNorthBunker = nil
 		AVobjectives.DunBaldarSouthBunker = nil
@@ -1214,8 +1267,7 @@ local function InitializeBgs(...)
 		AVobjectives.StormpikeGraveyard = nil
 		AVobjectives.TowerPoint = nil
 		AVobjectives.WestFrostwolfTower = nil
-		AVandIOCAobjectives.AllianceReinforcements = AVandIOCAInit
-		AVandIOCHobjectives.HordeReinforcements = AVandIOCHInit
+		
 		if ColdtoothMineInit then
 			AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
 		end
@@ -1266,7 +1318,7 @@ local function InitializeBgs(...)
 		end
 		if WestFrostwolfTowerInit then
 			AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
-		end
+		end]=]--
 	end
 	if MyZone == "Zone_IsleofConquest" then
 		
@@ -1674,6 +1726,18 @@ local function InitializeBgs(...)
 			SeSobjectives.HordeScore = HordeScoreInit
 		end
 	end
+	if MyZone == "Zone_CookingImpossible" then	
+		if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967)) ~= nil then
+			-- Alliance Score
+			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967).leftBarValue
+			CIobjectives.AllianceScore = nil
+			CIobjectives.AllianceScore = AllianceScoreInit
+			-- Horde Score
+			local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967).rightBarValue
+			CIobjectives.HordeScore = nil
+			CIobjectives.HordeScore = HordeScoreInit
+		end
+	end
 	
 end	
 
@@ -1790,7 +1854,7 @@ function PVPSound:OnEvent(event, ...)
 				print(event, " my zone is ", MyZone)
 				
 				-- Battleground PlaySounds
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_CookingImpossible" then
 					--print("announcement")
 					TimerReset = true
 					KilledMe = nil
@@ -1906,7 +1970,7 @@ function PVPSound:OnEvent(event, ...)
 			-- Battleground WinSounds
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
 				local EventMessage = select(1, ...)
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or "Zone_SeethingShore" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					if (string.find(EventMessage, L["Alliance wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Alliance wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 						BgIsOver = true
@@ -3486,8 +3550,16 @@ function PVPSound:OnEventTwo(event, ...)
 				elseif MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" then
 					-- Alliance Reinforcements
 					
-					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685)) then
-						local faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).leftBarValue
+					--different UI Widget IDs in BGs
+					local i
+					if MyZone == "Zone_IsleofConquest" then
+						i = 1685
+					elseif MyZone == "Zone_AlteracValley" then
+						i = 1684
+					end
+					
+					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(i)) then
+						local faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(i).leftBarValue
 						local type = AVandIOCAget_objective(faketextureIndex)
 						if type then
 							if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 11 and AVandIOCAobj_state(faketextureIndex) == 10 then
@@ -3500,7 +3572,7 @@ function PVPSound:OnEventTwo(event, ...)
 							AVandIOCAobjectives[type] = faketextureIndex
 						end
 					-- Horde Reinforcements
-						faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).rightBarValue
+						faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(i).rightBarValue
 						type = AVandIOCAget_objective(faketextureIndex)
 						if type then
 							if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(faketextureIndex) == 10 then
@@ -4034,6 +4106,23 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 				end
 				
+				if MyZone == "Zone_CookingImpossible" then
+					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967)) ~= nil then
+						-- Alliance Score
+						local AllianceScoreCur = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967).leftBarValue
+						if CIobjectives.AllianceScore ~= AllianceScoreCur then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
+							CIobjectives.AllianceScore = AllianceScoreCur
+						end
+						-- Horde Score
+						local HordeScoreCur = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967).rightBarValue
+						if CIobjectives.HordeScore ~= HordeScoreCur then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
+							CIobjectives.HordeScore = HordeScoreCur
+						end
+					end
+				end
+				
 			elseif event == "AREA_POIS_UPDATED" then
 				 -- Arathi Basin
 				if MyZone == "Zone_ArathiBasin" then
@@ -4425,7 +4514,8 @@ function PVPSound:OnEventTwo(event, ...)
 
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
-				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" then 
+				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" then 
+					print(MyZone, 222)
 					--for Wintergasp it only works in BG version, for BF version there is old methdos
 					local winner=...
 				 	if winner == 0 then
