@@ -400,57 +400,60 @@ end
 local AVobjectives = {ColdtoothMine = nil, DunBaldarNorthBunker = nil, DunBaldarSouthBunker = nil, EastFrostwolfTower = nil, FrostwolfGraveyard = nil, FrostwolfReliefHut = nil, IcebloodGraveyard = nil, IcebloodTower = nil, IcewingBunker = nil, IrondeepMine = nil, SnowfallGraveyard = nil, StonehearthBunker = nil, StonehearthGraveyard = nil, StormpikeAidStation = nil, StormpikeGraveyard = nil, TowerPoint = nil, WestFrostwolfTower = nil}
 
 local function AVget_objective(id)
-	if id >= 101 and id <= 103 then
+	if id == 1102 or id == 1358 or id == 1359 then --Hcontr -- Acontr -- Koboldcontr
 		return "ColdtoothMine"
-	elseif id == 206 or id == 211 or id == 212 then
+	elseif id == 1250 or id == 1352 or id == 1353 or id == 1354 then --Acontr --Destr --Aconfl --Hconfl
 		return "DunBaldarNorthBunker"
-	elseif id == 306 or id == 311 or id == 312 then
+	elseif id == 1249 or id == 1355 or id == 1356 or id == 1357 then --Acontr --Destr --Aconfl --Hconfl
 		return "DunBaldarSouthBunker"
-	elseif id == 406 or id == 409 or id <= 410 then
+	elseif id == 1255 or id == 1362 or id == 1363 or id == 1364 then --Hcontr --Destr --Aconfl --Hconfl
 		return "EastFrostwolfTower"
-	elseif id == 504 or id == 513 or id == 514 or id == 515 then
-		return "FrostwolfGraveyard"
-	elseif id == 604 or id == 613 or id == 614 or id == 615 then
-		return "FrostwolfReliefHut"
-	elseif id == 704 or id == 713 or id == 714 or id == 715 then
-		return "IcebloodGraveyard"
-	elseif id == 806 or id == 809 or id == 810 then
-		return "IcebloodTower"
-	elseif id == 906 or id == 911 or id == 912 then
-		return "IcewingBunker"
-	elseif id >= 1001 and id <= 1003 then
-		return "IrondeepMine"
-	elseif id == 1104 or id == 1108 or id == 1113 or id == 1114 or id == 1115 then
-		return "SnowfallGraveyard"
-	elseif id == 1206 or id == 1211 or id == 1212 then
-		return "StonehearthBunker"
-	elseif id == 1304 or id == 1313 or id == 1314 or id == 1315 then
-		return "StonehearthGraveyard"
-	elseif id == 1404 or id == 1413 or id == 1414 or id == 1415 then
-		return "StormpikeAidStation"
-	elseif id == 1504 or id == 1513 or id == 1514 or id == 1515 then
-		return "StormpikeGraveyard"
-	elseif id == 1606 or id == 1609 or id == 1610 then
-		return "TowerPoint"
-	elseif id == 1706 or id == 1709 or id == 1710 then
+	elseif id == 1527 or id == 1528 or id == 1529 or id == 1530 then --Hcontr --Destr --Hconfl --Aconfl
 		return "WestFrostwolfTower"
+	elseif id == 1210 or id == 1368 or id == 1369 or id == 1370 then --Hcontr --Acontr --Aconfl --Hconfl
+		return "FrostwolfGraveyard"
+	elseif id == 1351 or id == 1371 or id == 1372 or id == 1373 then --Hcontr --Acontr --Hconfl --Aconfl
+		return "FrostwolfReliefHut"
+	elseif id == 1349 or id == 1374 or id == 1375 or id == 1376 then --Hcontr --Acontr --Aconfl --Hconfl
+		return "IcebloodGraveyard"
+	elseif id == 1252 or id == 1377 or id == 1378 or id == 1379 then --Hcontr --Destr --Hconfl --Aconfl
+		return "IcebloodTower"
+	elseif id == 1251 or id == 1380 or id == 1381 or id == 1382 then --Acontr --Destr --Aconfl --Hconfl
+		return "IcewingBunker"
+	elseif id == 1099 or id == 1383 or id == 1384 then --Acontr -- Hcontr -- Troggcontr
+		return "IrondeepMine"
+	elseif id == 1209 or id == 1386 or id == 1387 or id == 1388 then --Hcontr --Acontr --Hconfl --Aconfl
+		return "SnowfallGraveyard"
+	elseif id == 1347 or id == 1389 or id == 1390 or id == 1391 then --Acontr --Destr --Aconfl --Hconfl
+		return "StonehearthBunker"
+	elseif id == 1350 or id == 1392 or id == 1393 or id == 1394 then --Acontr --Hcontr --Aconfl --Hconfl
+		return "StonehearthGraveyard"
+	elseif id == 1348 or id == 1395 or id == 1396 or id == 1397 then --Acontr --Hcontr --Aconfl --Hconfl
+		return "StormpikeAidStation"
+	elseif id == 1208 or id == 1398 or id == 1399 or id == 1400 then --Acontr --Hcontr --Aconfl --Hconfl
+		return "StormpikeGraveyard"
+	elseif id == 1254 or id == 1405 or id == 1406 or id == 1407 then --Hcontr --Destr --Hconfl --Aconfl
+		return "TowerPoint"
+	
 	else
 		return false
 	end
 end
 
+--State can be checked by textures in each POI, but it's one more function to call. 
+--Here we only work with POI array. But negative side is that we need to check too many IDs for each return
 local function AVobj_state(id)
-	if id == 103 or id == 211 or id == 311 or id == 515 or id == 615 or id == 715 or id == 911 or id == 1003 or id == 1115 or id == 1211 or id == 1315 or id == 1415 or id == 1515 then
+	if     id == 1358 or id == 1250 or id == 1249 or id == 1368 or id == 1371 or id == 1374 or id == 1251 or id == 1099 or id == 1386 or id == 1347 or id == 1350 or id == 1348 or id == 1208 then
 		return 1 -- Alliance Bases
-	elseif id == 102 or id == 410 or id == 513 or id == 613 or id == 713 or id == 810 or id == 1002 or id == 1113 or id == 1313 or id == 1413 or id == 1513 or id == 1610 or id == 1710 then
+	elseif id == 1102 or id == 1255 or id == 1527 or id == 1210 or id == 1351 or id == 1349 or id == 1252 or id == 1383 or id == 1209 or id == 1392 or id == 1395 or id == 1398 or id == 1254 then
 		return 2 -- Horde Bases
-	elseif id == 409 or id == 504 or id == 604 or id == 704 or id == 809 or id == 1104 or id == 1304 or id == 1404 or id == 1504 or id == 1609 or id == 1709 then
+	elseif id == 1353 or id == 1356 or id == 1363 or id == 1530 or id == 1369 or id == 1373 or id == 1375 or id == 1379 or id == 1381 or id == 1388 or id == 1390 or id == 1393 or id == 1396 or id == 1399 or id == 1407 then
 		return 3 -- Alliance trys to capture
-	elseif id == 212 or id == 312 or id == 514 or id == 614 or id == 714 or id == 912 or id == 1114 or id == 1212 or id == 1314 or id == 1414 or id == 1514 then
+	elseif id == 1354 or id == 1357 or id == 1364 or id == 1529 or id == 1370 or id == 1372 or id == 1376 or id == 1378 or id == 1382 or id == 1387 or id == 1391 or id == 1394 or id == 1397 or id == 1400 or id == 1406 then
 		return 4 -- Horde trys to capture
-	elseif id == 206 or id == 306 or id == 406 or id == 806 or id == 906 or id == 1206 or id == 1606 or id == 1706 then
+	elseif id == 1352 or id == 1355 or id == 1362 or id == 1528 or id == 1377 or id == 1380 or id == 1389 or id == 1405 then
 		return 5 -- Destoryed Bunker/Tower
-	elseif id == 101 or id == 1001 then
+	elseif id == 1359 or id == 1384 then
 		return 6 -- Uncontrolled
 	else
 		return 0
@@ -1229,96 +1232,10 @@ local function InitializeBgs(...)
 		AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
 		
 		ObgInit (AVobjectives, AVget_objective)
-		for k,v in pairs(AVobjectives) do
-			print (k,' ',v)
-		end
-		--[=[local ColdtoothMineInit = select(4, GetMapLandmarkInfo(1))
-		local DunBaldarNorthBunkerInit = select(4, GetMapLandmarkInfo(3))
-		local DunBaldarSouthBunkerInit = select(4, GetMapLandmarkInfo(4))
-		local EastFrostwolfTowerInit = select(4, GetMapLandmarkInfo(5))
-		local FrostwolfGraveyardInit = select(4, GetMapLandmarkInfo(6))
-		local FrostwolfReliefHutInit = select(4, GetMapLandmarkInfo(8))
-		local IcebloodGraveyardInit = select(4, GetMapLandmarkInfo(10))
-		local IcebloodTowerInit = select(4, GetMapLandmarkInfo(11))
-		local IcewingBunkerInit = select(4, GetMapLandmarkInfo(12))
-		local IrondeepMineInit = select(4, GetMapLandmarkInfo(14))
-		local SnowfallGraveyardInit = select(4, GetMapLandmarkInfo(15))
-		local StonehearthBunkerInit = select(4, GetMapLandmarkInfo(16))
-		local StonehearthGraveyardInit = select(4, GetMapLandmarkInfo(17))
-		local StormpikeAidStationInit = select(4, GetMapLandmarkInfo(19))
-		local StormpikeGraveyardInit = select(4, GetMapLandmarkInfo(20))
-		local TowerPointInit = select(4, GetMapLandmarkInfo(21))
-		local WestFrostwolfTowerInit = select(4, GetMapLandmarkInfo(22))
-		
-		AVobjectives.ColdtoothMine = nil
-		AVobjectives.DunBaldarNorthBunker = nil
-		AVobjectives.DunBaldarSouthBunker = nil
-		AVobjectives.EastFrostwolfTower = nil
-		AVobjectives.FrostwolfGraveyard = nil
-		AVobjectives.FrostwolfReliefHut = nil
-		AVobjectives.IcebloodGraveyard = nil
-		AVobjectives.IcebloodTower = nil
-		AVobjectives.IcewingBunker = nil
-		AVobjectives.IrondeepMine = nil
-		AVobjectives.SnowfallGraveyard = nil
-		AVobjectives.StonehearthBunker = nil
-		AVobjectives.StonehearthGraveyard = nil
-		AVobjectives.StormpikeAidStation = nil
-		AVobjectives.StormpikeGraveyard = nil
-		AVobjectives.TowerPoint = nil
-		AVobjectives.WestFrostwolfTower = nil
-		
-		if ColdtoothMineInit then
-			AVobjectives.ColdtoothMine = ColdtoothMineInit + 100
-		end
-		if DunBaldarNorthBunkerInit then
-			AVobjectives.DunBaldarNorthBunker = DunBaldarNorthBunkerInit + 200
-		end
-		if DunBaldarSouthBunkerInit then
-			AVobjectives.DunBaldarSouthBunker = DunBaldarSouthBunkerInit + 300
-		end
-		if EastFrostwolfTowerInit then
-			AVobjectives.EastFrostwolfTower = EastFrostwolfTowerInit + 400
-		end
-		if FrostwolfGraveyardInit then
-			AVobjectives.FrostwolfGraveyard = FrostwolfGraveyardInit + 500
-		end
-		if FrostwolfReliefHutInit then
-			AVobjectives.FrostwolfReliefHut = FrostwolfReliefHutInit + 600
-		end
-		if IcebloodGraveyardInit then
-			AVobjectives.IcebloodGraveyard = IcebloodGraveyardInit + 700
-		end
-		if IcebloodTowerInit then
-			AVobjectives.IcebloodTower = IcebloodTowerInit + 800
-		end
-		if IcewingBunkerInit then
-			AVobjectives.IcewingBunker = IcewingBunkerInit + 900
-		end
-		if IrondeepMineInit then
-			AVobjectives.IrondeepMine = IrondeepMineInit + 1000
-		end
-		if SnowfallGraveyardInit then
-			AVobjectives.SnowfallGraveyard = SnowfallGraveyardInit + 1100
-		end
-		if StonehearthBunkerInit then
-			AVobjectives.StonehearthBunker = StonehearthBunkerInit + 1200
-		end
-		if StonehearthGraveyardInit then
-			AVobjectives.StonehearthGraveyard = StonehearthGraveyardInit + 1300
-		end
-		if StormpikeAidStationInit then
-			AVobjectives.StormpikeAidStation = StormpikeAidStationInit + 1400
-		end
-		if StormpikeGraveyardInit then
-			AVobjectives.StormpikeGraveyard = StormpikeGraveyardInit + 1500
-		end
-		if TowerPointInit then
-			AVobjectives.TowerPoint = TowerPointInit + 1600
-		end
-		if WestFrostwolfTowerInit then
-			AVobjectives.WestFrostwolfTower = WestFrostwolfTowerInit + 1700
-		end]=]--
+		--for k,v in pairs(AVobjectives) do
+		--	print (k,' ',v)
+		--end
+
 	end
 	if MyZone == "Zone_IsleofConquest" then
 		
@@ -2212,91 +2129,7 @@ function PVPSound:OnEvent(event, ...)
 							self.HordeFlagPositionY = nil
 						end
 					end
-				 -- Deepwind Gorge --there is no carts in DG anymoer
-				--[=[elseif MyZone == "Zone_DeepwindGorge" then 
-					-- Alliance
-					if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
-						if string.find(EventMessage, L["taken the"]) or string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
 
-							self.AllianceCartPositionX = nil
-							self.AllianceCartPositionY = nil
-						elseif string.find(EventMessage, L["dropped"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
-
-							for i = 1, 2 do
-								local type = select(3, GetBattlefieldFlagPosition(i))
-
-								if type == "AllianceFlag" then
-									self.AllianceCartPositionX = select(1, GetBattlefieldFlagPosition(i))
-									self.AllianceCartPositionY = select(2, GetBattlefieldFlagPosition(i))
-
-									break
-								end
-							end
-						elseif string.find(EventMessage, L["returned"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
-							if MyFaction == "Alliance" then
-								if self.AllianceCartPositionX and self.AllianceCartPositionX ~= 0 and self.AllianceCartPositionX ~= "" then
-									if self.AllianceCartPositionY and self.AllianceCartPositionY ~= 0 and self.AllianceCartPositionY ~= "" then
-										if self.AllianceCartPositionX >= 0.000 and self.AllianceCartPositionX <= 0.277 then
-											if self.AllianceCartPositionY >= 0.272 and self.AllianceCartPositionY <= 0.465 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
-											end
-										end
-									end
-								end
-							end
-
-							self.AllianceCartPositionX = nil
-							self.AllianceCartPositionY = nil
-						elseif string.find(EventMessage, L["captured"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
-						--[[elseif string.find(EventMessage, L["The Alliance is near victory"]) then
-							PlaySoundFile("Sound\\Spells\\PVPWarningAlliance.mp3", "Sound")]]
-						end
-					-- Horde
-					elseif event == "CHAT_MSG_BG_SYSTEM_HORDE" then
-						if string.find(EventMessage, L["taken the"]) or string.find(EventMessage, L["picked"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
-
-							self.HordeCartPositionX = nil
-							self.HordeCartPositionY = nil
-						elseif string.find(EventMessage, L["dropped"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
-
-							for i = 1, 2 do
-								local type = select(3, GetBattlefieldFlagPosition(i))
-
-								if type == "HordeFlag" then
-									self.HordeCartPositionX = select(1, GetBattlefieldFlagPosition(i))
-									self.HordeCartPositionY = select(2, GetBattlefieldFlagPosition(i))
-
-									break
-								end
-							end
-						elseif string.find(EventMessage, L["returned"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Returned.mp3")
-							if MyFaction == "Horde" then
-								if self.HordeCartPositionX and self.HordeCartPositionX ~= 0 and self.HordeCartPositionX ~= "" then
-									if self.HordeCartPositionY and self.HordeCartPositionY ~= 0 and self.HordeCartPositionY ~= "" then
-										if self.HordeCartPositionX >= 0.772 and self.HordeCartPositionX <= 1.000 then
-											if self.HordeCartPositionY >= 0.523 and self.HordeCartPositionY <= 0.712 then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
-											end
-										end
-									end
-								end
-							end
-
-							self.HordeCartPositionX = nil
-							self.HordeCartPositionY = nil
-						elseif string.find(EventMessage, L["captured"]) then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
-						--[[elseif string.find(EventMessage, L["The Horde is near victory"]) then
-							PlaySoundFile("Sound\\Spells\\PVPWarningHorde.mp3", "Sound")]]
-						end
-					end]=]--
 				 -- Eye of the Storm Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
 				
@@ -2325,565 +2158,6 @@ function PVPSound:OnEvent(event, ...)
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 						end
 					end
-				end
-
-			elseif event == "CHAT_MSG_MONSTER_YELL" then --do we really need this event?
-				-- Alterac Valley
-				if MyZone == "Zone_AlteracValley" then
-					-- Bunkers --each bunker checked by it's coords--may be there are easier ways to do it
-					-- Dun Baldar North Bunker
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then --x coord of poi
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then --y coord of poi
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.45 and y == 0.14 then
-								local faketextureIndex = textureIndex + 200
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Dun Baldar South Bunker
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if (x == 0.43 and y == 0.18) or (x == 0.44 and y == 0.18) then
-								local faketextureIndex = textureIndex + 300
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Icewing Bunker
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.50 and y == 0.31 then
-								local faketextureIndex = textureIndex + 900
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Stonehearth Bunker
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.52 and y == 0.44 then
-								local faketextureIndex = textureIndex + 1200
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Towers
-					-- East Frostwolf Tower
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.49 and y == 0.84 then
-								local faketextureIndex = textureIndex + 400
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Iceblood Tower
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.48 and y == 0.58 then
-								local faketextureIndex = textureIndex + 800
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Tower Point
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.50 and y == 0.65 then
-								local faketextureIndex = textureIndex + 1600
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- West Frostwolf Tower
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.48 and y == 0.84 then
-								local faketextureIndex = textureIndex + 1700
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 5 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Graveyards
-					-- Frostwolf Graveyard
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.49 and y == 0.76 then
-								local faketextureIndex = textureIndex + 500
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Frostwolf Relief Hut
-					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.49 and y == 0.88 then
-								local faketextureIndex = textureIndex + 600
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end]]--
-					-- Iceblood Graveyard
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.57 then
-								local faketextureIndex = textureIndex + 700
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Snowfall Graveyard
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.44 and y == 0.45 then
-								local faketextureIndex = textureIndex + 1100
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Stonehearth Graveyard
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.51 and y == 0.36 then
-								local faketextureIndex = textureIndex + 1300
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Stormpike Aid Station
-					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.42 and y == 0.15 then
-								local faketextureIndex = textureIndex + 1400
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end]]--
-					-- Stormpike Graveyard
-					for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.49 and y == 0.14 then
-								local faketextureIndex = textureIndex + 1500
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end
-					-- Mines
-					-- Coldtooth Mine
-					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.46 and y == 0.71 then
-								local faketextureIndex = textureIndex + 100
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end]]--
-					-- Irondeep Mine
-					--[[for i = 1, GetNumMapLandmarks(), 1 do
-						local textureIndex = select(4, GetMapLandmarkInfo(i))
-						local x
-						if (select(5, GetMapLandmarkInfo(i))) then
-							x = tonumber(string.sub(tostring(select(5, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						local y
-						if (select(6, GetMapLandmarkInfo(i))) then
-							y = tonumber(string.sub(tostring(select(6, GetMapLandmarkInfo(i))), 1, 4))
-						end
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							if x == 0.49 and y == 0.10 then
-								local faketextureIndex = textureIndex + 1000
-								local type = AVget_objective(faketextureIndex)
-								if type then
-									if AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 6 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
-									elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
-									end
-									AVobjectives[type] = faketextureIndex
-								end
-							end
-						end
-					end]]--
 				end
 
 			elseif event == "CHAT_MSG_RAID_BOSS_EMOTE" then
@@ -3139,6 +2413,74 @@ function PVPSound:OnEvent(event, ...)
 						end
 						
 					end
+					
+					
+					
+					
+				-- Alterac Valley
+				elseif MyZone == "Zone_AlteracValley" then
+					
+					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					
+					for i = 1, #POIs do					
+	
+						local type = AVget_objective(POIs[i])
+						if type then
+							--bunker/tower
+							if string.find(type, "Tower") or string.find(type, "Bunker") then
+								
+								if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(POIs[i]) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 5 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")	
+								elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(POIs[i]) == 3 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Offense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 5 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
+								end
+							
+							--mines
+							elseif string.find(type, "Mine") then
+								
+								if AVobj_state(AVobjectives[type]) == 6 and AVobj_state(POIs[i]) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 6 and AVobj_state(POIs[i]) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(POIs[i]) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(POIs[i]) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+								end
+							
+							else
+							--graveyards
+								
+								if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(POIs[i]) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(POIs[i]) == 3 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 4 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Offense.mp3")
+								elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 3 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Offense.mp3")
+								end
+							end
+							AVobjectives[type] = POIs[i]
+						end
+					end
+								
 				 -- Tol Barad
 				elseif MyZone == "Zone_TolBarad" then
 					-- Baradin Hold
