@@ -9,6 +9,7 @@ ToDo List:
 * EOTS need to be fixed for RBG
 * More sounds for SeS and Cooking impossible (like in WSG)
 * WSG EU Localization should be checked (i (Tokorokot) only tested BG in RU locale)
+* More Ashran sounds
 * Update for classic
 
 5.0.0a
@@ -23,6 +24,7 @@ ToDo List:
 * Deepwind Gorge remade
 * Wintergasp alsa added as a BG
 * Strand of Anciensts removed
+* Ashran sounds added (only playsound and winsound and only for BG version)
 * Alot of minor fixes new functions, recombinations of code parts, etc.
 
 
