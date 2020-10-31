@@ -5,12 +5,13 @@ local PS = ns.PS
 local L = ns.L
 
 local font = GameFontWhiteSmall
-
+-- backdrop system changed in 9.0.1--fixes needed
 function PVPSoundOptions:OptionsAddonIsLoaded()
-	PVPSoundOptions:OptionsInitalize(PVPSoundOptionsFrame)
-	PVPSoundOptions:OptionsUpdateLocalization()
-	PVPSoundOptions:OptionsUpdateFonts()
-	PVPSoundOptions:OptionsSetSoundPackLocalizations()
+	--PVPSoundOptions:OptionsInitalize(PVPSoundOptionsFrame)
+	PVPSoundOptions:OptionsInitalize()
+	--PVPSoundOptions:OptionsUpdateLocalization()
+	--PVPSoundOptions:OptionsUpdateFonts()
+	--PVPSoundOptions:OptionsSetSoundPackLocalizations()
 end
 
 function PVPSoundOptions:OptionsInitalize(self)
@@ -20,16 +21,16 @@ function PVPSoundOptions:OptionsInitalize(self)
 	end
 	SLASH_PVPSound1 = "/ps"
 	SLASH_PVPSound2 = "/pvpsound"
-	self:SetBackdropColor(0.1, 0.1, 0.1)
-	self:SetBackdropBorderColor(0.9, 1.0, 0.9)
-	PVPSoundOptionsHeader:SetText("PVPSound "..GetAddOnMetadata("PVPSound", "Version"))
-	PVPSoundOptions:OptionsInitalizeButtons()
-	tinsert(UISpecialFrames, self:GetName())
+	--self:SetBackdropColor(0.1, 0.1, 0.1)
+	--self:SetBackdropBorderColor(0.9, 1.0, 0.9)
+	--PVPSoundOptionsHeader:SetText("PVPSound "..GetAddOnMetadata("PVPSound", "Version"))
+	--PVPSoundOptions:OptionsInitalizeButtons()
+	--tinsert(UISpecialFrames, self:GetName())
 end
 
 function PVPSoundOptions:OptionsTabFramesInitalize(self)
-	self:SetBackdropColor(0.1, 0.1, 0.1)
-	self:SetBackdropBorderColor(0.0, 0.0, 0.0)
+	--self:SetBackdropColor(0.1, 0.1, 0.1)
+	--self:SetBackdropBorderColor(0.0, 0.0, 0.0)
 end
 
 function PVPSoundOptions:OptionsTabInitalize(self, width)
@@ -1498,7 +1499,8 @@ function PVPSound:SlashCommands(arg1)
 	-- Arg2 is converted to lower case
 	local arg2 = string.lower(arg1)
 	if arg2 == "" then
-		PVPSoundOptions:OptionsToggleMenu()
+		--PVPSoundOptions:OptionsToggleMenu()
+		PVPSound:PrintSlashMenu()--temporary, while xml frame switched off
 	elseif arg2 == "slash" then
 		PVPSound:PrintSlashMenu()
 	elseif arg2 == "enable" then
@@ -1860,7 +1862,8 @@ function PVPSound:SlashCommands(arg1)
 		end
 	elseif arg2=="conflist" then 
 		PVPSound.ConfigDump()
-	
+	elseif arg2=="perflist" then 
+		PVPSound.perfDump()
 	else
 		PVPSound:PrintSlashHelp()
 	end

@@ -1,10 +1,29 @@
 Issues:
-* TB and WG partially broken still. (Need to play more battles to fix them.)
+* TB is still partially broken (but it is also partally fixed=))
+* GUI of addon is switched off at the moment. Need fixes
 
 ToDo List:
-* Add won/lost sounds for Arenas.
+* Add won/lost sounds for Arenas. (PVP_MATCH_COMPLETE event, but how to determine which command is 0, and which is 1)
 * Class colored Death and Data Shares.
 * Variable color for SCT messages.
+* EOTS need to be fixed for RBG
+* More sounds for SeS and Cooking impossible (like in WSG)
+* WSG EU Localization should be checked (i (Tokorokot) only tested BG in RU locale)
+* Update for classic
+
+5.0.0a
+* All BGs, Battlefields and arenas upadated and fixed for 9.0.1. New POI and UI systems used
+* Time remaining routines changed (C_Timer used)
+* Arenas no longer need localization for time remaining sounds
+* Seething Shore BG added
+* Winter AB Brawl added
+* Cooking Imposible Brawl added
+* Small problem with kill rankstep fixed (see comments in code)
+* Finish him/her routines updated. Sounds added
+* Deepwind Gorge remade
+* Wintergasp alsa added as a BG
+* Strand of Anciensts removed
+* Alot of minor fixes new functions, recombinations of code parts, etc.
 
 
 4.1.1
