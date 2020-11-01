@@ -5,12 +5,13 @@ local PS = ns.PS
 local L = ns.L
 
 local font = GameFontWhiteSmall
-
+-- backdrop system changed in 9.0.1--fixes needed
 function PVPSoundOptions:OptionsAddonIsLoaded()
-	PVPSoundOptions:OptionsInitalize(PVPSoundOptionsFrame)
-	PVPSoundOptions:OptionsUpdateLocalization()
-	PVPSoundOptions:OptionsUpdateFonts()
-	PVPSoundOptions:OptionsSetSoundPackLocalizations()
+	--PVPSoundOptions:OptionsInitalize(PVPSoundOptionsFrame)
+	PVPSoundOptions:OptionsInitalize()
+	--PVPSoundOptions:OptionsUpdateLocalization()
+	--PVPSoundOptions:OptionsUpdateFonts()
+	--PVPSoundOptions:OptionsSetSoundPackLocalizations()
 end
 
 function PVPSoundOptions:OptionsInitalize(self)
@@ -20,16 +21,16 @@ function PVPSoundOptions:OptionsInitalize(self)
 	end
 	SLASH_PVPSound1 = "/ps"
 	SLASH_PVPSound2 = "/pvpsound"
-	self:SetBackdropColor(0.1, 0.1, 0.1)
-	self:SetBackdropBorderColor(0.9, 1.0, 0.9)
-	PVPSoundOptionsHeader:SetText("PVPSound "..GetAddOnMetadata("PVPSound", "Version"))
-	PVPSoundOptions:OptionsInitalizeButtons()
-	tinsert(UISpecialFrames, self:GetName())
+	--self:SetBackdropColor(0.1, 0.1, 0.1)
+	--self:SetBackdropBorderColor(0.9, 1.0, 0.9)
+	--PVPSoundOptionsHeader:SetText("PVPSound "..GetAddOnMetadata("PVPSound", "Version"))
+	--PVPSoundOptions:OptionsInitalizeButtons()
+	--tinsert(UISpecialFrames, self:GetName())
 end
 
 function PVPSoundOptions:OptionsTabFramesInitalize(self)
-	self:SetBackdropColor(0.1, 0.1, 0.1)
-	self:SetBackdropBorderColor(0.0, 0.0, 0.0)
+	--self:SetBackdropColor(0.1, 0.1, 0.1)
+	--self:SetBackdropBorderColor(0.0, 0.0, 0.0)
 end
 
 function PVPSoundOptions:OptionsTabInitalize(self, width)
@@ -1498,7 +1499,8 @@ function PVPSound:SlashCommands(arg1)
 	-- Arg2 is converted to lower case
 	local arg2 = string.lower(arg1)
 	if arg2 == "" then
-		PVPSoundOptions:OptionsToggleMenu()
+		--PVPSoundOptions:OptionsToggleMenu()
+		PVPSound:PrintSlashMenu()--temporary, while xml frame switched off
 	elseif arg2 == "slash" then
 		PVPSound:PrintSlashMenu()
 	elseif arg2 == "enable" then
@@ -1666,6 +1668,13 @@ function PVPSound:SlashCommands(arg1)
 		if PS_Channel == "Ambience" then
 			print("|cFF50C0FF"..L["Sound channel output"]..": |cFFFF4500"..L["[Ambience]"].."|r")
 		end
+	elseif arg2 == "ex" or arg2 == "execute" or arg2 == "exc" then
+		PS_Execute = not PS_Execute
+		if PS_Execute == true then
+			print("|cFF50C0FF"..L["Execute sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
+		else
+			print("|cFF50C0FF"..L["Execute sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
+		end
 	elseif arg2 == "soundpack ut3" or arg2 == "soundpack unrealtournament3" or arg2 == "sp ut3" or arg2 == "sp unrealtournament3" or arg2 == "soundpackut3" or arg2 == "soundpackunrealtournament3" or arg2 == "sput3" or arg2 == "spunrealtournament3" then
 		PS_SoundPackName = "UnrealTournament3"
 		PS.SoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_SoundPackName
@@ -1783,30 +1792,48 @@ function PVPSound:SlashCommands(arg1)
 		for i = 1, table.getn(PaybackKillSoundLengthTable), 1 do
 			PVPSound:TriggerKill("PaybackKill", i)
 		end
-	elseif arg2 == "id" then
-		for i = 1, GetNumMapLandmarks(), 1 do
-			local name = select(2, GetMapLandmarkInfo(i))
-			local textureIndex = select(4, GetMapLandmarkInfo(i))
-			local x = select(5, GetMapLandmarkInfo(i))
-			local y = select(6, GetMapLandmarkInfo(i))
-			if name and textureIndex and x and y then
-				local MessageFormat = "%s %s %s %s %s"
-				local Message = format(MessageFormat, i, name, textureIndex, x, y)
-				print(Message)
+	elseif arg2 == "poi" then
+		--POIs updated for 8.0.1
+		local mapId=C_Map.GetBestMapForUnit("player")
+		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(mapId)
+		if POIs==nil then
+			print("There is no POIs in this zone")
+		else
+			print("There is "..#POIs.." POIs in this zone")
+			for i = 1, #POIs, 1 do
+				
+				local info = C_AreaPoiInfo.GetAreaPOIInfo(mapId,POIs[i])
+				local id = info.areaPoiID
+				local name = info.name
+				local desc = info.description
+				local textureIndex = info.textureIndex
+				local x = info.position.x
+				local y = info.position.y
+				print("POI info:")
+				print(i," ",id," ",name," ",desc," ",textureIndex," ",x," ",y)
+					
+				
 			end
 		end
 	elseif arg2 == "ui" then
-		for i = 1, GetNumWorldStateUI(), 1 do
-			local name = select(4, GetWorldStateUIInfo(i))
-			if name then
-				local MessageFormat = "%s %s"
-				local Message = format(MessageFormat, i, name)
-				print(Message)
+		--updated for 8.0.1
+		--check only top center "DoubleStatusBar" widgets 
+		local setId=C_UIWidgetManager.GetTopCenterWidgetSetID()
+		local wgts=C_UIWidgetManager.GetAllWidgetsBySetID(setId)
+		if wgts==nil then
+			print("There is no UI widgets in this zone")
+		else
+			print("There is "..#wgts.." top wigets in this zone")
+		
+			for i = 1, #wgts, 1 do
+				print("Type: ", wgts[i].widgetType)
+				print(" Id: ", wgts[i].widgetID)
+				
 			end
 		end
 	elseif arg2 == "map" then
-		SetMapToCurrentZone()
-		local CurrentZoneId = GetCurrentMapAreaID()
+		--updated for 8.0.1
+		local CurrentZoneId = C_Map.GetBestMapForUnit("player")
 		if CurrentZoneId ~= nil or CurrentZoneId ~= "" then
 			print("|cFF50C0FF"..L["Current Zone's ID:"].."|r")
 			print(CurrentZoneId)
@@ -1822,16 +1849,25 @@ function PVPSound:SlashCommands(arg1)
 			print(CurrentSubZoneText)
 		end
 	elseif arg2 == "pos" then
-		SetMapToCurrentZone()
-		local playerPosX, playerPosY = GetPlayerMapPosition("player")
-		print("|cFF50C0FF".."X: ".."|r")
-		print(playerPosX)
-		print("|cFF50C0FF".."Y: ".."|r")
-		print(playerPosY)
+		--updated for 8.0.1 
+		local mapId=C_Map.GetBestMapForUnit("player")
+		local playerPos = C_Map.GetPlayerMapPosition(mapId,"player")
+		if (playerPos) then
+			print("|cFF50C0FF".."X: ".."|r")
+			print(playerPos.x)
+			print("|cFF50C0FF".."Y: ".."|r")
+			print(playerPos.y)
+		else
+			print("Can't get a position")
+		end
+	elseif arg2=="conflist" then 
+		PVPSound.ConfigDump()
+	elseif arg2=="perflist" then 
+		PVPSound.perfDump()
 	else
 		PVPSound:PrintSlashHelp()
 	end
-end
+end                                 			
 
 function PVPSound:PrintSlashHelp()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Command list"].."|r")
@@ -1855,6 +1891,7 @@ function PVPSound:PrintSlashHelp()
 	print("|cFF50C0FF/ps sctengine - |cFFFFFFA0"..L["Enables or Disables Scrolling Combat Text Queue System usage"].."|r")
 	print("|cFF50C0FF/ps frame'framename' - |cFFFFFFA0"..L["Name of the output frame in the supported Scrolling Combat Text"].."|r")
 	print("|cFF50C0FF/ps hideservername - |cFFFFFFA0"..L["Enables or Disables hiding the player's server name from Data Sharing and Death Messages"].."|r")
+	print("|cFF50C0FF/ps execute - |cFFFFFFA0"..L["Enables or Disables execute sounds"].."|r")
 	print("|cFF50C0FF/ps channel'channelname' - |cFFFFFFA0"..L["Switch between sound channels ('master' 'sound' 'music' 'ambience')"].."|r")
 	print("|cFF50C0FF/ps soundpack'soundpackname' - |cFFFFFFA0"..L["Switch between Sound Packs ('ut3' 'custom')"].."|r")
 	print("|cFF50C0FF/ps lang'soundpacklanguage' - |cFFFFFFA0"..L["Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita')"].."|r")
@@ -1867,8 +1904,10 @@ function PVPSound:PrintSlashMenu()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Loaded. Type /ps help for options"].."|r")
 	if PS_Mode == "PVP" then
 		print("|cFF50C0FF"..L["Mode"]..": |cFFADFF2F"..L["[PVP]"].."|r")
-	else
+	elseif PS_Mode == "PVE" then
 		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVE]"].."|r")
+	else 
+		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVP and PVE]"].."|r")
 	end
 	if PS_Emote == true then
 		print("|cFF50C0FF"..L["Emotes"]..": |cFFADFF2F"..L["[Enable]"].."|r")
@@ -1957,6 +1996,11 @@ function PVPSound:PrintSlashMenu()
 		print("|cFF50C0FF"..L["Hide server names"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 	else
 		print("|cFF50C0FF"..L["Hide server names"]..": |cFFFF4500"..L["[Disable]"].."|r")
+	end
+	if PS_Execute == true then
+		print("|cFF50C0FF"..L["Execute sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
+	else
+		print("|cFF50C0FF"..L["Execute sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 	end
 	if PS_Channel == "Master" then
 		print("|cFF50C0FF"..L["Sound channel output"]..": |cFFADFF2F"..L["[Master]"].."|r")

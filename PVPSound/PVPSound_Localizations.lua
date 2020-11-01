@@ -6,6 +6,7 @@ ns.PVPSoundOptions = PVPSoundOptions
 local PS = { }
 ns.PS = PS
 
+
 local L = setmetatable({ }, {__index = function(t, k)
 	local v = tostring(k)
 	rawset(t, k, v)
@@ -124,6 +125,7 @@ L["[Disable]"] = "[Disable]"
 L["Mode"] = "Mode"
 L["[PVP]"] = "[PVP]"
 L["[PVE]"] = "[PVE]"
+L["[PVP and PVE]"] = "[PVP and PVE]"
 L["[Emote]"] = "[Emote]"
 L["[Chat Message]"] = "[Chat Message]"
 L["[Master]"] = "[Master]"
@@ -162,6 +164,7 @@ L["Sound Pack language"] = "Sound Pack language"
 L["Sound channel output"] = "Sound channel output"
 L["Scrolling Combat Text and sound test"] = "Scrolling Combat Text and sound test"
 L["Killing Counter and Sound Queue reset"] = "Killing Counter and Sound Queue reset"
+L["Execute sounds"] = "Execute sounds"
 L["Command list"] = "Command list"
 L["Custom Sound Pack doesn't support that language!"] = "Custom Sound Pack doesn't support that language!"
 L["Show status"] = "Show status"
@@ -184,6 +187,7 @@ L["Enables or Disables Scrolling Combat Text Queue System usage"] = "Enables or 
 L["Enables or Disables Multi Kill Scrolling Combat Text usage"] = "Enables or Disables Multi Kill Scrolling Combat Text usage"
 L["Enables or Disables Payback and Retribution Scrolling Combat Text usage"] = "Enables or Disables Payback and Retribution Scrolling Combat Text usage"
 L["Enables or Disables hiding the player's server name from Data Sharing and Death Messages"] = "Enables or Disables hiding the player's server name from Data Sharing and Death Messages"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 L["Switch between sound channels ('master' 'sound' 'music' 'ambience')"] = "Switch between sound channels ('master' 'sound' 'music' 'ambience')"
 L["Switch between Sound Packs ('ut3' 'custom')"] = "Switch between Sound Packs ('ut3' 'custom')"
 L["Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita')"] = "Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita')"
@@ -199,13 +203,14 @@ function PVPSound:EnglishClient()
 L["Eye of the Storm"] = "Eye of the Storm"
 -- Battleground Zone Names
 L["Silverwing Hold"] = "Silverwing Hold"
-L["Warsong Flag Room"] = "Warsong Flag Room"
+L["Warsong Flag Room"] = "Warsong Flag Room" --in new WSG there is no subzones and Hord Flagroom is "Warsong lumber mill"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
 L["taken the"] = "taken the"
 L["dropped"] = "dropped"
 L["picked"] = "picked"
+L["pickedA"] = "picked"--fix for Ru client
 L["returned"] = "returned"
 L["stolen"] = "stolen"
 L["captured"] = "captured"
@@ -220,8 +225,8 @@ L["Horde wins secondary"] = "Horde wins"
 L["Alliance Flag has returned"] = "Alliance Flag has returned"
 L["Horde Flag has returned"] = "Horde Flag has returned"
 L["vulnerable"] = "vulnerable"
-L["Alliance have captured"] = "Alliance have captured"
-L["Horde have captured"] = "Horde have captured"
+L["Alliance have captured"] = "has captured the flag"
+L["Horde have captured"] = "has captured the flag"
 L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin"
 L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute"
 L["Round 1"] = "Round 1"
@@ -229,10 +234,10 @@ L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "
 L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds"
 L["Tie game"] = "Tie game"
 -- Battlefield Events
-L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance"
-L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance"
-L["workshop has been attacked by the Horde"] = "workshop has been attacked by the Horde"
-L["workshop has been captured by the Horde"] = "workshop has been captured by the Horde"
+L["workshop has been attacked by the Alliance"] = "has been attacked by the Alliance"--updated for WG
+L["workshop has been captured by the Alliance"] = "has been captured by the Alliance"--updated for WG
+L["workshop has been attacked by the Horde"] = "has been attacked by the Horde"--updated for WG
+L["workshop has been captured by the Horde"] = "has been captured by the Horde"--updated for WG
 L["Alliance has defended"] = "Alliance has defended"
 L["Horde has defended"] = "Horde has defended"
 end
@@ -328,6 +333,11 @@ L["Sound Pack language"] = "Soundpaketsprache"
 L["[Spanish]"] = "[Spanish]"
 L["Scrolling Combat Text and sound test"] = "Scrolling Combat Text and sound test" -- Requires localization
 L["[Unreal Tournament 3]"] = "[Unreal Tournament 3]"
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
+
 end
 
 function PVPSound:GermanClient()
@@ -342,6 +352,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 L["taken the"] = "taken the"
 L["dropped"] = "dropped"
 L["picked"] = "aufgenommen"
+L["pickedA"] = "aufgenommen"--fix for Ru client
 L["returned"] = "returned"
 L["stolen"] = "stolen"
 L["captured"] = "captured"
@@ -466,6 +477,11 @@ L["Show status"] = "Mostrar estado"
 L["Scrolling Combat Text and sound test"] = "Prueba de sonido"
 L["Killing Count"] = "Conteo de muertes"
 L["Death messages"] = "Mensajes de muertes"
+
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:SpanishClient()
@@ -480,6 +496,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 L["taken the"] = "taken the"
 L["dropped"] = "dropped"
 L["picked"] = "recogida"
+L["pickedA"] = "recogida" --fix for Ru client
 L["returned"] = "returned"
 L["stolen"] = "stolen"
 L["captured"] = "captured"
@@ -604,6 +621,11 @@ L["Show status"] = "Mostrar estado"
 L["Scrolling Combat Text and sound test"] = "Prueba de sonido"
 L["Killing Count"] = "Conteo de muertes"
 L["Death messages"] = "Mensajes de muertes"
+
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:LatinAmericanSpanishClient()
@@ -618,6 +640,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 L["taken the"] = "taken the"
 L["dropped"] = "dropped"
 L["picked"] = "recogida"
+L["pickedA"] = "recogida" --fix for Ru client
 L["returned"] = "returned"
 L["stolen"] = "stolen"
 L["captured"] = "captured"
@@ -742,6 +765,11 @@ L["Show status"] = "Montrer les status"
 L["Scrolling Combat Text and sound test"] = "Tester le son"
 L["Killing Count"] = "Décompte des morts"
 L["Death messages"] = "Messages de morts"
+
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:FrenchClient()
@@ -756,6 +784,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 L["taken the"] = "taken the"
 L["dropped"] = "dropped"
 L["picked"] = "pris"
+L["pickedA"] = "pris" --fix for Ru client
 L["returned"] = "returned"
 L["stolen"] = "stolen"
 L["captured"] = "captured"
@@ -894,6 +923,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 L["taken the"] = "taken the" -- Requires localization
 L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "picked" -- Requires localization
+L["pickedA"] = "picked" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
 L["captured"] = "captured"
@@ -925,6 +955,11 @@ L["Alliance has defended"] = "Alliance has defended" -- Requires localization
 L["workshop has been attacked by the Horde"] = "workshop has been attacked by the Horde" -- Requires localization
 L["workshop has been captured by the Horde"] = "workshop has been captured by the Horde" -- Requires localization
 L["Horde has defended"] = "Horde has defended" -- Requires localization
+
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:Korean()
@@ -1018,6 +1053,11 @@ L["Show status"] = "Show status" -- Requires localization
 L["Scrolling Combat Text and sound test"] = "Sound test" -- Requires localization
 L["Killing Count"] = "Killing Count" -- Requires localization
 L["Death messages"] = "Death messages" -- Requires localization
+
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:KoreanClient()
@@ -1032,6 +1072,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 L["taken the"] = "taken the" -- Requires localization
 L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "깃발을 손에 넣었습니다"
+L["pickedA"] = "깃발을 손에 넣었습니다" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
 L["captured"] = "captured"
@@ -1156,6 +1197,11 @@ L["Show status"] = "Show status" -- Requires localization
 L["Scrolling Combat Text and sound test"] = "Sound test" -- Requires localization
 L["Killing Count"] = "Killing Count" -- Requires localization
 L["Death messages"] = "Death messages" -- Requires localization
+
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:PortugueseClient()
@@ -1170,6 +1216,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 L["taken the"] = "taken the" -- Requires localization
 L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "picked" -- Requires localization
+L["pickedA"] = "picked" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
 L["captured"] = "captured"
@@ -1315,6 +1362,7 @@ L["Multi Killing sounds"] = "Звуки при Multi Kill"
 L["[Music]"] = "[Музыка]"
 L["[PVE]"] = "[ПвЕ]"
 L["[PVP]"] = "[ПвП]"
+L["[PVP and PVE]"] = "[ПвП и ПвЕ]"
 L["Payback sounds"] = "Звуки при Расплате"
 L["Killing Counter and Sound Queue reset"] = "Сбросить счетчик убийств"
 L["[Sound]"] = "[Звук]"
@@ -1372,6 +1420,10 @@ L["Show status"] = "Пoказать статус"
 L["Scrolling Combat Text and sound test"] = "Проверка звука"
 L["Killing Count"] = "Счетчик убийств"
 L["Death messages"] = "Сообщения о смерти"
+L["Execute sounds"] = "Звуки добивания"
+L["Enables or Disables execute sounds"] = "Вкл / Выкл звуки добивания"
+
+
 end
 
 function PVPSound:RussianClient()
@@ -1385,21 +1437,25 @@ L["Wildhammer Stronghold"] = "Цитадель Громового Молота"
 -- Battleground Events
 L["taken the"] = "захватывает вагонетку"
 L["dropped"] = "бросил"
-L["picked"] = "поднял"
+L["picked"] = "несет" --updated
+L["pickedA"] = "Флаг Альянса у"--updated for 8.0 --for some reason in ru client there is different messages for Alliance and Horde flag picked
 L["returned"] = "вернул"
 L["stolen"] = "получает золото"
-L["The Alliance is victorious"] = "Альянс побеждает"
-L["The Horde is victorious"] = "Орда побеждает"
+L["The Alliance is victorious"] = "Альянс одержал победу!"
+L["The Horde is victorious"] = "Победа за Ордой!"
 -- Battleground Events
 L["Alliance wins"] = "Альянс побеждает"
 L["Alliance wins secondary"] = "Альянс победил"
-L["Alliance have captured"] = "Альянс захватил флаг"
-L["Horde have captured"] = "Орда захватила флаг"
-L["captured"] = "захвачено"
-L["dropped"] = "уронили"
+--for RU clien I use Alliance for male characters and Horde for female...it is about grammatics.  
+L["Alliance have captured"] = "захватил флаг"
+L["Horde have captured"] = "захватила флаг"
+
+L["captured"] = "захват" --SM and DWG --in BFA full message for horde is "орда захватывает вагонетку" and for alliance is "альянс захватил вагонетку" so i decided to look for cutted "захват" 
+
+L["dropped"] = "роняет"--updated
 L["Horde wins"] = "Орда побеждает"
 L["Horde wins secondary"] = "Орда победила"
-L["returned"] = "вернули"
+L["returned"] = "возвращает"--updated
 L["Alliance Flag has returned"] = "Флаг Альянса возвращен"
 L["Horde Flag has returned"] = "Флаг Орды возвращен"
 L["Let the battle for the Strand of the Ancients begin"] = "Да начнется битва за Берег Древних"
@@ -1410,11 +1466,11 @@ L["Round 2 begins in 30 seconds"] = "Раунд 2 начинается чере�
 L["vulnerable"] = "уязвимо"
 L["Tie game"] = "Ничья"
 -- Battlefield Events
-L["workshop has been attacked by the Alliance"] = "мастерская атакована Альянсом"
-L["workshop has been captured by the Alliance"] = "мастерская захвачена Альянсом"
+L["workshop has been attacked by the Alliance"] = "атакована Альянсом"--updated for WG
+L["workshop has been captured by the Alliance"] = "захвачена Альянсом"--updated for WG
 L["Alliance has defended"] = "Альянс защитил"
-L["workshop has been attacked by the Horde"] = "мастерская атакована Ордой"
-L["workshop has been captured by the Horde"] = "мастерская захвачена Ордой"
+L["workshop has been attacked by the Horde"] = "атакована Ордой"--updated for WG
+L["workshop has been captured by the Horde"] = "захвачена Ордой"--updated for WG
 L["Horde has defended"] = "Орда защитила"
 end
 
@@ -1509,6 +1565,10 @@ L["Show status"] = "Show status" -- Requires localization
 L["Scrolling Combat Text and sound test"] = "Sound test" -- Requires localization
 L["Killing Count"] = "Killing Count" -- Requires localization
 L["Death messages"] = "Death messages" -- Requires localization
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:SimplifiedChineseClient()
@@ -1523,6 +1583,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 L["taken the"] = "taken the" -- Requires localization
 L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "拔起了"
+L["pickedA"] = "拔起了" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
 L["stolen"] = "stolen" -- Requires localization
 L["captured"] = "captured"
@@ -1554,6 +1615,7 @@ L["Alliance has defended"] = "Alliance has defended" -- Requires localization
 L["workshop has been attacked by the Horde"] = "workshop has been attacked by the Horde" -- Requires localization
 L["workshop has been captured by the Horde"] = "workshop has been captured by the Horde" -- Requires localization
 L["Horde has defended"] = "Horde has defended" -- Requires localization
+
 end
 
 function PVPSound:TraditionalChinese()
@@ -1647,6 +1709,10 @@ L["Show status"] = "Show status" -- Requires localization
 L["Scrolling Combat Text and sound test"] = "Sound test" -- Requires localization
 L["Killing Count"] = "Killing Count" -- Requires localization
 L["Death messages"] = "Death messages" -- Requires localization
+ --need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:TraditionalChineseClient()
@@ -1661,6 +1727,7 @@ L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 L["taken the"] = "taken the"
 L["dropped"] = "dropped"
 L["picked"] = "拔掉了"
+L["pickedA"] = "拔起了" --fix for Ru client
 L["returned"] = "returned"
 L["stolen"] = "stolen"
 L["captured"] = "captured"

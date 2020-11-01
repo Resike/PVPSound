@@ -103,6 +103,7 @@ function PVPSound:UpdatePaybackSound(elapsed)
 		if PS_PaybackSound == true then
 			TimeSinceLastPayUpdate = TimeSinceLastPayUpdate + elapsed
 			while TimeSinceLastPayUpdate > PVPSound_NextPayUpdate do
+				
 				TimeSinceLastPayUpdate = TimeSinceLastPayUpdate - PVPSound_NextPayUpdate
 
 				if #PVPSound_PaybackQueue == 0 then
@@ -387,5 +388,6 @@ function PVPSound:UpdateRecentlyKilled(elapsed)
 		end
 	end
 end
+
 
 --PVPSoundRecentlyKilledFrame:SetScript("OnUpdate", PVPSound.UpdateRecentlyKilled)
