@@ -1090,7 +1090,7 @@ local function InitializeBgs(...)
 		MyZone = "Zone_WarsongGulch"--updated
 	elseif (CurrentZoneId == 1366 or CurrentZoneId == 837) and InstanceType == "pvp" then --837 is winter AB
 		MyZone = "Zone_ArathiBasin"--updated
-	elseif (CurrentZoneId == 91 or CurrentZoneId == 1537) and InstanceType == "pvp" then
+	elseif (CurrentZoneId == 91 or CurrentZoneId == 1537) and InstanceType == "pvp" then -- 1537 Korrak's Revenge
 		MyZone = "Zone_AlteracValley"--updated
 	elseif (CurrentZoneId == 112 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then
 		MyZone = "Zone_EyeoftheStorm"--updated
@@ -1111,7 +1111,7 @@ local function InitializeBgs(...)
 	elseif CurrentZoneId == 1335 and InstanceType == "pvp" then
 		MyZone = "Zone_CookingImpossible"--Brawl Cooking Impossible added
 	 -- Battlefields
-	elseif CurrentZoneId == 123 or ( CurrentZoneId == 1334 and InstanceType == "pvp") then --1334 is BG version of this zone
+	elseif CurrentZoneId == 123 or (CurrentZoneId == 1334 and InstanceType == "pvp") then --1334 is BG version of this zone
 		MyZone = "Zone_Wintergrasp"--updated
 	elseif CurrentZoneId == 244 then--updated
 		MyZone = "Zone_TolBarad"
@@ -2160,9 +2160,9 @@ function PVPSound:OnEvent(event, ...)
 						BgIsOver = true
 					end
 					local isActive
-					if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+					if CurrentZoneId == 123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
 						isActive = true
-					elseif CurrentZoneId ==1334 then
+					elseif CurrentZoneId == 1334 then
 						isActive = true
 					else
 						isActive = false
@@ -2267,7 +2267,7 @@ function PVPSound:OnEvent(event, ...)
 					--print("ent")
 					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 
-					for i =1, #POIs do
+					for i = 1, #POIs do
 						--print("ent ", POIs[i])
 						local textureIndex = POIs[i]
 
@@ -2281,7 +2281,7 @@ function PVPSound:OnEvent(event, ...)
 										-- Alliance Dominating
 										local ABases = 0
 										for k, v in pairs(EOTSobjectives) do
-											if k ~= type and EOTSobj_state(v)==2 then
+											if k ~= type and EOTSobj_state(v) == 2 then
 												ABases = ABases + 1
 											end
 										end
@@ -2296,12 +2296,12 @@ function PVPSound:OnEvent(event, ...)
 										-- Horde Dominating
 										local HBases = 0
 										for k, v in pairs(EOTSobjectives) do
-											if k ~= type and EOTSobj_state(v)==3 then
+											if k ~= type and EOTSobj_state(v) == 3 then
 												HBases = HBases + 1
 											end
 										end
 										--print ("hbase ", HBases)
-										if HBases==3 then
+										if HBases == 3 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
 											end
@@ -2326,9 +2326,9 @@ function PVPSound:OnEvent(event, ...)
 				 -- Wintergrasp
 				elseif MyZone == "Zone_Wintergrasp" then
 					local isActive
-					if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+					if CurrentZoneId == 123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
 						isActive = true
-					elseif CurrentZoneId ==1334 then
+					elseif CurrentZoneId == 1334 then
 						isActive = true
 					else
 						isActive = false
@@ -2617,7 +2617,7 @@ function PVPSound:OnEventTwo(event, ...)
 							elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 2 and AVandIOCHobj_state(faketextureIndex) == 1 then
 								PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
 							end
-							AVandIOCHobjectives[type] = faketextureInde
+							AVandIOCHobjectives[type] = faketextureIndex
 						end
 					end
 				end
@@ -3184,7 +3184,7 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Alliance Dominating
 										local ABases = 0
 										for k, v in pairs(ABobjectives) do
-											if k ~= type and ABobj_state(v)==1 then
+											if k ~= type and ABobj_state(v) == 1 then
 												ABases = ABases + 1
 											end
 										end
@@ -3200,7 +3200,7 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Horde Dominating
 										local HBases = 0
 										for k, v in pairs(ABobjectives) do
-											if k ~= type and ABobj_state(v)==2 then
+											if k ~= type and ABobj_state(v) == 2 then
 												HBases = HBases + 1
 											end
 										end
@@ -3215,7 +3215,7 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Alliance Dominating
 										local ABases = 0
 										for k, v in pairs(ABobjectives) do
-											if k ~= type and ABobj_state(v)==1 then
+											if k ~= type and ABobj_state(v) == 1 then
 												ABases = ABases + 1
 											end
 										end
@@ -3230,7 +3230,7 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Horde Dominating
 										local HBases = 0
 										for k, v in pairs(ABobjectives) do
-											if k ~= type and ABobj_state(v)==2 then
+											if k ~= type and ABobj_state(v) == 2 then
 												HBases = HBases + 1
 											end
 										end
@@ -3552,7 +3552,7 @@ function PVPSound:OnEventTwo(event, ...)
 				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
 					--print(MyZone, 222)
 					--for Wintergasp it only works in BG version, for BF version there is old methdos
-					local winner=...
+					local winner = ...
 					if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 					else

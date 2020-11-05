@@ -257,13 +257,13 @@
 				Lib_UIDropDownMenu_OnUpdate(self, elapsed);
 			</OnUpdate>
 			<OnShow>
-				for i=1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
+				for i = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
 					if (not self.noResize) then
 						_G[self:GetName().."Button"..i]:SetWidth(self.maxWidth);
 					end
 				end
 				if (not self.noResize) then
-					self:SetWidth(self.maxWidth+25);
+					self:SetWidth(self.maxWidth + 25);
 				end
 				self.showTimer = nil;
 				if ( self:GetID() > 1 ) then

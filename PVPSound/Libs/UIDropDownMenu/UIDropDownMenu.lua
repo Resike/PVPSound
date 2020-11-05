@@ -72,7 +72,7 @@ function Lib_UIDropDownMenu_InitializeHelper (frame)
 		if ( i >= LIB_UIDROPDOWNMENU_MENU_LEVEL or frame ~= LIB_UIDROPDOWNMENU_OPEN_MENU ) then
 			dropDownList.numButtons = 0;
 			dropDownList.maxWidth = 0;
-			for j=1, LIB_UIDROPDOWNMENU_MAXBUTTONS, 1 do
+			for j = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS, 1 do
 				button = _G["Lib_DropDownList"..i.."Button"..j];
 				button:Hide();
 			end
@@ -129,7 +129,7 @@ function Lib_UIDropDownMenu_RefreshDropDownSize(self)
 	self.maxWidth = Lib_UIDropDownMenu_GetMaxButtonWidth(self);
 	self:SetWidth(self.maxWidth + 25);
 
-	for i=1, LIB_UIDROPDOWNMENU_MAXBUTTONS, 1 do
+	for i = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS, 1 do
 		local icon = _G[self:GetName().."Button"..i.."Icon"];
 
 		if ( icon.tFitDropDownSizeX ) then
@@ -252,7 +252,7 @@ function Lib_UIDropDownMenu_CreateFrames(level, index)
 
 	while ( index > LIB_UIDROPDOWNMENU_MAXBUTTONS ) do
 		LIB_UIDROPDOWNMENU_MAXBUTTONS = LIB_UIDROPDOWNMENU_MAXBUTTONS + 1;
-		for i=1, LIB_UIDROPDOWNMENU_MAXLEVELS do
+		for i = 1, LIB_UIDROPDOWNMENU_MAXLEVELS do
 			local newButton = CreateFrame("Button", "Lib_DropDownList"..i.."Button"..LIB_UIDROPDOWNMENU_MAXBUTTONS, _G["Lib_DropDownList"..i], "Lib_UIDropDownMenuButtonTemplate");
 			newButton:SetID(LIB_UIDROPDOWNMENU_MAXBUTTONS);
 		end
@@ -568,7 +568,7 @@ end
 
 function Lib_UIDropDownMenu_GetMaxButtonWidth(self)
 	local maxWidth = 0;
-	for i=1, self.numButtons do
+	for i = 1, self.numButtons do
 		local button = _G[self:GetName().."Button"..i];
 		if ( button:IsShown() ) then
 			local width = Lib_UIDropDownMenu_GetButtonWidth(button);
@@ -624,7 +624,7 @@ function Lib_UIDropDownMenu_Refresh(frame, useValue, dropdownLevel)
 	local listFrame = _G["Lib_DropDownList"..dropdownLevel];
 	listFrame.numButtons = listFrame.numButtons or 0;
 	-- Just redraws the existing menu
-	for i=1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
+	for i = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
 		button = _G["Lib_DropDownList"..dropdownLevel.."Button"..i];
 		checked = nil;
 
@@ -685,7 +685,7 @@ function Lib_UIDropDownMenu_Refresh(frame, useValue, dropdownLevel)
 		Lib_UIDropDownMenu_SetText(frame, VIDEO_QUALITY_LABEL6);
 	end
 	if (not frame.noResize) then
-		for i=1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
+		for i = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
 			button = _G["Lib_DropDownList"..dropdownLevel.."Button"..i];
 			button:SetWidth(maxWidth);
 		end
@@ -756,7 +756,7 @@ function Lib_UIDropDownMenu_GetSelectedID(frame)
 	else
 		-- If no explicit selectedID then try to send the id of a selected value or name
 		local button;
-		for i=1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
+		for i = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
 			button = _G["Lib_DropDownList"..LIB_UIDROPDOWNMENU_MENU_LEVEL.."Button"..i];
 			-- See if checked or not
 			if ( Lib_UIDropDownMenu_GetSelectedName(frame) ) then
@@ -1115,7 +1115,7 @@ function Lib_UIDropDownMenu_ClearAll(frame)
 	Lib_UIDropDownMenu_SetText(frame, "");
 
 	local button, checkImage, uncheckImage;
-	for i=1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
+	for i = 1, LIB_UIDROPDOWNMENU_MAXBUTTONS do
 		button = _G["Lib_DropDownList"..LIB_UIDROPDOWNMENU_MENU_LEVEL.."Button"..i];
 		button:UnlockHighlight();
 
