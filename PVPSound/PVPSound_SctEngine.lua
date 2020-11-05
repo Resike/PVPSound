@@ -9,7 +9,10 @@ local PVPSound_SctQueue 						= { }
 
 local PVPSound_NextSctUpdate 					= 0.3200
 
-local string, upper, table, getn, insert, remove = string, upper, table, getn, insert, remove
+local string, table, getglobal = string, table, getglobal
+
+local IsAddOnLoaded = IsAddOnLoaded
+local ChatTypeInfo = ChatTypeInfo
 
 -- Sct Queue
 function PVPSound:AddSctToQueue(killtype, file, message, frame)

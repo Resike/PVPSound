@@ -27,13 +27,54 @@ local L = ns.L
 
 
 local bit = bit
+local ceil = ceil
+local floor = floor
 local getglobal = getglobal
+local pairs = pairs
 local print = print
 local select = select
 local string = string
 local table = table
 local tonumber = tonumber
 local tostring = tostring
+
+local C_AreaPoiInfo = C_AreaPoiInfo
+local C_ChatInfo = C_ChatInfo
+local C_Map = C_Map
+local C_PvP = C_PvP
+local C_Timer = C_Timer
+local C_UIWidgetManager = C_UIWidgetManager
+
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+local CreateFrame = CreateFrame
+local GetAddOnCPUUsage = GetAddOnCPUUsage
+local GetAddOnMemoryUsage = GetAddOnMemoryUsage
+local GetBattlefieldFlagPosition = GetBattlefieldFlagPosition
+local GetBuildInfo = GetBuildInfo
+local GetRealZoneText = GetRealZoneText
+local GetSpellInfo = GetSpellInfo
+local GetTime = GetTime
+local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
+local IsInGroup = IsInGroup
+local IsInInstance = IsInInstance
+local PlaySoundFile = PlaySoundFile
+local PlaySoundFile = PlaySoundFile
+local SendChatMessage = SendChatMessage
+local UnitBuff = UnitBuff
+local UnitExists = UnitExists
+local UnitFactionGroup = UnitFactionGroup
+local UnitGUID = UnitGUID
+local UnitHealth = UnitHealth
+local UnitHealthMax = UnitHealthMax
+local UnitIsDeadOrGhost = UnitIsDeadOrGhost
+local UnitIsEnemy = UnitIsEnemy
+local UnitIsPlayer = UnitIsPlayer
+local UnitName = UnitName
+local UnitSex = UnitSex
+local UpdateAddOnCPUUsage = UpdateAddOnCPUUsage
+local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
+
+local CombatLog_Object_IsA = CombatLog_Object_IsA
 
 --[[local GetBuildInfo = GetBuildInfo
 local GetMapLandmarkInfo = GetMapLandmarkInfo
@@ -144,8 +185,6 @@ local MyGender
 -- Battlegrounds
 local IsRated
 local BgIsOver
-local SotaAttacker
-local SotaRoundOver
 local IocAllianceGateDown
 local IocHordeGateDown
 local AlreadyPlaySound
@@ -177,6 +216,8 @@ local GotKilledBy
 -- Enemys
 local ToEnemy
 local FromEnemy
+local ToEnemyNPC
+local FromEnemyNPC
 local ToEnemyPlayer
 local ToEnemyPlayerAndNPC
 local FromMyPets
@@ -368,15 +409,15 @@ end
 -- I'll try it in AV, if it's ok, I'll use it in ither BGs
 --
 local function ObgInit (objectives, get, textureMode)
-	local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 		
 	local objective
 	--reset all objectives
-	for k,v in pairs(objectives) do
+	for k, v in pairs(objectives) do
 		objectives[k] = nil
 	end
 	
-	for i=1,#POIs do
+	for i = 1, #POIs do
 	--if texturemod parameter exists, then check textures, else check POI id	
 		if textureMode then
 			if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
@@ -1035,7 +1076,7 @@ end
 --function just to use the same code in two places
 local function InitializeBgs(...)
 	MyFaction = UnitFactionGroup("player")
-	local self=...	
+	local self = ...	
 	CurrentZoneId = C_Map.GetBestMapForUnit("player")
 	CurrentZoneText = GetRealZoneText()
 	InstanceType = (select(2, IsInInstance()))
@@ -1136,22 +1177,23 @@ local function InitializeBgs(...)
 	end
 	
 	if MyZone == "Zone_Arenas" then
+
 		--there will be two timers, because we initialize BGs twice: on entering world and on zone change
 		--delay needed cause UI WIDGETS update occures later then entering wold or zone changing
 		C_Timer.After(2, function ()
-							for k,v in pairs(arenaUI) do
-								--print("arena ")
-								if TimeRemaining_check(v) then 
-									break
-								end
-							end
-						end
-							)
-		
+			for k, v in pairs(arenaUI) do
+				--print("arena ")
+				if TimeRemaining_check(v) then 
+					break
+				end
+			end
+		end)
+
 	end
 			
 	
 	if MyZone == "Zone_EyeoftheStorm" then
+
 		--[[if IsRated == false then
 			EOTSWINobjectives.VictoryPoints = nil
 			local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(3)), "(%d+)/"))
@@ -1159,22 +1201,23 @@ local function InitializeBgs(...)
 			local EOTSWINInit = tonumber(string.match(select(4, GetWorldStateUIInfo(4)), "(%d+)/"))
 			EOTSWINobjectives.VictoryPoints = EOTSWINInit
 		end]]
-		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+
+		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 		
 		local BloodElfTowerInit
 		local DraeneiRuinsInit
 		local FelReaverRuinsInit
 		local MageTowerInit
 		
-		for i=1,#POIs do
+		for i = 1, #POIs do
 			if EOTSget_objective(POIs[i]) == "BloodElfTower" then
-				BloodElfTowerInit=POIs[i]
+				BloodElfTowerInit = POIs[i]
 			elseif EOTSget_objective(POIs[i]) == "DraeneiRuins" then
-				DraeneiRuinsInit=POIs[i]
+				DraeneiRuinsInit = POIs[i]
 			elseif EOTSget_objective(POIs[i]) == "FelReaverRuins" then
-				FelReaverRuinsInit=POIs[i]
+				FelReaverRuinsInit = POIs[i]
 			elseif EOTSget_objective(POIs[i]) == "MageTower" then
-				MageTowerInit=POIs[i]
+				MageTowerInit = POIs[i]
 			end
 		end
 			
@@ -1197,7 +1240,7 @@ local function InitializeBgs(...)
 	end
 	if MyZone == "Zone_ArathiBasin" then
 		
-		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 		
 		local BlacksmithInit 
 		local FarmInit
@@ -1205,18 +1248,18 @@ local function InitializeBgs(...)
 		local LumberMillInit
 		local StablesInit
 
-		if #POIs==5 then
-			for i=1,#POIs do 
+		if #POIs == 5 then
+			for i = 1, #POIs do 
 				if ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Blacksmith" then
-					BlacksmithInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					BlacksmithInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Farm" then
-					FarmInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					FarmInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "GoldMine" then
-					GoldMineInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					GoldMineInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "LumberMill" then
-					LumberMillInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					LumberMillInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Stables" then
-					StablesInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					StablesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				end
 			end
 		end
@@ -1252,8 +1295,8 @@ local function InitializeBgs(...)
 		AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
 		
 		ObgInit (AVobjectives, AVget_objective)
-		--for k,v in pairs(AVobjectives) do
-		--	print (k,' ',v)
+		--for k, v in pairs(AVobjectives) do
+		--	print (k, v)
 		--end
 
 	end
@@ -1264,7 +1307,7 @@ local function InitializeBgs(...)
 		IocAllianceGateDown = false
 		IocHordeGateDown = false
 		
-		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 		
 		local AllianceGateEInit
 		local AllianceGateWInit
@@ -1279,6 +1322,8 @@ local function InitializeBgs(...)
 		local WorkshopInit
 		local HordeKeepInit
 		local AllianceKeepInit
+		local HordeTowerInit
+		local AllianceTowerInit
 		
 		for i = 1, #POIs do
 			if (IOCget_objective(POIs[i]) == "AllianceGateE") then
@@ -1407,13 +1452,13 @@ local function InitializeBgs(...)
 	
 	if MyZone == "Zone_TheBattleforGilneas" then
 	
-		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 		
 		local LighthouseInit
 		local MinesInit
 		local WaterworksInit
 
-		if #POIs==3 then
+		if #POIs == 3 then
 			LighthouseInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[1]).textureIndex
 			MinesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
 			WaterworksInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
@@ -1436,7 +1481,7 @@ local function InitializeBgs(...)
 	
 	if MyZone == "Zone_DeepwindGorge" then
 		
-		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 		
 		local MarketInit
 		local FarmInit
@@ -1444,18 +1489,18 @@ local function InitializeBgs(...)
 		local ShrineInit
 		local QuarryInit
 
-		if #POIs==5 then
-			for i=1,#POIs do 
+		if #POIs == 5 then
+			for i = 1, #POIs do 
 				if DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Market" then
-					MarketInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					MarketInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Farm" then
-					FarmInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					FarmInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Ruins" then
-					RuinsInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					RuinsInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Shrine" then
-					ShrineInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					ShrineInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Quarry" then
-					QuarryInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					QuarryInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				end
 			end
 		end
@@ -1498,9 +1543,9 @@ local function InitializeBgs(...)
 	--end
 	if MyZone == "Zone_Wintergrasp" then
 		local isActive
-		if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+		if CurrentZoneId == 123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
 			isActive = true
-		elseif CurrentZoneId ==1334 then
+		elseif CurrentZoneId == 1334 then
 			isActive = true
 		else
 			isActive = false
@@ -1509,7 +1554,7 @@ local function InitializeBgs(...)
 		--print("isActive: ", isActive)
 		if isActive == true then
 			BgIsOver = false
-			local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+			local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 			
 			local FlamewatchTowerInit
 			local ShadowsightTowerInit
@@ -1521,21 +1566,21 @@ local function InitializeBgs(...)
 			local TowerWallsInit = 0
 			local WintergraspFortressInit
 			
-			for i=1,#POIs do 
+			for i = 1, #POIs do 
 				if WGget_objective(POIs[i]) == "FlamewatchTower" then
-					FlamewatchTowerInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					FlamewatchTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "ShadowsightTower" then
-					ShadowsightTowerInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					ShadowsightTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "WintersEdgeTower" then
-					WintersEdgeTowerInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					WintersEdgeTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerNE" then
-					WintergraspFortressTowerNEInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					WintergraspFortressTowerNEInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerNW" then
-					WintergraspFortressTowerNWInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					WintergraspFortressTowerNWInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerSE" then
-					WintergraspFortressTowerSEInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					WintergraspFortressTowerSEInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "WintergraspFortressTowerSW" then
-					WintergraspFortressTowerSWInit=C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+					WintergraspFortressTowerSWInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "TowerWalls" then
 					if WGobj_state(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == 9 then
 						TowerWallsInit = TowerWallsInit + 1
@@ -1737,7 +1782,7 @@ function PVPSound:OnEvent(event, ...)
 				--print(event, " my zone is ", MyZone)
 				
 				-- Battleground PlaySounds
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
 					--print("announcement")
 					TimerReset = true
 					KilledMe = nil
@@ -1783,9 +1828,9 @@ function PVPSound:OnEvent(event, ...)
 					KilledMe = nil
 					KilledBy = nil
 					local isActive
-					if CurrentZoneId ==123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
+					if CurrentZoneId == 123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
 						isActive = true
-					elseif CurrentZoneId ==1334 then
+					elseif CurrentZoneId == 1334 then
 						isActive = true
 					else
 						isActive = false
@@ -1797,7 +1842,7 @@ function PVPSound:OnEvent(event, ...)
 						--else - horde
 						--2150 - fortress in BF version, 6074 - in BG version
 						local textureIndex
-						if CurrentZoneId ==123 then
+						if CurrentZoneId == 123 then
 							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,2150).textureIndex
 						else
 							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,6074).textureIndex
@@ -1855,7 +1900,7 @@ function PVPSound:OnEvent(event, ...)
 			-- Battleground WinSounds
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
 				local EventMessage = select(1, ...)
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_StrandoftheAncients" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					if (string.find(EventMessage, L["Alliance wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Alliance wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 						BgIsOver = true
@@ -1895,32 +1940,6 @@ function PVPSound:OnEvent(event, ...)
 						self.HordeFlagPositionY = nil
 					elseif string.find(EventMessage, L["vulnerable"]) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\Overtime.mp3")
-					end
-				 -- Strand of the Ancients Attack and Defend Sounds
-				elseif MyZone == "Zone_StrandoftheAncients" then
-					if string.find(EventMessage, L["The battle for the Strand of the Ancients begins in 1 minute"]) or string.find(EventMessage, L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"]) then
-						for i = 7, 7, 1 do
-							local textureIndex = select(4, GetMapLandmarkInfo(i))
-							if textureIndex then
-								if textureIndex == 46 then
-									SotaAttacker = "Horde"
-								else
-									SotaAttacker = "Alliance"
-								end
-							end
-						end
-						if SotaAttacker == "Alliance" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.mp3")
-						elseif SotaAttacker == "Alliance" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\DefendYourCore.mp3")
-						elseif SotaAttacker == "Horde" and MyFaction == "Alliance" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\DefendYourCore.mp3")
-						elseif SotaAttacker == "Horde" and MyFaction == "Horde" then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\AttackTheEnemyCore.mp3")
-						end
-					elseif string.find(EventMessage, L["Round 2 begins in 30 seconds"]) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\FinalRound.mp3")
-						SotaRoundOver = false
 					end
 				end
 
@@ -2186,23 +2205,6 @@ function PVPSound:OnEvent(event, ...)
 						end
 						
 					end
-				 -- Strand of the Ancients Round One Finished
-				elseif MyZone == "Zone_StrandoftheAncients" then
-					if string.find(EventMessage, L["Round 1"]) then
-						SOTAobjectives.ChamberofAncientRelics = nil
-						SOTAobjectives.EastGraveyard = nil
-						SOTAobjectives.GateoftheBlueSapphire = nil
-						SOTAobjectives.GateoftheGreenEmerald = nil
-						SOTAobjectives.GateofthePurpleAmethyst = nil
-						SOTAobjectives.GateoftheRedSun = nil
-						SOTAobjectives.GateoftheYellowMoon = nil
-						SOTAobjectives.SouthGraveyard = nil
-						SOTAobjectives.WestGraveyard = nil
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\EndOfRound.mp3")
-						SotaRoundOver = true
-					elseif string.find(EventMessage, L["Let the battle for the Strand of the Ancients begin"]) then
-						SotaRoundOver = false
-					end
 				 -- Eye of the Storm RBG Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					if string.find(EventMessage, L["Alliance have captured"]) then
@@ -2265,7 +2267,7 @@ function PVPSound:OnEvent(event, ...)
 					--print("ent")
 					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 									
-					for i=1,#POIs do
+					for i =1, #POIs do
 						--print("ent ", POIs[i])
 						local textureIndex = POIs[i]
 											
@@ -2280,7 +2282,7 @@ function PVPSound:OnEvent(event, ...)
 										local ABases = 0
 										for k, v in pairs(EOTSobjectives) do
 											if k ~= type and EOTSobj_state(v)==2 then
-												ABases=ABases+1
+												ABases = ABases + 1
 											end
 										end
 										--print ("abase ", ABases)	
@@ -2295,7 +2297,7 @@ function PVPSound:OnEvent(event, ...)
 										local HBases = 0
 										for k, v in pairs(EOTSobjectives) do
 											if k ~= type and EOTSobj_state(v)==3 then
-												HBases=HBases+1
+												HBases = HBases + 1
 											end
 										end
 										--print ("hbase ", HBases)
@@ -2379,7 +2381,7 @@ function PVPSound:OnEvent(event, ...)
 				-- Alterac Valley
 				elseif MyZone == "Zone_AlteracValley" then
 					
-					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 					
 					for i = 1, #POIs do					
 	
@@ -2447,7 +2449,7 @@ function PVPSound:OnEvent(event, ...)
 					if isActive == 0 then
 						local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 						
-						for i =1, #POIs do
+						for i = 1, #POIs do
 							local type = TBget_objective(POIs[i])
 							
 							if type then
@@ -2507,11 +2509,10 @@ PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
 
 function PVPSound:OnEventTwo(event, ...)
 	if PS_EnableAddon == true  then
-	--
-	--execute sounds can not be places in ideology of kill or bg sounds
-	--because it is more about an dueling announcement
-	--so it can not be placed in any sound engine queues
-	--so i just play the sound file without a queues
+		--execute sounds can not be places in ideology of kill or bg sounds
+		--because it is more about an dueling announcement
+		--so it can not be placed in any sound engine queues
+		--so i just play the sound file without a queues
 	
 		if (event == "PLAYER_TARGET_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MAXHEALTH") and PS_Execute == true then
 			local isEnemy = UnitIsEnemy("target","player")
@@ -2622,7 +2623,7 @@ function PVPSound:OnEventTwo(event, ...)
 				end
 			--elseif event == "UPDATE_UI_WIDGET" then
 				
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_StrandoftheAncients" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" then
 					
 					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2)) then
 						-- Alliance Score
@@ -3162,9 +3163,9 @@ function PVPSound:OnEventTwo(event, ...)
 				if MyZone == "Zone_ArathiBasin" then
 				
 					
-					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 					
-					for i=1,#POIs do
+					for i = 1, #POIs do
 						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 						--local x
 						--local y
@@ -3184,7 +3185,7 @@ function PVPSound:OnEventTwo(event, ...)
 										local ABases = 0
 										for k, v in pairs(ABobjectives) do
 											if k ~= type and ABobj_state(v)==1 then
-												ABases=ABases+1
+												ABases = ABases + 1
 											end
 										end
 										--print ("abase ", ABases)	
@@ -3200,7 +3201,7 @@ function PVPSound:OnEventTwo(event, ...)
 										local HBases = 0
 										for k, v in pairs(ABobjectives) do
 											if k ~= type and ABobj_state(v)==2 then
-												HBases=HBases+1
+												HBases = HBases + 1
 											end
 										end
 										--print ("hbase ", HBases)	
@@ -3215,7 +3216,7 @@ function PVPSound:OnEventTwo(event, ...)
 										local ABases = 0
 										for k, v in pairs(ABobjectives) do
 											if k ~= type and ABobj_state(v)==1 then
-												ABases=ABases+1
+												ABases = ABases + 1
 											end
 										end
 										--print ("abase ", ABases)	
@@ -3230,7 +3231,7 @@ function PVPSound:OnEventTwo(event, ...)
 										local HBases = 0
 										for k, v in pairs(ABobjectives) do
 											if k ~= type and ABobj_state(v)==2 then
-												HBases=HBases+1
+												HBases = HBases + 1
 											end
 										end
 										--print ("hbase ", HBases)	
@@ -3259,7 +3260,7 @@ function PVPSound:OnEventTwo(event, ...)
 				 -- The Battle for Gilneas
 				elseif MyZone == "Zone_TheBattleforGilneas" then
 					-- Mines
-					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 					
 					for i = 3, 3, 1 do
 						
@@ -3454,9 +3455,9 @@ function PVPSound:OnEventTwo(event, ...)
 				elseif MyZone == "Zone_DeepwindGorge" then
 					
 					
-					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 					
-					for i=1,#POIs do
+					for i = 1, #POIs do
 						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 						--local x
 						--local y
@@ -3475,8 +3476,8 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Alliance Dominating
 										local ABases = 0
 										for k, v in pairs(DGobjectives) do
-											if k ~= type and DGobj_state(v)==1 then
-												ABases=ABases+1
+											if k ~= type and DGobj_state(v) == 1 then
+												ABases = ABases + 1
 											end
 										end
 										--print ("abase ", ABases)	
@@ -3491,8 +3492,8 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Horde Dominating
 										local HBases = 0
 										for k, v in pairs(DGobjectives) do
-											if k ~= type and DGobj_state(v)==2 then
-												HBases=HBases+1
+											if k ~= type and DGobj_state(v) == 2 then
+												HBases = HBases + 1
 											end
 										end
 										--print ("hbase ", HBases)	
@@ -3506,8 +3507,8 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Alliance Dominating
 										local ABases = 0
 										for k, v in pairs(DGobjectives) do
-											if k ~= type and DGobj_state(v)==1 then
-												ABases=ABases+1
+											if k ~= type and DGobj_state(v) == 1 then
+												ABases = ABases + 1
 											end
 										end
 										--print ("abase ", ABases)	
@@ -3521,8 +3522,8 @@ function PVPSound:OnEventTwo(event, ...)
 										-- Horde Dominating
 										local HBases = 0
 										for k, v in pairs(DGobjectives) do
-											if k ~= type and DGobj_state(v)==2 then
-												HBases=HBases+1
+											if k ~= type and DGobj_state(v) == 2 then
+												HBases = HBases + 1
 											end
 										end
 										--print ("hbase ", HBases)	
@@ -3572,8 +3573,10 @@ PVPSoundFrameTwo:SetScript("OnEvent", PVPSound.OnEventTwo)
 
 
 
-local floor=math.floor
-local ceil=math.ceil
+local PS_COMBATLOG_FILTER_MY_PETS					= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MINE, COMBATLOG_OBJECT_REACTION_FRIENDLY, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_OBJECT, COMBATLOG_OBJECT_TYPE_GUARDIAN, COMBATLOG_OBJECT_TYPE_PET)
+local PS_COMBATLOG_FILTER_ENEMY_NPCS				= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
+local PS_COMBATLOG_FILTER_ENEMY_PLAYERS				= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER)
+local PS_COMBATLOG_FILTER_ENEMY_PLAYERS_AND_NPCS	= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
 
 function PVPSound:OnEventThree(event, ...)
 	if PS_EnableAddon == true then
@@ -3587,11 +3590,6 @@ function PVPSound:OnEventThree(event, ...)
 			else
 				_, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 			end
-			
-			local PS_COMBATLOG_FILTER_MY_PETS					= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MINE, COMBATLOG_OBJECT_REACTION_FRIENDLY, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_OBJECT, COMBATLOG_OBJECT_TYPE_GUARDIAN, COMBATLOG_OBJECT_TYPE_PET)
-			local PS_COMBATLOG_FILTER_ENEMY_NPCS				= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
-			local PS_COMBATLOG_FILTER_ENEMY_PLAYERS				= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER)
-			local PS_COMBATLOG_FILTER_ENEMY_PLAYERS_AND_NPCS	= bit.bor (COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
 
 			-- To an Enemy
 			if destName and not CombatLog_Object_IsA(destFlags, COMBATLOG_OBJECT_NONE) then
@@ -3677,9 +3675,9 @@ function PVPSound:OnEventThree(event, ...)
 								CurrentStreak = CurrentStreak + (1 / RankStep)
 								
 								if CurrentStreak > table.getn(KillSoundLengthTable) then
-									
 									CurrentStreak = (table.getn(KillSoundLengthTable) - 1) + (1 / RankStep)
 								end
+								CurrentStreak = floor(CurrentStreak + 0.5)
 								if CurrentStreak <= table.getn(KillSoundLengthTable) then
 									PVPSound:TriggerKill("Kill", CurrentStreak)
 								end
@@ -3701,25 +3699,12 @@ function PVPSound:OnEventThree(event, ...)
 											if CurrentStreak > 10 then
 												Message = L["Streak10"]
 											end
-											local Decimal = tonumber(string.match(tostring(CurrentStreak), "%.(%d+)"))
-											if Decimal == nil then
-												--if rankstep!=1, here can be a situation, when decimals is nil, but CurrentStreak is not an integer. It can be smth like .000...001 or
-												--.999...9. In this situation an error "attempt to index field '?' (a nil value" occured
-												--to avoid this error we should round our number
-												--The same situation in TriggerKill function
-												if (CurrentStreak-floor(CurrentStreak) >0.5) then
-													CurrentStreak=ceil(CurrentStreak)
-												else 
-													CurrentStreak=floor(CurrentStreak)
-												end
-												
-												if CurrentStreak < table.getn(KillSoundLengthTable) then
-													SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!", "EMOTE")
-												elseif CurrentStreak == table.getn(KillSoundLengthTable) then
-													SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!!!", "EMOTE")
-												else
-													SendChatMessage(Message.." "..KillSoundLengthTable[table.getn(KillSoundLengthTable)].name.."!!!", "EMOTE")
-												end
+											if CurrentStreak < table.getn(KillSoundLengthTable) then
+												SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!", "EMOTE")
+											elseif CurrentStreak == table.getn(KillSoundLengthTable) then
+												SendChatMessage(Message.." "..KillSoundLengthTable[CurrentStreak].name.."!!!", "EMOTE")
+											else
+												SendChatMessage(Message.." "..KillSoundLengthTable[table.getn(KillSoundLengthTable)].name.."!!!", "EMOTE")
 											end
 										end
 									elseif PS_EmoteMode == false then
@@ -3728,15 +3713,12 @@ function PVPSound:OnEventThree(event, ...)
 											if CurrentStreak > 10 then
 												Message = L["Streak10"]
 											end
-											local Decimal = tonumber(string.match(tostring(CurrentStreak), "%.(%d+)"))
-											if Decimal == nil then
-												if CurrentStreak < table.getn(KillSoundLengthTable) then
-													print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[CurrentStreak].name.."!".."|r")
-												elseif CurrentStreak == table.getn(KillSoundLengthTable) then
-													print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[CurrentStreak].name.."!!!".."|r")
-												else
-													print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[table.getn(KillSoundLengthTable)].name.."!!!".."|r")
-												end
+											if CurrentStreak < table.getn(KillSoundLengthTable) then
+												print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[CurrentStreak].name.."!".."|r")
+											elseif CurrentStreak == table.getn(KillSoundLengthTable) then
+												print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[CurrentStreak].name.."!!!".."|r")
+											else
+												print("|cFFFFFF00"..sourceName.." "..Message.." "..KillSoundLengthTable[table.getn(KillSoundLengthTable)].name.."!!!".."|r")
 											end
 										end
 									end
@@ -3834,76 +3816,70 @@ end
 
 PVPSoundFrameThree:SetScript("OnEvent", PVPSound.OnEventThree)
 
-function PVPSound:TriggerKill(killtype, streaknumber)
-	if killtype and streaknumber and streaknumber ~= 0 then
-		if killtype == "Kill" then
-			local Decimal = tonumber(string.match(tostring(streaknumber), "%.(%d+)"))
-			
-			if Decimal == nil then
-				local KillLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
-				
-				if streaknumber <= table.getn(KillLengthTable) then
-					
-					-- Kills
-					if PS_KillSound == true then
-						--See comment in upper function in Kills->Emote section
-						if (streaknumber-floor(streaknumber)>0.5) then
-							streaknumber=ceil(streaknumber)
-						else
-							streaknumber=floor(streaknumber)
-						end
-						--print(KillLengthTable[streaknumber])
-						PVPSound:AddKillToQueue(killtype, KillLengthTable[streaknumber].dir)
+function PVPSound:TriggerKill(killType, streakNumber)
+	if killType and streakNumber and streakNumber ~= 0 then
+		if killType == "Kill" then
+			local KillLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."KillDurations")
+			if streakNumber <= table.getn(KillLengthTable) then
+				-- Kills
+				if PS_KillSound == true then
+					--See comment in upper function in Kills->Emote section
+					if (streakNumber - floor(streakNumber) > 0.5) then
+						streakNumber = ceil(streakNumber)
+					else
+						streakNumber = floor(streakNumber)
 					end
-					-- Sounds Effects
-					if PS_SoundEffect == true then
-						if streaknumber < table.getn(KillLengthTable) then
-							PVPSound:AddEffectToQueue(killtype, KillLengthTable[streaknumber].dir)
-						elseif streaknumber == table.getn(KillLengthTable) then
-							PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\KillingMaxRank.mp3")
-							PVPSound:AddEffectToQueue(killtype, KillLengthTable[streaknumber].dir)
-						end
-					end
-					-- Kill SCT
-					if PS_KillSct == true or PS_MultiKillSct == true or PS_PaybackSct == true then
-						PVPSound:AddSctToQueue(killtype, KillLengthTable[streaknumber].dir, KillLengthTable[streaknumber].name, PSSctFrame)
+					--print(KillLengthTable[streakNumber])
+					PVPSound:AddKillToQueue(killType, KillLengthTable[streakNumber].dir)
+				end
+				-- Sounds Effects
+				if PS_SoundEffect == true then
+					if streakNumber < table.getn(KillLengthTable) then
+						PVPSound:AddEffectToQueue(killType, KillLengthTable[streakNumber].dir)
+					elseif streakNumber == table.getn(KillLengthTable) then
+						PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\KillingMaxRank.mp3")
+						PVPSound:AddEffectToQueue(killType, KillLengthTable[streakNumber].dir)
 					end
 				end
+				-- Kill SCT
+				if PS_KillSct == true or PS_MultiKillSct == true or PS_PaybackSct == true then
+					PVPSound:AddSctToQueue(killType, KillLengthTable[streakNumber].dir, KillLengthTable[streakNumber].name, PSSctFrame)
+				end
 			end
-		elseif killtype == "MultiKill" then
+		elseif killType == "MultiKill" then
 			local MultiKillLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."MultiKillDurations")
-			if streaknumber <= table.getn(MultiKillLengthTable) then
+			if streakNumber <= table.getn(MultiKillLengthTable) then
 				-- Multi Kills
 				if PS_MultiKillSound == true then
-					PVPSound:AddKillToQueue(killtype, MultiKillLengthTable[streaknumber].dir)
+					PVPSound:AddKillToQueue(killType, MultiKillLengthTable[streakNumber].dir)
 				end
 				-- Multi Kill Sounds Effects
 				if PS_SoundEffect == true then
-					if streaknumber < table.getn(MultiKillLengthTable) then
-						PVPSound:AddEffectToQueue(killtype, MultiKillLengthTable[streaknumber].dir)
-					elseif streaknumber == table.getn(MultiKillLengthTable) then
+					if streakNumber < table.getn(MultiKillLengthTable) then
+						PVPSound:AddEffectToQueue(killType, MultiKillLengthTable[streakNumber].dir)
+					elseif streakNumber == table.getn(MultiKillLengthTable) then
 						PVPSound:AddEffectToQueue("", PS.KillSoundPackDirectory.."\\"..PS_KillSoundPackLanguage.."\\Effects\\MultiKillingMaxRank.mp3")
-						PVPSound:AddEffectToQueue(killtype, MultiKillLengthTable[streaknumber].dir)
+						PVPSound:AddEffectToQueue(killType, MultiKillLengthTable[streakNumber].dir)
 					end
 				end
 				-- Multi Kill SCT
 				if PS_KillSct == true or PS_MultiKillSct == true or PS_PaybackSct == true then
-					PVPSound:AddSctToQueue(killtype, MultiKillLengthTable[streaknumber].dir, MultiKillLengthTable[streaknumber].name, PSSctFrame)
+					PVPSound:AddSctToQueue(killType, MultiKillLengthTable[streakNumber].dir, MultiKillLengthTable[streakNumber].name, PSSctFrame)
 				end
 			end
-		elseif killtype == "PaybackKill" then
+		elseif killType == "PaybackKill" then
 			local PaybackKillLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."PaybackKillDurations")
 			-- Payback Kills
 			if PS_PaybackSound == true then
-				PVPSound:AddKillToQueue(killtype, PaybackKillLengthTable[streaknumber].dir)
+				PVPSound:AddKillToQueue(killType, PaybackKillLengthTable[streakNumber].dir)
 			end
 			-- Payback Kill Sound Effects
 			if PS_SoundEffect == true then
-				PVPSound:AddEffectToQueue(killtype, PaybackKillLengthTable[streaknumber].dir)
+				PVPSound:AddEffectToQueue(killType, PaybackKillLengthTable[streakNumber].dir)
 			end
 			-- Payback Kill SCT
 			if PS_KillSct == true or PS_MultiKillSct == true or PS_PaybackSct == true then
-				PVPSound:AddSctToQueue(killtype, PaybackKillLengthTable[streaknumber].dir, PaybackKillLengthTable[streaknumber].name, PSSctFrame)
+				PVPSound:AddSctToQueue(killType, PaybackKillLengthTable[streakNumber].dir, PaybackKillLengthTable[streakNumber].name, PSSctFrame)
 			end
 		end
 	end

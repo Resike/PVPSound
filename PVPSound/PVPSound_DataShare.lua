@@ -30,10 +30,13 @@ end
 local DeathSpree
 
 -- Names
+local SenderName
 local KillerName
 local KillerNameServer
 
-local print, select, tostring, string, len, find, match, sub = print, select, tostring, string, len, find, match, sub
+local print, select, tostring, string = print, select, tostring, string
+
+local UnitName = UnitName
 
 -- PVPSound Addon Data Sharing
 function PVPSound:DataOnEvent(event, prefix, message, channel, sender, ...)
@@ -113,6 +116,7 @@ function PVPSound:DataOnEvent(event, prefix, message, channel, sender, ...)
 						else
 							-- Nil everything
 							DeathSpree = nil
+							SenderName = nil
 							KillerName = nil
 							KillerNameServer = nil
 						end
@@ -122,6 +126,7 @@ function PVPSound:DataOnEvent(event, prefix, message, channel, sender, ...)
 		elseif event == "ZONE_CHANGED_NEW_AREA" then
 			-- Nil everything
 			DeathSpree = nil
+			SenderName = nil
 			KillerName = nil
 			KillerNameServer = nil
 		end

@@ -24,7 +24,9 @@ local PVPSound_NextRetUpdate 					= 0.3300
 local PVPSound_NextRecPayUpdate 				= 0.3300
 local PVPSound_NextRecKillUpdate 				= 0.3300
 
-local string, upper, table, getn, insert, remove = string, upper, table, getn, insert, remove
+local string, table = string, table
+
+local GetTime = GetTime
 
 -- Payback Queue
 function PVPSound:AddToPaybackQueue(name)
@@ -103,7 +105,6 @@ function PVPSound:UpdatePaybackSound(elapsed)
 		if PS_PaybackSound == true then
 			TimeSinceLastPayUpdate = TimeSinceLastPayUpdate + elapsed
 			while TimeSinceLastPayUpdate > PVPSound_NextPayUpdate do
-				
 				TimeSinceLastPayUpdate = TimeSinceLastPayUpdate - PVPSound_NextPayUpdate
 
 				if #PVPSound_PaybackQueue == 0 then

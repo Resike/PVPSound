@@ -19,7 +19,9 @@ local PVPSound_NextUpdate 						= 0.3100
 local PVPSound_NextKillUpdate					= 0.3000
 local PVPSound_NextEffectUpdate					= 0.3000
 
-local string, find, len, upper, table, getn, insert, remove = string, find, len, upper, table, getn, insert, remove
+local _G, string, table = _G, string, table
+
+local PlaySoundFile = PlaySoundFile
 
 -- Sound Queue
 function PVPSound:AddToQueue(file)
