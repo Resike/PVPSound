@@ -1446,11 +1446,11 @@ L["The Horde is victorious"] = "Победа за Ордой!"
 -- Battleground Events
 L["Alliance wins"] = "Альянс побеждает"
 L["Alliance wins secondary"] = "Альянс победил"
---for RU clien I use Alliance for male characters and Horde for female...it is about grammatics.  
+--for RU clien I use Alliance for male characters and Horde for female...it is about grammatics.
 L["Alliance have captured"] = "захватил флаг"
 L["Horde have captured"] = "захватила флаг"
 
-L["captured"] = "захват" --SM and DWG --in BFA full message for horde is "орда захватывает вагонетку" and for alliance is "альянс захватил вагонетку" so i decided to look for cutted "захват" 
+L["captured"] = "захват" --SM and DWG --in BFA full message for horde is "орда захватывает вагонетку" and for alliance is "альянс захватил вагонетку" so i decided to look for cutted "захват"
 
 L["dropped"] = "роняет"--updated
 L["Horde wins"] = "Орда побеждает"

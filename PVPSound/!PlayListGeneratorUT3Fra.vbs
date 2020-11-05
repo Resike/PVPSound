@@ -158,7 +158,7 @@ sub GetFiles(byval strDirectory)
 	set folder = objShell.NameSpace(strDirectory)
 	for each file in folder.items
 		x = getSongInfo(file, folder)
-	next	
+	next
 	for each objFolder in objFolder.SubFolders
 		GetFiles objFolder.Path
 	next
@@ -237,7 +237,7 @@ function isNumberInString(checkString)
 				isNumberInIt = true
 			end if
 		next
-	end if 
+	end if
 	isNumberInString = isNumberInIt
 end function
 

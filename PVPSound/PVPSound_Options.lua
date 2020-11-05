@@ -1794,15 +1794,14 @@ function PVPSound:SlashCommands(arg1)
 		end
 	elseif arg2 == "poi" then
 		--POIs updated for 8.0.1
-		local mapId=C_Map.GetBestMapForUnit("player")
-		local POIs=C_AreaPoiInfo.GetAreaPOIForMap(mapId)
-		if POIs==nil then
+		local mapId = C_Map.GetBestMapForUnit("player")
+		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(mapId)
+		if POIs == nil then
 			print("There is no POIs in this zone")
 		else
 			print("There is "..#POIs.." POIs in this zone")
 			for i = 1, #POIs, 1 do
-				
-				local info = C_AreaPoiInfo.GetAreaPOIInfo(mapId,POIs[i])
+				local info = C_AreaPoiInfo.GetAreaPOIInfo(mapId, POIs[i])
 				local id = info.areaPoiID
 				local name = info.name
 				local desc = info.description
@@ -1810,25 +1809,21 @@ function PVPSound:SlashCommands(arg1)
 				local x = info.position.x
 				local y = info.position.y
 				print("POI info:")
-				print(i," ",id," ",name," ",desc," ",textureIndex," ",x," ",y)
-					
-				
+				print(i, id, name, desc, textureIndex, x ,y)
 			end
 		end
 	elseif arg2 == "ui" then
 		--updated for 8.0.1
-		--check only top center "DoubleStatusBar" widgets 
-		local setId=C_UIWidgetManager.GetTopCenterWidgetSetID()
-		local wgts=C_UIWidgetManager.GetAllWidgetsBySetID(setId)
-		if wgts==nil then
+		--check only top center "DoubleStatusBar" widgets
+		local setId = C_UIWidgetManager.GetTopCenterWidgetSetID()
+		local wgts = C_UIWidgetManager.GetAllWidgetsBySetID(setId)
+		if wgts == nil then
 			print("There is no UI widgets in this zone")
 		else
 			print("There is "..#wgts.." top wigets in this zone")
-		
 			for i = 1, #wgts, 1 do
 				print("Type: ", wgts[i].widgetType)
 				print(" Id: ", wgts[i].widgetID)
-				
 			end
 		end
 	elseif arg2 == "map" then
@@ -1849,8 +1844,8 @@ function PVPSound:SlashCommands(arg1)
 			print(CurrentSubZoneText)
 		end
 	elseif arg2 == "pos" then
-		--updated for 8.0.1 
-		local mapId=C_Map.GetBestMapForUnit("player")
+		--updated for 8.0.1
+		local mapId = C_Map.GetBestMapForUnit("player")
 		local playerPos = C_Map.GetPlayerMapPosition(mapId,"player")
 		if (playerPos) then
 			print("|cFF50C0FF".."X: ".."|r")
@@ -1860,14 +1855,14 @@ function PVPSound:SlashCommands(arg1)
 		else
 			print("Can't get a position")
 		end
-	elseif arg2=="conflist" then 
+	elseif arg2 == "conflist" then
 		PVPSound.ConfigDump()
-	elseif arg2=="perflist" then 
+	elseif arg2 == "perflist" then
 		PVPSound.perfDump()
 	else
 		PVPSound:PrintSlashHelp()
 	end
-end                                 			
+end
 
 function PVPSound:PrintSlashHelp()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Command list"].."|r")
@@ -1906,7 +1901,7 @@ function PVPSound:PrintSlashMenu()
 		print("|cFF50C0FF"..L["Mode"]..": |cFFADFF2F"..L["[PVP]"].."|r")
 	elseif PS_Mode == "PVE" then
 		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVE]"].."|r")
-	else 
+	else
 		print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVP and PVE]"].."|r")
 	end
 	if PS_Emote == true then
