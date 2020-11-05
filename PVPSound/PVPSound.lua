@@ -367,11 +367,11 @@ function PVPSound:ConfigDump()
 		print("Hide server name: ", PS_HideServerName)
 		print("Sound channel name: ", PS_Channel)
 		print("Finishing sounds: ", PS_Execute)
-		print("Reset time= ",ResetTime)
-		print("Multikill time= ",MultiKillTime)
-		print("Payback time= ",PS.PaybackKillTime)
-		print("Recently killed penalty time= ",PS.RecentlyKilledTime)
-		print("Recently payback penalty time= ",PS.RecentlyPaybackTime)
+		print("Reset time: ",ResetTime)
+		print("Multikill time: ",MultiKillTime)
+		print("Payback time: ",PS.PaybackKillTime)
+		print("Recently killed penalty time: ",PS.RecentlyKilledTime)
+		print("Recently payback penalty time: ",PS.RecentlyPaybackTime)
 		print("Rank step for kills: ", RankStep)
 end
 
@@ -409,7 +409,7 @@ end
 -- general Objective setter for initialization
 -- I'll try it in AV, if it's ok, I'll use it in ither BGs
 --
-local function ObgInit (objectives, get, textureMode)
+local function ObgInit(objectives, get, textureMode)
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 
 	local objective
@@ -439,39 +439,39 @@ end
 local AVobjectives = {ColdtoothMine = nil, DunBaldarNorthBunker = nil, DunBaldarSouthBunker = nil, EastFrostwolfTower = nil, FrostwolfGraveyard = nil, FrostwolfReliefHut = nil, IcebloodGraveyard = nil, IcebloodTower = nil, IcewingBunker = nil, IrondeepMine = nil, SnowfallGraveyard = nil, StonehearthBunker = nil, StonehearthGraveyard = nil, StormpikeAidStation = nil, StormpikeGraveyard = nil, TowerPoint = nil, WestFrostwolfTower = nil}
 
 local function AVget_objective(id)
-	if id == 1102 or id == 1358 or id == 1359 or id == 1 or id == 2 or id == 3 then --Hcontr -- Acontr -- Koboldcontr
+	if id == 1102 or id == 1358 or id == 1359 or id == 6405 or id == 6428 or id == 6429 then --Hcontr -- Acontr -- Koboldcontr
 		return "ColdtoothMine"
-	elseif id == 1250 or id == 1352 or id == 1353 or id == 1354 or id == 6 or id == 11 or id == 12 then --Acontr --Destr --Aconfl --Hconfl
+	elseif id == 1250 or id == 1352 or id == 1353 or id == 1354 or id == 6411 or id == 6422 or id == 6423 or id == 6424 then --Acontr --Destr --Aconfl --Hconfl
 		return "DunBaldarNorthBunker"
-	elseif id == 1249 or id == 1355 or id == 1356 or id == 1357 or id == 6 or id == 11 or id == 12 then --Acontr --Destr --Aconfl --Hconfl
+	elseif id == 1249 or id == 1355 or id == 1356 or id == 1357 or id == 6410 or id == 6425 or id == 6426 or id == 6427 then --Acontr --Destr --Aconfl --Hconfl
 		return "DunBaldarSouthBunker"
-	elseif id == 1255 or id == 1362 or id == 1363 or id == 1364 or id == 6 or id == 9 or id == 10 then --Hcontr --Destr --Aconfl --Hconfl
+	elseif id == 1255 or id == 1362 or id == 1363 or id == 1364 or id == 6415 or id == 6430 or id == 6431 or id == 6432 then --Hcontr --Destr --Aconfl --Hconfl
 		return "EastFrostwolfTower"
-	elseif id == 1527 or id == 1528 or id == 1529 or id == 1530 or id == 6 or id == 9 or id == 10 then --Hcontr --Destr --Hconfl --Aconfl
+	elseif id == 1527 or id == 1528 or id == 1529 or id == 1530 or id == 6468 or id == 6469 or id == 6470 or id == 6471 then --Hcontr --Destr --Hconfl --Aconfl
 		return "WestFrostwolfTower"
-	elseif id == 1210 or id == 1368 or id == 1369 or id == 1370 or id == 4 or id == 13 or id == 14 or id == 15 then --Hcontr --Acontr --Aconfl --Hconfl
+	elseif id == 1210 or id == 1368 or id == 1369 or id == 1370 or id == 6409 or id == 6433 or id == 6434 or id == 6435 then --Hcontr --Acontr --Aconfl --Hconfl
 		return "FrostwolfGraveyard"
-	elseif id == 1351 or id == 1371 or id == 1372 or id == 1373 or id == 4 or id == 13 or id == 14 or id == 15 then --Hcontr --Acontr --Hconfl --Aconfl
+	elseif id == 1351 or id == 1371 or id == 1372 or id == 1373 or id == 6421 or id == 6336 or id == 6437 or id == 6438 then --Hcontr --Acontr --Hconfl --Aconfl
 		return "FrostwolfReliefHut"
-	elseif id == 1349 or id == 1374 or id == 1375 or id == 1376 or id == 4 or id == 13 or id == 14 or id == 15 then --Hcontr --Acontr --Aconfl --Hconfl
+	elseif id == 1349 or id == 1374 or id == 1375 or id == 1376 or id == 6419 or id == 6439 or id == 6440 or id == 6441 then --Hcontr --Acontr --Aconfl --Hconfl
 		return "IcebloodGraveyard"
-	elseif id == 1252 or id == 1377 or id == 1378 or id == 1379 or id == 6 or id == 9 or id == 10 then --Hcontr --Destr --Hconfl --Aconfl
+	elseif id == 1252 or id == 1377 or id == 1378 or id == 1379 or id == 6413 or id == 6442 or id == 6443 or id == 6444 then --Hcontr --Destr --Hconfl --Aconfl
 		return "IcebloodTower"
-	elseif id == 1251 or id == 1380 or id == 1381 or id == 1382 or id == 6 or id == 11 or id == 12 then --Acontr --Destr --Aconfl --Hconfl
+	elseif id == 1251 or id == 1380 or id == 1381 or id == 1382 or id == 6412 or id == 6445 or id == 6446 or id == 6447 then --Acontr --Destr --Aconfl --Hconfl
 		return "IcewingBunker"
-	elseif id == 1099 or id == 1383 or id == 1384 or id == 1 or id == 2 or id == 3 then --Acontr -- Hcontr -- Troggcontr
+	elseif id == 1099 or id == 1383 or id == 1384 or id == 6402 or id == 6448 or id == 6449 then --Acontr -- Hcontr -- Troggcontr
 		return "IrondeepMine"
-	elseif id == 1209 or id == 1386 or id == 1387 or id == 1388 or id == 4 or id == 8 or id == 13 or id == 14 or id == 15 then --Hcontr --Acontr --Hconfl --Aconfl
+	elseif id == 1209 or id == 1386 or id == 1387 or id == 1388 or id == 6408 or id == 6450 or id == 6451 or id == 6452 then --Hcontr --Acontr --Hconfl --Aconfl
 		return "SnowfallGraveyard"
-	elseif id == 1347 or id == 1389 or id == 1390 or id == 1391 or id == 6 or id == 11 or id == 12 then --Acontr --Destr --Aconfl --Hconfl
+	elseif id == 1347 or id == 1389 or id == 1390 or id == 1391 or id == 6417 or id == 6453 or id == 6454 or id == 6455 then --Acontr --Destr --Aconfl --Hconfl
 		return "StonehearthBunker"
-	elseif id == 1350 or id == 1392 or id == 1393 or id == 1394 or id == 4 or id == 13 or id == 14 or id == 15 then --Acontr --Hcontr --Aconfl --Hconfl
+	elseif id == 1350 or id == 1392 or id == 1393 or id == 1394 or id == 6420 or id == 6456 or id == 6457 or id == 6458 then --Acontr --Hcontr --Aconfl --Hconfl
 		return "StonehearthGraveyard"
-	elseif id == 1348 or id == 1395 or id == 1396 or id == 1397 or id == 4 or id == 13 or id == 14 or id == 15 then --Acontr --Hcontr --Aconfl --Hconfl
+	elseif id == 1348 or id == 1395 or id == 1396 or id == 1397 or id == 6418 or id == 6459 or id == 6460 or id == 6461 then --Acontr --Hcontr --Aconfl --Hconfl
 		return "StormpikeAidStation"
-	elseif id == 1208 or id == 1398 or id == 1399 or id == 1400 or id == 4 or id == 13 or id == 14 or id == 15 then --Acontr --Hcontr --Aconfl --Hconfl
+	elseif id == 1208 or id == 1398 or id == 1399 or id == 1400 or id == 6407 or id == 6462 or id == 6463 or id == 6464 then --Acontr --Hcontr --Aconfl --Hconfl
 		return "StormpikeGraveyard"
-	elseif id == 1254 or id == 1405 or id == 1406 or id == 1407 or id == 6 or id == 9 or id == 10 then --Hcontr --Destr --Hconfl --Aconfl
+	elseif id == 1254 or id == 1405 or id == 1406 or id == 1407 or id == 6414 or id == 6465 or id == 6466 or id == 6467 then --Hcontr --Destr --Hconfl --Aconfl
 		return "TowerPoint"
 	else
 		return false
@@ -481,17 +481,17 @@ end
 --State can be checked by textures in each POI, but it's one more function to call.
 --Here we only work with POI array. But negative side is that we need to check too many IDs for each return
 local function AVobj_state(id)
-	if id == 1358 or id == 1250 or id == 1249 or id == 1368 or id == 1371 or id == 1374 or id == 1251 or id == 1099 or id == 1386 or id == 1347 or id == 1350 or id == 1348 or id == 1208 or id == 3 or id == 11 or id == 15 then
+	if id == 1358 or id == 1250 or id == 1249 or id == 1368 or id == 1371 or id == 1374 or id == 1251 or id == 1099 or id == 1386 or id == 1347 or id == 1350 or id == 1348 or id == 1208 or id == 6428 or id == 6411 or id == 6410 or id == 6409 or id == 6421 or id == 6419 or id == 6412 or id == 6402 or id == 6450 or id == 6417 or id == 6420 or id == 6418 or id == 6407 then
 		return 1 -- Alliance Bases
-	elseif id == 1102 or id == 1255 or id == 1527 or id == 1210 or id == 1351 or id == 1349 or id == 1252 or id == 1383 or id == 1209 or id == 1392 or id == 1395 or id == 1398 or id == 1254 or id == 2 or id == 10 or id == 13 then
+	elseif id == 1102 or id == 1255 or id == 1527 or id == 1210 or id == 1351 or id == 1349 or id == 1252 or id == 1383 or id == 1209 or id == 1392 or id == 1395 or id == 1398 or id == 1254 or id == 6405 or id == 6415 or id == 6468 or id == 6409 or id == 6421 or id == 6419 or id == 6413 or id == 6448 or id == 6408 or id == 6456 or id == 6459 or id == 6462 or id == 6414 then
 		return 2 -- Horde Bases
-	elseif id == 1353 or id == 1356 or id == 1363 or id == 1530 or id == 1369 or id == 1373 or id == 1375 or id == 1379 or id == 1381 or id == 1388 or id == 1390 or id == 1393 or id == 1396 or id == 1399 or id == 1407 or id == 4 or id == 9 then
+	elseif id == 1353 or id == 1356 or id == 1363 or id == 1530 or id == 1369 or id == 1373 or id == 1375 or id == 1379 or id == 1381 or id == 1388 or id == 1390 or id == 1393 or id == 1396 or id == 1399 or id == 1407 or id == 6423 or id == 6426 or id == 6431 or id == 6471 or id == 6434 or id == 6438 or id == 6440 or id == 6444 or id == 6446 or id == 6452 or id == 6454 or id == 6457 or id == 6460 or id == 6463 or id == 6467 then
 		return 3 -- Alliance trys to capture
-	elseif id == 1354 or id == 1357 or id == 1364 or id == 1529 or id == 1370 or id == 1372 or id == 1376 or id == 1378 or id == 1382 or id == 1387 or id == 1391 or id == 1394 or id == 1397 or id == 1400 or id == 1406 or id == 12 or id == 14 then
+	elseif id == 1354 or id == 1357 or id == 1364 or id == 1529 or id == 1370 or id == 1372 or id == 1376 or id == 1378 or id == 1382 or id == 1387 or id == 1391 or id == 1394 or id == 1397 or id == 1400 or id == 1406 or id == 6424 or id == 6427 or id == 6432 or id == 6470 or id == 6435 or id == 6437 or id == 6441 or id == 6443 or id == 6447 or id == 6451 or id == 6455 or id == 6458 or id == 6461 or id == 6464 or id == 6466 then
 		return 4 -- Horde trys to capture
-	elseif id == 1352 or id == 1355 or id == 1362 or id == 1528 or id == 1377 or id == 1380 or id == 1389 or id == 1405 or 6 then
+	elseif id == 1352 or id == 1355 or id == 1362 or id == 1528 or id == 1377 or id == 1380 or id == 1389 or id == 1405 or id == 6422 or id == 6425 or id == 6430 or id == 6469 or id == 6442 or id == 6445 or id == 6453 or id == 6465 then
 		return 5 -- Destoryed Bunker/Tower
-	elseif id == 1359 or id == 1384 or 1 then
+	elseif id == 1359 or id == 1384 or id == 6429 or id == 6449 then
 		return 6 -- Uncontrolled
 	else
 		return 0
@@ -538,7 +538,7 @@ local function TimeRemaining_check(id)
 		if state == false then
 			--print("timer")
 			TimeRemainingobjectives.TimeRemaining = TimeRemaining
-			C_Timer.After(30,function () TimeRemaining_check(id) end)
+			C_Timer.After(30, function() TimeRemaining_check(id) end)
 		else
 			--print("state", state)
 			local type = TimeRemainingget_objective(TimeRemaining)
@@ -546,21 +546,21 @@ local function TimeRemaining_check(id)
 				if TimeRemainingobj_state(TimeRemainingobjectives[type]) == 5 and state == 4 then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveMinutesRemain.mp3")
 					TimeRemainingobjectives[type] = TimeRemaining
-					C_Timer.After(30,function () TimeRemaining_check(id) end)
+					C_Timer.After(30, function() TimeRemaining_check(id) end)
 				elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 3 and state == 2 then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\ThreeMinutesRemain.mp3")
 					TimeRemainingobjectives[type] = TimeRemaining
-					C_Timer.After(30,function () TimeRemaining_check(id) end)
+					C_Timer.After(30, function() TimeRemaining_check(id) end)
 				elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 2 and state == 1 then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TwoMinutesRemain.mp3")
 					TimeRemainingobjectives[type] = TimeRemaining
-					C_Timer.After(30,function () TimeRemaining_check(id) end)
+					C_Timer.After(30, function() TimeRemaining_check(id) end)
 				elseif TimeRemainingobj_state(TimeRemainingobjectives[type]) == 1 and state == 0 then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneMinutesRemain.mp3")
 					TimeRemainingobjectives[type] = TimeRemaining
 				else
 					TimeRemainingobjectives[type] = TimeRemaining
-					C_Timer.After(30,function () TimeRemaining_check(id) end)
+					C_Timer.After(30, function() TimeRemaining_check(id) end)
 				end
 
 			end
@@ -1153,7 +1153,7 @@ local function InitializeBgs(...)
 
 		if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(i)) ~= nil then --world state text
 			-- Time Remaining
-			C_Timer.After(2, function () TimeRemaining_check(i) end)
+			C_Timer.After(2, function() TimeRemaining_check(i) end)
 		end
 		--world state
 
@@ -1294,7 +1294,7 @@ local function InitializeBgs(...)
 		AVandIOCAobjectives.AllianceReinforcements = AReinforcementsInit
 		AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
 
-		ObgInit (AVobjectives, AVget_objective)
+		ObgInit(AVobjectives, AVget_objective)
 		--for k, v in pairs(AVobjectives) do
 		--	print (k, v)
 		--end
@@ -1637,7 +1637,7 @@ local function InitializeBgs(...)
 		local isActive = (select(5, GetWorldPVPAreaInfo(2)))
 		if isActive == 0 then
 			BgIsOver = false
-			ObgInit (TBobjectives, TBget_objective)
+			ObgInit(TBobjectives, TBget_objective)
 		end
 
 	end
@@ -1854,7 +1854,7 @@ function PVPSound:OnEvent(event, ...)
 								WgAttacker = "Horde"
 							end
 						end
-						--print("attacker=",WgAttacker," faction", MyFaction)
+						--print("attacker = ",WgAttacker," faction", MyFaction)
 						if WgAttacker == "Alliance" and MyFaction == "Alliance" then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\PlayYouAreOnBlueAttackTheEnemyCore.mp3")
 						elseif WgAttacker == "Alliance" and MyFaction == "Horde" then
@@ -2265,7 +2265,7 @@ function PVPSound:OnEvent(event, ...)
 				 -- Eye of the Storm
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					--print("ent")
-					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 
 					for i = 1, #POIs do
 						--print("ent ", POIs[i])
@@ -2336,7 +2336,7 @@ function PVPSound:OnEvent(event, ...)
 
 					if isActive == true then
 						-- Towers
-						local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+						local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 						-- Flamewatch Tower
 						local destroyedWalls = 0
 						for i = 0, #POIs do

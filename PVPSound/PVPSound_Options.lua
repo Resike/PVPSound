@@ -1808,7 +1808,6 @@ function PVPSound:SlashCommands(arg1)
 				local textureIndex = info.textureIndex
 				local x = info.position.x
 				local y = info.position.y
-				print("POI info:")
 				print(i, id, name, desc, textureIndex, x ,y)
 			end
 		end
