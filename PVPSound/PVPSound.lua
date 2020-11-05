@@ -8,14 +8,13 @@
 	  \//       \//    \//       \\/    \//        \//4.0.0     \//   \//
 
 	PVPSound
-	Copyright (c) 2010-2013 Resperger Dániel (Resike)
+	Copyright (c) 2010-2020 Resperger Dániel (Resike)
 	E-Mail: reske@gmail.com
 	All rights reserved.
 	See the accompanying "!Licence.txt" for more information.
 	The addon can be found at:
 	http://www.curse.com/addons/wow/pvpsound
 	http://www.wowinterface.com/downloads/info19569-PVPSound.html
-	If downloaded from any other source then it's considered an illegal version.
 --]]
 
 local addon, ns = ...
@@ -75,6 +74,8 @@ local UpdateAddOnCPUUsage = UpdateAddOnCPUUsage
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 
 local CombatLog_Object_IsA = CombatLog_Object_IsA
+
+local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
 
 --[[local GetBuildInfo = GetBuildInfo
 local GetMapLandmarkInfo = GetMapLandmarkInfo
