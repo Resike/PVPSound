@@ -10,13 +10,13 @@ SOUNDS
 
 UNREAL TOURNAMENT 2004
 
-	Unreal® Tournament 2003 ©2004 Epic Games, Inc. Raleigh, N.C. USA. 
+	Unreal® Tournament 2003 ©2004 Epic Games, Inc. Raleigh, N.C. USA.
 
-	Unreal and the Unreal logo are registered trademarks of Epic Games, Inc. ALL RIGHTS RESERVED. 
+	Unreal and the Unreal logo are registered trademarks of Epic Games, Inc. ALL RIGHTS RESERVED.
 
-	All other trademarks and trade names are the property of their respective owners. 
+	All other trademarks and trade names are the property of their respective owners.
 
-	Unreal Tournament 2004 was created by Digital Extremes and Epic Games, Inc.. 
+	Unreal Tournament 2004 was created by Digital Extremes and Epic Games, Inc..
 
 	Manufactured and marketed by Infogrames, Inc., New York, New York, a subsidiary of Infogrames Entertainment, S.A., under license from Epic Games, Inc.
 

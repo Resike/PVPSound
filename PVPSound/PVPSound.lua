@@ -105,7 +105,7 @@ local PVPSoundFrameTwo = CreateFrame("Frame", nil)
 function PVPSound:OnLoadTwo()
 	if PS_EnableAddon == true then
 		PVPSoundFrameTwo:RegisterEvent("PLAYER_TARGET_CHANGED")
-	 	PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
+		PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
 		PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
 
 		PVPSoundFrameTwo:RegisterEvent("UPDATE_UI_WIDGET")
@@ -368,7 +368,7 @@ function PVPSound:ConfigDump()
 		print("Finishing sounds: ", PS_Execute)
 		print("Reset time= ",ResetTime)
 		print("Multikill time= ",MultiKillTime)
-		print("Payback time= ",PS.PaybackKillTime)	
+		print("Payback time= ",PS.PaybackKillTime)
 		print("Recently killed penalty time= ",PS.RecentlyKilledTime)
 		print("Recently payback penalty time= ",PS.RecentlyPaybackTime)
 		print("Rank step for kills: ", RankStep)
@@ -410,15 +410,15 @@ end
 --
 local function ObgInit (objectives, get, textureMode)
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-		
+
 	local objective
 	--reset all objectives
 	for k, v in pairs(objectives) do
 		objectives[k] = nil
 	end
-	
+
 	for i = 1, #POIs do
-	--if texturemod parameter exists, then check textures, else check POI id	
+	--if texturemod parameter exists, then check textures, else check POI id
 		if textureMode then
 			if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
 				objective = get(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex)
@@ -426,12 +426,12 @@ local function ObgInit (objectives, get, textureMode)
 		else
 			objective = get(POIs[i])
 		end
-		
+
 		if objective then
 			objectives[objective] = POIs[i]
 		end
 	end
-	
+
 end
 
 -- Alterac Valley
@@ -472,13 +472,13 @@ local function AVget_objective(id)
 		return "StormpikeGraveyard"
 	elseif id == 1254 or id == 1405 or id == 1406 or id == 1407 then --Hcontr --Destr --Hconfl --Aconfl
 		return "TowerPoint"
-	
+
 	else
 		return false
 	end
 end
 
---State can be checked by textures in each POI, but it's one more function to call. 
+--State can be checked by textures in each POI, but it's one more function to call.
 --Here we only work with POI array. But negative side is that we need to check too many IDs for each return
 local function AVobj_state(id)
 	if     id == 1358 or id == 1250 or id == 1249 or id == 1368 or id == 1371 or id == 1374 or id == 1251 or id == 1099 or id == 1386 or id == 1347 or id == 1350 or id == 1348 or id == 1208 then
@@ -528,13 +528,13 @@ local function TimeRemainingobj_state(id)
 end
 
 
-local function TimeRemaining_check(id)	
+local function TimeRemaining_check(id)
 	--print(1, id)
 	if C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id) then
 		--print(2)
 		local TimeRemaining = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id).text, "(%d+)"))
 		local state = TimeRemainingobj_state(TimeRemaining)
-		
+
 		if state == false then
 			--print("timer")
 			TimeRemainingobjectives.TimeRemaining = TimeRemaining
@@ -562,16 +562,16 @@ local function TimeRemaining_check(id)
 					TimeRemainingobjectives[type] = TimeRemaining
 					C_Timer.After(30,function () TimeRemaining_check(id) end)
 				end
-				
+
 			end
 		end
 		return true
 	else
 		return false
 	end
-end	
+end
 
-		
+
 -- Warsong Gulch and Twin Peaks Alliance Score
 local WSGandTPAobjectives = {AllianceScore = nil}
 
@@ -898,7 +898,7 @@ local function WGget_objective(id)
 		id == 2245 or id == 6028 or id == 6029 or id == 6030 or id == 6031 or id == 6032 or id == 6033 or id == 6034 or id == 6035 or id == 6036 or id == 6037 or id == 6038 or
 		id == 6039 or id == 6040 or id == 6041 or id == 6042 or id == 6043 or id == 6045 or id == 6046 or id == 6047 or id == 6048 or id == 6049 or id == 6050 or id == 6051 or
 		id == 2229 or id == 6056 then --these two ids are for WG gates
-		return "TowerWalls"		
+		return "TowerWalls"
 	elseif id == 2246 or id == 6027 then
 		return "WintergraspFortress"
 	else
@@ -1047,8 +1047,8 @@ local CIobjectives = {AllianceScore = nil, HordeScore = nil}
 --arena UI WIDGET IDs array. For arena timers
 --Each arena has its unique topcenter widget with timeremaining info
 --So, I pass thruogh this array until existing arena widget will be found
-local arenaUI = {NagrandOld = 742, NagrandLegion = 920, BladesEdge = 740, BladesEdgeLegion = 929, RuinsOfLordaeron = 745, DalaranArena = 741, 
-				TheRingOfValor = 743, TigersPeak = 738, ShadopanLegion = 925, BlackrookHoldArena = 905, ValsharahArena = 902, TolvirArena = 744, 
+local arenaUI = {NagrandOld = 742, NagrandLegion = 920, BladesEdge = 740, BladesEdgeLegion = 929, RuinsOfLordaeron = 745, DalaranArena = 741,
+				TheRingOfValor = 743, TigersPeak = 738, ShadopanLegion = 925, BlackrookHoldArena = 905, ValsharahArena = 902, TolvirArena = 744,
 				HookPoint = 1147, Mugambala = 1144}
 
 local TargetHealthObjectives = {Percent = nil}
@@ -1076,7 +1076,7 @@ end
 --function just to use the same code in two places
 local function InitializeBgs(...)
 	MyFaction = UnitFactionGroup("player")
-	local self = ...	
+	local self = ...
 	CurrentZoneId = C_Map.GetBestMapForUnit("player")
 	CurrentZoneText = GetRealZoneText()
 	InstanceType = (select(2, IsInInstance()))
@@ -1092,7 +1092,7 @@ local function InitializeBgs(...)
 		MyZone = "Zone_ArathiBasin"--updated
 	elseif CurrentZoneId == 91 and InstanceType == "pvp" then
 		MyZone = "Zone_AlteracValley"--updated
-	elseif (CurrentZoneId == 112 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then 
+	elseif (CurrentZoneId == 112 or CurrentZoneText == L["Eye of the Storm"]) and InstanceType == "pvp" then
 		MyZone = "Zone_EyeoftheStorm"--updated
 	elseif CurrentZoneId == 169 and InstanceType == "pvp" then
 		MyZone = "Zone_IsleofConquest"--updated
@@ -1138,8 +1138,8 @@ local function InitializeBgs(...)
 
 	--world state check
 	if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_SeethingShore" then
-		
-		
+
+
 		local i --id of timer widget
 		if MyZone == "Zone_TolBarad" then
 			i = 682 --updated
@@ -1150,13 +1150,13 @@ local function InitializeBgs(...)
 		else
 			i = 4
 		end
-		
+
 		if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(i)) ~= nil then --world state text
 			-- Time Remaining
 			C_Timer.After(2, function () TimeRemaining_check(i) end)
 		end
-		--world state 
-		
+		--world state
+
 		if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2)) ~= nil then
 			-- Alliance Score
 			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
@@ -1166,16 +1166,16 @@ local function InitializeBgs(...)
 			local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
 			WSGandTPHobjectives.HordeScore = nil
 			WSGandTPHobjectives.HordeScore = HordeScoreInit
-			
+
 			self.AllianceFlagPositionX = nil
 			self.AllianceFlagPositionY = nil
 			self.HordeFlagPositionX = nil
 			self.HordeFlagPositionY = nil
 		end
-	
+
 
 	end
-	
+
 	if MyZone == "Zone_Arenas" then
 
 		--there will be two timers, because we initialize BGs twice: on entering world and on zone change
@@ -1183,15 +1183,15 @@ local function InitializeBgs(...)
 		C_Timer.After(2, function ()
 			for k, v in pairs(arenaUI) do
 				--print("arena ")
-				if TimeRemaining_check(v) then 
+				if TimeRemaining_check(v) then
 					break
 				end
 			end
 		end)
 
 	end
-			
-	
+
+
 	if MyZone == "Zone_EyeoftheStorm" then
 
 		--[[if IsRated == false then
@@ -1203,12 +1203,12 @@ local function InitializeBgs(...)
 		end]]
 
 		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-		
+
 		local BloodElfTowerInit
 		local DraeneiRuinsInit
 		local FelReaverRuinsInit
 		local MageTowerInit
-		
+
 		for i = 1, #POIs do
 			if EOTSget_objective(POIs[i]) == "BloodElfTower" then
 				BloodElfTowerInit = POIs[i]
@@ -1220,7 +1220,7 @@ local function InitializeBgs(...)
 				MageTowerInit = POIs[i]
 			end
 		end
-			
+
 		EOTSobjectives.BloodElfTower = nil
 		EOTSobjectives.DraeneiRuins = nil
 		EOTSobjectives.FelReaverRuins = nil
@@ -1239,17 +1239,17 @@ local function InitializeBgs(...)
 		end
 	end
 	if MyZone == "Zone_ArathiBasin" then
-		
+
 		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-		
-		local BlacksmithInit 
+
+		local BlacksmithInit
 		local FarmInit
 		local GoldMineInit
 		local LumberMillInit
 		local StablesInit
 
 		if #POIs == 5 then
-			for i = 1, #POIs do 
+			for i = 1, #POIs do
 				if ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Blacksmith" then
 					BlacksmithInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif ABget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Farm" then
@@ -1263,7 +1263,7 @@ local function InitializeBgs(...)
 				end
 			end
 		end
-		
+
 		ABobjectives.Blacksmith = nil
 		ABobjectives.Farm = nil
 		ABobjectives.GoldMine = nil
@@ -1284,7 +1284,7 @@ local function InitializeBgs(...)
 		if StablesInit then
 			ABobjectives.Stables = StablesInit
 		end
-		
+
 	end
 	if MyZone == "Zone_AlteracValley" then
 		local AReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).leftBarValue
@@ -1293,7 +1293,7 @@ local function InitializeBgs(...)
 		AVandIOCHobjectives.HordeReinforcements = nil
 		AVandIOCAobjectives.AllianceReinforcements = AReinforcementsInit
 		AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
-		
+
 		ObgInit (AVobjectives, AVget_objective)
 		--for k, v in pairs(AVobjectives) do
 		--	print (k, v)
@@ -1301,14 +1301,14 @@ local function InitializeBgs(...)
 
 	end
 	if MyZone == "Zone_IsleofConquest" then
-		
+
 		--IoC Gate initial check
 		--checked in init POI loop
 		IocAllianceGateDown = false
 		IocHordeGateDown = false
-		
+
 		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-		
+
 		local AllianceGateEInit
 		local AllianceGateWInit
 		local AllianceGateSInit
@@ -1324,7 +1324,7 @@ local function InitializeBgs(...)
 		local AllianceKeepInit
 		local HordeTowerInit
 		local AllianceTowerInit
-		
+
 		for i = 1, #POIs do
 			if (IOCget_objective(POIs[i]) == "AllianceGateE") then
 				AllianceGateEInit = POIs[i]
@@ -1386,7 +1386,7 @@ local function InitializeBgs(...)
 		IOCobjectives.Hangar = nil
 		IOCobjectives.HordeKeep = nil
 		IOCobjectives.AllianceKeep = nil
-		
+
 		if AllianceGateEInit then
 			IOCobjectives.AllianceGateE = AllianceGateEInit
 		end
@@ -1426,34 +1426,34 @@ local function InitializeBgs(...)
 		if AllianceTowerInit then
 			IOCobjectives.AllianceKeep = AllianceKeepInit
 		end
-		
+
 		--reinforcements init
 		local AReinforcementsInit
 		local HReinforcementsInit
-		
-		
+
+
 		AVandIOCAobjectives.AllianceReinforcements = nil
 		AVandIOCHobjectives.HordeReinforcements = nil
-		
+
 		if C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685) then
 			AReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).leftBarValue
 			HReinforcementsInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).rightBarValue
 		end
-		
-		if AReinforcementsInit then 
+
+		if AReinforcementsInit then
 			AVandIOCAobjectives.AllianceReinforcements = AReinforcementsInit
 		end
-		if HReinforcementsInit then 
+		if HReinforcementsInit then
 			AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
 		end
-		
-		
+
+
 	end
-	
+
 	if MyZone == "Zone_TheBattleforGilneas" then
-	
+
 		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-		
+
 		local LighthouseInit
 		local MinesInit
 		local WaterworksInit
@@ -1463,7 +1463,7 @@ local function InitializeBgs(...)
 			MinesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
 			WaterworksInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
 		end
-		
+
 
 		TBFGobjectives.Lighthouse = nil
 		TBFGobjectives.Mines = nil
@@ -1478,11 +1478,11 @@ local function InitializeBgs(...)
 			TBFGobjectives.Waterworks = WaterworksInit + 300
 		end
 	end
-	
+
 	if MyZone == "Zone_DeepwindGorge" then
-		
+
 		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-		
+
 		local MarketInit
 		local FarmInit
 		local RuinsInit
@@ -1490,7 +1490,7 @@ local function InitializeBgs(...)
 		local QuarryInit
 
 		if #POIs == 5 then
-			for i = 1, #POIs do 
+			for i = 1, #POIs do
 				if DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Market" then
 					MarketInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif DGget_objective(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex) == "Farm" then
@@ -1504,13 +1504,13 @@ local function InitializeBgs(...)
 				end
 			end
 		end
-	
+
 		DGobjectives.Market = nil
 		DGobjectives.Farm = nil
 		DGobjectives.Ruins = nil
 		DGobjectives.Shrine = nil
 		DGobjectives.Quarry = nil
-		
+
 		if MarketInit then
 			DGobjectives.Market = MarketInit
 		end
@@ -1532,7 +1532,7 @@ local function InitializeBgs(...)
 	--	if C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1687) then
 	--		local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
 	--		local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
-	--				
+	--
 	--		SMWINobjectives.Resources = nil
 	--	if HordeScoreInit then
 	--		SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
@@ -1550,12 +1550,12 @@ local function InitializeBgs(...)
 		else
 			isActive = false
 		end
-				
+
 		--print("isActive: ", isActive)
 		if isActive == true then
 			BgIsOver = false
 			local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-			
+
 			local FlamewatchTowerInit
 			local ShadowsightTowerInit
 			local WintersEdgeTowerInit
@@ -1565,8 +1565,8 @@ local function InitializeBgs(...)
 			local WintergraspFortressTowerSWInit
 			local TowerWallsInit = 0
 			local WintergraspFortressInit
-			
-			for i = 1, #POIs do 
+
+			for i = 1, #POIs do
 				if WGget_objective(POIs[i]) == "FlamewatchTower" then
 					FlamewatchTowerInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				elseif WGget_objective(POIs[i]) == "ShadowsightTower" then
@@ -1589,8 +1589,8 @@ local function InitializeBgs(...)
 					WintergraspFortressInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 				end
 			end
-			
-			
+
+
 			WGobjectives.FlamewatchTower = nil
 			WGobjectives.ShadowsightTower = nil
 			WGobjectives.WintersEdgeTower = nil
@@ -1604,23 +1604,23 @@ local function InitializeBgs(...)
 			end
 			if ShadowsightTowerInit then
 				WGobjectives.ShadowsightTower = ShadowsightTowerInit
-	
+
 			end
 			if WintersEdgeTowerInit then
 				WGobjectives.WintersEdgeTower = WintersEdgeTowerInit
-	
+
 			end
 			if WintergraspFortressTowerNEInit then
 				WGobjectives.WintergraspFortressTowerNE = WintergraspFortressTowerNEInit
-	
+
 			end
 			if WintergraspFortressTowerNWInit then
 				WGobjectives.WintergraspFortressTowerNW = WintergraspFortressTowerNWInit
-	
+
 			end
 			if WintergraspFortressTowerSEInit then
 				WGobjectives.WintergraspFortressTowerSE = WintergraspFortressTowerSEInit
-	
+
 			end
 			if WintergraspFortressTowerSWInit then
 				WGobjectives.WintergraspFortressTowerSW = WintergraspFortressTowerSWInit
@@ -1641,8 +1641,8 @@ local function InitializeBgs(...)
 		end
 
 	end
-	
-	if MyZone == "Zone_SeethingShore" then	
+
+	if MyZone == "Zone_SeethingShore" then
 		if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1688)) ~= nil then
 			-- Alliance Score
 			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1688).leftBarValue
@@ -1654,7 +1654,7 @@ local function InitializeBgs(...)
 			SeSobjectives.HordeScore = HordeScoreInit
 		end
 	end
-	if MyZone == "Zone_CookingImpossible" then	
+	if MyZone == "Zone_CookingImpossible" then
 		if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967)) ~= nil then
 			-- Alliance Score
 			local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967).leftBarValue
@@ -1666,8 +1666,8 @@ local function InitializeBgs(...)
 			CIobjectives.HordeScore = HordeScoreInit
 		end
 	end
-	
-end	
+
+end
 
 function PVPSound:OnEvent(event, ...)
 	if event == "ADDON_LOADED" then
@@ -1775,12 +1775,12 @@ function PVPSound:OnEvent(event, ...)
 			TimerReset = true
 		end
 
-		if PS_BattlegroundSound == true then --only for BG and arena 
+		if PS_BattlegroundSound == true then --only for BG and arena
 			if event == "ZONE_CHANGED_NEW_AREA" then --repeat things we do on player entering world
 				BgIsOver = false
 				InitializeBgs(self)
 				--print(event, " my zone is ", MyZone)
-				
+
 				-- Battleground PlaySounds
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
 					--print("announcement")
@@ -1835,7 +1835,7 @@ function PVPSound:OnEvent(event, ...)
 					else
 						isActive = false
 					end
-					
+
 					if isActive == true then
 						--check texture for west fortress workshop
 						--if it's blue - alliance defended
@@ -1917,7 +1917,7 @@ function PVPSound:OnEvent(event, ...)
 			--parsing pvp info from chat
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
-				
+
 				-- Tie Game
 				if string.find(EventMessage, L["Tie game"]) and BgIsOver ~= true then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
@@ -1926,9 +1926,9 @@ function PVPSound:OnEvent(event, ...)
 					PVPSound:ClearRetributionQueue()
 				 -- Warsong Gulch and Twin Peaks Vulnerable
 				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
-					
+
 					if string.find(EventMessage, L["Alliance Flag has returned"]) then --i don't see such messages
-						
+
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
 
 						self.AllianceFlagPositionX = nil
@@ -1945,7 +1945,7 @@ function PVPSound:OnEvent(event, ...)
 
 			elseif event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" then
 				local EventMessage = select(1, ...)
-				
+
 				-- Warsong Gulch and Twin Peaks
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
 					-- Alliance
@@ -1960,7 +1960,7 @@ function PVPSound:OnEvent(event, ...)
 							self.AllianceFlagPositionX = nil
 							self.AllianceFlagPositionY = nil
 						elseif string.find(EventMessage, L["dropped"]) then
-							
+
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
 
 							--[[if C_PvP.IsInBrawl() then
@@ -1987,7 +1987,7 @@ function PVPSound:OnEvent(event, ...)
 
 							-- Subzone
 							--local CurrentSubZoneText = GetSubZoneText()
-							
+
 							-- Horde Flag Taken
 							local HordeFlagStatus
 							--1 - Alliance flag dropped when Horde flag was taken
@@ -1996,14 +1996,14 @@ function PVPSound:OnEvent(event, ...)
 								HordeFlagStatus = C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1640).leftIcons[1].iconState
 								--print(HordeFlagStatus)
 							end
-							
+
 
 							if C_PvP.IsInBrawl() then --need to change for only one type of brawls (wsg scramble)
 								--C_PvP.GetActiveBrawlInfo()
 								HordeFlagStatus = 0
 							end
 							--flag save in a flag enemies flagroom
-							
+
 							if MyFaction == "Alliance" and HordeFlagStatus == 0 then
 								if MyZone == "Zone_WarsongGulch" then
 									if self.AllianceFlagPositionX and self.AllianceFlagPositionX ~= 0 and self.AllianceFlagPositionX ~= "" then --subzone check was removed
@@ -2082,15 +2082,15 @@ function PVPSound:OnEvent(event, ...)
 								--C_PvP.GetActiveBrawlInfo()
 								AllianceFlagStatus = 0
 							end
-							
-							
+
+
 							--print(self.HordeFlagPositionX,self.HordeFlagPositionY)
-							
+
 							if MyFaction == "Horde" and AllianceFlagStatus == 0 then
 								if MyZone == "Zone_WarsongGulch" then
 									if self.HordeFlagPositionX and self.HordeFlagPositionX ~= 0 and self.HordeFlagPositionX ~= "" then
 										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and self.HordeFlagPositionY ~= "" then
-											
+
 											if self.HordeFlagPositionX >= 0.473 and self.HordeFlagPositionX <= 0.516 then
 												if self.HordeFlagPositionY >= 0.111 and self.HordeFlagPositionY <= 0.176 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
@@ -2101,7 +2101,7 @@ function PVPSound:OnEvent(event, ...)
 								elseif MyZone == "Zone_TwinPeaks" then
 									if self.HordeFlagPositionX and self.HordeFlagPositionX ~= 0 and self.HordeFlagPositionX ~= "" then
 										if self.HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and self.HordeFlagPositionY ~= "" then
-											
+
 											if self.HordeFlagPositionX >= 0.563 and self.HordeFlagPositionX <= 0.640 then
 												if self.HordeFlagPositionY >= 0.124 and self.HordeFlagPositionY <= 0.252 then
 													PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\LastSecondSave.mp3")
@@ -2119,7 +2119,7 @@ function PVPSound:OnEvent(event, ...)
 
 				 -- Eye of the Storm Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
-				
+
 					if string.find(EventMessage, L["Alliance have captured"]) or string.find(EventMessage, L["Horde have captured"]) then
 						if event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
@@ -2184,9 +2184,9 @@ function PVPSound:OnEvent(event, ...)
 				elseif MyZone == "Zone_TolBarad" then
 					local isActive = (select(5, GetWorldPVPAreaInfo(2)))
 					if isActive == 0 then
-						-- WinSounds						
+						-- WinSounds
 						local textureIndex = TBobjectives.BaradinHold
-						
+
 						local nextBattle = tostring(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(688).text, ": (.+)"))
 						nextBattle = string.sub(nextBattle, 1, string.len(nextBattle) - 1)
 						--print(nextBattle)
@@ -2203,7 +2203,7 @@ function PVPSound:OnEvent(event, ...)
 								end
 							end
 						end
-						
+
 					end
 				 -- Eye of the Storm RBG Score Sounds
 				elseif MyZone == "Zone_EyeoftheStorm" then
@@ -2227,10 +2227,10 @@ function PVPSound:OnEvent(event, ...)
 					-- Gates
 					-- Alliance Gate (East)
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					
+
 					for i = 1, #POIs do
 						local type = IOCget_objective(POIs[i])
-						--print(type) 
+						--print(type)
 						if type then
 							local textureIndex = POIs[i]
 							if textureIndex then
@@ -2261,16 +2261,16 @@ function PVPSound:OnEvent(event, ...)
 							end
 						end
 					end
-	
+
 				 -- Eye of the Storm
 				elseif MyZone == "Zone_EyeoftheStorm" then
 					--print("ent")
 					local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-									
+
 					for i =1, #POIs do
 						--print("ent ", POIs[i])
 						local textureIndex = POIs[i]
-											
+
 						if textureIndex then
 							--if x == 0.5 and y == 0.5 then
 								local faketextureIndex = textureIndex
@@ -2285,7 +2285,7 @@ function PVPSound:OnEvent(event, ...)
 												ABases = ABases + 1
 											end
 										end
-										--print ("abase ", ABases)	
+										--print ("abase ", ABases)
 										if ABases == 3 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
@@ -2322,7 +2322,7 @@ function PVPSound:OnEvent(event, ...)
 							--end
 						end
 					end
-					
+
 				 -- Wintergrasp
 				elseif MyZone == "Zone_Wintergrasp" then
 					local isActive
@@ -2333,17 +2333,17 @@ function PVPSound:OnEvent(event, ...)
 					else
 						isActive = false
 					end
-					
+
 					if isActive == true then
 						-- Towers
 						local POIs=C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 						-- Flamewatch Tower
 						local destroyedWalls = 0
-						for i = 0, #POIs do 
+						for i = 0, #POIs do
 							local type = WGget_objective(POIs[i])
 							if type and type ~= "TowerWalls" then
 								local faketextureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
-								
+
 								if WGobj_state(WGobjectives[type]) == 1 and WGobj_state(faketextureIndex) == 3 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_HeavilyDamaged.mp3")
 								elseif WGobj_state(WGobjectives[type]) == 3 and WGobj_state(faketextureIndex) == 4 then
@@ -2367,35 +2367,35 @@ function PVPSound:OnEvent(event, ...)
 								end
 							end
 						end
-						
+
 						if destroyedWalls > WGobjectives.TowerWalls then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\BarricadeDestroyed.mp3")
 							WGobjectives.TowerWalls = destroyedWalls
 						end
-						
+
 					end
-					
-					
-					
-					
+
+
+
+
 				-- Alterac Valley
 				elseif MyZone == "Zone_AlteracValley" then
-					
+
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					
-					for i = 1, #POIs do					
-	
+
+					for i = 1, #POIs do
+
 						local type = AVget_objective(POIs[i])
 						if type then
 							--bunker/tower
 							if string.find(type, "Tower") or string.find(type, "Bunker") then
-								
+
 								if AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 1 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Defense.mp3")
 								elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(POIs[i]) == 4 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Offense.mp3")
 								elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 5 then
-									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")	
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_TowerNode_Destroyed.mp3")
 								elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 2 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Defense.mp3")
 								elseif AVobj_state(AVobjectives[type]) == 2 and AVobj_state(POIs[i]) == 3 then
@@ -2403,10 +2403,10 @@ function PVPSound:OnEvent(event, ...)
 								elseif AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 5 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_TowerNode_Destroyed.mp3")
 								end
-							
+
 							--mines
 							elseif string.find(type, "Mine") then
-								
+
 								if AVobj_state(AVobjectives[type]) == 6 and AVobj_state(POIs[i]) == 1 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
 								elseif AVobj_state(AVobjectives[type]) == 6 and AVobj_state(POIs[i]) == 2 then
@@ -2416,10 +2416,10 @@ function PVPSound:OnEvent(event, ...)
 								elseif AVobj_state(AVobjectives[type]) == 1 and AVobj_state(POIs[i]) == 2 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Node_Defense.mp3")
 								end
-							
+
 							else
 							--graveyards
-								
+
 								if AVobj_state(AVobjectives[type]) == 3 and AVobj_state(POIs[i]) == 1 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Node_Defense.mp3")
 								elseif AVobj_state(AVobjectives[type]) == 4 and AVobj_state(POIs[i]) == 2 then
@@ -2441,17 +2441,17 @@ function PVPSound:OnEvent(event, ...)
 							AVobjectives[type] = POIs[i]
 						end
 					end
-								
+
 				 -- Tol Barad
 				elseif MyZone == "Zone_TolBarad" then
-					
+
 					local isActive = (select(5, GetWorldPVPAreaInfo(1)))
 					if isActive == 0 then
 						local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-						
+
 						for i = 1, #POIs do
 							local type = TBget_objective(POIs[i])
-							
+
 							if type then
 								-- Baradin Hold
 								if type == "BaradinHold" and BgIsOver ~= true then
@@ -2462,7 +2462,7 @@ function PVPSound:OnEvent(event, ...)
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 										BgIsOver = true
 									end
-								
+
 								--Spires
 								elseif string.find(type, "Spire") then
 									if TBobj_state(TBobjectives[type]) == 5 and TBobj_state(POIs[i]) == 7 then
@@ -2502,7 +2502,7 @@ function PVPSound:OnEvent(event, ...)
 			end
 		end
 	end
-end 
+end
 
 
 PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
@@ -2513,7 +2513,7 @@ function PVPSound:OnEventTwo(event, ...)
 		--because it is more about an dueling announcement
 		--so it can not be placed in any sound engine queues
 		--so i just play the sound file without a queues
-	
+
 		if (event == "PLAYER_TARGET_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MAXHEALTH") and PS_Execute == true then
 			local isEnemy = UnitIsEnemy("target","player")
 
@@ -2580,11 +2580,11 @@ function PVPSound:OnEventTwo(event, ...)
 
 		if PS_BattlegroundSound == true then
 			if event == "UPDATE_UI_WIDGET" then
-		
+
 				 -- Alterac Valley and Isle of Conquest Kill Countdown
 				if MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" then
 					-- Alliance Reinforcements
-					
+
 					--different UI Widget IDs in BGs
 					local i
 					if MyZone == "Zone_IsleofConquest" then
@@ -2592,7 +2592,7 @@ function PVPSound:OnEventTwo(event, ...)
 					elseif MyZone == "Zone_AlteracValley" then
 						i = 1684
 					end
-					
+
 					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(i)) then
 						local faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(i).leftBarValue
 						local type = AVandIOCAget_objective(faketextureIndex)
@@ -2622,9 +2622,9 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 				end
 			--elseif event == "UPDATE_UI_WIDGET" then
-				
+
 				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" then
-					
+
 					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2)) then
 						-- Alliance Score
 						local AllianceScore = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
@@ -3123,7 +3123,7 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				end
-				
+
 				if MyZone == "Zone_SeethingShore" then
 					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1688)) ~= nil then
 						-- Alliance Score
@@ -3140,7 +3140,7 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				end
-				
+
 				if MyZone == "Zone_CookingImpossible" then
 					if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967)) ~= nil then
 						-- Alliance Score
@@ -3157,25 +3157,25 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				end
-				
+
 			elseif event == "AREA_POIS_UPDATED" then
 				 -- Arathi Basin
 				if MyZone == "Zone_ArathiBasin" then
-				
-					
+
+
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					
+
 					for i = 1, #POIs do
 						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 						--local x
 						--local y
 
-					
-						
+
+
 						if textureIndex then
-							
+
 							--if x == 0.38 and y == 0.27 then
-								
+
 								local faketextureIndex = textureIndex-- + 500
 								local type = ABget_objective(faketextureIndex)
 								if type then
@@ -3188,13 +3188,13 @@ function PVPSound:OnEventTwo(event, ...)
 												ABases = ABases + 1
 											end
 										end
-										--print ("abase ", ABases)	
+										--print ("abase ", ABases)
 										if ABases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end						
-																				
+										end
+
 									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating
@@ -3204,12 +3204,12 @@ function PVPSound:OnEventTwo(event, ...)
 												HBases = HBases + 1
 											end
 										end
-										--print ("hbase ", HBases)	
+										--print ("hbase ", HBases)
 										if HBases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end	
+										end
 									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
 										-- Alliance Dominating
@@ -3219,12 +3219,12 @@ function PVPSound:OnEventTwo(event, ...)
 												ABases = ABases + 1
 											end
 										end
-										--print ("abase ", ABases)	
+										--print ("abase ", ABases)
 										if ABases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end	
+										end
 									elseif ABobj_state(ABobjectives[type]) == 3 and ABobj_state(faketextureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating
@@ -3234,12 +3234,12 @@ function PVPSound:OnEventTwo(event, ...)
 												HBases = HBases + 1
 											end
 										end
-										--print ("hbase ", HBases)	
+										--print ("hbase ", HBases)
 										if HBases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end	
+										end
 									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif ABobj_state(ABobjectives[type]) == 2 and ABobj_state(faketextureIndex) == 3 then
@@ -3254,26 +3254,26 @@ function PVPSound:OnEventTwo(event, ...)
 							--end
 						end
 					end
-						
-				
-					
+
+
+
 				 -- The Battle for Gilneas
 				elseif MyZone == "Zone_TheBattleforGilneas" then
 					-- Mines
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					
+
 					for i = 3, 3, 1 do
-						
+
 						local textureIndex
 						local x
 						local y
-						
+
 						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
 							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
 							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
 						end
-						
+
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							--if x == 0.63 and y == 0.41 then
 								local faketextureIndex = textureIndex + 200
@@ -3330,13 +3330,13 @@ function PVPSound:OnEventTwo(event, ...)
 						local textureIndex
 						local x
 						local y
-						
+
 						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
 							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
 							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
 						end
-						
+
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							--if x == 0.61 and y == 0.71 then
 								local faketextureIndex = textureIndex + 300
@@ -3393,13 +3393,13 @@ function PVPSound:OnEventTwo(event, ...)
 						local textureIndex
 						local x
 						local y
-						
+
 						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
 							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
 							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
 						end
-						
+
 						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
 							--if x == 0.35 and y == 0.62 then
 								local faketextureIndex = textureIndex + 100
@@ -3453,21 +3453,21 @@ function PVPSound:OnEventTwo(event, ...)
 					end
 				 -- Deepwind Gorge
 				elseif MyZone == "Zone_DeepwindGorge" then
-					
-					
+
+
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					
+
 					for i = 1, #POIs do
 						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
 						--local x
 						--local y
 
-					
-						
+
+
 						if textureIndex then
-							
+
 							--if x == 0.38 and y == 0.27 then
-								
+
 								local faketextureIndex = textureIndex
 								local type = DGget_objective(faketextureIndex)
 								if type then
@@ -3480,13 +3480,13 @@ function PVPSound:OnEventTwo(event, ...)
 												ABases = ABases + 1
 											end
 										end
-										--print ("abase ", ABases)	
+										--print ("abase ", ABases)
 										if ABases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end						
-																				
+										end
+
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating
@@ -3496,12 +3496,12 @@ function PVPSound:OnEventTwo(event, ...)
 												HBases = HBases + 1
 											end
 										end
-										--print ("hbase ", HBases)	
+										--print ("hbase ", HBases)
 										if HBases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end	
+										end
 									elseif DGobj_state(DGobjectives[type]) == 4 and DGobj_state(faketextureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
 										-- Alliance Dominating
@@ -3511,12 +3511,12 @@ function PVPSound:OnEventTwo(event, ...)
 												ABases = ABases + 1
 											end
 										end
-										--print ("abase ", ABases)	
+										--print ("abase ", ABases)
 										if ABases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end	
+										end
 									elseif DGobj_state(DGobjectives[type]) == 3 and DGobj_state(faketextureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating
@@ -3526,12 +3526,12 @@ function PVPSound:OnEventTwo(event, ...)
 												HBases = HBases + 1
 											end
 										end
-										--print ("hbase ", HBases)	
+										--print ("hbase ", HBases)
 										if HBases == 4 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
-										end	
+										end
 									elseif DGobj_state(DGobjectives[type]) == 1 and DGobj_state(faketextureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 									elseif DGobj_state(DGobjectives[type]) == 2 and DGobj_state(faketextureIndex) == 3 then
@@ -3545,15 +3545,15 @@ function PVPSound:OnEventTwo(event, ...)
 								end
 							--end
 						end
-					end					
+					end
 
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
-				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then 
+				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
 					--print(MyZone, 222)
 					--for Wintergasp it only works in BG version, for BF version there is old methdos
 					local winner=...
-				 	if winner == 0 then
+					if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 					else 
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
