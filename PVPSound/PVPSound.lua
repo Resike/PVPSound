@@ -420,16 +420,24 @@ local function ObgInit(objectives, get, textureMode)
 
 	for i = 1, #POIs do
 	--if texturemod parameter exists, then check textures, else check POI id
-		if textureMode then
+	--textureMode = 1 - in case, where objective get and state methods operate with textureID (Arathi basin)
+	--textureMode = 2 - in case, where objective get method operates with POI and it's state method operates with textureID (TBFG)
+		if textureMode and textureMode == 1 then
 			if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
 				objective = get(C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex)
 			end
 		else
 			objective = get(POIs[i])
-		end
-
+		end		
+		
 		if objective then
-			objectives[objective] = POIs[i]
+			if textureMode and (textureMode == 1 or textureMode == 2) then
+				if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
+					objectives[objective] = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+				end
+			else
+				objectives[objective] = POIs[i]
+			end
 		end
 	end
 
@@ -687,11 +695,11 @@ end
 local TBFGobjectives = {Lighthouse = nil, Mines = nil, Waterworks = nil}
 
 local function TBFGget_objective(id)
-	if id == 106 or id == 109 or id == 110 or id == 111 or id <= 112 then
+	if id == 2412 then
 		return "Lighthouse"
-	elseif id >= 216 and id <= 220 then
+	elseif id == 2404 then
 		return "Mines"
-	elseif id >= 326 and id <= 330 then
+	elseif id ==2405 then
 		return "Waterworks"
 	else
 		return false
@@ -699,13 +707,13 @@ local function TBFGget_objective(id)
 end
 
 local function TBFGobj_state(id)
-	if id == 111 or id == 218 or id == 328 then
+	if id == 11 or id == 18 or id == 28 then
 		return 1 -- Alliance Bases
-	elseif id == 110 or id == 220 or id == 330 then
+	elseif id == 10 or id == 20 or id == 30 then
 		return 2 -- Horde Bases
-	elseif id == 109 or id == 217 or id == 327 then
+	elseif id == 9 or id == 17 or id == 27 then
 		return 3 -- Alliance trys to capture
-	elseif id == 112 or id == 219 or id == 329 then
+	elseif id == 12 or id == 19 or id == 29 then
 		return 4 -- Horde trys to capture
 	else
 		return 0
@@ -1295,10 +1303,6 @@ local function InitializeBgs(...)
 		AVandIOCHobjectives.HordeReinforcements = HReinforcementsInit
 
 		ObgInit(AVobjectives, AVget_objective)
-		--for k, v in pairs(AVobjectives) do
-		--	print (k, v)
-		--end
-
 	end
 	if MyZone == "Zone_IsleofConquest" then
 
@@ -1451,32 +1455,7 @@ local function InitializeBgs(...)
 	end
 
 	if MyZone == "Zone_TheBattleforGilneas" then
-
-		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-
-		local LighthouseInit
-		local MinesInit
-		local WaterworksInit
-
-		if #POIs == 3 then
-			LighthouseInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[1]).textureIndex
-			MinesInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[3]).textureIndex
-			WaterworksInit = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[2]).textureIndex
-		end
-
-
-		TBFGobjectives.Lighthouse = nil
-		TBFGobjectives.Mines = nil
-		TBFGobjectives.Waterworks = nil
-		if LighthouseInit then
-			TBFGobjectives.Lighthouse = LighthouseInit + 100
-		end
-		if MinesInit then
-			TBFGobjectives.Mines = MinesInit + 200
-		end
-		if WaterworksInit then
-			TBFGobjectives.Waterworks = WaterworksInit + 300
-		end
+		ObgInit(TBFGobjectives,TBFGget_objective,2)
 	end
 
 	if MyZone == "Zone_DeepwindGorge" then
@@ -1900,7 +1879,7 @@ function PVPSound:OnEvent(event, ...)
 			-- Battleground WinSounds
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
 				local EventMessage = select(1, ...)
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					if (string.find(EventMessage, L["Alliance wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Alliance wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 						BgIsOver = true
@@ -3207,7 +3186,7 @@ function PVPSound:OnEventTwo(event, ...)
 										--print ("hbase ", HBases)
 										if HBases == 4 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
 											end
 										end
 									elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(faketextureIndex) == 1 then
@@ -3237,7 +3216,7 @@ function PVPSound:OnEventTwo(event, ...)
 										--print ("hbase ", HBases)
 										if HBases == 4 then
 											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
 											end
 										end
 									elseif ABobj_state(ABobjectives[type]) == 1 and ABobj_state(faketextureIndex) == 4 then
@@ -3255,200 +3234,89 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 
-
-
 				 -- The Battle for Gilneas
 				elseif MyZone == "Zone_TheBattleforGilneas" then
-					-- Mines
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-
-					for i = 3, 3, 1 do
-
-						local textureIndex
-						local x
-						local y
-
-						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
-							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
-							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
-							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
-						end
-
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							--if x == 0.63 and y == 0.41 then
-								local faketextureIndex = textureIndex + 200
-								local type = TBFGget_objective(faketextureIndex)
+					
+					for i = 1, #POIs do
+					
+						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
+						
+						if textureIndex then
+								local type = TBFGget_objective(POIs[i])
 								if type then
-									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
+									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(textureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
 										-- Alliance Dominating
-										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Waterworks == 328 then
+										local ABases = 0
+										for k, v in pairs(TBFGobjectives) do
+											if k ~= type and TBFGobj_state(v) == 1 then
+												ABases = ABases + 1
+											end
+										end
+										--print ("abase ", ABases)
+										if ABases == 2 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
 										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
+										
+									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(textureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating
-										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Waterworks == 330 then
+										local HBases = 0
+										for k, v in pairs(TBFGobjectives) do
+											if k ~= type and TBFGobj_state(v) == 2 then
+												HBases = HBases + 1
+											end
+										end
+										--print ("hbase ", HBases)
+										if HBases == 2 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
 											end
 										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
+									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(textureIndex) == 1 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
 										-- Alliance Dominating
-										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Waterworks == 328 then
+										local ABases = 0
+										for k, v in pairs(TBFGobjectives) do
+											if k ~= type and TBFGobj_state(v) == 1 then
+												ABases = ABases + 1
+											end
+										end
+										--print ("abase ", ABases)
+										if ABases == 2 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
 										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
+									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(textureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating
-										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Waterworks == 330 then
+										local HBases = 0
+										for k, v in pairs(TBFGobjectives) do
+											if k ~= type and TBFGobj_state(v) == 2 then
+												HBases = HBases + 1
+											end
+										end
+										--print ("hbase ", HBases)
+										if HBases == 2 then
 											if PS_BattlegroundSoundEngine == true then
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
 											end
 										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
+									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(textureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
+									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(textureIndex) == 3 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
+									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(textureIndex) == 4 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
+									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(textureIndex) == 3 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
 									end
-									TBFGobjectives[type] = faketextureIndex
+									TBFGobjectives[type] = textureIndex
 								end
-							--end
-						end
-					end
-					-- Waterworks
-					for i = 2, 2, 1 do
-						local textureIndex
-						local x
-						local y
-
-						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
-							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
-							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
-							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
-						end
-
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							--if x == 0.61 and y == 0.71 then
-								local faketextureIndex = textureIndex + 300
-								local type = TBFGget_objective(faketextureIndex)
-								if type then
-									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Mines == 218 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Mines == 220 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if TBFGobjectives.Lighthouse == 111 and TBFGobjectives.Mines == 218 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if TBFGobjectives.Lighthouse == 110 and TBFGobjectives.Mines == 220 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									TBFGobjectives[type] = faketextureIndex
-								end
-							--end
-						end
-					end
-					-- Lighthouse
-					for i = 1, 1, 1 do
-						local textureIndex
-						local x
-						local y
-
-						if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
-							textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
-							x = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.x
-							y = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).position.y
-						end
-
-						if textureIndex and x and y and textureIndex ~= 0 and x ~= 0 and y ~= 0 then
-							--if x == 0.35 and y == 0.62 then
-								local faketextureIndex = textureIndex + 100
-								local type = TBFGget_objective(faketextureIndex)
-								if type then
-									if TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if TBFGobjectives.Mines == 218 and TBFGobjectives.Waterworks == 328 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if TBFGobjectives.Mines == 220 and TBFGobjectives.Waterworks == 330 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 1 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
-										-- Alliance Dominating
-										if TBFGobjectives.Mines == 218 and TBFGobjectives.Waterworks == 328 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 2 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
-										-- Horde Dominating
-										if TBFGobjectives.Mines == 220 and TBFGobjectives.Waterworks == 330 then
-											if PS_BattlegroundSoundEngine == true then
-												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
-											end
-										end
-									elseif TBFGobj_state(TBFGobjectives[type]) == 1 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 2 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 3 and TBFGobj_state(faketextureIndex) == 4 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
-									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(faketextureIndex) == 3 then
-										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Offense.mp3")
-									end
-									TBFGobjectives[type] = faketextureIndex
-								end
-							--end
 						end
 					end
 				 -- Deepwind Gorge
@@ -3549,9 +3417,9 @@ function PVPSound:OnEventTwo(event, ...)
 
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
-				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
+				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" or MyZone == "Zone_TheBattleforGilneas" then
 					--print(MyZone, 222)
-					--for Wintergasp it only works in BG version, for BF version there is old methdos
+					--for Wintergasp it only works in BG version, for BF version there are old methdos
 					local winner = ...
 					if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
