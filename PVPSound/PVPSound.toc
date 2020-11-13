@@ -17,6 +17,6 @@ PVPSound_PaybackEngine.lua
 PVPSound_SctEngine.lua
 PVPSound_SoundEngine.lua
 PVPSound_SoundLengths.lua
-..\PVPSound_CustomSoundPack\PVPSound_SoundLengthsCustom.lua
+#..\PVPSound_CustomSoundPack\PVPSound_SoundLengthsCustom.lua
 
 #PVPSound_Options.xml
