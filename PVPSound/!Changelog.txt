@@ -12,6 +12,10 @@ ToDo List:
 * More Ashran sounds
 * Update for classic
 
+5.0.0c
+* The Battle For Gilneas fixed.
+* Tarren Mill vs Souyhshore Brawl added.
+
 5.0.0b
 * Fixed Korrak's Revenge.
 

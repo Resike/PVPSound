@@ -1052,6 +1052,38 @@ local SeSobjectives = {AllianceScore = nil, HordeScore = nil}
 local CIobjectives = {AllianceScore = nil, HordeScore = nil}
 --later it will be good to add some variety in sounds to SeS and CI
 
+--Tarren Mill vs Southshore
+-- Objective is delta between H and A. DeltaScore = HordeScore - AllianceScore
+local TMSSobjectives = {DeltaScore = nil}
+
+--state function has returning value not in all range(0,150) (to exclude situation, when team takes a lead twice in a row (fo example: delta = 10, then 9 and then 10 again))
+--so it is important to check if it is has value before setting an objective 
+--but the negative side of this is that if you reload interface (or enter BG) when state is false (for example between 2 and 9), objective will not be initialaized
+--and sound will not be played
+--so when BG is initializing, if state is false I initialize onjective as 0
+--and whe I check objective changeing, I check if it chenged by one (form 1 to 2, or 2 to 3) or from 0 (from 0 to 2 or 0 to 3)
+--it seems that it is not the most "beatifull" solution, but it is rather simple
+local function TMSSobj_state(id)
+	if id >= -1 and id <= 1 then
+		return 0 -- score is nearly even
+	elseif id >= 10 and id <= 15 then
+		return 1 -- horde takes a lead
+	elseif id >= 20 and id <= 30 then
+		return 2 -- horde incr a lead
+	elseif id >= 40 and id <= 150 then
+		return 9 -- horde dominating
+	elseif id >= -15 and id <= -10 then
+		return -1 -- alliance takes a lead
+	elseif id >= -30 and id <= -20 then
+		return -2 -- alliance incr a lead
+	elseif id >= -150 and id <= -40 then
+		return -9 -- alliance dominating	
+	else
+		return false
+	end
+end	
+
+
 --arena UI WIDGET IDs array. For arena timers
 --Each arena has its unique topcenter widget with timeremaining info
 --So, I pass thruogh this array until existing arena widget will be found
@@ -1118,6 +1150,8 @@ local function InitializeBgs(...)
 		MyZone = "Zone_SeethingShore"--added
 	elseif CurrentZoneId == 1335 and InstanceType == "pvp" then
 		MyZone = "Zone_CookingImpossible"--Brawl Cooking Impossible added
+	elseif CurrentZoneId == 623 and InstanceType == "pvp" then
+		MyZone = "Zone_TarrenShore"--Brawl Tarren Mill vs Southshore added	
 	 -- Battlefields
 	elseif CurrentZoneId == 123 or (CurrentZoneId == 1334 and InstanceType == "pvp") then --1334 is BG version of this zone
 		MyZone = "Zone_Wintergrasp"--updated
@@ -1145,7 +1179,7 @@ local function InitializeBgs(...)
 	end
 
 	--world state check
-	if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_SeethingShore" then
+	if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TolBarad" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_TarrenShore" then
 
 
 		local i --id of timer widget
@@ -1155,6 +1189,8 @@ local function InitializeBgs(...)
 			i = 6 --updated
 		elseif MyZone == "Zone_SeethingShore" then
 			i = 1705 --added
+		elseif MyZone == "Zone_TarrenShore" then
+			i = 790 --added
 		else
 			i = 4
 		end
@@ -1646,6 +1682,23 @@ local function InitializeBgs(...)
 		end
 	end
 
+	if MyZone == "Zone_TarrenShore" then
+		local Hscore
+		local Ascore
+		if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(788)) then
+			Ascore = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(788).text, "(%d+)/"))
+		end
+		if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(789)) then
+			Hscore = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(789).text, "(%d+)/"))
+		end
+		if Ascore and Hscore and TMSSobj_state(Hscore - Ascore) then
+			TMSSobjectives.DeltaScore = Hscore - Ascore
+		else
+			TMSSobjectives.DeltaScore = 0
+		end
+	end
+			
+
 end
 
 function PVPSound:OnEvent(event, ...)
@@ -1761,7 +1814,7 @@ function PVPSound:OnEvent(event, ...)
 				--print(event, " my zone is ", MyZone)
 
 				-- Battleground PlaySounds
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_TarrenShore" or MyZone == "Zone_Ashran" then
 					--print("announcement")
 					TimerReset = true
 					KilledMe = nil
@@ -3136,6 +3189,35 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				end
+				
+				if MyZone == "Zone_TarrenShore" then
+					
+					local Hscore
+					local Ascore
+					if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(788)) then
+						Ascore = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(788).text, "(%d+)/"))
+					end
+					if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(789)) then
+						Hscore = tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(789).text, "(%d+)/"))
+					end
+					if Ascore and Hscore and TMSSobj_state(Hscore - Ascore) then
+						if TMSSobj_state(TMSSobjectives.DeltaScore) == 0 and TMSSobj_state(Hscore - Ascore) == 1 then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Takes_Lead.mp3")
+						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == 1) and TMSSobj_state(Hscore - Ascore) == 2 then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
+						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == 2) and TMSSobj_state(Hscore - Ascore) == 9 then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")	
+						elseif TMSSobj_state(TMSSobjectives.DeltaScore) == 0 and TMSSobj_state(Hscore - Ascore) == -1 then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
+						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == -1) and TMSSobj_state(Hscore - Ascore) == -2 then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
+						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == -2) and TMSSobj_state(Hscore - Ascore) == -9 then
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")		
+						
+						end					
+						TMSSobjectives.DeltaScore = Hscore - Ascore
+					end
+				end
 
 			elseif event == "AREA_POIS_UPDATED" then
 				 -- Arathi Basin
@@ -3417,7 +3499,7 @@ function PVPSound:OnEventTwo(event, ...)
 
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
-				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" or MyZone == "Zone_TheBattleforGilneas" then
+				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TarrenShore" then
 					--print(MyZone, 222)
 					--for Wintergasp it only works in BG version, for BF version there are old methdos
 					local winner = ...
