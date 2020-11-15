@@ -1520,6 +1520,11 @@ function PVPSound:SlashCommands(arg1)
 		if PS_Mode == "PVE" then
 			print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["[PVE]"].."|r")
 		end
+	elseif arg2 == "pvpandpve" then
+		PS_Mode = "PVPandPVE"
+		if PS_Mode == "PVPandPVE" then
+			print("|cFF50C0FF"..L["Mode"]..": |cFFFF4500"..L["PVPandPVE"].."|r")
+		end
 	elseif arg2 == "emote" then
 		PS_Emote = not PS_Emote
 		if PS_Emote == true then
@@ -1699,7 +1704,7 @@ function PVPSound:SlashCommands(arg1)
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
 			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Default]"].."|r")
 		end
-	elseif arg2 == "language deu" or arg2 == "language deutsch" or arg2 == "languagedeu" or arg2 == "languagedeutsch" or arg2 == "lang deu" or arg2 == "lang deutsch" or arg2 == "langdeu" or arg2 == "langdeutsch" then
+	elseif arg2 == "splanguage deu" or arg2 == "splanguage deutsch" or arg2 == "splanguagedeu" or arg2 == "splanguagedeutsch" or arg2 == "splang deu" or arg2 == "splang deutsch" or arg2 == "splangdeu" or arg2 == "splangdeutsch" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Deu"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
@@ -1709,7 +1714,7 @@ function PVPSound:SlashCommands(arg1)
 		if PS_SoundPackLanguage == "Deu" then
 			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Deutsch]"].."|r")
 		end
-	elseif arg2 == "language eng" or arg2 == "language english" or arg2 == "languageeng" or arg2 == "languageenglish" or arg2 == "lang eng" or arg2 == "lang english" or arg2 == "langeng" or arg2 == "langenglish" then
+	elseif arg2 == "splanguage eng" or arg2 == "splanguage english" or arg2 == "splanguageeng" or arg2 == "splanguageenglish" or arg2 == "splang eng" or arg2 == "splang english" or arg2 == "splangeng" or arg2 == "splangenglish" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Eng"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
@@ -1719,7 +1724,7 @@ function PVPSound:SlashCommands(arg1)
 		if PS_SoundPackLanguage == "Eng" then
 			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
 		end
-	elseif arg2 == "language esn" or arg2 == "language espanol" or arg2 == "languageesn" or arg2 == "languageespanol" or arg2 == "lang esn" or arg2 == "lang espanol" or arg2 == "langesn" or arg2 == "langespanol" or arg2 == "language spa" or arg2 == "language spanish" or arg2 == "languagespa" or arg2 == "languagespanish" or arg2 == "lang spa" or arg2 == "lang spanish" or arg2 == "langspa" or arg2 == "langspanish"then
+	elseif arg2 == "splanguage esn" or arg2 == "splanguage espanol" or arg2 == "splanguageesn" or arg2 == "splanguageespanol" or arg2 == "splang esn" or arg2 == "splang espanol" or arg2 == "splangesn" or arg2 == "splangespanol" or arg2 == "splanguage spa" or arg2 == "splanguage spanish" or arg2 == "splanguagespa" or arg2 == "splanguagespanish" or arg2 == "splang spa" or arg2 == "splang spanish" or arg2 == "splangspa" or arg2 == "splangspanish"then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Esn"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
@@ -1729,7 +1734,7 @@ function PVPSound:SlashCommands(arg1)
 		if PS_SoundPackLanguage == "Esn" then
 			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
 		end
-	elseif arg2 == "language fra" or arg2 == "language france" or arg2 == "languagefra" or arg2 == "languagefrance" or arg2 == "lang fra" or arg2 == "lang france" or arg2 == "langfra" or arg2 == "langfrance" then
+	elseif arg2 == "splanguage fra" or arg2 == "splanguage france" or arg2 == "splanguagefra" or arg2 == "splanguagefrance" or arg2 == "splang fra" or arg2 == "splang france" or arg2 == "splangfra" or arg2 == "splangfrance" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Fra"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
@@ -1739,7 +1744,7 @@ function PVPSound:SlashCommands(arg1)
 		if PS_SoundPackLanguage == "Fra" then
 			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[France]"].."|r")
 		end
-	elseif arg2 == "language ita" or arg2 == "language italian" or arg2 == "languageita" or arg2 == "languageitalian" or arg2 == "lang ita" or arg2 == "lang italian" or arg2 == "langita" or arg2 == "langitalian" then
+	elseif arg2 == "splanguage ita" or arg2 == "splanguage italian" or arg2 == "splanguageita" or arg2 == "splanguageitalian" or arg2 == "splang ita" or arg2 == "splang italian" or arg2 == "splangita" or arg2 == "splangitalian" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Ita"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
@@ -1749,7 +1754,7 @@ function PVPSound:SlashCommands(arg1)
 		if PS_SoundPackLanguage == "Ita" then
 			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
 		end
-	elseif arg2 == "language rus" or arg2 == "language russian" or arg2 == "languagerus" or arg2 == "languagerussian" or arg2 == "lang rus" or arg2 == "lang russian" or arg2 == "langrus" or arg2 == "langrussian" then
+	elseif arg2 == "splanguage rus" or arg2 == "splanguage russian" or arg2 == "splanguagerus" or arg2 == "splanguagerussian" or arg2 == "splang rus" or arg2 == "splang russian" or arg2 == "splangrus" or arg2 == "splangrussian" then
 		if PS_SoundPackName ~= "Custom" then
 			PS_SoundPackLanguage = "Rus"
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
@@ -1858,6 +1863,207 @@ function PVPSound:SlashCommands(arg1)
 		PVPSound.ConfigDump()
 	elseif arg2 == "perflist" then
 		PVPSound.perfDump()
+	elseif arg2 == "lang rus" then
+		PS_AddonLanguage = "Russian"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
+	elseif arg2 == "lang eng" then
+		PS_AddonLanguage = "English"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[English]"].."|r")
+	elseif arg2 == "lang deu" then
+		PS_AddonLanguage = "German"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[German]"].."|r")
+	elseif arg2 == "lang esn" then
+		PS_AddonLanguage = "Spanish"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
+	elseif arg2 == "lang latesn" then
+		PS_AddonLanguage = "LatinAmericanSpanish"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[LatinAmericanSpanish]"].."|r")
+	elseif arg2 == "lang fra" then
+		PS_AddonLanguage = "French"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[French]"].."|r")
+	elseif arg2 == "lang ita" then
+		PS_AddonLanguage = "Italian"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
+	elseif arg2 == "lang kr" then
+		PS_AddonLanguage = "Korean"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Korean]"].."|r")
+	elseif arg2 == "lang pt" then
+		PS_AddonLanguage = "Portuguese"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Portuguese]"].."|r")
+	elseif arg2 == "lang tradcn" then
+		PS_AddonLanguage = "TraditionalChinese"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[TraditionalChinese]"].."|r")
+	elseif arg2 == "lang simpcn" then
+		PS_AddonLanguage = "SimplifiedChinese"
+		PVPSound:SetAddonLanguage()
+		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[SimplifiedChinese]"].."|r")
+	elseif arg2 == "killsoundpack ut3" then
+		PS_KillSoundPackName = "UnrealTournament3"
+		PS.KillSoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_KillSoundPackName
+		if PS_KillSoundPackName == "UnrealTournament3" then
+			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Unreal Tournament 3]"].."|r")
+		end
+		if PS_KillSoundPackLanguage == "Deu" or PS_KillSoundPackLanguage == "Eng" or PS_KillSoundPackLanguage == "Esn" or PS_KillSoundPackLanguage == "Fra" or PS_KillSoundPackLanguage == "Ita" or PS_KillSoundPackLanguage == "Rus" then
+			return false
+		else
+			PS_KillSoundPackLanguage = "Eng"
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
+		end
+		PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+	elseif arg2 == "killsoundpack dmc" then
+		PS_KillSoundPackName = "DevilMayCry"
+		PS.KillSoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_KillSoundPackName
+		if PS_KillSoundPackName == "DevilMayCry" then
+			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Devil May Cry]"].."|r")
+		end
+		if PS_KillSoundPackLanguage == "Eng" then
+			return false
+		else
+			PS_KillSoundPackLanguage = "Eng"
+			print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
+		end
+		PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+	elseif arg2 == "killsoundpack halo4" then
+		PS_KillSoundPackName = "Halo4"
+		PS.KillSoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_KillSoundPackName
+		if PS_KillSoundPackName == "Halo4" then
+			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Halo 4]"].."|r")
+		end
+		if PS_KillSoundPackLanguage == "Eng" then
+			return false
+		else
+			PS_KillSoundPackLanguage = "Eng"
+			print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
+		end
+		PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+	elseif arg2 == "killsoundpack hots" then
+		PS_KillSoundPackName = "HeroesOfTheStorm"
+		PS.KillSoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_KillSoundPackName
+		if PS_KillSoundPackName == "HeroesOfTheStorm" then
+			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Heroes Of The Storm]"].."|r")
+		end
+		if PS_KillSoundPackLanguage == "Murky" then
+			return false
+		else
+			PS_KillSoundPackLanguage = "Murky"
+			print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Murky]"].."|r")
+		end
+		PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+	elseif arg2 == "killsoundpack dota2" then
+		PS_KillSoundPackName = "Dota2"
+		PS.KillSoundPackDirectory = "Interface\\Addons\\PVPSound\\Sounds\\"..PS_KillSoundPackName
+		if PS_KillSoundPackName == "Dota2" then
+			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Dota 2]"].."|r")
+		end
+		if PS_KillSoundPackLanguage == "Axe" or PS_KillSoundPackLanguage == "Bastion" or PS_KillSoundPackLanguage == "ClockWerk" or PS_KillSoundPackLanguage == "DefenseGrid" or PS_KillSoundPackLanguage == "Glados" or PS_KillSoundPackLanguage == "Juggernaut" or PS_KillSoundPackLanguage == "Lina" or PS_KillSoundPackLanguage == "NaturesProphet" or PS_KillSoundPackLanguage == "Pflax"  or PS_KillSoundPackLanguage == "Pirate" or PS_KillSoundPackLanguage == "StanleyParable" or PS_KillSoundPackLanguage == "StormSpirit" or PS_KillSoundPackLanguage == "Trine" then
+			return false
+		else
+			PS_KillSoundPackLanguage = "Axe"
+			print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Axe]"].."|r")
+		end
+		PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+	elseif arg2 == "ksplang eng" then
+		if PS_KillSoundPackName == "UnrealTournament3" or PS_KillSoundPackName == "DevilMayCry" or PS_KillSoundPackName == "Halo4" then
+			PS_KillSoundPackLanguage = "Eng"
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+		else
+			print("|cFF50C0FF"..L["Kill Sound Pack doesn't support that language!"])
+		end
+		if PS_KillSoundPackLanguage == "Eng" then
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
+		end
+	elseif arg2 == "ksplang deu" or arg2 == "ksplang esn" or arg2 == "ksplang fra" or arg2 == "ksplang ita" or arg2 == "ksplang rus" then
+		arg2 = strsub(arg2, 9)
+		print(arg2)
+		if PS_KillSoundPackName == "UnrealTournament3" then
+			if arg2 == "esn" then
+				PS_KillSoundPackLanguage = "Esn"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
+			elseif arg2 == "deu" then
+				PS_KillSoundPackLanguage = "Deu"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[German]"].."|r")
+			elseif arg2 == "fra" then
+				PS_KillSoundPackLanguage = "Fra"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[French]"].."|r")
+			elseif arg2 == "ita" then
+				PS_KillSoundPackLanguage = "Ita"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
+			elseif arg2 == "rus" then
+				PS_KillSoundPackLanguage = "Rus"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
+			end
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+		else
+			print("|cFF50C0FF"..L["Kill Sound Pack doesn't support that language!"])
+		end
+	elseif arg2 == "ksplang axe" or arg2 == "ksplang bastion" or arg2 == "ksplang clockwerk" or arg2 == "ksplang defensegrid" or arg2 == "ksplang glados" or arg2 == "ksplang juggernaut" or arg2 == "ksplang lina" or arg2 == "ksplang naturesprophet" or arg2 == "ksplang pflax" or arg2 == "ksplang pirate" or arg2 == "ksplang stanleyparable" or arg2 == "ksplang stormspirit" or arg2 == "ksplang trine" then
+		arg2 = strsub(arg2, 9)
+		print(arg2)
+		if PS_KillSoundPackName == "Dota2" then
+			if arg2 == "axe" then
+				PS_KillSoundPackLanguage = "Axe"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Axe]"].."|r")
+			elseif arg2 == "bastion" then
+				PS_KillSoundPackLanguage = "Bastion"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Bastion]"].."|r")
+			elseif arg2 == "clockwerk" then
+				PS_KillSoundPackLanguage = "ClockWerk"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[ClockWerk]"].."|r")
+			elseif arg2 == "defensegrid" then
+				PS_KillSoundPackLanguage = "DefenseGrid"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[DefenseGrid]"].."|r")
+			elseif arg2 == "glados" then
+				PS_KillSoundPackLanguage = "Glados"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Glados]"].."|r")
+			elseif arg2 == "juggernaut" then
+				PS_KillSoundPackLanguage = "Juggernaut"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Juggernaut]"].."|r")
+			elseif arg2 == "lina" then
+				PS_KillSoundPackLanguage = "Lina"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Lina]"].."|r")
+			elseif arg2 == "naturesprophet" then
+				PS_KillSoundPackLanguage = "NaturesProphet"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[NaturesProphet]"].."|r")
+			elseif arg2 == "pflax" then
+				PS_KillSoundPackLanguage = "Pflax"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Pflax]"].."|r")
+			elseif arg2 == "pirate" then
+				PS_KillSoundPackLanguage = "Pirate"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Pirate]"].."|r")
+			elseif arg2 == "stanleyparable" then
+				PS_KillSoundPackLanguage = "StanleyParable"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[StanleyParable]"].."|r")
+			elseif arg2 == "stormspirit" then
+				PS_KillSoundPackLanguage = "StormSpirit"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[StormSpirit]"].."|r")
+			elseif arg2 == "trine" then
+				PS_KillSoundPackLanguage = "Trine"
+				print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Trine]"].."|r")
+			end
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+		else
+			print("|cFF50C0FF"..L["Kill Sound Pack doesn't support that language!"])
+		end
+	elseif arg2 == "ksplang murky" then
+		if PS_KillSoundPackName == "HeroesOfTheStorm" then
+			PS_KillSoundPackLanguage = "Murky"
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
+		else
+			print("|cFF50C0FF"..L["Kill Sound Pack doesn't support that language!"])
+		end
+		if PS_KillSoundPackLanguage == "Murky" then
+			print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Murky]"].."|r")
+		end
 	else
 		PVPSound:PrintSlashHelp()
 	end
@@ -1866,7 +2072,7 @@ end
 function PVPSound:PrintSlashHelp()
 	print("|cFFFFA500PVPSound "..GetAddOnMetadata("PVPSound", "Version").." "..L["Command list"].."|r")
 	print("|cFF50C0FF/ps - |cFFFFFFA0"..L["Show status"].."|r")
-	print("|cFF50C0FF/ps pvp - |cFFFFFFA0"..L["Switch between PVP and PVE mode"].."|r")
+	print("|cFF50C0FF/ps pvp, pve, pvpandpve - |cFFFFFFA0"..L["Switch between PVP and PVE mode"].."|r")
 	print("|cFF50C0FF/ps emote - |cFFFFFFA0"..L["Enables or Disables Emotes completely"].."|r")
 	print("|cFF50C0FF/ps emotemode - |cFFFFFFA0"..L["Switch between Emote and Chat Message mode"].."|r")
 	print("|cFF50C0FF/ps deathmessage - |cFFFFFFA0"..L["Enables or Disables Death Messages"].."|r")
@@ -1888,9 +2094,12 @@ function PVPSound:PrintSlashHelp()
 	print("|cFF50C0FF/ps execute - |cFFFFFFA0"..L["Enables or Disables execute sounds"].."|r")
 	print("|cFF50C0FF/ps channel'channelname' - |cFFFFFFA0"..L["Switch between sound channels ('master' 'sound' 'music' 'ambience')"].."|r")
 	print("|cFF50C0FF/ps soundpack'soundpackname' - |cFFFFFFA0"..L["Switch between Sound Packs ('ut3' 'custom')"].."|r")
-	print("|cFF50C0FF/ps lang'soundpacklanguage' - |cFFFFFFA0"..L["Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita')"].."|r")
+	print("|cFF50C0FF/ps splang'soundpacklanguage' - |cFFFFFFA0"..L["Switch between Sound Pack languages ('deu' 'eng' 'esn' 'fra' 'ita' 'rus')"].."|r")
+	print("|cFF50C0FF/ps killsoundpack'soundpackname' - |cFFFFFFA0"..L["Switch between Kill Sound Packs ('ut3' 'halo4' 'dmc' 'hots' 'dota2')"].."|r")
+	print("|cFF50C0FF/ps ksplang'soundpacklanguage' - |cFFFFFFA0"..L["Switch between Kill Sound Pack languages('deu' 'eng' 'esn' 'fra' 'ita' 'rus' 'axe' 'bastion' 'clockwerk' 'defensegrid' 'glados' 'juggernaut' 'lina' 'naturesprophet' 'pflax' 'pirate' 'stanleyporable' 'stormspirit' 'trine')"].."|r")
 	print("|cFF50C0FF/ps test - |cFFFFFFA0"..L["Scrolling Combat Text and sound test"].."|r")
 	print("|cFF50C0FF/ps reset - |cFFFFFFA0"..L["Reset the counter of Killing Blows and the Payback-, Retibution-, Sound-, and SCT Queue System"].."|r")
+	print("|cFF50C0FF/ps lang 'language' - |cFFFFFFA0"..L["Switch between Addon languages ('deu' 'eng' 'esn' 'fra' 'ita' 'rus' 'latesn' 'kor' 'pt' 'simpcn' 'tradcn')"].."|r")
 	print("|cFF50C0FF/ps help - |cFFFFFFA0"..L["Command help"].."|r")
 end
 
@@ -2024,5 +2233,38 @@ function PVPSound:PrintSlashMenu()
 		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
 	elseif PS_SoundPackLanguage == "Rus" then
 		print("|cFF50C0FF"..L["Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
+	end
+	if PS_KillSoundPackName == "UnrealTournament3" then
+		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Unreal Tournament 3]"].."|r")
+	elseif PS_KillSoundPackName == "Custom" then
+		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Custom]"].."|r")
+	elseif PS_KillSoundPackName == "Halo4" then
+		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["Halo 4"].."|r")
+	elseif PS_KillSoundPackName == "Dota2" then
+		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["Dota 2"].."|r")
+	elseif PS_KillSoundPackName == "DevilMayCry" then
+		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["Devil May Cry"].."|r")
+	elseif PS_KillSoundPackName == "HeroesOfTheStorm" then
+		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["Heroes Of The Storm"].."|r")
+	end
+	
+	if PS_KillSoundPackLanguage == "Default" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Default]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Deu" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Deutsch]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Eng" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[English]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Esn" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Fra" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[France]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Ita" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Rus" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
+	elseif PS_KillSoundPackLanguage == "Rus" then
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
+	else 
+		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L[PS_KillSoundPackLanguage].."|r")
 	end
 end
