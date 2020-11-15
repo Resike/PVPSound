@@ -12,6 +12,10 @@ ToDo List:
 * More Ashran sounds
 * Update for classic
 
+5.0.0d
+* Added support for Southshore vs. Tarren Mill brawl.
+* Added slash commands to change kill sound packs and languages.
+
 5.0.0c
 * The Battle For Gilneas fixed.
 * Tarren Mill vs Souyhshore Brawl added.

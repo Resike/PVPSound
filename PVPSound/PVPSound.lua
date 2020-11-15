@@ -428,8 +428,8 @@ local function ObgInit(objectives, get, textureMode)
 			end
 		else
 			objective = get(POIs[i])
-		end		
-		
+		end
+
 		if objective then
 			if textureMode and (textureMode == 1 or textureMode == 2) then
 				if (C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i])) then
@@ -1057,7 +1057,7 @@ local CIobjectives = {AllianceScore = nil, HordeScore = nil}
 local TMSSobjectives = {DeltaScore = nil}
 
 --state function has returning value not in all range(0,150) (to exclude situation, when team takes a lead twice in a row (fo example: delta = 10, then 9 and then 10 again))
---so it is important to check if it is has value before setting an objective 
+--so it is important to check if it is has value before setting an objective
 --but the negative side of this is that if you reload interface (or enter BG) when state is false (for example between 2 and 9), objective will not be initialaized
 --and sound will not be played
 --so when BG is initializing, if state is false I initialize onjective as 0
@@ -1077,11 +1077,11 @@ local function TMSSobj_state(id)
 	elseif id >= -30 and id <= -20 then
 		return -2 -- alliance incr a lead
 	elseif id >= -150 and id <= -40 then
-		return -9 -- alliance dominating	
+		return -9 -- alliance dominating
 	else
 		return false
 	end
-end	
+end
 
 
 --arena UI WIDGET IDs array. For arena timers
@@ -1151,7 +1151,7 @@ local function InitializeBgs(...)
 	elseif CurrentZoneId == 1335 and InstanceType == "pvp" then
 		MyZone = "Zone_CookingImpossible"--Brawl Cooking Impossible added
 	elseif CurrentZoneId == 623 and InstanceType == "pvp" then
-		MyZone = "Zone_TarrenShore"--Brawl Tarren Mill vs Southshore added	
+		MyZone = "Zone_TarrenShore"--Brawl Tarren Mill vs Southshore added
 	 -- Battlefields
 	elseif CurrentZoneId == 123 or (CurrentZoneId == 1334 and InstanceType == "pvp") then --1334 is BG version of this zone
 		MyZone = "Zone_Wintergrasp"--updated
@@ -1697,7 +1697,7 @@ local function InitializeBgs(...)
 			TMSSobjectives.DeltaScore = 0
 		end
 	end
-			
+
 
 end
 
@@ -3189,9 +3189,9 @@ function PVPSound:OnEventTwo(event, ...)
 						end
 					end
 				end
-				
+
 				if MyZone == "Zone_TarrenShore" then
-					
+
 					local Hscore
 					local Ascore
 					if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(788)) then
@@ -3206,15 +3206,15 @@ function PVPSound:OnEventTwo(event, ...)
 						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == 1) and TMSSobj_state(Hscore - Ascore) == 2 then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Inc_Lead.mp3")
 						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == 2) and TMSSobj_state(Hscore - Ascore) == 9 then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")	
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeDominating.mp3")
 						elseif TMSSobj_state(TMSSobjectives.DeltaScore) == 0 and TMSSobj_state(Hscore - Ascore) == -1 then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Takes_Lead.mp3")
 						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == -1) and TMSSobj_state(Hscore - Ascore) == -2 then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Inc_Lead.mp3")
 						elseif (TMSSobj_state(TMSSobjectives.DeltaScore) == 0 or TMSSobj_state(TMSSobjectives.DeltaScore) == -2) and TMSSobj_state(Hscore - Ascore) == -9 then
-							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")		
-						
-						end					
+							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
+
+						end
 						TMSSobjectives.DeltaScore = Hscore - Ascore
 					end
 				end
@@ -3319,11 +3319,11 @@ function PVPSound:OnEventTwo(event, ...)
 				 -- The Battle for Gilneas
 				elseif MyZone == "Zone_TheBattleforGilneas" then
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					
+
 					for i = 1, #POIs do
-					
+
 						local textureIndex = C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]).textureIndex
-						
+
 						if textureIndex then
 								local type = TBFGget_objective(POIs[i])
 								if type then
@@ -3342,7 +3342,7 @@ function PVPSound:OnEventTwo(event, ...)
 												PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 											end
 										end
-										
+
 									elseif TBFGobj_state(TBFGobjectives[type]) == 4 and TBFGobj_state(textureIndex) == 2 then
 										PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 										-- Horde Dominating

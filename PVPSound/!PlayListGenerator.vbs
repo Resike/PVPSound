@@ -144,6 +144,10 @@ if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\
 	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_ArathiBasin"
 	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_ArathiBasin")
 end if
+if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_CookingImpossible") then
+	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_CookingImpossible"
+	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_CookingImpossible")
+end if
 if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_DeepwindGorge") then
 	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_DeepwindGorge"
 	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_DeepwindGorge")
@@ -156,9 +160,17 @@ if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\
 	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_IsleofConquest"
 	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_IsleofConquest")
 end if
+if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_SeethingShore") then
+	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_SeethingShore"
+	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_SeethingShore")
+end if
 if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_SilvershardMines") then
 	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_SilvershardMines"
 	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_SilvershardMines")
+end if
+if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_TarrenShore") then
+	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_TarrenShore"
+	objFSO.CreateFolder(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_TarrenShore")
 end if
 if not objFSO.FolderExists(upperScriptFolder & "PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_TempleofKotmogu") then
 	WScript.Echo "Creating folder: AddOns\PVPSound_CustomSoundPack\Sounds\" & soundPackName & "\" & soundPackLang & "\Zone_TempleofKotmogu"

@@ -1914,6 +1914,7 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Unreal Tournament 3]"].."|r")
 		end
 		if PS_KillSoundPackLanguage == "Deu" or PS_KillSoundPackLanguage == "Eng" or PS_KillSoundPackLanguage == "Esn" or PS_KillSoundPackLanguage == "Fra" or PS_KillSoundPackLanguage == "Ita" or PS_KillSoundPackLanguage == "Rus" then
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			return false
 		else
 			PS_KillSoundPackLanguage = "Eng"
@@ -1927,6 +1928,7 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Devil May Cry]"].."|r")
 		end
 		if PS_KillSoundPackLanguage == "Eng" then
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			return false
 		else
 			PS_KillSoundPackLanguage = "Eng"
@@ -1940,6 +1942,7 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Halo 4]"].."|r")
 		end
 		if PS_KillSoundPackLanguage == "Eng" then
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			return false
 		else
 			PS_KillSoundPackLanguage = "Eng"
@@ -1953,6 +1956,7 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Heroes Of The Storm]"].."|r")
 		end
 		if PS_KillSoundPackLanguage == "Murky" then
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			return false
 		else
 			PS_KillSoundPackLanguage = "Murky"
@@ -1966,6 +1970,7 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["[Dota 2]"].."|r")
 		end
 		if PS_KillSoundPackLanguage == "Axe" or PS_KillSoundPackLanguage == "Bastion" or PS_KillSoundPackLanguage == "ClockWerk" or PS_KillSoundPackLanguage == "DefenseGrid" or PS_KillSoundPackLanguage == "Glados" or PS_KillSoundPackLanguage == "Juggernaut" or PS_KillSoundPackLanguage == "Lina" or PS_KillSoundPackLanguage == "NaturesProphet" or PS_KillSoundPackLanguage == "Pflax"  or PS_KillSoundPackLanguage == "Pirate" or PS_KillSoundPackLanguage == "StanleyParable" or PS_KillSoundPackLanguage == "StormSpirit" or PS_KillSoundPackLanguage == "Trine" then
+			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			return false
 		else
 			PS_KillSoundPackLanguage = "Axe"
@@ -2247,7 +2252,7 @@ function PVPSound:PrintSlashMenu()
 	elseif PS_KillSoundPackName == "HeroesOfTheStorm" then
 		print("|cFF50C0FF"..L["Kill Sound Pack"]..": |cFFADFF2F"..L["Heroes Of The Storm"].."|r")
 	end
-	
+
 	if PS_KillSoundPackLanguage == "Default" then
 		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Default]"].."|r")
 	elseif PS_KillSoundPackLanguage == "Deu" then
@@ -2264,7 +2269,7 @@ function PVPSound:PrintSlashMenu()
 		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
 	elseif PS_KillSoundPackLanguage == "Rus" then
 		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
-	else 
+	else
 		print("|cFF50C0FF"..L["Kill Sound Pack language"]..": |cFFADFF2F"..L[PS_KillSoundPackLanguage].."|r")
 	end
 end
