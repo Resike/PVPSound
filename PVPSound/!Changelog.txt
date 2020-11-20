@@ -3,7 +3,6 @@ Issues:
 * GUI of addon is switched off at the moment. Need fixes
 
 ToDo List:
-* Add won/lost sounds for Arenas. (PVP_MATCH_COMPLETE event, but how to determine which command is 0, and which is 1)
 * Class colored Death and Data Shares.
 * Variable color for SCT messages.
 * EOTS need to be fixed for RBG
@@ -13,6 +12,7 @@ ToDo List:
 * Update for classic
 
 5.0.0d
+* Added win/lost sounds for arenas
 * Added support for Southshore vs. Tarren Mill brawl.
 * Added slash commands to change kill sound packs and languages.
 
