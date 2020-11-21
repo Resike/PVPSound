@@ -11,13 +11,15 @@ ToDo List:
 * More Ashran sounds
 * Update for classic
 
+5.0.0e
+* Added win/lost sounds for arenas.
+
 5.0.0d
-* Added win/lost sounds for arenas
+* Added support for Southshore vs. Tarren Mill brawl.
+* Added slash commands to change kill sound packs and languages.
 
 5.0.0c
 * The Battle For Gilneas fixed.
-* Tarren Mill vs Souyhshore Brawl added.
-* Some fixes in /ps menu. Added possibility to change killsoundpack, it's language and addon language
 
 5.0.0b
 * Fixed Korrak's Revenge.
