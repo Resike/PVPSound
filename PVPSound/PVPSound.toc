@@ -1,4 +1,4 @@
-## Interface: 90001
+## Interface: 90002
 ## Title: PVPSound |cFF99CC01rev|r |cFFFF00005.0.0d|r
 ## Version: 5.0.0d
 ## Author: Resike

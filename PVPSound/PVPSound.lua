@@ -3500,13 +3500,23 @@ function PVPSound:OnEventTwo(event, ...)
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
 				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TarrenShore" then
-					--print(MyZone, 222)
 					--for Wintergasp it only works in BG version, for BF version there are old methdos
 					local winner = ...
 					if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 					else
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+					end
+					BgIsOver = true
+					PVPSound:ClearPaybackQueue()
+					PVPSound:ClearRetributionQueue()
+				elseif MyZone == "Zone_Arenas" then
+					local winner = ...
+					local myFaction = GetBattlefieldArenaFaction()
+					if winner == myFaction then
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\YouHaveWonTheMatch.mp3")
+					else
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\YouHaveLostTheMatch.mp3")
 					end
 					BgIsOver = true
 					PVPSound:ClearPaybackQueue()
