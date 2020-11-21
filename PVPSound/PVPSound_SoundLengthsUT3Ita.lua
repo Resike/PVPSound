@@ -25,8 +25,8 @@ PVPSound_UnrealTournament3ItaDurations[17]				=	{ dir = "Interface\\Addons\\PVPS
 PVPSound_UnrealTournament3ItaDurations[18]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\PlayYouAreOnRed.mp3",													duration = 1.4955 }
 PVPSound_UnrealTournament3ItaDurations[19]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\PrepareForBattle.mp3",												duration = 0.7995 }
 PVPSound_UnrealTournament3ItaDurations[20]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\UnrealTournament3.mp3",												duration = 2.2395 }
-PVPSound_UnrealTournament3ItaDurations[21]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\YouHaveLostTheMatch.mp3",												duration = 1.6841 }
-PVPSound_UnrealTournament3ItaDurations[22]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\YouHaveWonTheMatch.mp3",												duration = 1.5641 }
+PVPSound_UnrealTournament3ItaDurations[21]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\YouHaveLostTheMatch.mp3",												duration = 1.7115 }
+PVPSound_UnrealTournament3ItaDurations[22]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\GameStatus\\YouHaveWonTheMatch.mp3",												duration = 1.5915 }
 PVPSound_UnrealTournament3ItaKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Kill\\1Prima Uccisione.mp3", name = "Prima Uccisione",							duration = 2.1675 }
 PVPSound_UnrealTournament3ItaKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Kill\\2Raptus Omicida.mp3", name = "Raptus Omicida",								duration = 1.9755 }
 PVPSound_UnrealTournament3ItaKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Ita\\Kill\\3Furia.mp3", name = "Furia",												duration = 1.7835 }

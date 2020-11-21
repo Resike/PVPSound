@@ -25,8 +25,8 @@ PVPSound_UnrealTournament3DeuDurations[17]				=	{ dir = "Interface\\Addons\\PVPS
 PVPSound_UnrealTournament3DeuDurations[18]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\PlayYouAreOnRed.mp3",													duration = 1.7595 }
 PVPSound_UnrealTournament3DeuDurations[19]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\PrepareForBattle.mp3",												duration = 1.0635 }
 PVPSound_UnrealTournament3DeuDurations[20]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\UnrealTournament3.mp3",												duration = 2.0475 }
-PVPSound_UnrealTournament3DeuDurations[21]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\YouHaveLostTheMatch.mp3",												duration = 1.9241 }
-PVPSound_UnrealTournament3DeuDurations[22]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\YouHaveWonTheMatch.mp3",												duration = 1.8041 }
+PVPSound_UnrealTournament3DeuDurations[21]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\YouHaveLostTheMatch.mp3",												duration = 1.9515 }
+PVPSound_UnrealTournament3DeuDurations[22]				=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\GameStatus\\YouHaveWonTheMatch.mp3",												duration = 1.8555 }
 PVPSound_UnrealTournament3DeuKillDurations[1]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Kill\\1Erstes Blut.mp3", name = "Erstes Blut",									duration = 2.6475 }
 PVPSound_UnrealTournament3DeuKillDurations[2]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Kill\\2Blutrausch.mp3", name = "Blutrausch",										duration = 2.6475 }
 PVPSound_UnrealTournament3DeuKillDurations[3]			=	{ dir = "Interface\\Addons\\PVPSound\\Sounds\\UnrealTournament3\\Deu\\Kill\\3Randale.mp3", name = "Randale",											duration = 2.2395 }
