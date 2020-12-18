@@ -1089,7 +1089,7 @@ end
 --So, I pass thruogh this array until existing arena widget will be found
 local arenaUI = {NagrandOld = 742, NagrandLegion = 920, BladesEdge = 740, BladesEdgeLegion = 929, RuinsOfLordaeron = 745, DalaranArena = 741,
 				TheRingOfValor = 743, TigersPeak = 738, ShadopanLegion = 925, BlackrookHoldArena = 905, ValsharahArena = 902, TolvirArena = 744,
-				HookPoint = 1147, Mugambala = 1144}
+				HookPoint = 1147, Mugambala = 1144, Robodrome = 2069, BastionArena = 2946}
 
 local TargetHealthObjectives = {Percent = nil}
 
@@ -2259,7 +2259,7 @@ function PVPSound:OnEvent(event, ...)
 					-- Gates
 					-- Alliance Gate (East)
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-
+					
 					for i = 1, #POIs do
 						local type = IOCget_objective(POIs[i])
 						--print(type)
