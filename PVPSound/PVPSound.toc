@@ -7,7 +7,7 @@
 ## DefaultState: Enabled
 
 Libs\LibStub\LibStub.lua
-#Libs\UIDropDownMenu\UIDropDownMenu.xml
+Libs\UIDropDownMenu\UIDropDownMenu.xml
 
 PVPSound_Localizations.lua
 PVPSound.lua
@@ -19,4 +19,4 @@ PVPSound_SoundEngine.lua
 PVPSound_SoundLengths.lua
 #..\PVPSound_CustomSoundPack\PVPSound_SoundLengthsCustom.lua
 
-#PVPSound_Options.xml
+PVPSound_Options.xml

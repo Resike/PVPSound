@@ -2259,6 +2259,9 @@ function PVPSound:OnEvent(event, ...)
 					-- Gates
 					-- Alliance Gate (East)
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
+					if #POIs == 14 then
+						print (POIs)
+					end
 					
 					for i = 1, #POIs do
 						local type = IOCget_objective(POIs[i])

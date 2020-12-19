@@ -5,13 +5,11 @@ local PS = ns.PS
 local L = ns.L
 
 local font = GameFontWhiteSmall
--- backdrop system changed in 9.0.1--fixes needed
 function PVPSoundOptions:OptionsAddonIsLoaded()
-	--PVPSoundOptions:OptionsInitalize(PVPSoundOptionsFrame)
-	PVPSoundOptions:OptionsInitalize()
-	--PVPSoundOptions:OptionsUpdateLocalization()
-	--PVPSoundOptions:OptionsUpdateFonts()
-	--PVPSoundOptions:OptionsSetSoundPackLocalizations()
+	PVPSoundOptions:OptionsInitalize(PVPSoundOptionsFrame)
+	PVPSoundOptions:OptionsUpdateLocalization()
+	PVPSoundOptions:OptionsUpdateFonts()
+	PVPSoundOptions:OptionsSetSoundPackLocalizations()
 end
 
 function PVPSoundOptions:OptionsInitalize(self)
@@ -21,16 +19,32 @@ function PVPSoundOptions:OptionsInitalize(self)
 	end
 	SLASH_PVPSound1 = "/ps"
 	SLASH_PVPSound2 = "/pvpsound"
-	--self:SetBackdropColor(0.1, 0.1, 0.1)
-	--self:SetBackdropBorderColor(0.9, 1.0, 0.9)
-	--PVPSoundOptionsHeader:SetText("PVPSound "..GetAddOnMetadata("PVPSound", "Version"))
-	--PVPSoundOptions:OptionsInitalizeButtons()
-	--tinsert(UISpecialFrames, self:GetName())
+	self:SetBackdrop({
+		bgFile = "Interface/DialogFrame/UI-DialogBox-Background",
+		edgeFile = "Interface/DialogFrame/UI-DialogBox-Border",
+		edgeSize = 32,
+		tile = "true",
+		tileSize = 200,
+		insets = { left = 10, right = 10, top = 10, bottom = 10 }
+	})
+	self:SetBackdropColor(0.1, 0.1, 0.1)
+	self:SetBackdropBorderColor(0.9, 1.0, 0.9)
+	PVPSoundOptionsHeader:SetText("PVPSound "..GetAddOnMetadata("PVPSound", "Version"))
+	PVPSoundOptions:OptionsInitalizeButtons()
+	tinsert(UISpecialFrames, self:GetName())
 end
 
 function PVPSoundOptions:OptionsTabFramesInitalize(self)
-	--self:SetBackdropColor(0.1, 0.1, 0.1)
-	--self:SetBackdropBorderColor(0.0, 0.0, 0.0)
+	self:SetBackdrop({
+		bgFile = "Interface/DialogFrame/UI-DialogBox-Background",
+		edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+		edgeSize = 22,
+		tile = "true",
+		tileSize = 128,
+		insets = { left = 4, right = 4, top = 4, bottom = 4 }
+	})
+	self:SetBackdropColor(0.1, 0.1, 0.1)
+	self:SetBackdropBorderColor(0.0, 0.0, 0.0)
 end
 
 function PVPSoundOptions:OptionsTabInitalize(self, width)
@@ -1346,36 +1360,36 @@ end
 
 function PVPSoundOptions:OptionsUpdateLocalization()
 	PVPSoundOptions:OptionsSetText(PVPSoundTab1, nil, "General")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab2, nil, "AV")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab3, nil, "AB")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab4, nil, "DG")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab5, nil, "EOTS")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab6, nil, "IOC")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab7, nil, "SM")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab8, nil, "SOTA")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab9, nil, "TOK")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab10, nil, "TBFG")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab11, nil, "TP")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab12, nil, "WSG")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab13, nil, "TB")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab14, nil, "WG")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab2, nil, "AV")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab3, nil, "AB")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab4, nil, "DG")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab5, nil, "EOTS")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab6, nil, "IOC")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab7, nil, "SM")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab8, nil, "SOTA")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab9, nil, "TOK")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab10, nil, "TBFG")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab11, nil, "TP")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab12, nil, "WSG")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab13, nil, "TB")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab14, nil, "WG")
 	PVPSoundOptions:OptionsSetText(PVPSoundTab1Frame, "Text", "General")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab2Frame, "Text", "Alterac Valley")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab3Frame, "Text", "Arathi Basin")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab4Frame, "Text", "Deepwind Gorge")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab5Frame, "Text", "Eye of the Storm")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab6Frame, "Text", "Isle of Conquest")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab7Frame, "Text", "Silvershard Mines")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab8Frame, "Text", "Strand of the Ancients")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab9Frame, "Text", "Temple of Kotmogu")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab10Frame, "Text", "The Battle for Gilneas")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab11Frame, "Text", "Twin Peaks")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab12Frame, "Text", "Warsong Gulch")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab13Frame, "Text", "Tol Barad")
-	PVPSoundOptions:OptionsSetText(PVPSoundTab14Frame, "Text", "Wintergrasp")
-	PVPSoundOptions:OptionsSetText(PVPSoundLanguageDropDown, "Label", "Addon Language")
-	PVPSoundOptions:OptionsSetText(PVPSoundEnableAddonButton, "Text", "Enable addon")
-	PVPSoundOptions:OptionsSetText(PVPSoundKillSoundPackDropDown, "Label", "Kill Sound Pack")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab2Frame, "Text", "Alterac Valley")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab3Frame, "Text", "Arathi Basin")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab4Frame, "Text", "Deepwind Gorge")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab5Frame, "Text", "Eye of the Storm")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab6Frame, "Text", "Isle of Conquest")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab7Frame, "Text", "Silvershard Mines")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab8Frame, "Text", "Strand of the Ancients")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab9Frame, "Text", "Temple of Kotmogu")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab10Frame, "Text", "The Battle for Gilneas")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab11Frame, "Text", "Twin Peaks")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab12Frame, "Text", "Warsong Gulch")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab13Frame, "Text", "Tol Barad")
+	--PVPSoundOptions:OptionsSetText(PVPSoundTab14Frame, "Text", "Wintergrasp")
+	--PVPSoundOptions:OptionsSetText(PVPSoundLanguageDropDown, "Label", "Addon Language")
+	--PVPSoundOptions:OptionsSetText(PVPSoundEnableAddonButton, "Text", "Enable addon")
+	--PVPSoundOptions:OptionsSetText(PVPSoundKillSoundPackDropDown, "Label", "Kill Sound Pack")
 	PVPSoundOptions:OptionsSetKillSoundPackText(PVPSoundKillSoundPackDropDown)
 	if PS_KillSoundPackName == "Dota2" then
 		PVPSoundOptions:OptionsSetText(PVPSoundKillSoundPackLanguageDropDown, "Label", "Kill Sound Pack Type")
@@ -1499,8 +1513,8 @@ function PVPSound:SlashCommands(arg1)
 	-- Arg2 is converted to lower case
 	local arg2 = string.lower(arg1)
 	if arg2 == "" then
-		--PVPSoundOptions:OptionsToggleMenu()
-		PVPSound:PrintSlashMenu()--temporary, while xml frame switched off
+		PVPSoundOptions:OptionsToggleMenu()
+		--PVPSound:PrintSlashMenu()--temporary, while xml frame switched off
 	elseif arg2 == "slash" then
 		PVPSound:PrintSlashMenu()
 	elseif arg2 == "enable" then
