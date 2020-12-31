@@ -186,8 +186,6 @@ local MyGender
 -- Battlegrounds
 local IsRated
 local BgIsOver
-local IocAllianceGateDown
-local IocHordeGateDown
 local AlreadyPlaySound
 local LastScored
 
@@ -756,8 +754,9 @@ end
 
 -- Isle of Conquest
 local IOCobjectives = {AllianceGateE = nil, AllianceGateW = nil, AllianceGateS = nil, HordeGateE = nil, HordeGateW = nil, HordeGateN = nil, Quarry = nil, Workshop = nil, Hangar = nil, Docks = nil, Refinerie = nil, HordeKeep = nil, AllianceKeep = nil}
+local IocAllianceGateDown
+local IocHordeGateDown
 
---remade to POI IDs, not texture IDs, because now the position of POI in POI table not permanent
 local function IOCget_objective(id)
 	if id >= 2361 and id <= 2365 then
 		return "Quarry"
@@ -1125,7 +1124,7 @@ local function InitializeBgs(...)
 	TimerReset = true
 
 
-	-- Battlegrounds --need to change zone ids--add new bg
+	-- Battlegrounds
 	if CurrentZoneId == 1339 and InstanceType == "pvp" then
 		MyZone = "Zone_WarsongGulch"--updated
 	elseif (CurrentZoneId == 1366 or CurrentZoneId == 837) and InstanceType == "pvp" then --837 is winter AB
@@ -1346,127 +1345,15 @@ local function InitializeBgs(...)
 		--checked in init POI loop
 		IocAllianceGateDown = false
 		IocHordeGateDown = false
-
-		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-
-		local AllianceGateEInit
-		local AllianceGateWInit
-		local AllianceGateSInit
-		local DocksInit
-		local HangarInit
-		local HordeGateEInit
-		local HordeGateWInit
-		local HordeGateNInit
-		local QuarryInit
-		local RefinerieInit
-		local WorkshopInit
-		local HordeKeepInit
-		local AllianceKeepInit
-		local HordeTowerInit
-		local AllianceTowerInit
-
-		for i = 1, #POIs do
-			if (IOCget_objective(POIs[i]) == "AllianceGateE") then
-				AllianceGateEInit = POIs[i]
-				if IOCobj_state(AllianceGateEInit) == 7 then
-					IocAllianceGateDown = true
-				end
-			elseif (IOCget_objective(POIs[i]) == "AllianceGateW") then
-				AllianceGateWInit = POIs[i]
-				if IOCobj_state(AllianceGateWInit) == 7 then
-					IocAllianceGateDown = true
-				end
-			elseif (IOCget_objective(POIs[i]) == "AllianceGateS") then
-				AllianceGateSInit = POIs[i]
-				if IOCobj_state(AllianceGateSInit) == 7 then
-					IocAllianceGateDown = true
-				end
-			elseif (IOCget_objective(POIs[i]) == "HordeGateE") then
-				HordeGateEInit = POIs[i]
-				if IOCobj_state(HordeGateEInit) == 8 then
-					IocHordeGateDown = true
-				end
-			elseif (IOCget_objective(POIs[i]) == "HordeGateW") then
-				HordeGateWInit = POIs[i]
-				if IOCobj_state(HordeGateWInit) == 8 then
-					IocHordeGateDown = true
-				end
-			elseif (IOCget_objective(POIs[i]) == "HordeGateN") then
-				HordeGateNInit = POIs[i]
-				if IOCobj_state(HordeGateNInit) == 8 then
-					IocHordeGateDown = true
-				end
-			elseif (IOCget_objective(POIs[i]) == "Quarry") then
-				QuarryInit = POIs[i]
-			elseif (IOCget_objective(POIs[i]) == "Refinerie") then
-				RefinerieInit = POIs[i]
-			elseif (IOCget_objective(POIs[i]) == "Workshop") then
-				WorkshopInit = POIs[i]
-			elseif (IOCget_objective(POIs[i]) == "Docks") then
-				DocksInit = POIs[i]
-			elseif (IOCget_objective(POIs[i]) == "Hangar") then
-				HangarInit = POIs[i]
-			elseif (IOCget_objective(POIs[i]) == "HordeKeep") then
-				HordeTowerInit = POIs[i]
-			elseif (IOCget_objective(POIs[i]) == "AllianceKeep") then
-				AllianceTowerInit = POIs[i]
-			end
+		
+		ObgInit(IOCobjectives, IOCget_objective)
+		
+		if IOCobj_state(IOCobjectives.HordeGateE) == 8 or IOCobj_state(IOCobjectives.HordeGateW) == 8 or IOCobj_state(IOCobjectives.HordeGateN) == 8 then
+			IocHordeGateDown = true
 		end
-
-		IOCobjectives.AllianceGateE = nil
-		IOCobjectives.AllianceGateW = nil
-		IOCobjectives.AllianceGateS = nil
-		IOCobjectives.HordeGateE = nil
-		IOCobjectives.HordeGateW = nil
-		IOCobjectives.HordeGateN = nil
-		IOCobjectives.Quarry = nil
-		IOCobjectives.Refinerie = nil
-		IOCobjectives.Workshop = nil
-		IOCobjectives.Docks = nil
-		IOCobjectives.Hangar = nil
-		IOCobjectives.HordeKeep = nil
-		IOCobjectives.AllianceKeep = nil
-
-		if AllianceGateEInit then
-			IOCobjectives.AllianceGateE = AllianceGateEInit
+		if IOCobj_state(IOCobjectives.AllianceGateE) == 7 or IOCobj_state(IOCobjectives.AllianceGateW) == 7 or IOCobj_state(IOCobjectives.AllianceGateS) == 7 then
+			IocAllianceGateDown = true
 		end
-		if AllianceGateWInit then
-			IOCobjectives.AllianceGateW = AllianceGateWInit
-		end
-		if AllianceGateSInit then
-			IOCobjectives.AllianceGateS = AllianceGateSInit
-		end
-		if HordeGateEInit then
-			IOCobjectives.HordeGateE = HordeGateEInit
-		end
-		if HordeGateWInit then
-			IOCobjectives.HordeGateW = HordeGateWInit
-		end
-		if HordeGateNInit then
-			IOCobjectives.HordeGateN = HordeGateNInit
-		end
-		if QuarryInit then
-			IOCobjectives.Quarry = QuarryInit
-		end
-		if RefinerieInit then
-			IOCobjectives.Refinerie = RefinerieInit
-		end
-		if WorkshopInit then
-			IOCobjectives.Workshop = WorkshopInit
-		end
-		if DocksInit then
-			IOCobjectives.Docks = DocksInit
-		end
-		if HangarInit then
-			IOCobjectives.Hangar = HangarInit
-		end
-		if HordeTowerInit then
-			IOCobjectives.HordeKeep = HordeKeepInit
-		end
-		if AllianceTowerInit then
-			IOCobjectives.AllianceKeep = AllianceKeepInit
-		end
-
 		--reinforcements init
 		local AReinforcementsInit
 		local HReinforcementsInit
@@ -1542,20 +1429,7 @@ local function InitializeBgs(...)
 			DGobjectives.Quarry = QuarryInit
 		end
 	end
-	--there is no win message in SM. should be replaced with PVP_MATCH_COMPELTE event
-	--if MyZone == "Zone_SilvershardMines" then
-	--	if C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1687) then
-	--		local HordeScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).rightBarValue
-	--		local AllianceScoreInit = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(2).leftBarValue
-	--
-	--		SMWINobjectives.Resources = nil
-	--	if HordeScoreInit then
-	--		SMWINobjectives.Resources = tonumber(string.match(HordeScoreInit, "(%d+)/"))
-	--	end
-	--	if AllianceScoreInit then
-	--		SMWINobjectives.Resources = tonumber(string.match(AllianceScoreInit, "(%d+)/"))
-	--	end
-	--end
+
 	if MyZone == "Zone_Wintergrasp" then
 		local isActive
 		if CurrentZoneId == 123 and (select(5, GetWorldPVPAreaInfo(1))) == 0 then
@@ -1930,9 +1804,9 @@ function PVPSound:OnEvent(event, ...)
 			end
 
 			-- Battleground WinSounds
-			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
+			--[==[if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
 				local EventMessage = select(1, ...)
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_IsleofConquest" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					if (string.find(EventMessage, L["Alliance wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Alliance wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
 						BgIsOver = true
@@ -1945,7 +1819,7 @@ function PVPSound:OnEvent(event, ...)
 						PVPSound:ClearRetributionQueue()
 					end
 				end
-			end
+			end]==]--
 			--parsing pvp info from chat
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
@@ -2257,16 +2131,29 @@ function PVPSound:OnEvent(event, ...)
 				 -- Isle of Conquest
 				if MyZone == "Zone_IsleofConquest" then
 					-- Gates
-					-- Alliance Gate (East)
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-					if #POIs == 14 then
-						print (POIs)
+					--marked table
+					local marked = {}
+					
+					--if POI number greater then 13 (normal value)
+					--mark duplicate POI by counting each objective type
+					--if objective have counter==2 then don't check objective state change and don't play sounds for it
+					if #POIs ~= 13 then
+						--find and mark duplicated POI
+						for k, v in pairs(IOCobjectives) do
+							--initialize
+							marked[k] = 0
+						end
+						for i = 1, #POIs do
+							--obj counter
+							marked[IOCget_objective(POIs[i])] = marked[IOCget_objective(POIs[i])]+1
+						end
 					end
 					
 					for i = 1, #POIs do
 						local type = IOCget_objective(POIs[i])
-						--print(type)
-						if type then
+						--print(type, marked[type])
+						if type and (marked[type]~=2) then
 							local textureIndex = POIs[i]
 							if textureIndex then
 								if IOCobj_state(IOCobjectives[type]) == 5 and IOCobj_state(textureIndex) == 7 then
@@ -2281,8 +2168,12 @@ function PVPSound:OnEvent(event, ...)
 									end
 								elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 1 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 3 and IOCobj_state(textureIndex) == 2 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 								elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 2 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
+								elseif IOCobj_state(IOCobjectives[type]) == 4 and IOCobj_state(textureIndex) == 1 then
+									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Base_Defense.mp3")
 								elseif IOCobj_state(IOCobjectives[type]) == 1 and IOCobj_state(textureIndex) == 4 then
 									PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Offense.mp3")
 								elseif IOCobj_state(IOCobjectives[type]) == 2 and IOCobj_state(textureIndex) == 3 then
@@ -3502,7 +3393,8 @@ function PVPSound:OnEventTwo(event, ...)
 
 				end
 			elseif event == "PVP_MATCH_COMPLETE" then
-				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TarrenShore" then
+				if MyZone == "Zone_SilvershardMines" or MyZone == "Zone_Wintergrasp" or MyZone == "Zone_CookingImpossible" or MyZone == "Zone_Ashran" or MyZone == "Zone_TheBattleforGilneas" or MyZone == "Zone_TarrenShore" or MyZone == "Zone_IsleofConquest"
+				   or MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					--for Wintergasp it only works in BG version, for BF version there are old methdos
 					local winner = ...
 					if winner == 0 then
