@@ -1345,9 +1345,9 @@ local function InitializeBgs(...)
 		--checked in init POI loop
 		IocAllianceGateDown = false
 		IocHordeGateDown = false
-		
+
 		ObgInit(IOCobjectives, IOCget_objective)
-		
+
 		if IOCobj_state(IOCobjectives.HordeGateE) == 8 or IOCobj_state(IOCobjectives.HordeGateW) == 8 or IOCobj_state(IOCobjectives.HordeGateN) == 8 then
 			IocHordeGateDown = true
 		end
@@ -1694,14 +1694,22 @@ function PVPSound:OnEvent(event, ...)
 					KilledMe = nil
 					KilledBy = nil
 					if IsRated == true then
-						local AllianceSpellName = (select(1, GetSpellInfo(81748)))
-						local HordeSpellName = (select(1, GetSpellInfo(81744)))
+						local AllianceBuff
+						local HordeBuff
+						for i = 1, 40 do
+							local _, _, _, _, _, _, _, _, _, spellID = UnitBuff("player", i, "HELPFUL")
+							if spellID == 81748 then
+								AllianceBuff = true
+							elseif spellID == 81744 then
+								HordeBuff = true
+							end
+						end
 						-- Alliance RBG buff
-						if MyFaction == "Horde" and AllianceSpellName ~= nil and (select(11, UnitBuff("player", AllianceSpellName))) == 81748 and AlreadyPlaySound ~= true then
+						if MyFaction == "Horde" and AllianceBuff and AlreadyPlaySound ~= true then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
 							AlreadyPlaySound = true
 						 -- Horde RBG buff
-						elseif MyFaction == "Alliance" and HordeSpellName ~= nil and (select(11, UnitBuff("player", HordeSpellName))) == 81744 and AlreadyPlaySound ~= true then
+						elseif MyFaction == "Alliance" and HordeBuff and AlreadyPlaySound ~= true then
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
 							AlreadyPlaySound = true
 						else
@@ -2134,7 +2142,7 @@ function PVPSound:OnEvent(event, ...)
 					local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 					--marked table
 					local marked = {}
-					
+
 					--if POI number greater then 13 (normal value)
 					--mark duplicate POI by counting each objective type
 					--if objective have counter==2 then don't check objective state change and don't play sounds for it
@@ -2149,7 +2157,7 @@ function PVPSound:OnEvent(event, ...)
 							marked[IOCget_objective(POIs[i])] = marked[IOCget_objective(POIs[i])]+1
 						end
 					end
-					
+
 					for i = 1, #POIs do
 						local type = IOCget_objective(POIs[i])
 						--print(type, marked[type])

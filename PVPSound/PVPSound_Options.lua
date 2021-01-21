@@ -963,8 +963,7 @@ function PVPSoundOptions:OptionsKillSoundPack(name, soundpackname)
 		end
 		PVPSoundOptions:OptionsSetKillSoundPack()
 		Lib_UIDropDownMenu_SetText(frame, L["Custom"])
-		local TestSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."TestDurations")
-		PlaySoundFile(TestSoundLengthTable[1].dir, PS_Channel)
+		PlaySoundFile("Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\Test\\01Pancake.mp3", PS_Channel)
 		Lib_CloseDropDownMenus()
 	end
 	PVPSoundOptions:OptionsSetSoundPackLocalizations()
@@ -999,7 +998,7 @@ function PVPSoundOptions:OptionsSoundPack(name, soundpackname)
 		end
 		PVPSoundOptions:OptionsSetSoundPack()
 		Lib_UIDropDownMenu_SetText(frame, L["Custom"])
-		PlaySoundFile(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
+		PlaySoundFile("Interface\\Addons\\PVPSound_CustomSoundPack\\Sounds\\Custom\\Default\\GameStatus\\UnrealTournament3.mp3", PS_Channel)
 		Lib_CloseDropDownMenus()
 	end
 	--print(PS_SoundPackName)
