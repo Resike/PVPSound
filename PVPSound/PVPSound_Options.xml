@@ -177,18 +177,7 @@
 		</HighlightTexture>
 	</Button>
 	<!-- GameTooltip Template -->
-	<GameTooltip name = "PVPSoundGameTooltipTemplate" frameStrata = "TOOLTIP" clampedToScreen = "true" hidden = "true" virtual = "true">
-		<Backdrop bgFile = "Interface\Tooltips\UI-Tooltip-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-			<EdgeSize>
-				<AbsValue val = "16"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val = "16"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left = "5" right = "5" top = "5" bottom = "5"/>
-			</BackgroundInsets>
-		</Backdrop>
+	<GameTooltip name = "PVPSoundGameTooltipTemplate" frameStrata = "TOOLTIP" clampedToScreen = "true" hidden = "true" virtual = "true" inherits = "BackdropTemplate">
 		<Layers>
 			<Layer level = "ARTWORK">
 				<FontString name = "$parentTextLeft1" inherits = "PVPSoundFontMediumYellow" hidden = "true">
@@ -472,7 +461,7 @@
 		</Scripts>
 	</GameTooltip>
 	<!-- Main Options Frame -->
-	<Frame name = "PVPSoundOptionsFrame" movable = "true" parent = "UIParent" frameStrata = "DIALOG" toplevel = "true" hidden = "true" enableMouse = "true" enableKeyboard = "true">
+	<Frame name = "PVPSoundOptionsFrame" movable = "true" parent = "UIParent" frameStrata = "DIALOG" toplevel = "true" hidden = "true" enableMouse = "true" enableKeyboard = "true" inherits = "BackdropTemplate">
 		<Size>
 			<AbsDimension x = "850" y = "500"/>
 		</Size>
@@ -483,17 +472,6 @@
 				</Offset>
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\DialogFrame\UI-DialogBox-Border" tile = "true">
-			<BackgroundInsets>
-				<AbsInset left = "10" right = "10" top = "10" bottom = "10"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val = "200"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val = "32"/>
-			</EdgeSize>
-		</Backdrop>
 		<Scripts>
 			<OnShow>
 				PlaySound(6144, PS_Channel)
@@ -555,7 +533,7 @@
 				</Anchors>
 			</Button>
 			<!-- Tab 1 Frame-->
-			<Frame name = "PVPSoundTab1Frame" hidden = "true">
+			<Frame name = "PVPSoundTab1Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -566,17 +544,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "22"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -974,8 +941,9 @@
 					</OnLoad>
 				</Scripts>
 			</Frame>
+			<!-- Tab Frames temporary disabled-->
 			<!-- Tab 2 Frame-->
-			<Frame name = "PVPSoundTab2Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab2Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -986,17 +954,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1019,9 +976,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 3 Frame-->
-			<Frame name = "PVPSoundTab3Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab3Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1032,17 +989,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1065,9 +1011,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 4 Frame-->
-			<Frame name = "PVPSoundTab4Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab4Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1078,17 +1024,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1111,9 +1046,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 5 Frame-->
-			<Frame name = "PVPSoundTab5Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab5Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1124,17 +1059,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1157,9 +1081,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 6 Frame-->
-			<Frame name = "PVPSoundTab6Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab6Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1170,17 +1094,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1203,9 +1116,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 7 Frame-->
-			<Frame name = "PVPSoundTab7Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab7Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1216,17 +1129,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1249,9 +1151,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 8 Frame-->
-			<Frame name = "PVPSoundTab8Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab8Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1262,17 +1164,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1295,9 +1186,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 9 Frame-->
-			<Frame name = "PVPSoundTab9Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab9Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1308,17 +1199,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1341,9 +1221,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 10 Frame-->
-			<Frame name = "PVPSoundTab10Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab10Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1354,17 +1234,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1387,9 +1256,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 11 Frame-->
-			<Frame name = "PVPSoundTab11Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab11Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1400,17 +1269,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1433,9 +1291,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 12 Frame-->
-			<Frame name = "PVPSoundTab12Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab12Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1446,17 +1304,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1479,9 +1326,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 13 Frame-->
-			<Frame name = "PVPSoundTab13Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab13Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1492,17 +1339,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1525,9 +1361,9 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
 			<!-- Tab 14 Frame-->
-			<Frame name = "PVPSoundTab14Frame" hidden = "true">
+			<!--Frame name = "PVPSoundTab14Frame" hidden = "true" inherits = "BackdropTemplate">
 				<Size>
 					<AbsDimension x = "800" y = "416"/>
 				</Size>
@@ -1538,17 +1374,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile = "Interface/DialogFrame/UI-DialogBox-Background" edgeFile = "Interface\Tooltips\UI-Tooltip-Border" tile = "true">
-					<EdgeSize>
-						<AbsValue val = "20"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val = "128"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left = "4" right = "4" top = "4" bottom = "4"/>
-					</BackgroundInsets>
-				</Backdrop>
 				<Layers>
 					<Layer>
 						<FontString name = "$parentText" inherits = "PVPSoundFontLargeYellow" justifyH = "CENTER">
@@ -1571,7 +1396,8 @@
 						PVPSoundOptions:OptionsTabFramesInitalize(self)
 					</OnLoad>
 				</Scripts>
-			</Frame>
+			</Frame-->
+			<!-- Tabs also disabled ,except general-->
 			<!-- Tab 1 -->
 			<Button name = "PVPSoundTab1" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
@@ -1594,7 +1420,7 @@
 				</Scripts>
 			</Button>
 			<!-- Tab 2 -->
-			<Button name = "PVPSoundTab2" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab2" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab1" relativePoint = "RIGHT">
 						<Offset>
@@ -1611,9 +1437,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 3 -->
-			<Button name = "PVPSoundTab3" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab3" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab2" relativePoint = "RIGHT">
 						<Offset>
@@ -1630,9 +1456,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 4 -->
-			<Button name = "PVPSoundTab4" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab4" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab3" relativePoint = "RIGHT">
 						<Offset>
@@ -1649,9 +1475,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 5 -->
-			<Button name = "PVPSoundTab5" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab5" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab4" relativePoint = "RIGHT">
 						<Offset>
@@ -1668,9 +1494,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 6 -->
-			<Button name = "PVPSoundTab6" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab6" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab5" relativePoint = "RIGHT">
 						<Offset>
@@ -1687,9 +1513,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 7 -->
-			<Button name = "PVPSoundTab7" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab7" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab6" relativePoint = "RIGHT">
 						<Offset>
@@ -1706,9 +1532,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 8 -->
-			<Button name = "PVPSoundTab8" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab8" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab7" relativePoint = "RIGHT">
 						<Offset>
@@ -1725,9 +1551,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 9 -->
-			<Button name = "PVPSoundTab9" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab9" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab8" relativePoint = "RIGHT">
 						<Offset>
@@ -1744,9 +1570,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 10 -->
-			<Button name = "PVPSoundTab10" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab10" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab9" relativePoint = "RIGHT">
 						<Offset>
@@ -1763,9 +1589,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 11 -->
-			<Button name = "PVPSoundTab11" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab11" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab10" relativePoint = "RIGHT">
 						<Offset>
@@ -1782,9 +1608,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 12 -->
-			<Button name = "PVPSoundTab12" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab12" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab11" relativePoint = "RIGHT">
 						<Offset>
@@ -1801,9 +1627,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 13 -->
-			<Button name = "PVPSoundTab13" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab13" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab12" relativePoint = "RIGHT">
 						<Offset>
@@ -1820,9 +1646,9 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 			<!-- Tab 14 -->
-			<Button name = "PVPSoundTab14" inherits = "PVPSoundTabButtonTemplate">
+			<!--Button name = "PVPSoundTab14" inherits = "PVPSoundTabButtonTemplate">
 				<Anchors>
 					<Anchor point = "LEFT" relativeTo = "PVPSoundTab13" relativePoint = "RIGHT">
 						<Offset>
@@ -1839,7 +1665,7 @@
 						PVPSoundOptions:OptionsTabInitalize(self, 0)
 					</OnLoad>
 				</Scripts>
-			</Button>
+			</Button-->
 		</Frames>
 	</Frame>
 </Ui>
