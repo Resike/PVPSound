@@ -933,6 +933,35 @@
 							</OnLeave>
 						</Scripts>
 					</CheckButton>
+					<CheckButton name = "PVPSoundExecuteButton" inherits = "PVPSoundCheckButtonTemplate">
+						<Size>
+							<AbsDimension x = "20" y = "20"/>
+						</Size>
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundKillSoundButton" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "0" y = "-15"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left = "2" right = "4" top = "3" bottom = "4"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Text", "Enable Execute Sounds")
+							</OnLoad>
+							<OnClick>
+								PVPSoundOptions:OptionsExecuteButtonToggle(self)
+							</OnClick>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Enables or Disables Execute sounds.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
 				</Frames>
 				<Scripts>
 					<OnLoad>

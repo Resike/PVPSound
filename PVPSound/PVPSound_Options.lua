@@ -58,9 +58,9 @@ function PVPSoundOptions:OptionsSetText(self, postfix, text)
 	local name = self:GetName()
 	local frame
 	if postfix == nil or postfix == "" then
-		frame = getglobal(name)
+		frame = _G[name]
 	else
-		frame = getglobal(name..postfix)
+		frame = _G[name..postfix]
 	end
 	frame:SetText(L[text])
 end
@@ -83,6 +83,7 @@ function PVPSoundOptions:OptionsInitalizeButtons()
 	PVPSoundOptions:OptionsEnableAddonButtonInitalize(PVPSoundEnableAddonButton)
 	PVPSoundOptions:OptionsKillSoundButtonInitalize(PVPSoundKillSoundButton)
 	PVPSoundOptions:OptionsMultiKillSoundButtonInitalize(PVPSoundMultiKillSoundButton)
+	PVPSoundOptions:OptionsExecuteButtonInitalize(PVPSoundExecuteButton)
 end
 
 function PVPSoundOptions:OptionsStartMoving(self, button)
@@ -152,6 +153,8 @@ function PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
 		PVPSoundKillSoundButtonText:SetTextColor(1, 1, 1)
 		PVPSoundMultiKillSoundButton:Enable()
 		PVPSoundMultiKillSoundButtonText:SetTextColor(1, 1, 1)
+		PVPSoundExecuteButton:Enable()
+		PVPSoundExecuteButtonText:SetTextColor(1, 1, 1)
 		Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackDropDown)
 		Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackLanguageDropDown)
 		Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundPackDropDown)
@@ -166,6 +169,8 @@ function PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
 		PVPSoundKillSoundButtonText:SetTextColor(0.5, 0.5, 0.5)
 		PVPSoundMultiKillSoundButton:Disable()
 		PVPSoundMultiKillSoundButtonText:SetTextColor(0.5, 0.5, 0.5)
+		PVPSoundExecuteButton:Disable()
+		PVPSoundExecuteButtonText:SetTextColor(0.5, 0.5, 0.5)
 		Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackDropDown)
 		Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackLanguageDropDown)
 		Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundPackDropDown)
@@ -222,6 +227,29 @@ function PVPSoundOptions:OptionsMultiKillSoundButtonToggle(self)
 		PS_MultiKillSound = false
 	end
 	--print(PS_MultiKillSound)
+end
+
+function PVPSoundOptions:OptionsExecuteButtonInitalize(self)
+	if PVPSoundEnableAddonButton:GetChecked() then
+		self:Enable()
+		PVPSoundExecuteButtonText:SetTextColor(1, 1, 1)
+	else
+		self:Disable()
+		PVPSoundExecuteButtonText:SetTextColor(0.5, 0.5, 0.5)
+	end
+	if PS_Execute == true then
+		self:SetChecked(true)
+	else
+		self:SetChecked(false)
+	end
+end
+
+function PVPSoundOptions:OptionsExecuteButtonToggle(self)
+	if self:GetChecked() then
+		PS_Execute = true
+	else
+		PS_Execute = false
+	end
 end
 
 function PVPSoundOptions.OptionsDropDownMenuInitialize(self)
@@ -1406,6 +1434,7 @@ function PVPSoundOptions:OptionsUpdateLocalization()
 	PVPSoundOptions:OptionsSetModeText(PVPSoundModeDropDown)
 	PVPSoundOptions:OptionsSetText(PVPSoundKillSoundButton, "Text", "Enable Kill Sounds")
 	PVPSoundOptions:OptionsSetText(PVPSoundMultiKillSoundButton, "Text", "Enable Multi Kill Sounds")
+	PVPSoundOptions:OptionsSetText(PVPSoundExecuteButton, "Text", "Enable Execute Sounds")
 end
 
 function PVPSoundOptions:OptionsUpdateFonts()
@@ -1513,7 +1542,6 @@ function PVPSound:SlashCommands(arg1)
 	local arg2 = string.lower(arg1)
 	if arg2 == "" then
 		PVPSoundOptions:OptionsToggleMenu()
-		--PVPSound:PrintSlashMenu()--temporary, while xml frame switched off
 	elseif arg2 == "slash" then
 		PVPSound:PrintSlashMenu()
 	elseif arg2 == "enable" then
@@ -1879,46 +1907,68 @@ function PVPSound:SlashCommands(arg1)
 	elseif arg2 == "lang rus" then
 		PS_AddonLanguage = "Russian"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Russian]"].."|r")
 	elseif arg2 == "lang eng" then
 		PS_AddonLanguage = "English"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[English]"].."|r")
 	elseif arg2 == "lang deu" then
 		PS_AddonLanguage = "German"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[German]"].."|r")
 	elseif arg2 == "lang esn" then
 		PS_AddonLanguage = "Spanish"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Spanish]"].."|r")
 	elseif arg2 == "lang latesn" then
 		PS_AddonLanguage = "LatinAmericanSpanish"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[LatinAmericanSpanish]"].."|r")
 	elseif arg2 == "lang fra" then
 		PS_AddonLanguage = "French"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[French]"].."|r")
 	elseif arg2 == "lang ita" then
 		PS_AddonLanguage = "Italian"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Italian]"].."|r")
 	elseif arg2 == "lang kr" then
 		PS_AddonLanguage = "Korean"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Korean]"].."|r")
 	elseif arg2 == "lang pt" then
 		PS_AddonLanguage = "Portuguese"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[Portuguese]"].."|r")
 	elseif arg2 == "lang tradcn" then
 		PS_AddonLanguage = "TraditionalChinese"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[TraditionalChinese]"].."|r")
 	elseif arg2 == "lang simpcn" then
 		PS_AddonLanguage = "SimplifiedChinese"
 		PVPSound:SetAddonLanguage()
+		PVPSoundOptions:OptionsUpdateLocalization()
+		PVPSoundOptions:OptionsUpdateFonts()
 		print("|cFF50C0FF"..L["Addon language"]..": |cFFADFF2F"..L["[SimplifiedChinese]"].."|r")
 	elseif arg2 == "killsoundpack ut3" then
 		PS_KillSoundPackName = "UnrealTournament3"
