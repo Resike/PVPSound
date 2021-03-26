@@ -1811,37 +1811,14 @@ function PVPSound:OnEvent(event, ...)
 				AlreadyPlaySound = false
 			end
 
-			-- Battleground WinSounds
-			--[==[if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" or event == "CHAT_MSG_BG_SYSTEM_ALLIANCE" or event == "CHAT_MSG_BG_SYSTEM_HORDE" or event == "CHAT_MSG_MONSTER_YELL" then
-				local EventMessage = select(1, ...)
-				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
-					if (string.find(EventMessage, L["Alliance wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Alliance wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Alliance is victorious"]) and BgIsOver ~= true) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
-						BgIsOver = true
-						PVPSound:ClearPaybackQueue()
-						PVPSound:ClearRetributionQueue()
-					elseif (string.find(EventMessage, L["Horde wins"]) and BgIsOver ~= true) or (string.find(EventMessage, L["Horde wins secondary"]) and BgIsOver ~= true) or (string.find(EventMessage, L["The Horde is victorious"]) and BgIsOver ~= true) then
-						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
-						BgIsOver = true
-						PVPSound:ClearPaybackQueue()
-						PVPSound:ClearRetributionQueue()
-					end
-				end
-			end]==]--
 			--parsing pvp info from chat
 			if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
 				local EventMessage = select(1, ...)
 
-				-- Tie Game
-				if string.find(EventMessage, L["Tie game"]) and BgIsOver ~= true then
-					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
-					BgIsOver = true
-					PVPSound:ClearPaybackQueue()
-					PVPSound:ClearRetributionQueue()
-				 -- Warsong Gulch and Twin Peaks Vulnerable
-				elseif MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
+				-- Warsong Gulch and Twin Peaks Vulnerable
+				if MyZone == "Zone_WarsongGulch" or MyZone == "Zone_TwinPeaks" then
 
-					if string.find(EventMessage, L["Alliance Flag has returned"]) then --i don't see such messages
+					if string.find(EventMessage, L["Alliance Flag has returned"]) then
 
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Returned.mp3")
 
@@ -3405,10 +3382,13 @@ function PVPSound:OnEventTwo(event, ...)
 				   or MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					--for Wintergasp it only works in BG version, for BF version there are old methdos
 					local winner = ...
+					print(winner)
 					if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
-					else
+					elseif winner == 1 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceWins.mp3")
+					else
+						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HumiliatingDefeat.mp3")
 					end
 					BgIsOver = true
 					PVPSound:ClearPaybackQueue()
