@@ -1888,6 +1888,20 @@ function PVPSound:SlashCommands(arg1)
 			print("|cFF50C0FF"..L["Current SubZone's Name:"].."|r")
 			print(CurrentSubZoneText)
 		end
+	elseif arg2 == "inst" then
+		local instInfo = GetInstanceInfo()
+		if instInfo.name then
+			print("|cFF50C0FF"..L["Instance name:"].."|r")
+			print(instInfo.name)
+		end
+		if instInfo.instanceType then
+			print("|cFF50C0FF"..L["Instance type:"].."|r")
+			print(instInfo.instanceType)
+		end
+		if instInfo.instanceID then
+			print("|cFF50C0FF"..L["Instance id:"].."|r")
+			print(instInfo.instanceID)
+		end
 	elseif arg2 == "pos" then
 		--updated for 8.0.1
 		local mapId = C_Map.GetBestMapForUnit("player")
