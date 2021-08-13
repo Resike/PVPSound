@@ -3382,7 +3382,6 @@ function PVPSound:OnEventTwo(event, ...)
 				   or MyZone == "Zone_WarsongGulch" or MyZone == "Zone_EyeoftheStorm" or MyZone == "Zone_ArathiBasin" or MyZone == "Zone_AlteracValley" or MyZone == "Zone_TwinPeaks" or MyZone == "Zone_TempleofKotmogu" or MyZone == "Zone_SilvershardMines" or MyZone == "Zone_DeepwindGorge" or MyZone == "Zone_SeethingShore" then
 					--for Wintergasp it only works in BG version, for BF version there are old methdos
 					local winner = ...
-					print(winner)
 					if winner == 0 then
 						PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
 					elseif winner == 1 then
