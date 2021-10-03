@@ -194,7 +194,6 @@ end
 -- winner announcer
 -- type is BG or Arena
 function API:AnnounceWinner(zone, winner)
-	print(winner)
 	if zone == "BG" then
 		if winner == 0 then
 			PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\HordeWins.mp3")
