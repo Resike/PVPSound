@@ -1,8 +1,6 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
-local L = ns.L
 
 local API = {}
 PVPSound.API = API
@@ -25,11 +23,11 @@ function API:DumpInfo()
 	end
 end
 
--- Dump all modules
+-- Dump all modules with loaded state
 function API:DumpModules()
-	i = 1
-	for k, v in pairs(PVPSoumd.modules) do
-		print(i, v.name)
+	local i = 1
+	for _, v in pairs(PVPSound.modules) do
+		print(i, v.name, v.loaded)
 		i = i + 1
 	end
 end
@@ -52,8 +50,11 @@ BGFrame:SetScript("OnEvent", function(frame, event, ...)
 
 
 function API:ShowRegisteredEvents()
-	for k, v in pairs(eventMap) do
-		print("event: ", k, "; function: ", v)
+	for k, t in pairs(eventMap) do
+		print("event: ", k)
+		for k, v in pairs(t) do
+			print("    module: " , k, " function: ", v)
+		end
 	end
 end
 
@@ -71,7 +72,7 @@ function API:RegisterEvent(event, func)
 		PVPSound:Error("RegisterEvent: Function reference expected")
 		return false
 	end
-	
+
 	if BGFrame then
 		BGFrame:RegisterEvent(event)
 		if not eventMap[event] then eventMap[event] = {} end
@@ -125,14 +126,14 @@ function API:RegisterMod(zoneId, pvptype, name, instId)
 		PVPSound:Error("zone id should be a number to register module "..mod.name)
 		return false
 	end
-	
+
 	if pvptype and type(pvptype) == "string" then
 		mod.type = pvptype
 	else
 		PVPSound:Error("pvptype should be a string to register module "..mod.name)
 		return false
 	end
-	
+
 	if instId and type(zoneId) == "number" then
 		mod.instId = instId
 	elseif instId then
@@ -141,67 +142,52 @@ function API:RegisterMod(zoneId, pvptype, name, instId)
 	else
 		mod.instId = nil
 	end
-	
+
 	-- default methods and fields
 	mod.loaded = false
 	function mod:Initialize()
 		if not mod.loaded then
-			API:AnnounceBG()
+			API:Announce("BG")
 		end
 		mod.loaded = true
 	end
-	
+
 	function mod:Unload()
 		API:UnregisterAllEvents()
 		mod.loaded = false
 	end
-	
+
 	PVPSound.modules[zoneId] = mod
 	return mod
 end
 
 -----------------------------------
--- BG Team announcer when BG starts
-function API:AnnounceBG()
-	--print(AlreadyPlaySound)
-	local MyFaction = UnitFactionGroup("player")
-	local IsRated = C_PvP.IsRatedBattleground()
-	if IsRated == true then
-		local AllianceBuff
-		local HordeBuff
-		for i = 1, 40 do
-			local _, _, _, _, _, _, _, _, _, spellID = UnitBuff("player", i, "HELPFUL")
-			if spellID == 81748 then
-				AllianceBuff = true
-			elseif spellID == 81744 then
-				HordeBuff = true
-			end
-		end
-		-- Alliance RBG buff
-		if MyFaction == "Horde" and AllianceBuff and AlreadyPlaySound ~= true then
-			PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
-			--AlreadyPlaySound = true
-		 -- Horde RBG buff
-		elseif MyFaction == "Alliance" and HordeBuff and AlreadyPlaySound ~= true then
-			PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
-			--AlreadyPlaySound = true
+-- BG and Arena Team announcer when BG starts
+function API:Announce(zone)
+	if zone == "BG" then
+		local MyFaction
+		-- 1 for Alliance
+		-- 0 for Horde
+		if PS.isRetail then
+			MyFaction = GetBattlefieldArenaFaction()
 		else
-			if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
-				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
-				--AlreadyPlaySound = true
-			elseif MyFaction == "Horde" and AlreadyPlaySound ~= true then
-				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
-				--AlreadyPlaySound = true
+			MyFaction = UnitFactionGroup("player")
+			if MyFaction == "Horde" then
+				MyFaction = 0
+			elseif MyFaction == "Alliance" then
+				MyFaction = 1
 			end
 		end
-	else
-		if MyFaction == "Alliance" and AlreadyPlaySound ~= true then
+
+		if MyFaction == 1 then
 			PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnBlue.mp3")
-			--AlreadyPlaySound = true
-		elseif MyFaction == "Horde" and AlreadyPlaySound ~= true then
+		elseif MyFaction == 0 then
 			PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PlayYouAreOnRed.mp3")
-			--AlreadyPlaySound = true
 		end
+	elseif zone == "Arena" then
+		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\PrepareForBattle.mp3")
+	else
+		return false
 	end
 end
 
@@ -310,6 +296,7 @@ function API:TimeRemaining_check(id)
 		return false
 	end
 end
+
 -- stops all time remaining timers
 function API:StopTimers()
 	TimerStopped = true
@@ -320,7 +307,6 @@ end
 function API:ResetTimers()
 	TimerStopped = false
 end
-
 
 --------------------------
 -- Objective initializator
@@ -343,7 +329,7 @@ function API:ObjInit(zoneId, objectives, get, textureMode)
 
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(zoneId)
 	local objective
-	
+
 	--reset all objectives
 	for k, v in pairs(objectives) do
 		objectives[k] = nil
@@ -371,5 +357,4 @@ function API:ObjInit(zoneId, objectives, get, textureMode)
 			end
 		end
 	end
-
 end

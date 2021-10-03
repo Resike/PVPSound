@@ -5,7 +5,7 @@
 	 /  |))\\ \:'/ // /  |))\\ _\  \_// /  _  \\ \:.\\_\ \\ /  :   \\ /   _ \\
 	/:. ___//  \  // /:. ___//// \:.\  /:.(_)) \\ \  :.  ///:. |   ///:. |_\ \\
 	\_ \\     (_  _))\_ \\    \\__  /  \  _____//(_   ___))\___|  // \  _____//
-	  \//       \//    \//       \\/    \//        \//4.0.0     \//   \//
+	  \//       \//    \//       \\/    \//        \//5.1.0     \//   \//
 
 	PVPSound
 	Copyright (c) 2010-2020 Resperger Dániel (Resike)
@@ -24,7 +24,6 @@ local PS = ns.PS
 local L = ns.L
 
 
-
 local bit = bit
 local ceil = ceil
 local floor = floor
@@ -37,30 +36,18 @@ local table = table
 local tonumber = tonumber
 local tostring = tostring
 
-local C_AreaPoiInfo = C_AreaPoiInfo
 local C_ChatInfo = C_ChatInfo
 local C_Map = C_Map
-local C_PvP = C_PvP
-local C_Timer = C_Timer
-local C_UIWidgetManager = C_UIWidgetManager
-
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local CreateFrame = CreateFrame
 local GetAddOnCPUUsage = GetAddOnCPUUsage
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
-local GetBattlefieldFlagPosition = GetBattlefieldFlagPosition
-local GetBuildInfo = GetBuildInfo
-local GetRealZoneText = GetRealZoneText
-local GetSpellInfo = GetSpellInfo
 local GetTime = GetTime
-local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
 local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
 local PlaySoundFile = PlaySoundFile
 local SendChatMessage = SendChatMessage
-local UnitBuff = UnitBuff
 local UnitExists = UnitExists
-local UnitFactionGroup = UnitFactionGroup
 local UnitGUID = UnitGUID
 local UnitHealth = UnitHealth
 local UnitHealthMax = UnitHealthMax
@@ -71,7 +58,6 @@ local UnitName = UnitName
 local UnitSex = UnitSex
 local UpdateAddOnCPUUsage = UpdateAddOnCPUUsage
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
-
 local CombatLog_Object_IsA = CombatLog_Object_IsA
 
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
@@ -86,89 +72,112 @@ local UnitName = UnitName]]
 --addon modules table
 PVPSound.modules = { }
 
-
 local PVPSoundFrame = CreateFrame("Frame", nil)
 PVPSoundFrame:RegisterEvent("ADDON_LOADED")
 
-function PVPSound:OnLoad()
-	if PS_EnableAddon == true then
-		PVPSoundFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-		PVPSoundFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		PVPSoundFrame:RegisterEvent("PLAYER_DEAD")
-		PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
-		PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
-		PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
-		PVPSoundFrame:RegisterEvent("CHAT_MSG_MONSTER_YELL")
-		PVPSoundFrame:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-		PVPSoundFrame:RegisterEvent("AREA_POIS_UPDATED")
-		PVPSoundFrame:RegisterEvent("LOADING_SCREEN_DISABLED")
+local PVPSoundFrameBG
+local PVPSoundFrameExecute
+local PVPSoundFrameKills
+local PVPSoundFrameData
+
+function PVPSound:LoadBG()
+	if PS_EnableAddon == true and PS_BattlegroundSound == true then
+		if not PVPSoundFrameBG then
+			PVPSoundFrameBG = CreateFrame("Frame", nil)
+		end
+		PVPSoundFrameBG:RegisterEvent("PLAYER_ENTERING_WORLD")
+		PVPSoundFrameBG:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+		PVPSoundFrameBG:SetScript("OnEvent", PVPSound.OnEventBG)
+		PVPSound:Debug("!BG Events Loaded")
 	end
 end
 
-local PVPSoundFrameTwo = CreateFrame("Frame", nil)
-
-function PVPSound:OnLoadTwo()
-	if PS_EnableAddon == true then
-		PVPSoundFrameTwo:RegisterEvent("PLAYER_TARGET_CHANGED")
-		PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
-		PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
-		PVPSoundFrameTwo:RegisterEvent("UPDATE_UI_WIDGET")
-		PVPSoundFrameTwo:RegisterEvent("AREA_POIS_UPDATED")
-		PVPSoundFrameTwo:RegisterEvent("PVP_MATCH_COMPLETE")
+-- If this function will be called during DG, nothng happens, but the next BG will not be loaded.
+function PVPSound:UnloadBG()
+	if PVPSoundFrameBG then
+		PVPSoundFrameBG:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		PVPSoundFrameBG:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
+		PVPSound:Debug("!BG Events Unloaded")
 	end
 end
 
-local PVPSoundFrameThree = CreateFrame("Frame", nil)
-
-function PVPSound:OnLoadThree()
-	if PS_EnableAddon == true then
-		PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+function PVPSound:LoadExecute()
+	if PS_EnableAddon == true and PS_Execute == true then
+		if not PVPSoundFrameExecute then
+			PVPSoundFrameExecute = CreateFrame("Frame", nil)
+		end
+		PVPSoundFrameExecute:RegisterEvent("PLAYER_TARGET_CHANGED")
+		PVPSoundFrameExecute:RegisterEvent("UNIT_HEALTH")
+		PVPSoundFrameExecute:RegisterEvent("UNIT_MAXHEALTH")
+		PVPSoundFrameExecute:SetScript("OnEvent", PVPSound.OnEventExecute)
+		PVPSound:Debug("!Execute Events Loaded")
 	end
 end
 
+function PVPSound:UnloadExecute()
+	if PVPSoundFrameExecute then
+		PVPSoundFrameExecute:UnregisterEvent("PLAYER_TARGET_CHANGED")
+		PVPSoundFrameExecute:UnregisterEvent("UNIT_HEALTH")
+		PVPSoundFrameExecute:UnregisterEvent("UNIT_MAXHEALTH")
+		PVPSound:Debug("!Execute Events Unloaded")
+	end
+end
+
+function PVPSound:LoadKills()
+	if PS_EnableAddon == true and (PS_KillSound == true or PS_MultiKillSound == true or PS_PaybackSound == true) then
+		if not PVPSoundFrameKills then
+			PVPSoundFrameKills = CreateFrame("Frame", nil)
+		end
+		PVPSoundFrameKills:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+		PVPSoundFrameKills:SetScript("OnEvent", PVPSound.OnEventKills)
+		PVPSound:Debug("!Kills Events Loaded")
+	end
+end
+
+function PVPSound:UnloadKills()
+	if PVPSoundFrameKills then
+		if (PS_KillSound == false and PS_MultiKillSound == false and PS_PaybackSound == false) or  PS_EnableAddon == false then
+			PVPSoundFrameKills:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			PVPSound:Debug("!Kills Events Unloaded")
+		end
+	end
+end
+
+function PVPSound:LoadDeathShare()
+	if PS_EnableAddon == true and (PS_DeathMessage == true or PS_DataShare ==true) then
+		if not PVPSoundFrameData then
+			PVPSoundFrameData = CreateFrame("Frame", nil)
+		end
+		PVPSoundFrameData:RegisterEvent("PLAYER_DEAD")
+		PVPSoundFrameData:SetScript("OnEvent", PVPSound.OnEventData)
+		PVPSound:Debug("!DeathShare Events Loaded")
+	end
+end
+
+function PVPSound:UnloadDeathShare()
+	if PVPSoundFrameData then
+		if (PS_DeathMessage == false and PS_DataShare ==false) or  PS_EnableAddon == false then
+			PVPSoundFrameData:UnregisterEvent("PLAYER_DEAD")
+			PVPSound:Debug("!DeathShare Events Unloaded")
+		end
+	end
+end
 
 function PVPSound:RegisterEvents()
-	PVPSoundFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	PVPSoundFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	PVPSoundFrame:RegisterEvent("PLAYER_DEAD")
-	PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
-	PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
-	PVPSoundFrame:RegisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
-	PVPSoundFrame:RegisterEvent("CHAT_MSG_MONSTER_YELL")
-	PVPSoundFrame:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-	PVPSoundFrameTwo:RegisterEvent("PLAYER_TARGET_CHANGED")
-	PVPSoundFrameTwo:RegisterEvent("UNIT_HEALTH")
-	PVPSoundFrameTwo:RegisterEvent("UNIT_MAXHEALTH")
-	PVPSoundFrameThree:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	PVPSound:LoadBG()
+	PVPSound:LoadExecute()
+	PVPSound:LoadKills()
+	PVPSound:LoadDeathShare()
+	PVPSound:Debug("!All Events Loaded")
 end
 
 function PVPSound:UnregisterEvents()
-	PVPSoundFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	PVPSoundFrame:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
-	PVPSoundFrame:UnregisterEvent("PLAYER_DEAD")
-	PVPSoundFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
-	PVPSoundFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
-	PVPSoundFrame:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
-	PVPSoundFrame:UnregisterEvent("CHAT_MSG_MONSTER_YELL")
-	PVPSoundFrame:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-	PVPSoundFrameTwo:UnregisterEvent("PLAYER_TARGET_CHANGED")
-	PVPSoundFrameTwo:UnregisterEvent("UNIT_HEALTH")
-	PVPSoundFrameTwo:UnregisterEvent("UNIT_MAXHEALTH")
-	PVPSoundFrameThree:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	PVPSound:UnloadBG()
+	PVPSound:UnloadExecute()
+	PVPSound:UnloadKills()
+	PVPSound:UnloadDeathShare()
+	PVPSound:Debug("!All Events Unloaded")
 end
-
---addon performanse info
-function PVPSound:perfDump()
-	UpdateAddOnMemoryUsage()
-	UpdateAddOnCPUUsage()
-	local mem = GetAddOnMemoryUsage(addon)
-	local cpu = GetAddOnCPUUsage(addon)
-	print("current memory usege: ", mem)
-	print("current CPU usege: ", cpu)
-end
-
--- Build Version
-local WowBuildInfo
 
 -- Settings
 local TimerReset
@@ -177,25 +186,12 @@ local MultiKillTime
 local RankStep
 
 -- Player
-local MyFaction
 local MyGender
 
--- Battlegrounds
-local IsRated
-local BgIsOver
-local AlreadyPlaySound
-local LastScored
-
--- Battlefields
-local TbAttacker
-local WgAttacker
-
 -- Zones
-local MyZone
 local InstanceType
 local CurrentInstId
 local CurrentZoneId
-local CurrentZoneText
 
 -- Kills
 local MultiKills
@@ -335,61 +331,6 @@ function PVPSound:DefaultSettings()
 	end
 end
 
-function PVPSound:ConfigDump()
-		print("Addon cofig:")
-		print("Addon language: ", PS_AddonLanguage)
-		print("Kill soundpack name: ", PS_KillSoundPackName)
-		print("Kill soundpack language: ", PS_KillSoundPackLanguage)
-		print("Soundpack name: ", PS_SoundPackName)
-		print("Soundpack language: ", PS_SoundPackLanguage)
-		print("Mode: ", PS_Mode)
-		print("Emote: ",PS_Emote)
-		print("Emote mode: ",PS_EmoteMode)
-		print("Death message: ",PS_DeathMessage)
-		print("Kill sounds: ",PS_KillSound)
-		print("MultiKill Sound: ", PS_MultiKillSound)
-		print("PetKill: ", PS_PetKill)
-		print("PaybackSound: ", PS_PaybackSound)
-		print("BattlegroundSound: ", PS_BattlegroundSound)
-		print("SoundEffect: ", PS_SoundEffect)
-		print("KillSoundEngine: ", PS_KillSoundEngine)
-		print("BattlegroundSoundEngine: ", PS_BattlegroundSoundEngine)
-		print("Datashare: ", PS_DataShare)
-		print("Kill SCT: ", PS_KillSct)
-		print("MultiKill SCT: ", PS_MultiKillSct)
-		print("Payback SCT: ", PS_PaybackSct)
-		print("SCT engine: ", PS_SctEngine)
-		print("SCT Frame: ", PSSctFrame)
-		print("Hide server name: ", PS_HideServerName)
-		print("Sound channel name: ", PS_Channel)
-		print("Finishing sounds: ", PS_Execute)
-		print("Reset time: ",ResetTime)
-		print("Multikill time: ",MultiKillTime)
-		print("Payback time: ",PS.PaybackKillTime)
-		print("Recently killed penalty time: ",PS.RecentlyKilledTime)
-		print("Recently payback penalty time: ",PS.RecentlyPaybackTime)
-		print("Rank step for kills: ", RankStep)
-end
-
--- Addon error messages function
-function PVPSound:Error(msg)
-	if type(msg) ~= "string" then
-		msg = tostring(msg)
-	end
-	print("|cFFff9a00PVPSound ERROR:|r |cFFff8100"..msg.."|r")
-end
-
--- Addon debug messages function and switcher
-local debug = true
-function PVPSound:Debug(msg)
-	if debug == true then
-		if type(msg) ~= "string" then
-			msg = tostring(msg)
-		end
-		print("|cFFff9a00PVPSound Debug:|r |cFF7FFF00"..msg.."|r")
-	end
-end
-
 function PVPSound:SetAddonLanguage()
 	if PS_AddonLanguage == "English" then
 		PVPSound:English()
@@ -425,6 +366,81 @@ function PVPSound:KillersReset()
 	KilledBy = nil
 end
 
+-- Addon error messages function
+function PVPSound:Error(msg)
+	if type(msg) ~= "string" then
+		msg = tostring(msg)
+	end
+	print("|cFFf44336PVPSound ERROR:|r |cFF1688f1"..msg.."|r")
+end
+
+-- Addon debug messages function on/off switcher
+local debug = false
+-- Switch debug
+function PVPSound:SwitchDebug()
+	debug = not debug
+	return debug
+end
+-- Addon debug messages function
+function PVPSound:Debug(msg)
+	if debug == true then
+		if type(msg) ~= "string" then
+			msg = tostring(msg)
+		end
+		print("|cFFff9a00PVPSound Debug:|r |cFF7FFF00"..msg.."|r")
+	end
+end
+
+--addon performanse info dump
+function PVPSound:perfDump()
+	UpdateAddOnMemoryUsage()
+	UpdateAddOnCPUUsage()
+	local mem = GetAddOnMemoryUsage(addon)
+	local cpu = GetAddOnCPUUsage(addon)
+	print("current memory usege: ", mem)
+	print("current CPU usege: ", cpu)
+end
+
+-- configuration info dump
+function PVPSound:ConfigDump()
+		print("Addon cofig:")
+		print("Retail: ", PS.isRetail)
+		print("Addon language: ", PS_AddonLanguage)
+		print("Kill soundpack name: ", PS_KillSoundPackName)
+		print("Kill soundpack language: ", PS_KillSoundPackLanguage)
+		print("Soundpack name: ", PS_SoundPackName)
+		print("Soundpack language: ", PS_SoundPackLanguage)
+		print("Mode: ", PS_Mode)
+		print("Emote: ",PS_Emote)
+		print("Emote mode: ",PS_EmoteMode)
+		print("Death message: ",PS_DeathMessage)
+		print("Kill sounds: ",PS_KillSound)
+		print("MultiKill Sound: ", PS_MultiKillSound)
+		print("PetKill: ", PS_PetKill)
+		print("PaybackSound: ", PS_PaybackSound)
+		print("BattlegroundSound: ", PS_BattlegroundSound)
+		print("SoundEffect: ", PS_SoundEffect)
+		print("KillSoundEngine: ", PS_KillSoundEngine)
+		print("BattlegroundSoundEngine: ", PS_BattlegroundSoundEngine)
+		print("Datashare: ", PS_DataShare)
+		print("Kill SCT: ", PS_KillSct)
+		print("MultiKill SCT: ", PS_MultiKillSct)
+		print("Payback SCT: ", PS_PaybackSct)
+		print("SCT engine: ", PS_SctEngine)
+		print("SCT Frame: ", PSSctFrame)
+		print("Hide server name: ", PS_HideServerName)
+		print("Sound channel name: ", PS_Channel)
+		print("Finishing sounds: ", PS_Execute)
+		print("Reset time: ",ResetTime)
+		print("Multikill time: ",MultiKillTime)
+		print("Payback time: ",PS.PaybackKillTime)
+		print("Recently killed penalty time: ",PS.RecentlyKilledTime)
+		print("Recently payback penalty time: ",PS.RecentlyPaybackTime)
+		print("Rank step for kills: ", RankStep)
+		print("Debug output trigger: ", debug)
+end
+
+-- Table and functions for execute sounds
 local TargetHealthObjectives = {Percent = nil}
 
 local function TargetHealthGetObjective(healthPercent)
@@ -450,9 +466,7 @@ end
 function PVPSound:OnEvent(event, ...)
 	if event == "ADDON_LOADED" then
 		local Addon = ...
-		if Addon == "PVPSound_test" then
-			local _
-			_, _, _, WowBuildInfo = GetBuildInfo()
+		if Addon == "PVPSound" then
 			PVPSound:KillingSettings()
 			PVPSound:DefaultSettings()
 			PVPSound:SetAddonLanguage()
@@ -475,17 +489,20 @@ function PVPSound:OnEvent(event, ...)
 			end
 			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
+			-- WOW Version check
+			PS.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 			if PS_EnableAddon == true then
-				PVPSound:OnLoad()
-				PVPSound:OnLoadTwo()
-				PVPSound:OnLoadThree()
+				PVPSound:RegisterEvents()
 			end
 			PVPSoundOptions:OptionsAddonIsLoaded()
 			-- Addon loaded message
-			--print("|cFF50C0FFPVPSound |cFFFFA500"..GetAddOnMetadata("PVPSound", "Version").."|cFF50C0FF loaded.|r")
+			-- print("|cFF50C0FFPVPSound |cFFFFA500"..GetAddOnMetadata("PVPSound", "Version").."|cFF50C0FF loaded.|r")
 		end
 	end
+end
+PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
 
+function PVPSound:OnEventBG(event, ...)
 	if PS_EnableAddon == true then
 		--------------------------------------
 		-- modules loading routine
@@ -505,12 +522,11 @@ function PVPSound:OnEvent(event, ...)
 			-- on initial login (and when you use portals or smth like this) both events fired, but PLAYER_ENTERING_WORLD fires with wrong zone id (id of parent map)
 			-- on TP using both events fired, but PLAYER_ENTERING_WORLD fires with wrong zone id (id of parent map)
 			-- on /reload fires only PLAYER_ENTERING_WORLD, but with correct zone id
-			
+
 			-- instance id can be used for BGs, but then, we can't use this code open world battlefields as is
 			CurrentZoneId = C_Map.GetBestMapForUnit("player")
 			InstanceType = (select(2, IsInInstance())) -- check it to aviod uncorrect returm value of GetBestMapForUnit after PLAYER_ENTERING_WORLD event
 			CurrentInstId = (select(8, GetInstanceInfo()))
-			print(event, CurrentZoneId, CurrentInstId, InstanceType)
 			-- Player's Gender
 			if UnitSex("player") == 2 then
 				MyGender = "Male"
@@ -520,12 +536,14 @@ function PVPSound:OnEvent(event, ...)
 			PS.PaybackKillTime = 90
 
 			-- unloading of loaded modules (except the module for zone, where you are)
+			local unloadedAddonsCheck = false
 			if CurrentZoneId then
 				PVPSound:Debug("common unloading")
 				for _, mod in pairs(PVPSound.modules) do
 					if (mod.zoneId ~= CurrentZoneId) and mod.loaded then
 						mod:Unload()
 						PVPSound:Debug(mod.name.." unloaded")
+						unloadedAddonsCheck = true
 					end
 				end
 			else
@@ -534,19 +552,32 @@ function PVPSound:OnEvent(event, ...)
 					if (mod.instId ~= CurrentInstId) and mod.loaded then
 						mod:Unload()
 						PVPSound:Debug(mod.name.." unloaded")
+						unloadedAddonsCheck = true
 					end
 				end
+			end
+			if unloadedAddonsCheck == false then
+				PVPSound:Debug(" Nothing unloaded")
 			end
 			-- loading BG modules
 			-- Some BGs starts in the zone without  areaID (for example winter AB)
 			-- for such cases instance ID used
+			-- Arenas module don't have real zoneId field (-1), so it wuill be loaded only by zone type check
+			local loadedAddonsCheck = false
+			-- loading by zoneId
 			if CurrentZoneId and PVPSound.modules[CurrentZoneId] and InstanceType == PVPSound.modules[CurrentZoneId].type then
 				PVPSound:Debug("common loading")
 				PVPSound:TimerReset()
 				PVPSound:KillersReset()
 				PVPSound.modules[CurrentZoneId]:Initialize()
 				PVPSound:Debug(PVPSound.modules[CurrentZoneId].name.." loaded")
+				loadedAddonsCheck = true
+			-- loading arenas
+			elseif InstanceType == "arena" then
+				PVPSound.modules[-1]:Initialize()
+				loadedAddonsCheck = true
 			else
+			-- loading by istId
 				PVPSound:Debug("alternative loading")
 				for _, mod in pairs(PVPSound.modules) do
 					PVPSound:Debug("try "..mod.name.." instId: "..tostring(mod.instId).." ;cur instanceId: "..(select(8, GetInstanceInfo())))
@@ -555,23 +586,23 @@ function PVPSound:OnEvent(event, ...)
 						PVPSound:KillersReset()
 						mod:Initialize()
 						PVPSound:Debug(mod.name.." loaded")
+						loadedAddonsCheck = true
+						break
 					end
 				end
 			end
-		end
-
-
-		if event == "PLAYER_DEAD" then
-			local Channel
-			if WowBuildInfo >= 50100 then
-				Channel = "INSTANCE_CHAT"
-			elseif WowBuildInfo >= 40200 then
-				Channel = "BATTLEGROUND"
-			elseif WowBuildInfo >= 40100 then
-				Channel = "BATTLEGROUND"
-			else
-				Channel = "BATTLEGROUND"
+			if loadedAddonsCheck == false then
+				PVPSound:Debug(" Nothing loaded")
 			end
+		end
+	end
+end
+
+function PVPSound:OnEventData(event, ...)
+	if PS_EnableAddon == true then
+		if event == "PLAYER_DEAD" then
+			local Channel = "INSTANCE_CHAT"
+
 			-- Death Data Share
 			if KilledBy ~= nil then
 				if PS_DataShare == true then
@@ -623,11 +654,7 @@ function PVPSound:OnEvent(event, ...)
 	end
 end
 
-
-
-PVPSoundFrame:SetScript("OnEvent", PVPSound.OnEvent)
-
-function PVPSound:OnEventTwo(event, ...)
+function PVPSound:OnEventExecute(event, ...)
 	if PS_EnableAddon == true  then
 		--execute sounds can not be places in ideology of kill or bg sounds
 		--because it is more about an dueling announcement
@@ -700,27 +727,16 @@ function PVPSound:OnEventTwo(event, ...)
 	end
 end
 
-PVPSoundFrameTwo:SetScript("OnEvent", PVPSound.OnEventTwo)
-
-
-
 local PS_COMBATLOG_FILTER_MY_PETS					= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MINE, COMBATLOG_OBJECT_REACTION_FRIENDLY, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_OBJECT, COMBATLOG_OBJECT_TYPE_GUARDIAN, COMBATLOG_OBJECT_TYPE_PET)
 local PS_COMBATLOG_FILTER_ENEMY_NPCS				= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
 local PS_COMBATLOG_FILTER_ENEMY_PLAYERS				= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER)
 local PS_COMBATLOG_FILTER_ENEMY_PLAYERS_AND_NPCS	= bit.bor(COMBATLOG_OBJECT_AFFILIATION_MASK, COMBATLOG_OBJECT_REACTION_MASK, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_TYPE_NPC)
 
-function PVPSound:OnEventThree(event, ...)
+function PVPSound:OnEventKills(event, ...)
 	if PS_EnableAddon == true then
 		if event == "COMBAT_LOG_EVENT_UNFILTERED" then --no longer have payload
 			local _, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, swingOverkill, spellOverkill
-			if WowBuildInfo >= 40200 then
-				_, eventType, _, sourceGUID, sourceName, sourceFlags, _, destGUID, destName, destFlags, _, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
-			elseif WowBuildInfo >= 40100 then
-				_, eventType, _, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
-			--add classic build
-			else
-				_, eventType, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
-			end
+			_, eventType, _, sourceGUID, sourceName, sourceFlags, _, destGUID, destName, destFlags, _, _, swingOverkill, _, _, spellOverkill = CombatLogGetCurrentEventInfo()
 
 			-- To an Enemy
 			if destName and not CombatLog_Object_IsA(destFlags, COMBATLOG_OBJECT_NONE) then
@@ -944,8 +960,6 @@ function PVPSound:OnEventThree(event, ...)
 		end
 	end
 end
-
-PVPSoundFrameThree:SetScript("OnEvent", PVPSound.OnEventThree)
 
 function PVPSound:TriggerKill(killType, streakNumber)
 	if killType and streakNumber and streakNumber ~= 0 then

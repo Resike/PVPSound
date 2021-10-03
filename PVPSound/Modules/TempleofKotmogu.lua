@@ -1,8 +1,6 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
-local L = ns.L
 
 local API = PVPSound.API
 local mod = API:RegisterMod(417, "pvp", "Temple of Kotmogu", 998)
@@ -32,7 +30,7 @@ function mod:Initialize()
 	API.RegisterEvent(self, "CHAT_MSG_BG_SYSTEM_HORDE")
 	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	self.loaded = true
 end

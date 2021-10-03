@@ -83,7 +83,9 @@ function PVPSoundOptions:OptionsInitalizeButtons()
 	PVPSoundOptions:OptionsEnableAddonButtonInitalize(PVPSoundEnableAddonButton)
 	PVPSoundOptions:OptionsKillSoundButtonInitalize(PVPSoundKillSoundButton)
 	PVPSoundOptions:OptionsMultiKillSoundButtonInitalize(PVPSoundMultiKillSoundButton)
+	PVPSoundOptions:OptionsPaybackButtonInitalize(PVPSoundPaybackButton)
 	PVPSoundOptions:OptionsExecuteButtonInitalize(PVPSoundExecuteButton)
+	PVPSoundOptions:OptionsBGButtonInitalize(PVPSoundBGButton)
 end
 
 function PVPSoundOptions:OptionsStartMoving(self, button)
@@ -153,8 +155,12 @@ function PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
 		PVPSoundKillSoundButtonText:SetTextColor(1, 1, 1)
 		PVPSoundMultiKillSoundButton:Enable()
 		PVPSoundMultiKillSoundButtonText:SetTextColor(1, 1, 1)
+		PVPSoundPaybackButton:Enable()
+		PVPSoundPaybackButtonText:SetTextColor(1, 1, 1)
 		PVPSoundExecuteButton:Enable()
 		PVPSoundExecuteButtonText:SetTextColor(1, 1, 1)
+		PVPSoundBGButton:Enable()
+		PVPSoundBGButtonText:SetTextColor(1, 1, 1)
 		Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackDropDown)
 		Lib_UIDropDownMenu_EnableDropDown(PVPSoundKillSoundPackLanguageDropDown)
 		Lib_UIDropDownMenu_EnableDropDown(PVPSoundSoundPackDropDown)
@@ -169,8 +175,12 @@ function PVPSoundOptions:OptionsEnableAddonButtonToggle(self)
 		PVPSoundKillSoundButtonText:SetTextColor(0.5, 0.5, 0.5)
 		PVPSoundMultiKillSoundButton:Disable()
 		PVPSoundMultiKillSoundButtonText:SetTextColor(0.5, 0.5, 0.5)
+		PVPSoundPaybackButton:Disable()
+		PVPSoundPaybackButtonText:SetTextColor(0.5, 0.5, 0.5)
 		PVPSoundExecuteButton:Disable()
 		PVPSoundExecuteButtonText:SetTextColor(0.5, 0.5, 0.5)
+		PVPSoundBGButton:Disable()
+		PVPSoundBGButtonText:SetTextColor(0.5, 0.5, 0.5)
 		Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackDropDown)
 		Lib_UIDropDownMenu_DisableDropDown(PVPSoundKillSoundPackLanguageDropDown)
 		Lib_UIDropDownMenu_DisableDropDown(PVPSoundSoundPackDropDown)
@@ -199,8 +209,10 @@ end
 function PVPSoundOptions:OptionsKillSoundButtonToggle(self)
 	if self:GetChecked() then
 		PS_KillSound = true
+		PVPSound:LoadKills()
 	else
 		PS_KillSound = false
+		PVPSound:UnloadKills()
 	end
 	--print(PS_KillSound)
 end
@@ -223,8 +235,36 @@ end
 function PVPSoundOptions:OptionsMultiKillSoundButtonToggle(self)
 	if self:GetChecked() then
 		PS_MultiKillSound = true
+		PVPSound:LoadKills()
 	else
 		PS_MultiKillSound = false
+		PVPSound:UnloadKills()
+	end
+	--print(PS_MultiKillSound)
+end
+
+function PVPSoundOptions:OptionsPaybackButtonInitalize(self)
+	if PVPSoundEnableAddonButton:GetChecked() then
+		self:Enable()
+		PVPSoundPaybackButtonText:SetTextColor(1, 1, 1)
+	else
+		self:Disable()
+		PVPSoundPaybackButtonText:SetTextColor(0.5, 0.5, 0.5)
+	end
+	if PS_PaybackSound == true then
+		self:SetChecked(true)
+	else
+		self:SetChecked(false)
+	end
+end
+
+function PVPSoundOptions:OptionsPaybackButtonToggle(self)
+	if self:GetChecked() then
+		PS_PaybackSound = true
+		PVPSound:LoadKills()
+	else
+		PS_PaybackSound = false
+		PVPSound:UnloadKills()
 	end
 	--print(PS_MultiKillSound)
 end
@@ -247,8 +287,35 @@ end
 function PVPSoundOptions:OptionsExecuteButtonToggle(self)
 	if self:GetChecked() then
 		PS_Execute = true
+		PVPSound:LoadExecute()
 	else
 		PS_Execute = false
+		PVPSound:UnloadExecute()
+	end
+end
+
+function PVPSoundOptions:OptionsBGButtonInitalize(self)
+	if PVPSoundEnableAddonButton:GetChecked() then
+		self:Enable()
+		PVPSoundExecuteButtonText:SetTextColor(1, 1, 1)
+	else
+		self:Disable()
+		PVPSoundExecuteButtonText:SetTextColor(0.5, 0.5, 0.5)
+	end
+	if PS_BattlegroundSound == true then
+		self:SetChecked(true)
+	else
+		self:SetChecked(false)
+	end
+end
+
+function PVPSoundOptions:OptionsBGButtonToggle(self)
+	if self:GetChecked() then
+		PS_BattlegroundSound = true
+		PVPSound:LoadBG()
+	else
+		PS_BattlegroundSound = false
+		PVPSound:UnloadBG()
 	end
 end
 
@@ -1583,22 +1650,28 @@ function PVPSound:SlashCommands(arg1)
 	elseif arg2 == "dm" or arg2 == "deathmessage" or arg2 == "death message" or arg2 == "deathmessages" or arg2 == "death messages" then
 		PS_DeathMessage = not PS_DeathMessage
 		if PS_DeathMessage == true then
+			PVPSound:LoadDeathShare()
 			print("|cFF50C0FF"..L["Death messages"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadDeathShare()
 			print("|cFF50C0FF"..L["Death messages"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "ks" or arg2 == "killsound" or arg2 == "kill sound" or arg2 == "killsounds" or arg2 == "kill sounds" then
 		PS_KillSound = not PS_KillSound
 		if PS_KillSound == true then
+			PVPSound:LoadKills()
 			print("|cFF50C0FF"..L["Killing Blow sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadKills()
 			print("|cFF50C0FF"..L["Killing Blow sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "mks" or arg2 == "multikillsound" or arg2 == "multikill sound" or arg2 == "multi kill sound" or arg2 == "multi killsound" or arg2 == "multikillsounds" or arg2 == "multikill sounds" or arg2 == "multi kill sounds" or arg2 == "multi killsounds" then
 		PS_MultiKillSound = not PS_MultiKillSound
 		if PS_MultiKillSound == true then
+			PVPSound:LoadKills()
 			print("|cFF50C0FF"..L["Multi Killing sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadKills()
 			print("|cFF50C0FF"..L["Multi Killing sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "pk" or arg2 == "petkill" or arg2 == "pet kill" or arg2 == "petkills" or arg2 == "pet kills" then
@@ -1611,15 +1684,19 @@ function PVPSound:SlashCommands(arg1)
 	elseif arg2 == "ps" or arg2 == "paysound" or arg2 == "pay sound" or arg2 == "paybacksound" or arg2 == "payback sound" or arg2 == "paysounds" or arg2 == "pay sounds" or arg2 == "paybacksounds" or arg2 == "payback sounds" then
 		PS_PaybackSound = not PS_PaybackSound
 		if PS_PaybackSound == true then
+			PVPSound:LoadKills()
 			print("|cFF50C0FF"..L["Payback sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadKills()
 			print("|cFF50C0FF"..L["Payback sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "bs" or arg2 == "bgsound" or arg2 == "bg sound" or arg2 == "battlegroundsound" or arg2 == "battleground sound" or arg2 == "bgsounds" or arg2 == "bg sounds" or arg2 == "battlegroundsounds" or arg2 == "battleground sounds" then
 		PS_BattlegroundSound = not PS_BattlegroundSound
 		if PS_BattlegroundSound == true then
+			PVPSound:LoadBG()
 			print("|cFF50C0FF"..L["Battleground sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadBG()
 			print("|cFF50C0FF"..L["Battleground sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "se" or arg2 == "soundeffect" or arg2 == "sound effect" or arg2 == "effectsound" or arg2 == "effect sound" then
@@ -1646,8 +1723,10 @@ function PVPSound:SlashCommands(arg1)
 	elseif arg2 == "ds" or arg2 == "datashare" or arg2 == "data share" or arg2 == "datasharing" or arg2 == "data sharing" then
 		PS_DataShare = not PS_DataShare
 		if PS_DataShare == true then
+			PVPSound:LoadDeathShare()
 			print("|cFF50C0FF"..L["Data Sharing"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadDeathShare()
 			print("|cFF50C0FF"..L["Data Sharing"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "ksct" or arg2 == "killsct" or arg2 == "kill sct" then
@@ -1717,8 +1796,10 @@ function PVPSound:SlashCommands(arg1)
 	elseif arg2 == "ex" or arg2 == "execute" or arg2 == "exc" then
 		PS_Execute = not PS_Execute
 		if PS_Execute == true then
+			PVPSound:LoadExecute()
 			print("|cFF50C0FF"..L["Execute sounds"]..": |cFFADFF2F"..L["[Enable]"].."|r")
 		else
+			PVPSound:UnloadExecute()
 			print("|cFF50C0FF"..L["Execute sounds"]..": |cFFFF4500"..L["[Disable]"].."|r")
 		end
 	elseif arg2 == "soundpack ut3" or arg2 == "soundpack unrealtournament3" or arg2 == "sp ut3" or arg2 == "sp unrealtournament3" or arg2 == "soundpackut3" or arg2 == "soundpackunrealtournament3" or arg2 == "sput3" or arg2 == "spunrealtournament3" then
@@ -1839,7 +1920,6 @@ function PVPSound:SlashCommands(arg1)
 			PVPSound:TriggerKill("PaybackKill", i)
 		end
 	elseif arg2 == "poi" then
-		--POIs updated for 8.0.1
 		local mapId = C_Map.GetBestMapForUnit("player")
 		local POIs = C_AreaPoiInfo.GetAreaPOIForMap(mapId)
 		if POIs == nil then
@@ -1858,7 +1938,6 @@ function PVPSound:SlashCommands(arg1)
 			end
 		end
 	elseif arg2 == "ui" then
-		--updated for 8.0.1
 		--check only top center "DoubleStatusBar" widgets
 		local setId = C_UIWidgetManager.GetTopCenterWidgetSetID()
 		local wgts = C_UIWidgetManager.GetAllWidgetsBySetID(setId)
@@ -1872,7 +1951,6 @@ function PVPSound:SlashCommands(arg1)
 			end
 		end
 	elseif arg2 == "map" then
-		--updated for 8.0.1
 		local CurrentZoneId = C_Map.GetBestMapForUnit("player")
 		if CurrentZoneId ~= nil or CurrentZoneId ~= "" then
 			print("|cFF50C0FF"..L["Current Zone's ID:"].."|r")
@@ -1903,7 +1981,6 @@ function PVPSound:SlashCommands(arg1)
 			print(instInfo.instanceID)
 		end
 	elseif arg2 == "pos" then
-		--updated for 8.0.1
 		local mapId = C_Map.GetBestMapForUnit("player")
 		local playerPos = C_Map.GetPlayerMapPosition(mapId,"player")
 		if (playerPos) then
@@ -1918,6 +1995,14 @@ function PVPSound:SlashCommands(arg1)
 		PVPSound.ConfigDump()
 	elseif arg2 == "perflist" then
 		PVPSound.perfDump()
+	elseif arg2 == "modlist" then
+		PVPSound.API.DumpModules()
+	elseif arg2 == "debug" then
+		if PVPSound:SwitchDebug() then
+			print("Debug mode on")
+		else
+			print("Debug mode off")
+		end
 	elseif arg2 == "lang rus" then
 		PS_AddonLanguage = "Russian"
 		PVPSound:SetAddonLanguage()

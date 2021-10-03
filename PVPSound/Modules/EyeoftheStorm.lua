@@ -1,11 +1,15 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
 local L = ns.L
 
 local API = PVPSound.API
-local mod = API:RegisterMod(112, "pvp", "Eye of the Storm", 566)
+local mod
+if PS.isRetail then
+	mod = API:RegisterMod(112, "pvp", "Eye of the Storm", 566)
+else
+	mod = API:RegisterMod(1956, "pvp", "Eye of the Storm", 566)
+end
 
 local MyZone = "Zone_EyeoftheStorm" -- I don't want to rewrite some code here, so I use this
 
@@ -138,9 +142,11 @@ function mod:Initialize()
 	API.RegisterEvent(self, "CHAT_MSG_BG_SYSTEM_HORDE")
 	API.RegisterEvent(self, "CHAT_MSG_RAID_BOSS_EMOTE")	
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
-	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	end
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	API:ObjInit(self.zoneId, EOTSobjectives, EOTSget_objective)
 	self.loaded = true
@@ -151,7 +157,9 @@ function mod:Unload()
 	API:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 	API:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")	
 	API:UnregisterEvent("AREA_POIS_UPDATED")
-	API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	end
 	FreeResourses()
 	self.loaded = false
 end

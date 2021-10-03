@@ -17,4 +17,7 @@
 	<Script file = "CookingImpossible.lua" />
 	<Script file = "TarrenMillvsSouthshore.lua" />
 	<Script file = "Wintergasp.lua" />
+	<Script file = "TolBarad.lua" />
+	<Script file = "Ashran.lua" />
+	<Script file = "Arenas.lua" />
 </Ui>

@@ -69,7 +69,7 @@ function mod:Initialize()
 	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
 	API.RegisterEvent(self, "UPDATE_UI_WIDGET")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	InitScore()
 	InitTimer()

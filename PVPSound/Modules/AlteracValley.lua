@@ -1,11 +1,17 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
 local L = ns.L
 
 local API = PVPSound.API
-local mod = API:RegisterMod(91, "pvp", "Alterac Valley", 30)
+
+local mod
+if PS.isRetail then
+	mod = API:RegisterMod(91, "pvp", "Alterac Valley", 30)
+else
+	mod = API:RegisterMod(1459, "pvp", "Alterac Valley", 30)
+end
+
 local mod_korrak = API:RegisterMod(1537, "pvp", "Korrak's Revenge")
 
 local MyZone = "Zone_AlteracValley" -- I don't want to rewrite some code here, so I use this
@@ -219,30 +225,30 @@ mod_korrak.AREA_POIS_UPDATED = mod.AREA_POIS_UPDATED
 function mod:UPDATE_UI_WIDGET()
 	-- Alliance Reinforcements
 	if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684)) then
-		local faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).leftBarValue
-		local type = AVandIOCAget_objective(faketextureIndex)
+		local textureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).leftBarValue
+		local type = AVandIOCAget_objective(textureIndex)
 		if type then
-			if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 11 and AVandIOCAobj_state(faketextureIndex) == 10 then
+			if AVandIOCAobj_state(AVandIOCAobjectives[type]) == 11 and AVandIOCAobj_state(textureIndex) == 10 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
-			elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 6 and AVandIOCAobj_state(faketextureIndex) == 5 then
+			elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 6 and AVandIOCAobj_state(textureIndex) == 5 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
-			elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 2 and AVandIOCAobj_state(faketextureIndex) == 1 then
+			elseif AVandIOCAobj_state(AVandIOCAobjectives[type]) == 2 and AVandIOCAobj_state(textureIndex) == 1 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
 			end
-			AVandIOCAobjectives[type] = faketextureIndex
+			AVandIOCAobjectives[type] = textureIndex
 		end
 	-- Horde Reinforcements
-		faketextureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).rightBarValue
-		type = AVandIOCAget_objective(faketextureIndex)
+		textureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1684).rightBarValue
+		type = AVandIOCHget_objective(textureIndex)
 		if type then
-			if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(faketextureIndex) == 10 then
+			if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(textureIndex) == 10 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
-			elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 6 and AVandIOCHobj_state(faketextureIndex) == 5 then
+			elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 6 and AVandIOCHobj_state(textureIndex) == 5 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\FiveKillsRemain.mp3")
-			elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 2 and AVandIOCHobj_state(faketextureIndex) == 1 then
+			elseif AVandIOCHobj_state(AVandIOCHobjectives[type]) == 2 and AVandIOCHobj_state(textureIndex) == 1 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\OneKillRemains.mp3")
 			end
-			AVandIOCHobjectives[type] = faketextureIndex
+			AVandIOCHobjectives[type] = textureIndex
 		end
 	end
 end
@@ -250,29 +256,48 @@ mod_korrak.UPDATE_UI_WIDGET = mod.UPDATE_UI_WIDGET
 
 function mod:PVP_MATCH_COMPLETE(event, winner)
 	API:AnnounceWinner("BG", winner)
-	mod:Unload()
+	self:Unload()
 end
 mod_korrak.PVP_MATCH_COMPLETE = mod.PVP_MATCH_COMPLETE
+
+local function PVP_MATCH_COMPLETE_CLASSIC(event, message)
+	PVPSound:Debug(event..message)
+	if string.find(message, L["Alliance wins"]) or string.find(message, L["Alliance wins secondary"]) or string.find(message, L["The Alliance is victorious"])  then
+		API:AnnounceWinner("BG", 1)
+		mod:Unload()
+	elseif string.find(message, L["Horde wins"]) or string.find(message, L["Horde wins secondary"]) or string.find(message, L["The Horde is victorious"]) then
+		API:AnnounceWinner("BG", 0)
+		mod:Unload()
+	end
+end
 
 --------------------------------------------------
 -- module start and end poins --------------------
 function mod:Initialize()
-	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	else
+		API.RegisterEvent(self, "CHAT_MSG_MONSTER_YELL", PVP_MATCH_COMPLETE_CLASSIC)
+	end
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
 	API.RegisterEvent(self, "UPDATE_UI_WIDGET")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	PS.PaybackKillTime = 120
 	InitReinforcements()
-	ObjInit(self.zoneId, AVobjectives, AVget_objective)
+	API:ObjInit(self.zoneId, AVobjectives, AVget_objective)
 	self.loaded = true
 end
 mod_korrak.Initialize = mod.Initialize
 
 function mod:Unload()
 	PS.PaybackKillTime = 90
-	API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	else
+		API.UnregisterEvent("CHAT_MSG_MONSTER_YELL")
+	end
 	API:UnregisterEvent("AREA_POIS_UPDATED")
 	API:UnregisterEvent("UPDATE_UI_WIDGET")
 	FreeResourses()

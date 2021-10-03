@@ -933,6 +933,35 @@
 							</OnLeave>
 						</Scripts>
 					</CheckButton>
+					<CheckButton name = "PVPSoundPaybackButton" inherits = "PVPSoundCheckButtonTemplate">
+						<Size>
+							<AbsDimension x = "20" y = "20"/>
+						</Size>
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundSoundChannelDropDown" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "17" y = "-70"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left = "2" right = "4" top = "3" bottom = "4"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Text", "Enable Payback Sounds")
+							</OnLoad>
+							<OnClick>
+								PVPSoundOptions:OptionsPaybackButtonToggle(self)
+							</OnClick>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Enables or disables Payback Sounds.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
 					<CheckButton name = "PVPSoundExecuteButton" inherits = "PVPSoundCheckButtonTemplate">
 						<Size>
 							<AbsDimension x = "20" y = "20"/>
@@ -956,6 +985,35 @@
 							</OnClick>
 							<OnEnter>
 								PVPSoundOptions:OptionsShowToopTip(self, "Enables or Disables Execute sounds.")
+							</OnEnter>
+							<OnLeave>
+								PVPSoundGameTooltip:Hide()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name = "PVPSoundBGButton" inherits = "PVPSoundCheckButtonTemplate">
+						<Size>
+							<AbsDimension x = "20" y = "20"/>
+						</Size>
+						<Anchors>
+							<Anchor point = "TOPLEFT" relativeTo = "PVPSoundMultiKillSoundButton" relativePoint = "BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x = "0" y = "-15"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left = "2" right = "4" top = "3" bottom = "4"/>
+						</HitRectInsets>
+						<Scripts>
+							<OnLoad>
+								PVPSoundOptions:OptionsSetText(self, "Text", "Enable BG Sounds")
+							</OnLoad>
+							<OnClick>
+								PVPSoundOptions:OptionsBGButtonToggle(self)
+							</OnClick>
+							<OnEnter>
+								PVPSoundOptions:OptionsShowToopTip(self, "Enables or Disables Battleground sounds.")
 							</OnEnter>
 							<OnLeave>
 								PVPSoundGameTooltip:Hide()

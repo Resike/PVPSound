@@ -1,8 +1,6 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
-local L = ns.L
 
 local API = PVPSound.API
 local mod = API:RegisterMod(1576, "pvp", "Deepwind Gorge", 1105)
@@ -144,9 +142,9 @@ function mod:Initialize()
 	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
-	ObjInit(self.zoneId, DGobjectives, DGget_objective, 2)
+	API:ObjInit(self.zoneId, DGobjectives, DGget_objective, 2)
 	self.loaded = true
 end
 

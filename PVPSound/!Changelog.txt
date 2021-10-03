@@ -1,5 +1,5 @@
 Issues:
-* TB is still partially broken (but it is also partally fixed=))
+* WSG, AB and EOTS don't have win sounds in classic versions and not tested at all (i (Tokorokot) need 4lvls to fix it)
 
 ToDo List:
 * Class colored Death and Data Shares.
@@ -8,7 +8,12 @@ ToDo List:
 * More sounds for SeS and Cooking impossible (like in WSG)
 * WSG EU Localization should be checked (i (Tokorokot) only tested BG in RU locale)
 * More Ashran sounds
-* Update for classic
+* Fix localization issues
+
+5.1a
+* BG loading system remade
+* Updated for BCC and Classic 1.14+
+* Minor GUI updates
 
 5.0.0g
 * Trying to fix tie games issue.

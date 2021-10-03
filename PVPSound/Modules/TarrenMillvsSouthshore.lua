@@ -1,8 +1,6 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
-local L = ns.L
 
 local API = PVPSound.API
 local mod = API:RegisterMod(623, "pvp", "Tarren Mill VS Southshore", 1280)
@@ -98,7 +96,7 @@ function mod:UPDATE_UI_WIDGET()
 		TMSSobjectives.DeltaScore = Hscore - Ascore
 	end
 end
-				
+
 function mod:PVP_MATCH_COMPLETE(event, winner)
 	API:AnnounceWinner("BG", winner)
 	self:Unload()
@@ -110,7 +108,7 @@ function mod:Initialize()
 	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
 	API.RegisterEvent(self, "UPDATE_UI_WIDGET")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	InitScore()
 	InitTimer()

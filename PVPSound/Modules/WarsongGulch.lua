@@ -1,11 +1,15 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
 local L = ns.L
 
 local API = PVPSound.API
-local mod = API:RegisterMod(1339, "pvp", "Warsong Gulch", 489)
+local mod
+if PS.isRetail then
+	mod = API:RegisterMod(1339, "pvp", "Warsong Gulch", 489)
+else
+	mod = API:RegisterMod(1460, "pvp", "Warsong Gulch", 489)
+end
 
 local MyZone = "Zone_WarsongGulch" -- I don't want to rewrite some code here, so I use this
 
@@ -22,6 +26,9 @@ local AllianceFlagPositionY
 local HordeFlagPositionX
 local HordeFlagPositionY
 
+-- Last scored team. Uses to play sound
+local LastScored
+
 local function FreeResourses()
 	AllianceFlagPositionX = nil
 	AllianceFlagPositionY = nil
@@ -29,6 +36,7 @@ local function FreeResourses()
 	HordeFlagPositionY = nil
 	WSGandTPHobjectives = {HordeScore = nil}
 	WSGandTPAobjectives = {AllianceScore = nil}
+	LastScored = nil
 end
 
 --------------------------------------------------
@@ -181,8 +189,9 @@ function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 			--C_PvP.GetActiveBrawlInfo()
 			HordeFlagStatus = 0
 		end
-		
+
 		--flag save in a flag enemies flagroom
+		local MyFaction = UnitFactionGroup("player")
 		if MyFaction == "Alliance" and HordeFlagStatus == 0 then
 			if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
 				if AllianceFlagPositionY and AllianceFlagPositionY ~= 0 and AllianceFlagPositionY ~= "" then
@@ -199,7 +208,6 @@ function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 		AllianceFlagPositionY = nil
 	end
 end
-	
 
 function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
 	if string.find(EventMessage, L["picked"]) then
@@ -233,6 +241,7 @@ function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
 			AllianceFlagStatus = 0
 		end
 
+		local MyFaction = UnitFactionGroup("player")
 		if MyFaction == "Horde" and AllianceFlagStatus == 0 then
 			if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
 				if HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and HordeFlagPositionY ~= "" then
@@ -752,19 +761,21 @@ end
 
 function mod:PVP_MATCH_COMPLETE(event, winner)
 	API:AnnounceWinner("BG", winner)
-	mod:Unload()
+	self:Unload()
 end
 
 --------------------------------------------------
 -- module start and end poins --------------------
 function mod:Initialize()
-	API.RegisterEvent(mod, "PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API.RegisterEvent(mod, "PVP_MATCH_COMPLETE")
+	end
 	API.RegisterEvent(mod, "CHAT_MSG_BG_SYSTEM_NEUTRAL")
 	API.RegisterEvent(mod, "CHAT_MSG_BG_SYSTEM_HORDE")
 	API.RegisterEvent(mod, "CHAT_MSG_BG_SYSTEM_ALLIANCE")
 	API.RegisterEvent(mod, "UPDATE_UI_WIDGET")
 	if not mod.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	InitScoreAndFlagPosition()
 	InitTimer()
@@ -773,7 +784,9 @@ end
 
 function mod:Unload()
 	API:StopTimers()
-	API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	end
 	API:UnregisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 	API:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
 	API:UnregisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")

@@ -1,6 +1,5 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
 local L = ns.L
 
@@ -20,6 +19,8 @@ local AllianceFlagPositionX
 local AllianceFlagPositionY
 local HordeFlagPositionX
 local HordeFlagPositionY
+-- Last scored team. Uses to play sound
+local LastScored
 
 local function FreeResourses()
 	AllianceFlagPositionX = nil
@@ -28,6 +29,7 @@ local function FreeResourses()
 	HordeFlagPositionY = nil
 	WSGandTPHobjectives = {HordeScore = nil}
 	WSGandTPAobjectives = {AllianceScore = nil}
+	LastScored = nil
 end
 
 --------------------------------------------------
@@ -180,8 +182,9 @@ function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 			--C_PvP.GetActiveBrawlInfo()
 			HordeFlagStatus = 0
 		end
-		
+
 		--flag save in a flag enemies flagroom
+		local MyFaction = UnitFactionGroup("player")
 		if MyFaction == "Alliance" and HordeFlagStatus == 0 then
 			if AllianceFlagPositionX and AllianceFlagPositionX ~= 0 and AllianceFlagPositionX ~= "" then
 				if AllianceFlagPositionY and AllianceFlagPositionY ~= 0 and AllianceFlagPositionY ~= "" then
@@ -198,7 +201,7 @@ function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 		AllianceFlagPositionY = nil
 	end
 end
-	
+
 
 function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
 	if string.find(EventMessage, L["picked"]) then
@@ -232,6 +235,7 @@ function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
 			AllianceFlagStatus = 0
 		end
 
+		local MyFaction = UnitFactionGroup("player")
 		if MyFaction == "Horde" and AllianceFlagStatus == 0 then
 			if HordeFlagPositionX and HordeFlagPositionX ~= 0 and HordeFlagPositionX ~= "" then
 				if HordeFlagPositionY and self.HordeFlagPositionY ~= 0 and HordeFlagPositionY ~= "" then
@@ -357,7 +361,7 @@ function mod:Initialize()
 	API.RegisterEvent(mod, "CHAT_MSG_BG_SYSTEM_ALLIANCE")
 	API.RegisterEvent(mod, "UPDATE_UI_WIDGET")
 	if not mod.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	InitScoreAndFlagPosition()
 	InitTimer()

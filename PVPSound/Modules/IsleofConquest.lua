@@ -1,8 +1,6 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
-local L = ns.L
 
 local API = PVPSound.API
 local mod = API:RegisterMod(169, "pvp", "Isle of Conquest", 628)
@@ -155,7 +153,7 @@ end
 function mod:AREA_POIS_UPDATED()
 	local CurrentZoneId = self.zoneId
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-	
+
 	-- marked table
 	local marked = {}
 
@@ -228,7 +226,7 @@ function mod:UPDATE_UI_WIDGET()
 		end
 	-- Horde Reinforcements
 		textureIndex = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685).rightBarValue
-		type = AVandIOCAget_objective(textureIndex)
+		type = AVandIOCHget_objective(textureIndex)
 		if type then
 			if AVandIOCHobj_state(AVandIOCHobjectives[type]) == 11 and AVandIOCHobj_state(textureIndex) == 10 then
 				PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\CountDown\\TenKillsRemain.mp3")
@@ -254,13 +252,13 @@ function mod:Initialize()
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
 	API.RegisterEvent(self, "UPDATE_UI_WIDGET")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	PS.PaybackKillTime = 120
 	InitReinforcements()
 	IocAllianceGateDown = false
 	IocHordeGateDown = false
-	ObjInit(self.zoneId, IOCobjectives, IOCget_objective)
+	API:ObjInit(self.zoneId, IOCobjectives, IOCget_objective)
 	if IOCobj_state(IOCobjectives.HordeGateE) == 8 or IOCobj_state(IOCobjectives.HordeGateW) == 8 or IOCobj_state(IOCobjectives.HordeGateN) == 8 then
 		IocHordeGateDown = true
 	end

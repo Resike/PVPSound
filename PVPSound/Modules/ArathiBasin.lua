@@ -1,11 +1,15 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
 local L = ns.L
 
 local API = PVPSound.API
-local mod = API:RegisterMod(1366, "pvp", "Arathi Basin", 2107)
+local mod
+if PS.isRetail then
+	mod = API:RegisterMod(1366, "pvp", "Arathi Basin", 2107)
+else
+	mod = API:RegisterMod(1461, "pvp", "Arathi Basin", 2107)
+end
 local mod_w = API:RegisterMod(837, "pvp", "Arathi Basin Winter", 1681)
 
 
@@ -58,8 +62,8 @@ function mod:AREA_POIS_UPDATED()
 	local CurrentZoneId = self.zoneId
 	PVPSound:Debug("zoneId: "..CurrentZoneId)
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-	
-	
+
+
 	for i = 1, #POIs do
 		local textureIndex
 		if C_AreaPoiInfo.GetAreaPOIInfo(CurrentZoneId,POIs[i]) then
@@ -83,7 +87,7 @@ function mod:AREA_POIS_UPDATED()
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 						end
 					end
-	
+
 				elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(textureIndex) == 2 then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 					-- Horde Dominating
@@ -154,11 +158,13 @@ mod_w.PVP_MATCH_COMPLETE = mod.PVP_MATCH_COMPLETE
 --------------------------------------------------
 -- module start and end poins --------------------
 function mod:Initialize()
-	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	end
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
 	PVPSound:Debug(self.loaded)
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	API:ObjInit(self.zoneId, ABobjectives, ABget_objective, 1)
 	self.loaded = true
@@ -166,7 +172,9 @@ end
 mod_w.Initialize = mod.Initialize
 
 function mod:Unload()
-	API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	if PS.isRetail then
+		API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	end
 	API:UnregisterEvent("AREA_POIS_UPDATED")
 	FreeResourses()
 	self.loaded = false

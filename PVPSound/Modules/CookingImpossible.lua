@@ -1,8 +1,6 @@
 local addon, ns = ...
 local PVPSound = ns.PVPSound
-local PVPSoundOptions = ns.PVPSoundOptions
 local PS = ns.PS
-local L = ns.L
 
 local API = PVPSound.API
 local mod = API:RegisterMod(1335, "pvp", "Cooking:Impossible", 1691)
@@ -62,7 +60,7 @@ function mod:Initialize()
 	API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
 	API.RegisterEvent(self, "UPDATE_UI_WIDGET")
 	if not self.loaded then
-		API:AnnounceBG()
+		API:Announce("BG")
 	end
 	InitScore()
 	self.loaded = true
