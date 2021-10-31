@@ -152,7 +152,7 @@ end
 
 function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 	if string.find(EventMessage, L["pickedA"]) then
-		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\Horde_Flag_Taken.mp3")
+		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
 		AllianceFlagPositionX = nil
 		AllianceFlagPositionY = nil
 	elseif string.find(EventMessage, L["dropped"]) then
@@ -205,7 +205,7 @@ end
 
 function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
 	if string.find(EventMessage, L["picked"]) then
-		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Taken.mp3")
+		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Taken.mp3")
 		HordeFlagPositionX = nil
 		HordeFlagPositionY = nil
 	elseif string.find(EventMessage, L["dropped"]) then

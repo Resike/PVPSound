@@ -1,5 +1,4 @@
 Issues:
-* WSG, AB and EOTS don't have win sounds in classic versions and not tested at all (i (Tokorokot) need 4lvls to fix it)
 
 ToDo List:
 * Class colored Death and Data Shares.
@@ -14,6 +13,8 @@ ToDo List:
 * BG loading system remade
 * Updated for BCC and Classic 1.14+
 * Minor GUI updates
+* Alliance and Horde flag taken sound files for TP and WSG were swapped (HORDE_... was for Alliance flag, ALLIANCE_... - for Horde)
+* Some Localization cleanup (added strings for classic, unused strings deleted)
 
 5.0.0g
 * Trying to fix tie games issue.

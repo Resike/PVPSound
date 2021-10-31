@@ -542,7 +542,7 @@ function PVPSound:OnEventBG(event, ...)
 				for _, mod in pairs(PVPSound.modules) do
 					if (mod.zoneId ~= CurrentZoneId) and mod.loaded then
 						mod:Unload()
-						PVPSound:Debug(mod.name.." unloaded")
+						PVPSound:Debug(" "..mod.name.." unloaded")
 						unloadedAddonsCheck = true
 					end
 				end
@@ -551,7 +551,7 @@ function PVPSound:OnEventBG(event, ...)
 				for _, mod in pairs(PVPSound.modules) do
 					if (mod.instId ~= CurrentInstId) and mod.loaded then
 						mod:Unload()
-						PVPSound:Debug(mod.name.." unloaded")
+						PVPSound:Debug(" "..mod.name.." unloaded")
 						unloadedAddonsCheck = true
 					end
 				end
@@ -570,7 +570,7 @@ function PVPSound:OnEventBG(event, ...)
 				PVPSound:TimerReset()
 				PVPSound:KillersReset()
 				PVPSound.modules[CurrentZoneId]:Initialize()
-				PVPSound:Debug(PVPSound.modules[CurrentZoneId].name.." loaded")
+				PVPSound:Debug(" "..PVPSound.modules[CurrentZoneId].name.." loaded")
 				loadedAddonsCheck = true
 			-- loading arenas
 			elseif InstanceType == "arena" then
@@ -580,12 +580,12 @@ function PVPSound:OnEventBG(event, ...)
 			-- loading by istId
 				PVPSound:Debug("alternative loading")
 				for _, mod in pairs(PVPSound.modules) do
-					PVPSound:Debug("try "..mod.name.." instId: "..tostring(mod.instId).." ;cur instanceId: "..(select(8, GetInstanceInfo())))
+					PVPSound:Debug(" try "..mod.name.." instId: "..tostring(mod.instId).." ;cur instanceId: "..(select(8, GetInstanceInfo())))
 					if mod.instId == CurrentInstId then
 						PVPSound:TimerReset()
 						PVPSound:KillersReset()
 						mod:Initialize()
-						PVPSound:Debug(mod.name.." loaded")
+						PVPSound:Debug(" "..mod.name.." loaded")
 						loadedAddonsCheck = true
 						break
 					end
