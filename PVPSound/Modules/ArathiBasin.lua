@@ -60,9 +60,7 @@ end
 	
 function mod:AREA_POIS_UPDATED()
 	local CurrentZoneId = self.zoneId
-	PVPSound:Debug("zoneId: "..CurrentZoneId)
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
-
 
 	for i = 1, #POIs do
 		local textureIndex
@@ -87,7 +85,6 @@ function mod:AREA_POIS_UPDATED()
 							PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\GameStatus\\AllianceDominating.mp3")
 						end
 					end
-
 				elseif ABobj_state(ABobjectives[type]) == 4 and ABobj_state(textureIndex) == 2 then
 					PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Base_Defense.mp3")
 					-- Horde Dominating
@@ -155,14 +152,25 @@ function mod:PVP_MATCH_COMPLETE(event, winner)
 end
 mod_w.PVP_MATCH_COMPLETE = mod.PVP_MATCH_COMPLETE
 
+local function PVP_MATCH_COMPLETE_CLASSIC(event, message)
+	PVPSound:Debug(event..message)
+	if string.find(message, L["Alliance wins"]) or string.find(message, L["Alliance wins secondary"]) or string.find(message, L["The Alliance is victorious"])  then
+		API:AnnounceWinner("BG", 1)
+		mod:Unload()
+	elseif string.find(message, L["Horde wins"]) or string.find(message, L["Horde wins secondary"]) or string.find(message, L["The Horde is victorious"]) then
+		API:AnnounceWinner("BG", 0)
+		mod:Unload()
+	end
+end
 --------------------------------------------------
 -- module start and end poins --------------------
 function mod:Initialize()
 	if PS.isRetail then
 		API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	else
+		API.RegisterEvent(self, "CHAT_MSG_BG_SYSTEM_NEUTRAL", PVP_MATCH_COMPLETE_CLASSIC)
 	end
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
-	PVPSound:Debug(self.loaded)
 	if not self.loaded then
 		API:Announce("BG")
 	end
@@ -174,6 +182,8 @@ mod_w.Initialize = mod.Initialize
 function mod:Unload()
 	if PS.isRetail then
 		API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	else
+		API.UnregisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 	end
 	API:UnregisterEvent("AREA_POIS_UPDATED")
 	FreeResourses()

@@ -52,15 +52,17 @@ local function EOTSobj_state(id)
 end
 
 --------------------------------------------------
--- on event functions ----------------------------	
+-- on event functions ----------------------------
 
 function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
+	PVPSound:Debug(event..EventMessage)
 	if string.find(EventMessage, L["Alliance have captured"]) or string.find(EventMessage, L["Horde have captured"]) then
 		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 	end
 end
 
 function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
+	PVPSound:Debug(event..EventMessage)
 	if string.find(EventMessage, L["Alliance have captured"]) or string.find(EventMessage, L["Horde have captured"]) then
 		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Scores.mp3")
 	end
@@ -68,6 +70,7 @@ end
 
  -- same as previous two functions, but for RBG
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(event, EventMessage)
+	PVPSound:Debug(event..EventMessage)
 	if string.find(EventMessage, L["Alliance have captured"]) then
 		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Scores.mp3")
 	elseif string.find(EventMessage, L["Horde have captured"]) then
@@ -75,7 +78,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(event, EventMessage)
 	end
 end
 
-function mod:AREA_POIS_UPDATED()				
+function mod:AREA_POIS_UPDATED()
 	local CurrentZoneId = self.zoneId
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 
@@ -135,15 +138,40 @@ function mod:PVP_MATCH_COMPLETE(event, winner)
 	mod:Unload()
 end
 
+local function PVP_MATCH_COMPLETE_CLASSIC(event, winner)
+	local HordeScore
+	local AllianceScore
+	if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(3116)) then
+		local WidgetText = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(3116).text
+		AllianceScore = tonumber(string.match(WidgetText, "(%d+)/"))
+	end
+	if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(3117)) then
+		local WidgetText = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(3117).text
+		HordeScore = tonumber(string.match(WidgetText, "(%d+)/"))
+	end
+
+	if HordeScore and AllianceScore then
+		if AllianceScore == 2000 then
+			API:AnnounceWinner("BG", 1)
+			mod:Unload()
+		elseif HordeScore == 2000 then
+			API:AnnounceWinner("BG", 0)
+			mod:Unload()
+		end
+	end
+end
+
 --------------------------------------------------
 -- module start and end poins --------------------
 function mod:Initialize()
 	API.RegisterEvent(self, "CHAT_MSG_BG_SYSTEM_ALLIANCE")
 	API.RegisterEvent(self, "CHAT_MSG_BG_SYSTEM_HORDE")
-	API.RegisterEvent(self, "CHAT_MSG_RAID_BOSS_EMOTE")	
+	API.RegisterEvent(self, "CHAT_MSG_RAID_BOSS_EMOTE")
 	API.RegisterEvent(self, "AREA_POIS_UPDATED")
 	if PS.isRetail then
 		API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
+	else
+		API.RegisterEvent(self, "UPDATE_UI_WIDGET", PVP_MATCH_COMPLETE_CLASSIC)
 	end
 	if not self.loaded then
 		API:Announce("BG")
@@ -159,6 +187,8 @@ function mod:Unload()
 	API:UnregisterEvent("AREA_POIS_UPDATED")
 	if PS.isRetail then
 		API:UnregisterEvent("PVP_MATCH_COMPLETE")
+	else
+		API:UnregisterEvent("UPDATE_UI_WIDGET")
 	end
 	FreeResourses()
 	self.loaded = false
