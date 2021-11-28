@@ -161,6 +161,74 @@ function API:RegisterMod(zoneId, pvptype, name, instId)
 	return mod
 end
 
+-------------------------------
+-- Module load/unload function
+
+function API:LoadModules(CurrentZoneId, InstanceType, CurrentInstId)
+	-- loading BG modules
+	-- Some BGs starts in the zone without  areaID (for example winter AB)
+	-- for such cases instance ID is used
+	-- Arenas module doesn't have real zoneId field (-1), so it will be loaded only by zone type check
+	local loadedAddonsCheck = false
+	-- loading by zoneId
+	if CurrentZoneId and PVPSound.modules[CurrentZoneId] and InstanceType == PVPSound.modules[CurrentZoneId].type and not PVPSound.modules[CurrentZoneId] then
+		PVPSound:Debug("common loading")
+		PVPSound:TimerReset()
+		PVPSound:KillersReset()
+		PVPSound.modules[CurrentZoneId]:Initialize()
+		PVPSound:Debug(" "..PVPSound.modules[CurrentZoneId].name.." loaded")
+		loadedAddonsCheck = true
+	-- loading arenas
+	elseif InstanceType == "arena" then
+		PVPSound.modules[-1]:Initialize()
+		loadedAddonsCheck = true
+	else
+	-- loading by instId
+		PVPSound:Debug("alternative loading")
+		for _, mod in pairs(PVPSound.modules) do
+			PVPSound:Debug(" try "..mod.name.." instId: "..tostring(mod.instId).." ;cur instanceId: "..(select(8, GetInstanceInfo())))
+			if mod.instId == CurrentInstId and not mod.loaded then
+				PVPSound:TimerReset()
+				PVPSound:KillersReset()
+				mod:Initialize()
+				PVPSound:Debug(" "..mod.name.." loaded")
+				loadedAddonsCheck = true
+				break
+			end
+		end
+	end
+	if loadedAddonsCheck == false then
+		PVPSound:Debug(" Nothing loaded")
+	end
+end
+
+function API:UnloadModules(CurrentZoneId, CurrentInstId)
+	-- unloading of loaded modules (except the module for zone, where you are)
+	local unloadedAddonsCheck = false
+	if CurrentZoneId then
+		PVPSound:Debug("common unloading")
+		for _, mod in pairs(PVPSound.modules) do
+			if (mod.zoneId ~= CurrentZoneId) and mod.loaded then
+				mod:Unload()
+				PVPSound:Debug(" "..mod.name.." unloaded")
+				unloadedAddonsCheck = true
+			end
+		end
+	else
+		PVPSound:Debug("alternative unloading")
+		for _, mod in pairs(PVPSound.modules) do
+			if (mod.instId ~= CurrentInstId) and mod.loaded then
+				mod:Unload()
+				PVPSound:Debug(" "..mod.name.." unloaded")
+				unloadedAddonsCheck = true
+			end
+		end
+	end
+	if unloadedAddonsCheck == false then
+		PVPSound:Debug(" Nothing unloaded")
+	end
+end
+
 -----------------------------------
 -- BG and Arena Team announcer when BG starts
 function API:Announce(zone)

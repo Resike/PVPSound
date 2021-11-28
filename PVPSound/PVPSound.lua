@@ -72,6 +72,9 @@ local UnitName = UnitName]]
 --addon modules table
 PVPSound.modules = { }
 
+-- WOW Version check
+PS.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+
 local PVPSoundFrame = CreateFrame("Frame", nil)
 PVPSoundFrame:RegisterEvent("ADDON_LOADED")
 
@@ -88,6 +91,10 @@ function PVPSound:LoadBG()
 		PVPSoundFrameBG:RegisterEvent("PLAYER_ENTERING_WORLD")
 		PVPSoundFrameBG:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 		PVPSoundFrameBG:SetScript("OnEvent", PVPSound.OnEventBG)
+		CurrentZoneId = C_Map.GetBestMapForUnit("player")
+		InstanceType = (select(2, IsInInstance()))
+		CurrentInstId = (select(8, GetInstanceInfo()))
+		PVPSound.API:LoadModules(CurrentZoneId, InstanceType, CurrentInstId)
 		PVPSound:Debug("!BG Events Loaded")
 	end
 end
@@ -97,6 +104,8 @@ function PVPSound:UnloadBG()
 	if PVPSoundFrameBG then
 		PVPSoundFrameBG:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		PVPSoundFrameBG:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
+		PVPSound.API:UnregisterAllEvents()
+		PVPSound.API:UnloadModules()
 		PVPSound:Debug("!BG Events Unloaded")
 	end
 end
@@ -393,6 +402,7 @@ end
 
 --addon performanse info dump
 function PVPSound:perfDump()
+	PVPSound:Debug(addon)
 	UpdateAddOnMemoryUsage()
 	UpdateAddOnCPUUsage()
 	local mem = GetAddOnMemoryUsage(addon)
@@ -489,8 +499,6 @@ function PVPSound:OnEvent(event, ...)
 			end
 			PS.KillSoundPack = PS_KillSoundPackName..""..PS_KillSoundPackLanguage
 			PS.SoundPack = PS_SoundPackName..""..PS_SoundPackLanguage
-			-- WOW Version check
-			PS.isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 			if PS_EnableAddon == true then
 				PVPSound:RegisterEvents()
 			end
@@ -535,65 +543,9 @@ function PVPSound:OnEventBG(event, ...)
 			end
 			PS.PaybackKillTime = 90
 
-			-- unloading of loaded modules (except the module for zone, where you are)
-			local unloadedAddonsCheck = false
-			if CurrentZoneId then
-				PVPSound:Debug("common unloading")
-				for _, mod in pairs(PVPSound.modules) do
-					if (mod.zoneId ~= CurrentZoneId) and mod.loaded then
-						mod:Unload()
-						PVPSound:Debug(" "..mod.name.." unloaded")
-						unloadedAddonsCheck = true
-					end
-				end
-			else
-				PVPSound:Debug("alternative unloading")
-				for _, mod in pairs(PVPSound.modules) do
-					if (mod.instId ~= CurrentInstId) and mod.loaded then
-						mod:Unload()
-						PVPSound:Debug(" "..mod.name.." unloaded")
-						unloadedAddonsCheck = true
-					end
-				end
-			end
-			if unloadedAddonsCheck == false then
-				PVPSound:Debug(" Nothing unloaded")
-			end
-			-- loading BG modules
-			-- Some BGs starts in the zone without  areaID (for example winter AB)
-			-- for such cases instance ID used
-			-- Arenas module don't have real zoneId field (-1), so it wuill be loaded only by zone type check
-			local loadedAddonsCheck = false
-			-- loading by zoneId
-			if CurrentZoneId and PVPSound.modules[CurrentZoneId] and InstanceType == PVPSound.modules[CurrentZoneId].type then
-				PVPSound:Debug("common loading")
-				PVPSound:TimerReset()
-				PVPSound:KillersReset()
-				PVPSound.modules[CurrentZoneId]:Initialize()
-				PVPSound:Debug(" "..PVPSound.modules[CurrentZoneId].name.." loaded")
-				loadedAddonsCheck = true
-			-- loading arenas
-			elseif InstanceType == "arena" then
-				PVPSound.modules[-1]:Initialize()
-				loadedAddonsCheck = true
-			else
-			-- loading by istId
-				PVPSound:Debug("alternative loading")
-				for _, mod in pairs(PVPSound.modules) do
-					PVPSound:Debug(" try "..mod.name.." instId: "..tostring(mod.instId).." ;cur instanceId: "..(select(8, GetInstanceInfo())))
-					if mod.instId == CurrentInstId then
-						PVPSound:TimerReset()
-						PVPSound:KillersReset()
-						mod:Initialize()
-						PVPSound:Debug(" "..mod.name.." loaded")
-						loadedAddonsCheck = true
-						break
-					end
-				end
-			end
-			if loadedAddonsCheck == false then
-				PVPSound:Debug(" Nothing loaded")
-			end
+			PVPSound.API:UnloadModules(CurrentZoneId, InstanceType, CurrentInstId)
+
+			PVPSound.API:LoadModules(CurrentZoneId, InstanceType, CurrentInstId)
 		end
 	end
 end

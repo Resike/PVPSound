@@ -15,6 +15,7 @@ ToDo List:
 * Minor GUI updates
 * Alliance and Horde flag taken sound files for TP and WSG were swapped (HORDE_... was for Alliance flag, ALLIANCE_... - for Horde)
 * Some Localization cleanup (added strings for classic, unused strings deleted)
+* Parent object for PVPSound tooltip template was changed in options.xml
 
 5.0.0g
 * Trying to fix tie games issue.

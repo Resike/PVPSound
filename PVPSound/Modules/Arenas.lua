@@ -30,8 +30,15 @@ local function InitTimer()
 end
 
 --------------------------------------------------
+-- on event functions ----------------------------
+function mod:PVP_MATCH_COMPLETE(event, winner)
+	API:AnnounceWinner("Arena", winner)
+	mod:Unload()
+end
+--------------------------------------------------
 -- module start and end poins --------------------
 function mod:Initialize()
+    API.RegisterEvent(self, "PVP_MATCH_COMPLETE")
 	if not self.loaded then
 		API:Announce("Arena")
 	end
@@ -40,6 +47,7 @@ function mod:Initialize()
 end
 
 function mod:Unload()
+    API:UnregisterEvent("PVP_MATCH_COMPLETE")
     API:StopTimers()
 	self.loaded = false
 end
