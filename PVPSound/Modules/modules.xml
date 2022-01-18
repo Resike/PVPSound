@@ -1,0 +1,23 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	
+	<Script file = "API.lua" />
+	<Script file = "WarsongGulch.lua" />
+	<Script file = "AlteracValley.lua" />
+	<Script file = "ArathiBasin.lua" />
+	<Script file = "TwinPeaks.lua" />
+	<Script file = "EyeoftheStorm.lua" />
+	<Script file = "IsleofConquest.lua" />
+	<Script file = "TheBattleforGilneas.lua" />
+	<Script file = "TempleofKotmogu.lua" />
+	<Script file = "SilvershardMines.lua" />
+	<Script file = "DeepwindGorge.lua" />
+	<Script file = "SeethingShore.lua" />
+	<Script file = "CookingImpossible.lua" />
+	<Script file = "TarrenMillvsSouthshore.lua" />
+	<Script file = "Wintergasp.lua" />
+	<Script file = "TolBarad.lua" />
+	<Script file = "Ashran.lua" />
+	<Script file = "Arenas.lua" />
+</Ui>

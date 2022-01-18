@@ -74,6 +74,7 @@ L["Sound Channel"] = "Sound Channel"
 L["Mode"] = "Mode"
 L["Enable Kill Sounds"] = "Enable Kill Sounds"
 L["Enable Multi Kill Sounds"] = "Enable Multi Kill Sounds"
+L["Enable Execute Sounds"] = "Enable Execute Sounds"
 -- Button Tooltips
 L["Select a Language for the addon to use."] = "Select a Language for the addon to use."
 L["Enables or disables the addon completely."] = "Enables or disables the addon completely."
@@ -85,6 +86,7 @@ L["Select a Sound Channel to use."] = "Select a Sound Channel to use."
 L["Select a mode to use."] = "Select a mode to use."
 L["Enables or disables Kill Sounds."] = "Enables or disables Kill Sounds."
 L["Enables or disables Multi Kill Sounds."] = "Enables or disables Multi Kill Sounds."
+L["Enables or Disables Execute sounds."] = "Enables or Disables Execute sounds."
 -- Tab Labels
 L["General"] = "General"
 L["AV"] = "AV"
@@ -205,17 +207,25 @@ function PVPSound:EnglishClient()
 L["Eye of the Storm"] = "Eye of the Storm"
 -- Battleground Zone Names
 L["Silverwing Hold"] = "Silverwing Hold"
-L["Warsong Flag Room"] = "Warsong Flag Room" --in new WSG there is no subzones and Hord Flagroom is "Warsong lumber mill"
+L["Warsong Flag Room"] = "Warsong Flag Room" --in new WSG there are no subzones and Hord Flagroom is "Warsong lumber mill"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
-L["taken the"] = "taken the"
+--  WSG and TP
 L["dropped"] = "dropped"
 L["picked"] = "picked"
-L["pickedA"] = "picked"--fix for Ru client
+L["pickedA"] = "picked" --fix for Ru client
 L["returned"] = "returned"
-L["stolen"] = "stolen"
+L["Alliance Flag has returned"] = "Alliance Flag has returned"
+L["Horde Flag has returned"] = "Horde Flag has returned"
+L["vulnerable"] = "vulnerable"
+L["Tie game"] = "Tie game"
+--  SM
 L["captured"] = "captured"
+-- EOTS
+L["Alliance have captured"] = "has captured the flag"
+L["Horde have captured"] = "has captured the flag"
+-- classic AV, WSG, EOTS and AB winsounds -- I don really know which text used in each launguage, so test all of it
 L["The Alliance is victorious"] = "The Alliance is victorious"
 L["The Horde is victorious"] = "The Horde is victorious"
 L["The Alliance is near victory"] = "The Alliance is near victory"
@@ -224,22 +234,11 @@ L["Alliance wins"] = "Alliance wins"
 L["Alliance wins secondary"] = "Alliance wins"
 L["Horde wins"] = "Horde wins"
 L["Horde wins secondary"] = "Horde wins"
-L["Alliance Flag has returned"] = "Alliance Flag has returned"
-L["Horde Flag has returned"] = "Horde Flag has returned"
-L["vulnerable"] = "vulnerable"
-L["Alliance have captured"] = "has captured the flag"
-L["Horde have captured"] = "has captured the flag"
-L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin"
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute"
-L["Round 1"] = "Round 1"
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"
-L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds"
-L["Tie game"] = "Tie game"
--- Battlefield Events
-L["workshop has been attacked by the Alliance"] = "has been attacked by the Alliance"--updated for WG
-L["workshop has been captured by the Alliance"] = "has been captured by the Alliance"--updated for WG
-L["workshop has been attacked by the Horde"] = "has been attacked by the Horde"--updated for WG
-L["workshop has been captured by the Horde"] = "has been captured by the Horde"--updated for WG
+-- WG
+L["workshop has been attacked by the Alliance"] = "has been attacked by the Alliance"
+L["workshop has been captured by the Alliance"] = "has been captured by the Alliance"
+L["workshop has been attacked by the Horde"] = "has been attacked by the Horde"
+L["workshop has been captured by the Horde"] = "has been captured by the Horde"
 L["Alliance has defended"] = "Alliance has defended"
 L["Horde has defended"] = "Horde has defended"
 end
@@ -339,7 +338,6 @@ L["[Unreal Tournament 3]"] = "[Unreal Tournament 3]"
 L["[PVP and PVE]"] = "[PVP and PVE]"
 L["Execute sounds"] = "Execute sounds"
 L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
-
 end
 
 function PVPSound:GermanClient()
@@ -351,35 +349,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
-L["taken the"] = "taken the"
-L["dropped"] = "dropped"
+--  WSG and TP
+L["dropped"] = "fallen lassen"
 L["picked"] = "aufgenommen"
 L["pickedA"] = "aufgenommen"--fix for Ru client
-L["returned"] = "returned"
-L["stolen"] = "stolen"
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious"
-L["The Horde is victorious"] = "The Horde is victorious"
--- Battleground Events
-L["Alliance wins"] = "Die Allianz siegt"
-L["Alliance wins secondary"] = "Die Allianz gewinnt"
-L["captured"] = "erobert"
-L["dropped"] = "fallen lassen"
-L["Alliance have captured"] = "Die Allianz hat die Flagge erobert"
-L["Horde have captured"] = "Die Horde hat die Flagge erobert"
-L["Horde wins"] = "Die Horde siegt"
-L["Horde wins secondary"] = "Die Horde gewinnt"
 L["returned"] = "zurückgebracht"
 L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
 L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Lasst die Schlacht um den Strand der Uralten beginnen"
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "Die Schlacht um den Strand der Uralten beginnt in 1 Minute"
-L["Round 1"] = "Runde 1 - Beendet"
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Runde 2 der Schlacht um den Strand der Uralten beginnt in 1 Minute"
-L["Round 2 begins in 30 seconds"] = "Runde 2 beginnt in 30 Sekunden"
 L["vulnerable"] = "Verletzungen"
 L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  SM
+L["captured"] = "erobert"
+--  EOTS
+L["Alliance have captured"] = "Die Allianz hat die Flagge erobert"
+L["Horde have captured"] = "Die Horde hat die Flagge erobert"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious"
+L["The Horde is victorious"] = "The Horde is victorious"
+L["Alliance wins"] = "Die Allianz siegt"
+L["Alliance wins secondary"] = "Die Allianz gewinnt"
+L["Horde wins"] = "Die Horde siegt"
+L["Horde wins secondary"] = "Die Horde gewinnt"
+--  WG
 L["workshop has been attacked by the Alliance"] = "wurde von der Allianz angegriffen"
 L["workshop has been captured by the Alliance"] = "wurde von der Allianz erobert"
 L["Alliance has defended"] = "Die Allianz verteidigte"
@@ -495,35 +486,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
-L["taken the"] = "taken the"
-L["dropped"] = "dropped"
+--  WSG and TP
+L["dropped"] = "arrojada"
 L["picked"] = "recogida"
 L["pickedA"] = "recogida" --fix for Ru client
-L["returned"] = "returned"
-L["stolen"] = "stolen"
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious"
-L["The Horde is victorious"] = "The Horde is victorious"
--- Battleground Events
-L["Alliance wins"] = "La Alianza gana"
-L["Alliance wins secondary"] = "La Alianza gana"
-L["Alliance have captured"] = "La Alianza ha capturado la bandera"
-L["Horde have captured"] = "La Horda ha capturado la bandera"
-L["captured"] = "capturada"
-L["dropped"] = "arrojada"
-L["Horde wins"] = "La Horda gana"
-L["Horde wins secondary"] = "La Horda gana"
 L["returned"] = "regresada"
 L["Alliance Flag has returned"] = "La bandera de la alianza ha sido devuelta"
 L["Horde Flag has returned"] = "La bandera de la horda ha sido devuelta"
-L["Let the battle for the Strand of the Ancients begin"] = "Que empiece la batalla por la playa de los ancestros"
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "La batalla por la Playa de los Ancestros comienza en 1 minuto"
-L["Round 1"] = "La primera ronda ha acabado"
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Ronda 2 de la Batalla por la Playa de los Ancestros comienza en 1 minuto"
-L["Round 2 begins in 30 seconds"] = "La segunda ronda de la Batalla por la Playa de los Ancestros comienza en 30 segundos"
 L["vulnerable"] = "vulnerables"
 L["Tie game"] = "empate"
--- Battlefield Events
+--  SM
+L["captured"] = "capturada"
+--  EOTS
+L["Alliance have captured"] = "La Alianza ha capturado la bandera"
+L["Horde have captured"] = "La Horda ha capturado la bandera"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious"
+L["The Horde is victorious"] = "The Horde is victorious"
+L["Alliance wins"] = "La Alianza gana"
+L["Alliance wins secondary"] = "La Alianza gana"
+L["Horde wins"] = "La Horda gana"
+L["Horde wins secondary"] = "La Horda gana"
+-- WG
 L["workshop has been attacked by the Alliance"] = "El Taller ha sido atacado por la alianza"
 L["workshop has been captured by the Alliance"] = "El Taller ha sido capturado por la alianza"
 L["Alliance has defended"] = "La Allianza ha defendido"
@@ -639,35 +623,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
-L["taken the"] = "taken the"
-L["dropped"] = "dropped"
+--  WSG and TP
+L["dropped"] = "arrojada"
 L["picked"] = "recogida"
 L["pickedA"] = "recogida" --fix for Ru client
-L["returned"] = "returned"
-L["stolen"] = "stolen"
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious"
-L["The Horde is victorious"] = "The Horde is victorious"
--- Battleground Events
-L["Alliance wins"] = "La Alianza gana"
-L["Alliance wins secondary"] = "La Alianza gana"
-L["Alliance have captured"] = "La Alianza ha capturado la bandera"
-L["Horde have captured"] = "La Horda ha capturado la bandera"
-L["captured"] = "capturada"
-L["dropped"] = "arrojada"
-L["Horde wins"] = "La Horda gana"
-L["Horde wins secondary"] = "La Horda gana"
 L["returned"] = "regresada"
 L["Alliance Flag has returned"] = "La bandera de la alianza ha sido devuelta"
 L["Horde Flag has returned"] = "La bandera de la horda ha sido devuelta"
-L["Let the battle for the Strand of the Ancients begin"] = "Que empiece la batalla por la playa de los ancestros"
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "La batalla por la Playa de los Ancestros comienza en 1 minuto"
-L["Round 1"] = "La primera ronda ha acabado"
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Ronda 2 de la Batalla por la Playa de los Ancestros comienza en 1 minuto"
-L["Round 2 begins in 30 seconds"] = "La segunda ronda de la Batalla por la Playa de los Ancestros comienza en 30 segundos"
 L["vulnerable"] = "vulnerables"
 L["Tie game"] = "empate"
--- Battlefield Events
+--  SM
+L["captured"] = "capturada"
+--  EOTS
+L["Alliance have captured"] = "La Alianza ha capturado la bandera"
+L["Horde have captured"] = "La Horda ha capturado la bandera"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious"
+L["The Horde is victorious"] = "The Horde is victorious"
+L["Alliance wins"] = "La Alianza gana"
+L["Alliance wins secondary"] = "La Alianza gana"
+L["Horde wins"] = "La Horda gana"
+L["Horde wins secondary"] = "La Horda gana"
+--  WG
 L["workshop has been attacked by the Alliance"] = "El Taller ha sido atacado por la alianza"
 L["workshop has been captured by the Alliance"] = "El Taller ha sido capturado por la alianza"
 L["Alliance has defended"] = "La Allianza ha defendido"
@@ -783,35 +760,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
-L["taken the"] = "taken the"
-L["dropped"] = "dropped"
+--  WSG and TP
+L["dropped"] = "chuté"
 L["picked"] = "pris"
 L["pickedA"] = "pris" --fix for Ru client
-L["returned"] = "returned"
-L["stolen"] = "stolen"
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious"
-L["The Horde is victorious"] = "The Horde is victorious"
--- Battleground Events
-L["Alliance wins"] = "L' Alliance gagne"
-L["Alliance wins secondary"] = "L' Alliance gagne"
-L["captured"] = "capturé"
-L["dropped"] = "chuté"
-L["Alliance have captured"] = "L'Alliance a capturé"
-L["Horde have captured"] = "La Horde a capturé"
-L["Horde wins"] = "La Horde gagne"
-L["Horde wins secondary"] = "La Horde gagne"
 L["returned"] = "retourné"
 L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
 L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Que la bataille pour le Rivage des Anciens commence"
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "La bataille pour le Rivage des Anciens commence dans 1 minute"
-L["Round 1"] = "Round 1"
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Le round 2 de la bataille pour le Rivage des Anciens commence dans 1 minute"
-L["Round 2 begins in 30 seconds"] = "Round 2 commence dans 30 secondes"
 L["vulnerable"] = "vulnérable"
 L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  SM
+L["captured"] = "capturé"
+--  EOTS
+L["Alliance have captured"] = "L'Alliance a capturé"
+L["Horde have captured"] = "La Horde a capturé"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious"
+L["The Horde is victorious"] = "The Horde is victorious"
+L["Alliance wins"] = "L' Alliance gagne"
+L["Alliance wins secondary"] = "L' Alliance gagne"
+L["Horde wins"] = "La Horde gagne"
+L["Horde wins secondary"] = "La Horde gagne"
+--  WG
 L["workshop has been attacked by the Alliance"] = "L'atelier a été attaqué par l'Alliance"
 L["workshop has been captured by the Alliance"] = "L'atelier a été capturé par l'Alliance"
 L["Alliance has defended"] = "L’Alliance a défendu"
@@ -911,6 +881,11 @@ L["Show status"] = "Show status" -- Requires localization
 L["Scrolling Combat Text and sound test"] = "Sound test" -- Requires localization
 L["Killing Count"] = "Killing Count" -- Requires localization
 L["Death messages"] = "Death messages" -- Requires localization
+
+--need localization
+L["[PVP and PVE]"] = "[PVP and PVE]"
+L["Execute sounds"] = "Execute sounds"
+L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:ItalianClient()
@@ -922,46 +897,34 @@ L["Warsong Flag Room"] = "Warsong Flag Room" -- Requires localization
 L["Dragonmaw Forge"] ="Dragonmaw Forge" -- Requires localization
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 -- Battleground Events
-L["taken the"] = "taken the" -- Requires localization
+--  WSG and TP
 L["dropped"] = "dropped" -- Requires localization
 L["picked"] = "picked" -- Requires localization
 L["pickedA"] = "picked" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
-L["stolen"] = "stolen" -- Requires localization
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
-L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
--- Battleground Events
-L["Alliance wins"] = "Alliance wins" -- Requires localization
-L["Alliance wins secondary"] = "Alliance wins" -- Requires localization
-L["Alliance have captured"] = "Alliance have captured" -- Requires localization
-L["Horde have captured"] = "Horde have captured" -- Requires localization
-L["captured"] = "captured" -- Requires localization
-L["dropped"] = "dropped" -- Requires localization
-L["Horde wins"] = "Horde wins" -- Requires localization
-L["Horde wins secondary"] = "Horde wins" -- Requires localization
-L["returned"] = "returned" -- Requires localization
 L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
 L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin" -- Requires localization
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 1"] = "Round 1" -- Requires localization
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds" -- Requires localization
 L["vulnerable"] = "vulnerable" -- Requires localization
 L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  SM
+L["captured"] = "captured" -- Requires localization
+--  EOTS
+L["Alliance have captured"] = "Alliance have captured" -- Requires localization
+L["Horde have captured"] = "Horde have captured" -- Requires localization
+-- classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
+L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
+L["Alliance wins"] = "Alliance wins" -- Requires localization
+L["Alliance wins secondary"] = "Alliance wins" -- Requires localization
+L["Horde wins"] = "Horde wins" -- Requires localization
+L["Horde wins secondary"] = "Horde wins" -- Requires localization
+--  WG
 L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance" -- Requires localization
 L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance" -- Requires localization
 L["Alliance has defended"] = "Alliance has defended" -- Requires localization
 L["workshop has been attacked by the Horde"] = "workshop has been attacked by the Horde" -- Requires localization
 L["workshop has been captured by the Horde"] = "workshop has been captured by the Horde" -- Requires localization
 L["Horde has defended"] = "Horde has defended" -- Requires localization
-
- --need localization
-L["[PVP and PVE]"] = "[PVP and PVE]"
-L["Execute sounds"] = "Execute sounds"
-L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
 end
 
 function PVPSound:Korean()
@@ -1056,7 +1019,7 @@ L["Scrolling Combat Text and sound test"] = "Sound test" -- Requires localizatio
 L["Killing Count"] = "Killing Count" -- Requires localization
 L["Death messages"] = "Death messages" -- Requires localization
 
- --need localization
+--need localization
 L["[PVP and PVE]"] = "[PVP and PVE]"
 L["Execute sounds"] = "Execute sounds"
 L["Enables or Disables execute sounds"] = "Enables or Disables execute sounds"
@@ -1071,35 +1034,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room" -- Requires localization
 L["Dragonmaw Forge"] ="Dragonmaw Forge" -- Requires localization
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 -- Battleground Events
-L["taken the"] = "taken the" -- Requires localization
-L["dropped"] = "dropped" -- Requires localization
+--  WSG and TP
+L["dropped"] = "떨어뜨렸습니다"
 L["picked"] = "깃발을 손에 넣었습니다"
 L["pickedA"] = "깃발을 손에 넣었습니다" --fix for Ru client
-L["returned"] = "returned" -- Requires localization
-L["stolen"] = "stolen" -- Requires localization
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
-L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
--- Battleground Events
-L["Alliance wins"] = "얼라이언스 승리"
-L["Alliance wins secondary"] = "얼라이언스 승리"
-L["Alliance have captured"] = "얼라이언스 |1이;가; 깃발을 차지했습니다"
-L["Horde have captured"] = "호드 |1이;가; 깃발을 차지했습니다"
-L["captured"] = "깃발 쟁탈에 성공했습니다"
-L["dropped"] = "떨어뜨렸습니다"
-L["Horde wins"] = "호드 승리"
-L["Horde wins secondary"] = "호드 승리"
 L["returned"] = "깃발을 되찾았습니다"
 L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
 L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin" -- Requires localization
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 1"] = "Round 1" -- Requires localization
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds" -- Requires localization
 L["vulnerable"] = "약해져서"
 L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  SM
+L["captured"] = "깃발 쟁탈에 성공했습니다"
+--  EOTS
+L["Alliance have captured"] = "얼라이언스 |1이;가; 깃발을 차지했습니다"
+L["Horde have captured"] = "호드 |1이;가; 깃발을 차지했습니다"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
+L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
+L["Alliance wins"] = "얼라이언스 승리"
+L["Alliance wins secondary"] = "얼라이언스 승리"
+L["Horde wins"] = "호드 승리"
+L["Horde wins secondary"] = "호드 승리"
+--  WG
 L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance" -- Requires localization
 L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance" -- Requires localization
 L["Alliance has defended"] = "Alliance has defended" -- Requires localization
@@ -1215,35 +1171,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room" -- Requires localization
 L["Dragonmaw Forge"] ="Dragonmaw Forge" -- Requires localization
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 -- Battleground Events
-L["taken the"] = "taken the" -- Requires localization
-L["dropped"] = "dropped" -- Requires localization
+--  WSG and TP
+L["dropped"] = "derrubada"
 L["picked"] = "picked" -- Requires localization
 L["pickedA"] = "picked" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
-L["stolen"] = "stolen" -- Requires localization
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
-L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
--- Battleground Events
-L["Alliance wins"] = "Aliança vence"
-L["Alliance wins secondary"] = "Aliança vence"
-L["Alliance have captured"] = "Alliance have captured" -- Requires localization
-L["Horde have captured"] = "Horde have captured" -- Requires localization
-L["captured"] = "captured" -- Requires localization
-L["dropped"] = "derrubada"
-L["Horde wins"] = "Horda vence"
-L["Horde wins secondary"] = "Horda vence"
-L["returned"] = "returned" -- Requires localization
 L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
 L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin" -- Requires localization
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 1"] = "Round 1" -- Requires localization
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds" -- Requires localization
 L["vulnerable"] = "vulnerable" -- Requires localization
 L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  SM
+L["captured"] = "captured" -- Requires localization
+--  EOTS
+L["Alliance have captured"] = "Alliance have captured" -- Requires localization
+L["Horde have captured"] = "Horde have captured" -- Requires localization
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
+L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
+L["Alliance wins"] = "Aliança vence"
+L["Alliance wins secondary"] = "Aliança vence"
+L["Horde wins"] = "Horda vence"
+L["Horde wins secondary"] = "Horda vence"
+--  WG
 L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance" -- Requires localization
 L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance" -- Requires localization
 L["Alliance has defended"] = "Alliance has defended" -- Requires localization
@@ -1294,6 +1243,7 @@ L["Sound Channel"] = "Звуковой канал"
 L["Mode"] = "Режим"
 L["Enable Kill Sounds"] = "Вкл озвучку убийств"
 L["Enable Multi Kill Sounds"] = "Вкл звуки при Multi Kill"
+L["Enable Execute Sounds"] = "Вкл звуки при добивании"
 -- Button Tooltips
 L["Select a Language for the addon to use."] = "Выбрать язык аддона."
 L["Enables or disables the addon completely."] = "Вкл / Выкл аддон полностью."
@@ -1305,6 +1255,7 @@ L["Select a Sound Channel to use."] = "Выбрать звуковой кана�
 L["Select a mode to use."] = "Выберите режим."
 L["Enables or disables Kill Sounds."] = "Вкл / Выкл озвучку убийств."
 L["Enables or disables Multi Kill Sounds."] = "Вкл / Выкл звуки при Multi Kill."
+L["Enables or Disables Execute sounds."] = "Вкл / Выкл звуки добивания."
 -- Tab Labels
 L["General"] = "Основное"
 L["AV"] = "AV"
@@ -1426,8 +1377,6 @@ L["Killing Count"] = "Счетчик убийств"
 L["Death messages"] = "Сообщения о смерти"
 L["Execute sounds"] = "Звуки добивания"
 L["Enables or Disables execute sounds"] = "Вкл / Выкл звуки добивания"
-
-
 end
 
 function PVPSound:RussianClient()
@@ -1439,42 +1388,36 @@ L["Warsong Flag Room"] = "Флаговая комната Песни Войны"
 L["Dragonmaw Forge"] ="Кузня Драконьей Пасти"
 L["Wildhammer Stronghold"] = "Цитадель Громового Молота"
 -- Battleground Events
-L["taken the"] = "захватывает вагонетку"
-L["dropped"] = "бросил"
-L["picked"] = "несет" --updated
-L["pickedA"] = "Флаг Альянса у"--updated for 8.0 --for some reason in ru client there is different messages for Alliance and Horde flag picked
-L["returned"] = "вернул"
-L["stolen"] = "получает золото"
-L["The Alliance is victorious"] = "Альянс одержал победу!"
-L["The Horde is victorious"] = "Победа за Ордой!"
--- Battleground Events
-L["Alliance wins"] = "Альянс побеждает"
-L["Alliance wins secondary"] = "Альянс победил"
---for RU clien I use Alliance for male characters and Horde for female...it is about grammatics.
-L["Alliance have captured"] = "захватил флаг"
-L["Horde have captured"] = "захватила флаг"
-
-L["captured"] = "захват" --SM and DWG --in BFA full message for horde is "орда захватывает вагонетку" and for alliance is "альянс захватил вагонетку" so i decided to look for cutted "захват"
-
-L["dropped"] = "роняет"--updated
-L["Horde wins"] = "Орда побеждает"
-L["Horde wins secondary"] = "Орда победила"
-L["returned"] = "возвращает"--updated
+--  WSG and TP
+L["dropped"] = "роняет"
+L["dropped classic"] = "уронил"--for classic
+L["picked"] = "несет"
+L["pickedA"] = "Флаг Альянса у"--for some reason in ru client there are different messages for Alliance and Horde flag picked
+L["returned"] = "возвращает"
+L["returned classic"] = "вернул"--for classic
 L["Alliance Flag has returned"] = "Флаг Альянса возвращен"
 L["Horde Flag has returned"] = "Флаг Орды возвращен"
-L["Let the battle for the Strand of the Ancients begin"] = "Да начнется битва за Берег Древних"
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "Битва за Берег Древних начнется через 1 минуту"
-L["Round 1"] = "Раунд 1 - Завершен"
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Раунд 2 Битвы за Берег Древних начнется через 1 минуту"
-L["Round 2 begins in 30 seconds"] = "Раунд 2 начинается через 30 секунд"
 L["vulnerable"] = "уязвимо"
 L["Tie game"] = "Ничья"
--- Battlefield Events
-L["workshop has been attacked by the Alliance"] = "атакована Альянсом"--updated for WG
-L["workshop has been captured by the Alliance"] = "захвачена Альянсом"--updated for WG
+--  SM
+L["captured"] = "захват" -- SM and DWG --in BFA full message for horde is "орда захватывает вагонетку" and for alliance
+						 -- is "альянс захватил вагонетку" so i decided to look for cutted "захват"
+--  EOTS
+L["Alliance have captured"] = "захватил флаг"
+L["Horde have captured"] = "захватила флаг"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "Альянс одержал победу!"
+L["The Horde is victorious"] = "Победа за Ордой!"
+L["Alliance wins"] = "Альянс побеждает"
+L["Alliance wins secondary"] = "Альянс победил"
+L["Horde wins"] = "Орда побеждает"
+L["Horde wins secondary"] = "Орда победила"
+--  WG
+L["workshop has been attacked by the Alliance"] = "атакована Альянсом"
+L["workshop has been captured by the Alliance"] = "захвачена Альянсом"
 L["Alliance has defended"] = "Альянс защитил"
-L["workshop has been attacked by the Horde"] = "атакована Ордой"--updated for WG
-L["workshop has been captured by the Horde"] = "захвачена Ордой"--updated for WG
+L["workshop has been attacked by the Horde"] = "атакована Ордой"
+L["workshop has been captured by the Horde"] = "захвачена Ордой"
 L["Horde has defended"] = "Орда защитила"
 end
 
@@ -1584,42 +1527,35 @@ L["Warsong Flag Room"] = "Warsong Flag Room" -- Requires localization
 L["Dragonmaw Forge"] ="Dragonmaw Forge" -- Requires localization
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold" -- Requires localization
 -- Battleground Events
-L["taken the"] = "taken the" -- Requires localization
-L["dropped"] = "dropped" -- Requires localization
+--  WSG and TP
+L["dropped"] = "旗帜被扔掉了"
 L["picked"] = "拔起了"
 L["pickedA"] = "拔起了" --fix for Ru client
 L["returned"] = "returned" -- Requires localization
-L["stolen"] = "stolen" -- Requires localization
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
-L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
--- Battleground Events
-L["Alliance wins"] = "联盟 获胜"
-L["Alliance wins secondary"] = "联盟 获胜"
+L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
+L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
+L["vulnerable"] = "vulnerable" -- Requires localization
+L["Tie game"] = "Tie game" -- Requires localization
+--  SM
+L["captured"] = "的旗帜"
+--  EOTS
 L["Alliance have captured"] = "联盟 夺得了旗帜"
 L["Horde have captured"] = "部落 夺得了旗帜"
-L["captured"] = "的旗帜"
-L["dropped"] = "旗帜被扔掉了"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
+L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
+L["Alliance wins"] = "联盟 获胜"
+L["Alliance wins secondary"] = "联盟 获胜"
 L["Horde wins"] = "部落 获胜"
 L["Horde wins secondary"] = "部落 获胜"
 L["returned"] = "还到了它的基地中"
-L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
-L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin" -- Requires localization
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 1"] = "Round 1" -- Requires localization
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds" -- Requires localization
-L["vulnerable"] = "vulnerable" -- Requires localization
-L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  WG
 L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance" -- Requires localization
 L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance" -- Requires localization
 L["Alliance has defended"] = "Alliance has defended" -- Requires localization
 L["workshop has been attacked by the Horde"] = "workshop has been attacked by the Horde" -- Requires localization
 L["workshop has been captured by the Horde"] = "workshop has been captured by the Horde" -- Requires localization
 L["Horde has defended"] = "Horde has defended" -- Requires localization
-
 end
 
 function PVPSound:TraditionalChinese()
@@ -1728,35 +1664,28 @@ L["Warsong Flag Room"] = "Warsong Flag Room"
 L["Dragonmaw Forge"] ="Dragonmaw Forge"
 L["Wildhammer Stronghold"] = "Wildhammer Stronghold"
 -- Battleground Events
-L["taken the"] = "taken the"
-L["dropped"] = "dropped"
+--  WSG and TP
+L["dropped"] = "旗幟已經掉落"
 L["picked"] = "拔掉了"
 L["pickedA"] = "拔起了" --fix for Ru client
-L["returned"] = "returned"
-L["stolen"] = "stolen"
-L["captured"] = "captured"
-L["The Alliance is victorious"] = "The Alliance is victorious"
-L["The Horde is victorious"] = "The Horde is victorious"
--- Battleground Events
-L["Alliance wins"] = "聯盟 勝利"
-L["Alliance wins secondary"] = "聯盟 勝利"
-L["Alliance have captured"] = "聯盟 已奪得旗幟"
-L["Horde have captured"] = "部落 已奪得旗幟"
-L["captured"] = "的旗幟"
-L["dropped"] = "旗幟已經掉落"
-L["Horde wins"] = "部落 勝利"
-L["Horde wins secondary"] = "部落 勝利"
 L["returned"] = "還到了它的基地"
 L["Alliance Flag has returned"] = "Alliance Flag has returned" -- Requires localization
 L["Horde Flag has returned"] = "Horde Flag has returned" -- Requires localization
-L["Let the battle for the Strand of the Ancients begin"] = "Let the battle for the Strand of the Ancients begin" -- Requires localization
-L["The battle for the Strand of the Ancients begins in 1 minute"] = "The battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 1"] = "Round 1" -- Requires localization
-L["Round 2 of the Battle for the Strand of the Ancients begins in 1 minute"] = "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute" -- Requires localization
-L["Round 2 begins in 30 seconds"] = "Round 2 begins in 30 seconds" -- Requires localization
 L["vulnerable"] = "vulnerable" -- Requires localization
 L["Tie game"] = "Tie game" -- Requires localization
--- Battlefield Events
+--  SM
+L["captured"] = "的旗幟"
+--  EOTS
+L["Alliance have captured"] = "聯盟 已奪得旗幟"
+L["Horde have captured"] = "部落 已奪得旗幟"
+--  classic AV, WSG, EOTS and AB winsounds
+L["The Alliance is victorious"] = "The Alliance is victorious" -- Requires localization
+L["The Horde is victorious"] = "The Horde is victorious" -- Requires localization
+L["Alliance wins"] = "聯盟 勝利"
+L["Alliance wins secondary"] = "聯盟 勝利"
+L["Horde wins"] = "部落 勝利"
+L["Horde wins secondary"] = "部落 勝利"
+--  WG
 L["workshop has been attacked by the Alliance"] = "workshop has been attacked by the Alliance" -- Requires localization
 L["workshop has been captured by the Alliance"] = "workshop has been captured by the Alliance" -- Requires localization
 L["Alliance has defended"] = "Alliance has defended" -- Requires localization

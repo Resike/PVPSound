@@ -1,6 +1,4 @@
 Issues:
-* TB is still partially broken (but it is also partally fixed=))
-* GUI of addon is switched off at the moment. Need fixes
 
 ToDo List:
 * Class colored Death and Data Shares.
@@ -9,7 +7,25 @@ ToDo List:
 * More sounds for SeS and Cooking impossible (like in WSG)
 * WSG EU Localization should be checked (i (Tokorokot) only tested BG in RU locale)
 * More Ashran sounds
-* Update for classic
+* Fix localization issues
+
+5.1a
+* BG loading system remade
+* Updated for BCC and Classic 1.14+
+* Minor GUI updates
+* Alliance and Horde flag taken sound files for TP and WSG were swapped (HORDE_... was for Alliance flag, ALLIANCE_... - for Horde)
+* Some Localization cleanup (added strings for classic, unused strings deleted)
+* Parent object for PVPSound tooltip template was changed in options.xml
+
+5.0.0g
+* Trying to fix tie games issue.
+* Execute checkbutton added.
+* An issue when gui is not updating, when you change addon language with console command fixed. 
+
+5.0.0f
+* Fixed GUI.
+* Trying to fix stuck repeating sounds.
+* RBG play sound fix.
 
 5.0.0e
 * Added win/lost sounds for arenas.
