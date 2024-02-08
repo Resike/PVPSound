@@ -69,6 +69,44 @@ local GetTime = GetTime
 local UnitGUID = UnitGUID
 local UnitName = UnitName]]
 
+-- Settings
+local TimerReset
+local ResetTime
+local MultiKillTime
+local RankStep
+
+-- Player
+local MyGender
+
+-- Zones
+local InstanceType
+local CurrentInstId
+local CurrentZoneId
+
+-- Kills
+local MultiKills
+local CurrentStreak
+local LastKill
+local FirstKill
+local FirstMultiKill
+
+-- Deaths
+local KilledMe
+local KilledBy
+local KilledWho
+local GotKilledBy
+
+-- Enemys
+local ToEnemy
+local FromEnemy
+local ToEnemyNPC
+local FromEnemyNPC
+local ToEnemyPlayer
+local ToEnemyPlayerAndNPC
+local FromMyPets
+local FromEnemyPlayer
+local FromEnemyPlayerAndNPC
+
 --addon modules table
 PVPSound.modules = { }
 
@@ -187,44 +225,6 @@ function PVPSound:UnregisterEvents()
 	PVPSound:UnloadDeathShare()
 	PVPSound:Debug("!All Events Unloaded")
 end
-
--- Settings
-local TimerReset
-local ResetTime
-local MultiKillTime
-local RankStep
-
--- Player
-local MyGender
-
--- Zones
-local InstanceType
-local CurrentInstId
-local CurrentZoneId
-
--- Kills
-local MultiKills
-local CurrentStreak
-local LastKill
-local FirstKill
-local FirstMultiKill
-
--- Deaths
-local KilledMe
-local KilledBy
-local KilledWho
-local GotKilledBy
-
--- Enemys
-local ToEnemy
-local FromEnemy
-local ToEnemyNPC
-local FromEnemyNPC
-local ToEnemyPlayer
-local ToEnemyPlayerAndNPC
-local FromMyPets
-local FromEnemyPlayer
-local FromEnemyPlayerAndNPC
 
 -- Killing Settings
 function PVPSound:KillingSettings()
@@ -520,7 +520,7 @@ function PVPSound:OnEventBG(event, ...)
 		-- each time ZONE_CHANGED_NEW_AREA or PLAYER_ENTERING_WORLD fires
 		-- unload function of each "loaded" (loaded parameter setted to true in initialize function) module should be called
 		-- it needed to release all events and resourses before initializing new module, and to avoid conflicts like
-		-- calling unload function of module right after calling intialize function (such problem occures when unload function called on 
+		-- calling unload function of module right after calling intialize function (such problem occures when unload function called on
 		-- ZONE_CHANGED_NEW_AREA event on API frame and init function called on ZONE_CHANGED_NEW_AREA event in PVPSound frame)
 		-- If module don,t have initialize function, it will not be loaded
 		-- If module don't have unload function, all events of API frame will automaticlly be unregistered

@@ -1,6 +1,6 @@
-## Interface: 90105
-## Title: PVPSound |cFF99CC01rev|r |cFFFF00005.1a|r
-## Version: 5.1a
+## Interface: 100205
+## Title: PVPSound |cFF99CC01rev|r |cFFFF00006.0.0|r
+## Version: 6.0.0
 ## Author: Resike
 ## Notes: PVP killing blow and battleground notification addon, with sound packs from various games.
 ## SavedVariablesPerCharacter: PS_EnableAddon, PS_AddonLanguage, PS_Mode, PS_Emote, PS_EmoteMode, PS_DeathMessage, PS_KillSound, PS_MultiKillSound, PS_PaybackSound, PS_BattlegroundSound, PS_SoundEffect, PS_Execute, PS_KillSoundEngine, PS_BattlegroundSoundEngine, PS_DataShare, PS_KillSct, PS_MultiKillSct, PS_PaybackSct, PS_SctEngine, PSSctFrame, PS_HideServerName, PS_Channel, PS_PetKill, PS_KillSoundPackName, PS_KillSoundPackLanguage, PS_SoundPackName, PS_SoundPackLanguage
@@ -21,5 +21,5 @@ PVPSound_SoundLengths.lua
 
 PVPSound_Options.xml
 
-#modules
-Modules\modules.xml
+#Modules
+Modules\Modules.xml

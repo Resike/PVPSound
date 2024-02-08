@@ -75,6 +75,8 @@ L["Mode"] = "Mode"
 L["Enable Kill Sounds"] = "Enable Kill Sounds"
 L["Enable Multi Kill Sounds"] = "Enable Multi Kill Sounds"
 L["Enable Execute Sounds"] = "Enable Execute Sounds"
+L["Enable Payback Sounds"] = "Enable Payback Sounds"
+L["Enable BG Sounds"] = "Enable BG Sounds"
 -- Button Tooltips
 L["Select a Language for the addon to use."] = "Select a Language for the addon to use."
 L["Enables or disables the addon completely."] = "Enables or disables the addon completely."

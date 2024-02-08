@@ -183,7 +183,7 @@ end
 function mod:Unload()
 	API:UnregisterEvent("CHAT_MSG_BG_SYSTEM_ALLIANCE")
 	API:UnregisterEvent("CHAT_MSG_BG_SYSTEM_HORDE")
-	API:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")	
+	API:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
 	API:UnregisterEvent("AREA_POIS_UPDATED")
 	if PS.isRetail then
 		API:UnregisterEvent("PVP_MATCH_COMPLETE")

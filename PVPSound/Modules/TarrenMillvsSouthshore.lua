@@ -67,9 +67,9 @@ local function FreeResourses()
 	TMSSobjectives = {DeltaScore = nil}
 end
 --------------------------------------------------
--- on event functions ----------------------------			
-	
-function mod:UPDATE_UI_WIDGET()	
+-- on event functions ----------------------------
+
+function mod:UPDATE_UI_WIDGET()
 	local Hscore
 	local Ascore
 	if (C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(788)) then

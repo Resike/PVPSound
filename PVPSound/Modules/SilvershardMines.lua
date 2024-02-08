@@ -9,7 +9,7 @@ local mod = API:RegisterMod(423, "pvp", "Silvershard Mines", 727)
 local MyZone = "Zone_SilvershardMines" -- I don't want to rewrite some code here, so I use this
 
 --------------------------------------------------
--- on event functions ----------------------------	
+-- on event functions ----------------------------
 
 function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 	if string.find(EventMessage, L["captured"]) then

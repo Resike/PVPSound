@@ -67,7 +67,7 @@ function API:RegisterEvent(event, func)
 		return false
 	elseif (not func) and (not self[event]) then
 		PVPSound:Error("RegisterEvent: module "..tostring(self).." don't have function named "..event)
-		return false	
+		return false
 	elseif func and type(func) ~= "function" then
 		PVPSound:Error("RegisterEvent: Function reference expected")
 		return false

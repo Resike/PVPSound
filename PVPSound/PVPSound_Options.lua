@@ -113,14 +113,14 @@ end
 
 function PVPSoundOptions:OptionsPanelTemplatesSelectTab(tab)
 	local name = tab:GetName()
-	_G[name.."Left"]:Hide()
-	_G[name.."Middle"]:Hide()
-	_G[name.."Right"]:Hide()
-	tab:Disable()
+	_G[name.."Left"]:Show()
+	_G[name.."Middle"]:Show()
+	_G[name.."Right"]:Show()
+	tab:Enable()
 	_G[name.."Text"]:SetPoint("CENTER", tab, "CENTER", (tab.selectedTextX or 0), (tab.selectedTextY or - 3))
-	_G[name.."LeftDisabled"]:Show()
-	_G[name.."MiddleDisabled"]:Show()
-	_G[name.."RightDisabled"]:Show()
+	_G[name.."LeftDisabled"]:Hide()
+	_G[name.."MiddleDisabled"]:Hide()
+	_G[name.."RightDisabled"]:Hide()
 	if (PVPSoundGameTooltip:IsOwned(tab)) then
 		PVPSoundGameTooltip:Hide()
 	end
@@ -128,14 +128,14 @@ end
 
 function PVPSoundOptions:OptionsPanelTemplatesDeselectTab(tab)
 	local name = tab:GetName()
-	_G[name.."Left"]:Show()
-	_G[name.."Middle"]:Show()
-	_G[name.."Right"]:Show()
-	tab:Enable()
+	_G[name.."Left"]:Hide()
+	_G[name.."Middle"]:Hide()
+	_G[name.."Right"]:Hide()
+	tab:Disable()
 	_G[name.."Text"]:SetPoint("CENTER", tab, "CENTER", (tab.deselectedTextX or 0), (tab.deselectedTextY or 2))
-	_G[name.."LeftDisabled"]:Hide()
-	_G[name.."MiddleDisabled"]:Hide()
-	_G[name.."RightDisabled"]:Hide()
+	_G[name.."LeftDisabled"]:Show()
+	_G[name.."MiddleDisabled"]:Show()
+	_G[name.."RightDisabled"]:Show()
 end
 
 function PVPSoundOptions:OptionsEnableAddonButtonInitalize(self)
@@ -1506,44 +1506,44 @@ end
 
 function PVPSoundOptions:OptionsUpdateFonts()
 	if PS_AddonLanguage == "Korean" then
-		PVPSoundFontSmallWhite:SetFont("Fonts\\2002.TTF", 10)
-		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\2002.TTF", 10)
-		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\2002.TTF", 10)
-		PVPSoundFontMediumYellow:SetFont("Fonts\\2002.TTF", 12)
-		PVPSoundFontMediumWhite:SetFont("Fonts\\2002.TTF", 12)
-		PVPSoundFontLargeYellow:SetFont("Fonts\\2002.TTF", 16)
+		PVPSoundFontSmallWhite:SetFont("Fonts\\2002.TTF", 10, "")
+		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\2002.TTF", 10, "")
+		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\2002.TTF", 10, "")
+		PVPSoundFontMediumYellow:SetFont("Fonts\\2002.TTF", 12, "")
+		PVPSoundFontMediumWhite:SetFont("Fonts\\2002.TTF", 12, "")
+		PVPSoundFontLargeYellow:SetFont("Fonts\\2002.TTF", 16, "")
 		font = GameFontNormalSmallLeft_KO
 	elseif PS_AddonLanguage == "Russian" then
-		PVPSoundFontSmallWhite:SetFont("Fonts\\FRIZQT___CYR.TTF", 10)
-		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\FRIZQT___CYR.TTF", 10)
-		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\FRIZQT___CYR.TTF", 10)
-		PVPSoundFontMediumYellow:SetFont("Fonts\\FRIZQT___CYR.TTF", 12)
-		PVPSoundFontMediumWhite:SetFont("Fonts\\FRIZQT___CYR.TTF", 12)
-		PVPSoundFontLargeYellow:SetFont("Fonts\\FRIZQT___CYR.TTF", 16)
+		PVPSoundFontSmallWhite:SetFont("Fonts\\FRIZQT___CYR.TTF", 10, "")
+		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\FRIZQT___CYR.TTF", 10, "")
+		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\FRIZQT___CYR.TTF", 10, "")
+		PVPSoundFontMediumYellow:SetFont("Fonts\\FRIZQT___CYR.TTF", 12, "")
+		PVPSoundFontMediumWhite:SetFont("Fonts\\FRIZQT___CYR.TTF", 12, "")
+		PVPSoundFontLargeYellow:SetFont("Fonts\\FRIZQT___CYR.TTF", 16, "")
 		font = GameFontNormalSmallLeft_RU
 	elseif PS_AddonLanguage == "SimplifiedChinese" then
-		PVPSoundFontSmallWhite:SetFont("Fonts\\ARKai_T.TTF", 10)
-		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\ARKai_T.TTF", 10)
-		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\ARKai_T.TTF", 10)
-		PVPSoundFontMediumYellow:SetFont("Fonts\\ARKai_T.TTF", 12)
-		PVPSoundFontMediumWhite:SetFont("Fonts\\ARKai_T.TTF", 12)
-		PVPSoundFontLargeYellow:SetFont("Fonts\\ARKai_T.TTF", 16)
+		PVPSoundFontSmallWhite:SetFont("Fonts\\ARKai_T.TTF", 10, "")
+		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\ARKai_T.TTF", 10, "")
+		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\ARKai_T.TTF", 10, "")
+		PVPSoundFontMediumYellow:SetFont("Fonts\\ARKai_T.TTF", 12, "")
+		PVPSoundFontMediumWhite:SetFont("Fonts\\ARKai_T.TTF", 12, "")
+		PVPSoundFontLargeYellow:SetFont("Fonts\\ARKai_T.TTF", 16, "")
 		font = GameFontNormalSmallLeft_ZH
 	elseif PS_AddonLanguage == "TraditionalChinese" then
-		PVPSoundFontSmallWhite:SetFont("Fonts\\ARKai_T.TTF", 10)
-		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\ARKai_T.TTF", 10)
-		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\ARKai_T.TTF", 10)
-		PVPSoundFontMediumYellow:SetFont("Fonts\\ARKai_T.TTF", 12)
-		PVPSoundFontMediumWhite:SetFont("Fonts\\ARKai_T.TTF", 12)
-		PVPSoundFontLargeYellow:SetFont("Fonts\\ARKai_T.TTF", 16)
+		PVPSoundFontSmallWhite:SetFont("Fonts\\ARKai_T.TTF", 10, "")
+		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\ARKai_T.TTF", 10, "")
+		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\ARKai_T.TTF", 10, "")
+		PVPSoundFontMediumYellow:SetFont("Fonts\\ARKai_T.TTF", 12, "")
+		PVPSoundFontMediumWhite:SetFont("Fonts\\ARKai_T.TTF", 12, "")
+		PVPSoundFontLargeYellow:SetFont("Fonts\\ARKai_T.TTF", 16, "")
 		font = GameFontNormalSmallLeft_ZH
 	else
-		PVPSoundFontSmallWhite:SetFont("Fonts\\FRIZQT__.TTF", 10)
-		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\FRIZQT__.TTF", 10)
-		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\FRIZQT__.TTF", 10)
-		PVPSoundFontMediumYellow:SetFont("Fonts\\FRIZQT__.TTF", 12)
-		PVPSoundFontMediumWhite:SetFont("Fonts\\FRIZQT__.TTF", 12)
-		PVPSoundFontLargeYellow:SetFont("Fonts\\FRIZQT__.TTF", 16)
+		PVPSoundFontSmallWhite:SetFont("Fonts\\FRIZQT__.TTF", 10, "")
+		PVPSoundFontSmallYellowShadow:SetFont("Fonts\\FRIZQT__.TTF", 10, "")
+		PVPSoundFontSmallWhiteShadow:SetFont("Fonts\\FRIZQT__.TTF", 10, "")
+		PVPSoundFontMediumYellow:SetFont("Fonts\\FRIZQT__.TTF", 12, "")
+		PVPSoundFontMediumWhite:SetFont("Fonts\\FRIZQT__.TTF", 12, "")
+		PVPSoundFontLargeYellow:SetFont("Fonts\\FRIZQT__.TTF", 16, "")
 		font = GameFontWhiteSmall
 	end
 end
@@ -1918,6 +1918,13 @@ function PVPSound:SlashCommands(arg1)
 		local PaybackKillSoundLengthTable = getglobal("PVPSound_"..PS.KillSoundPack.."PaybackKillDurations")
 		for i = 1, table.getn(PaybackKillSoundLengthTable), 1 do
 			PVPSound:TriggerKill("PaybackKill", i)
+		end
+	elseif arg2 == "ekt" or arg2 == "executekilltest" then
+		local random = math.random(0, 1)
+		if random == 0 then
+			PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHer.mp3", PS_Channel)
+		else
+			PlaySoundFile("Interface\\Addons\\PVPSound\\Sounds\\MortalKombat\\Eng\\Execute\\FinishHim.mp3", PS_Channel)
 		end
 	elseif arg2 == "poi" then
 		local mapId = C_Map.GetBestMapForUnit("player")

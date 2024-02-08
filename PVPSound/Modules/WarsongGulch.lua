@@ -6,7 +6,7 @@ local L = ns.L
 local API = PVPSound.API
 local mod
 if PS.isRetail then
-	mod = API:RegisterMod(1339, "pvp", "Warsong Gulch", 489)
+	mod = API:RegisterMod(1339, "pvp", "Warsong Gulch", 2106)
 else
 	mod = API:RegisterMod(1460, "pvp", "Warsong Gulch", 489)
 end
@@ -25,7 +25,6 @@ local AllianceFlagPositionX
 local AllianceFlagPositionY
 local HordeFlagPositionX
 local HordeFlagPositionY
-
 -- Last scored team. Uses to play sound
 local LastScored
 
@@ -177,7 +176,6 @@ function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(event, EventMessage)
 	end
 end
 
-
 function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 	PVPSound:Debug(event..EventMessage)
 	if PS.isRetail then
@@ -198,12 +196,22 @@ function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Flag_Dropped.mp3")
 
 		for i = 1, 2 do
-			local type = select(3, GetBattlefieldFlagPosition(i))
+			if PS.isRetail then
+				local type = select(3, C_PvP.GetBattlefieldFlagPosition(i, mod.zoneId))
 
-			if type == 137218 then -- type for "AllianceFlag"
-				AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
-				AllianceFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
-				break
+				if type == 137218 then -- type for "AllianceFlag"
+					AllianceFlagPositionX = select(1, C_PvP.GetBattlefieldFlagPosition(i, mod.zoneId))
+					AllianceFlagPositionY = select(2, C_PvP.GetBattlefieldFlagPosition(i, mod.zoneId))
+					break
+				end
+			else
+				local type = select(3, GetBattlefieldFlagPosition(i))
+
+				if type == 137218 then -- type for "AllianceFlag"
+					AllianceFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
+					AllianceFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
+					break
+				end
 			end
 		end
 	elseif string.find(EventMessage, L["returned"]) or string.find(EventMessage, L["returned classic"]) then
@@ -267,12 +275,22 @@ function mod:CHAT_MSG_BG_SYSTEM_HORDE(event, EventMessage)
 		PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\HORDE_Flag_Dropped.mp3")
 
 		for i = 1, 2 do
-			local type = select(3, GetBattlefieldFlagPosition(i))
+			if PS.isRetail then
+				local type = select(3, C_PvP.GetBattlefieldFlagPosition(i, mod.zoneId))
 
-			if type == 137200 then -- type for "HordeFlag"
-				HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
-				HordeFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
-				break
+				if type == 137200 then -- type for "HordeFlag"
+					HordeFlagPositionX = select(1, C_PvP.GetBattlefieldFlagPosition(i, mod.zoneId))
+					HordeFlagPositionY = select(2, C_PvP.GetBattlefieldFlagPosition(i, mod.zoneId))
+					break
+				end
+			else
+				local type = select(3, GetBattlefieldFlagPosition(i))
+
+				if type == 137200 then -- type for "HordeFlag"
+					HordeFlagPositionX = select(1, GetBattlefieldFlagPosition(i))
+					HordeFlagPositionY = select(2, GetBattlefieldFlagPosition(i))
+					break
+				end
 			end
 		end
 	elseif string.find(EventMessage, L["returned"]) or string.find(EventMessage, L["returned classic"]) then

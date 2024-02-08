@@ -208,7 +208,7 @@ function mod:AREA_POIS_UPDATED()
 			end
 		end
 	end
-end	
+end
 
 function mod:UPDATE_UI_WIDGET()
 	if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1685)) then
@@ -239,7 +239,7 @@ function mod:UPDATE_UI_WIDGET()
 		end
 	end
 end
-				
+
 function mod:PVP_MATCH_COMPLETE(event, winner)
 	API:AnnounceWinner("BG", winner)
 	mod:Unload()

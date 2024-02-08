@@ -54,10 +54,10 @@ local function ABobj_state(id)
 		return 0
 	end
 end
-	
+
 --------------------------------------------------
--- on event functions ----------------------------	
-	
+-- on event functions ----------------------------
+
 function mod:AREA_POIS_UPDATED()
 	local CurrentZoneId = self.zoneId
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)

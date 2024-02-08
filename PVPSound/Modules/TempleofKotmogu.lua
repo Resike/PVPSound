@@ -8,7 +8,7 @@ local mod = API:RegisterMod(417, "pvp", "Temple of Kotmogu", 998)
 local MyZone = "Zone_TempleofKotmogu" -- I don't want to rewrite some code here, so I use this
 
 --------------------------------------------------
--- on event functions ----------------------------	
+-- on event functions ----------------------------
 
 function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(event, EventMessage)
 	PVPSound:AddToQueue(PS.SoundPackDirectory.."\\"..PS_SoundPackLanguage.."\\"..MyZone.."\\ALLIANCE_Orb_PickedUp.mp3")

@@ -48,10 +48,10 @@ local function FreeResourses()
 end
 
 --------------------------------------------------
--- on event functions ----------------------------	
+-- on event functions ----------------------------
 
 function mod:AREA_POIS_UPDATED()
-	local CurrentZoneId = self.zoneId	
+	local CurrentZoneId = self.zoneId
 	local POIs = C_AreaPoiInfo.GetAreaPOIForMap(CurrentZoneId)
 
 	for i = 1, #POIs do
@@ -153,4 +153,4 @@ function mod:Unload()
 	API:UnregisterEvent("AREA_POIS_UPDATED")
 	FreeResourses()
 	self.loaded = false
-end	
+end

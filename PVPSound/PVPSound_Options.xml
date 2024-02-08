@@ -82,9 +82,16 @@
 		</Size>
 		<Layers>
 			<Layer level = "BACKGROUND">
-				<Texture name = "$parentLeftDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
+				<!-- Keys for Retail -->
+				<Texture parentKey="LeftActive">
+				</Texture>
+				<Texture parentKey="RightActive">
+				</Texture>
+				<Texture parentKey="MiddleActive">
+				</Texture>
+				<Texture name = "$parentLeftDisabled" parentKey = "LeftDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
 					<Size>
-						<AbsDimension x = "16" y = "32"/>
+						<AbsDimension x = "16" y = "30"/>
 					</Size>
 					<Anchors>
 						<Anchor point = "BOTTOMLEFT">
@@ -95,25 +102,25 @@
 					</Anchors>
 					<TexCoords left = "0" right = "0.25" top = "0" bottom = "1.0"/>
 				</Texture>
-				<Texture name = "$parentMiddleDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
+				<Texture name = "$parentMiddleDisabled" parentKey = "MiddleDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
 					<Size>
-						<AbsDimension x = "32" y = "32"/>
+						<AbsDimension x = "32" y = "30"/>
 					</Size>
 					<Anchors>
-						<Anchor point = "LEFT" relativeTo = "$parentLeftDisabled" relativePoint = "RIGHT"/>
+						<Anchor point = "LEFT" relativeKey = "$parent.LeftDisabled" relativePoint = "RIGHT"/>
 					</Anchors>
 					<TexCoords left = "0.25" right = "0.75" top = "0" bottom = "1.0"/>
 				</Texture>
-				<Texture name = "$parentRightDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
+				<Texture name = "$parentRightDisabled" parentKey = "RightDisabled" file = "Interface\HelpFrame\HelpFrameTab-Active">
 					<Size>
-						<AbsDimension x = "16" y = "32"/>
+						<AbsDimension x = "16" y = "30"/>
 					</Size>
 					<Anchors>
-						<Anchor point = "LEFT" relativeTo = "$parentMiddleDisabled" relativePoint = "RIGHT"/>
+						<Anchor point = "LEFT" relativeKey = "$parent.MiddleDisabled" relativePoint = "RIGHT"/>
 					</Anchors>
 					<TexCoords left = "0.75" right = "1.0" top = "0" bottom = "1.0"/>
 				</Texture>
-				<Texture name = "$parentLeft" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
+				<Texture name = "$parentLeft" parentKey = "Left" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
 					<Size>
 						<AbsDimension x = "16" y = "32"/>
 					</Size>
@@ -122,21 +129,21 @@
 					</Anchors>
 					<TexCoords left = "0" right = "0.25" top = "0" bottom = "1.0"/>
 				</Texture>
-				<Texture name = "$parentMiddle" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
+				<Texture name = "$parentMiddle" parentKey = "Middle" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
 					<Size>
 						<AbsDimension x = "32" y = "32"/>
 					</Size>
 					<Anchors>
-						<Anchor point = "LEFT" relativeTo = "$parentLeft" relativePoint = "RIGHT"/>
+						<Anchor point = "LEFT" relativeKey = "$parent.Left" relativePoint = "RIGHT"/>
 					</Anchors>
 					<TexCoords left = "0.25" right = "0.75" top = "0" bottom = "1.0"/>
 				</Texture>
-				<Texture name = "$parentRight" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
+				<Texture name = "$parentRight" parentKey = "Right" file = "Interface\HelpFrame\HelpFrameTab-Inactive">
 					<Size>
 						<AbsDimension x = "16" y = "32"/>
 					</Size>
 					<Anchors>
-						<Anchor point = "LEFT" relativeTo = "$parentMiddle" relativePoint = "RIGHT"/>
+						<Anchor point = "LEFT" relativeKey = "$parent.Middle" relativePoint = "RIGHT"/>
 					</Anchors>
 					<TexCoords left = "0.75" right = "1.0" top = "0" bottom = "1.0"/>
 				</Texture>
@@ -144,11 +151,10 @@
 		</Layers>
 		<Scripts>
 			<OnLoad>
-				PanelTemplates_TabResize(self, 0)
-				_G[self:GetName().."HighlightTexture"]:SetWidth(self:GetTextWidth() + 32)
+				PanelTemplates_TabResize(self, 0, nil, self.minWidth)
 			</OnLoad>
 		</Scripts>
-		<ButtonText name = "$parentText">
+		<ButtonText name = "$parentText" parentKey = "Text">
 			<Size>
 				<AbsDimension x = "0" y = "13"/>
 			</Size>
@@ -163,14 +169,14 @@
 		<NormalFont style = "PVPSoundFontSmallYellowShadow"/>
 		<HighlightFont style = "PVPSoundFontSmallWhiteShadow"/>
 		<DisabledFont style = "PVPSoundFontSmallWhiteShadow"/>
-		<HighlightTexture name = "$parentHighlightTexture" file = "Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode = "ADD">
+		<HighlightTexture name = "$parentHighlightTexture" parentKey = "HighlightTexture" file = "Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode = "ADD">
 			<Size>
 				<AbsDimension x = "5" y = "32"/>
 			</Size>
 			<Anchors>
 				<Anchor point = "BOTTOM">
 					<Offset>
-						<AbsDimension x = "0" y = "-6"/>
+						<AbsDimension x = "2" y = "-6"/>
 					</Offset>
 				</Anchor>
 			</Anchors>
@@ -411,9 +417,6 @@
 			<OnTooltipSetDefaultAnchor>
 				GameTooltip_SetDefaultAnchor(self, UIParent)
 			</OnTooltipSetDefaultAnchor>
-			<OnTooltipAddMoney>
-				GameTooltip_OnTooltipAddMoney(self, cost, maxcost)
-			</OnTooltipAddMoney>
 			<OnTooltipCleared>
 				GameTooltip_ClearMoney(self)
 			</OnTooltipCleared>
@@ -428,27 +431,6 @@
 					BattlePetTooltip:Hide()
 				end
 			</OnLoad>
-			<OnTooltipSetUnit>
-				if ( self:IsUnit("mouseover") ) then
-					_G[self:GetName().."TextLeft1"]:SetTextColor(GameTooltip_UnitColor("mouseover"))
-				end
-				if (BattlePetTooltip) then
-					BattlePetTooltip:Hide()
-				end
-			</OnTooltipSetUnit>
-			<OnTooltipSetItem>
-				if (IsModifiedClick("COMPAREITEMS") or
-					(GetCVarBool("alwaysCompareItems") and not self:IsEquippedItem())) then
-					GameTooltip_ShowCompareItem(self, true)
-				else
-					local shoppingTooltip1, shoppingTooltip2 = unpack(self.shoppingTooltips)
-					shoppingTooltip1:Hide()
-					shoppingTooltip2:Hide()
-				end
-				if (BattlePetTooltip) then
-					BattlePetTooltip:Hide()
-				end
-			</OnTooltipSetItem>
 			<OnHide>
 				GameTooltip_OnHide(self)
 				ShoppingTooltip1:Hide()
@@ -457,7 +439,7 @@
 					BattlePetTooltip:Hide()
 				end
 			</OnHide>
-			<OnUpdate function="GameTooltip_OnUpdate"/>
+			<OnUpdate function = "GameTooltip_OnUpdate"/>
 		</Scripts>
 	</GameTooltip>
 	<!-- Main Options Frame -->
@@ -1496,7 +1478,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						PVPSoundOptions:OptionsTabActive(1, 14)
+						PVPSoundOptions:OptionsTabActive(1, 1)
 					</OnClick>
 					<OnLoad>
 						PVPSoundOptions:OptionsSetText(self, nil, "General")

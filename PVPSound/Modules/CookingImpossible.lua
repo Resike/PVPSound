@@ -28,11 +28,11 @@ local function InitScore()
 		CIobjectives.HordeScore = HordeScoreInit
 	end
 end
-	
+
 --------------------------------------------------
--- on event functions ----------------------------		
-	
-function mod:UPDATE_UI_WIDGET()	
+-- on event functions ----------------------------
+
+function mod:UPDATE_UI_WIDGET()
 	if C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967) then
 		-- Alliance Score
 		local AllianceScoreCur = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(967).leftBarValue

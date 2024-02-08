@@ -76,7 +76,7 @@ end
 -- Tol Barad PlaySounds
 -- dont fixed at the moment
 -- battle starts without ui reloading or zone chaging events
--- Also, custom announcer uses objective table, so it should be called after first 
+-- Also, custom announcer uses objective table, so it should be called after first
 -- initialization of objectives
 local function AnnounceBG(zoneId)
     local MyFaction = UnitFactionGroup("player")

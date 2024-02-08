@@ -37,10 +37,10 @@ local function InitScore()
 		SeSobjectives.HordeScore = HordeScoreInit
 	end
 end
-	
+
 --------------------------------------------------
--- on event functions ----------------------------		
-	
+-- on event functions ----------------------------
+
 function mod:UPDATE_UI_WIDGET()
 	if (C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1688)) ~= nil then
 		-- Alliance Score

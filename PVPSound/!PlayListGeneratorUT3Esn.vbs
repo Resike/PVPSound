@@ -51,6 +51,14 @@ if getWindowsVersion() = "10." then
 	indexAlbum = 14
 	indexTime = 27
 	indexBitRate = 28
+elseif getWindowsVersion() = "10." then
+	'Windows 10
+	indexSize = 1
+	indexTitle = 21
+	indexArtist = 20
+	indexAlbum = 14
+	indexTime = 27
+	indexBitRate = 28
 elseif getWindowsVersion() = "6.2" then
 	'Windows 8
 	indexSize = 1
